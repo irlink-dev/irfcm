@@ -2,8 +2,16 @@
 
 import { useForm } from 'react-hook-form';
 import * as process from 'process';
+import SelectHeaderDropdown from '@/app/SelectHeaderDropdown';
+import { useState } from 'react';
 
 export default function Home() {
+
+    /**
+     * 사이트 종류.
+     */
+    const [header, setHeader] = useState<string>();
+
 
     const REQUEST_URL = 'https://fcm.googleapis.com/fcm/send';
 
@@ -76,7 +84,7 @@ export default function Home() {
                            className={INPUT_STYLE}
                            placeholder="법인폰 번호 또는 토큰을 입력하세요"
                            {...register('phoneNumber')}
-                           required/> {/* pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" */}
+                           required /> {/* pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" */}
                 </div>
                 <div>
                     <label htmlFor="type"
@@ -85,7 +93,7 @@ export default function Home() {
                            className={INPUT_STYLE}
                            placeholder="1"
                            {...register('type')}
-                           required/>
+                           required />
                 </div>
                 <div>
                     <label htmlFor="date"
@@ -94,7 +102,7 @@ export default function Home() {
                            className={INPUT_STYLE}
                            placeholder="2023-01-01"
                            {...register('date')}
-                           required/>
+                           required />
                 </div>
                 <div>
                     <label htmlFor="is_include_record"
@@ -103,7 +111,7 @@ export default function Home() {
                            className={INPUT_STYLE}
                            placeholder="false"
                            {...register('isIncludeRecord')}
-                           required/>
+                           required />
                 </div>
                 <div>
                     <label htmlFor="priority"
@@ -112,22 +120,17 @@ export default function Home() {
                            className={INPUT_STYLE}
                            placeholder="high"
                            {...register('priority')}
-                           required/>
-                </div>
-                <div>
-                    <label htmlFor="header"
-                           className={LABEL_STYLE}>요청 헤더</label>
-                    <input type="text" id="header"
-                           className={INPUT_STYLE}
-                           placeholder=""
-                           {...register('header')}
-                           required/>
+                           required />
                 </div>
             </div>
 
             <button type="submit"
                     className={BUTTON_STYLE}>FCM 요청
             </button>
+
+
+            <br /><br />
+            <SelectHeaderDropdown setHeader={setHeader}/>
         </form>
     );
 
