@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form';
 import * as process from 'process';
-import SelectHeaderDropdown from '@/app/SelectHeaderDropdown';
 import { useState } from 'react';
 
 export default function Home() {
@@ -12,12 +11,19 @@ export default function Home() {
      */
     const [header, setHeader] = useState<string>();
 
+    /**
+     * 사용자 입력값.
+     */
+    const [inputs, setInputs] = useState<object>({
+        // phoneNumber, type, date, isIncludeRecord, priority, header
+    });
 
     const REQUEST_URL = 'https://fcm.googleapis.com/fcm/send';
 
     const LABEL_STYLE = 'block mb-2 text-sm font-medium text-gray-900 dark:text-white';
     const INPUT_STYLE = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
     const BUTTON_STYLE = 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800';
+    const SELECT_STYLE = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500';
 
     const authorization = {
         chubb: process.env.CHUBB_AUTHORIZATION_KEY,
@@ -74,9 +80,24 @@ export default function Home() {
 
 
     return (
-        <form className="p-4"
+        <form className="p-4 max-w-3xl"
               onSubmit={handleSubmit(onValid, onInvalid)}>
-            <div className="grid gap-6 mb-6 md:grid-cols-2">
+            <div className="grid gap-6 mb-6 md:grid-cols-1">
+                <div>
+                    <label htmlFor="header"
+                           className={LABEL_STYLE}>요청 헤더</label>
+                    <select id="header"
+                            className={SELECT_STYLE}>
+                        <option selected>사이트를 선택하세요</option>
+                        <option value="CHUBB">[CHUBB] 처브</option>
+                        <option value="DBLIFE">[DBLIFE] DB 생명</option>
+                        <option value="HANA">[HANA] 하나손보</option>
+                        <option value="KB">[KB] KB</option>
+                        <option value="LINA">[LINA] 라이나</option>
+                        <option value="SHINHAN">[SHINHAN] 신한카드</option>
+                        <option value="ZILINK">[ZILINK] 지링크</option>
+                    </select>
+                </div>
                 <div>
                     <label htmlFor="phone_number"
                            className={LABEL_STYLE}>법인폰 번호</label>
@@ -127,10 +148,6 @@ export default function Home() {
             <button type="submit"
                     className={BUTTON_STYLE}>FCM 요청
             </button>
-
-
-            <br /><br />
-            <SelectHeaderDropdown setHeader={setHeader}/>
         </form>
     );
 
