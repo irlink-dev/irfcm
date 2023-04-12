@@ -3,14 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { get, getDatabase, ref } from 'firebase/database';
-import { GlobalStyle } from '@/style/GlobalStyle';
+import GlobalStyle from '@/style/GlobalStyle';
 import FirebaseUtil from '@/util/FirebaseUtil';
-import IrFirebaseConfig from '@/util/IrFirebaseConfig';
 import FcmRequestType from '@/util/FcmRequestType';
 
-export default function FcmRequestForm({ authorizationKey }: Props) {
+export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Props) {
 
     const TAG: string = 'FcmRequestForm';
+
+    const firebaseUtil = new FirebaseUtil();
+
 
     /**
      * 요청 URL.
@@ -50,17 +52,15 @@ export default function FcmRequestForm({ authorizationKey }: Props) {
      * 사용자 입력값 상태 관리.
      */
     const [value, setValue] = useState<Request>({
-        phoneNumber: '01068910357',
-        date: '2023-03-22',
+        phoneNumber: '',
+        date: '',
         requestType: FcmRequestType.UPLOAD_LOGS,
         isIncludeRecord: false,
         priority: 'high'
     });
 
-    const firebaseUtil = new FirebaseUtil();
-    const irFirebaseConfig = new IrFirebaseConfig();
     useEffect(() => {
-        firebaseUtil.initFirebaseApp(irFirebaseConfig.LINA_FIREBASE_CONFIG);
+        firebaseUtil.initFirebaseApp(firebaseConfig);
     }, []);
 
     /**
@@ -72,28 +72,33 @@ export default function FcmRequestForm({ authorizationKey }: Props) {
      * 양식이 유효하면 실행.
      */
     function onValid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        // TODO phoneNumber 대쉬(-) 제외하고 숫자 11자리만 사용하는 로직 추가.
+        // TODO phoneNumber input 정규식, 숫자 11자리만 사용.
+        // TODO date input 정규식, 숫자 8자리만 가져와서 YYYY-MM-DD 형태로 변경.
 
-        const { phoneNumber } = data;
+        const { phoneNumber, requestType } = data;
+        console.log('onValid. requestType:', requestType);
 
         getFirebaseToken(phoneNumber)
             .then((token) => {
+                console.log(`getFirebaseToken. token: ${token}`);
                 request(data, token);
             })
             .catch((error) => {
                 console.log('getFirebaseToken. error:', error);
             });
-    };
+    }
 
     /**
      * 양식이 유효하지 않으면 실행.
      */
     function onInvalid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
         // console.log(`onInvalid. data: ${data}, event: ${event}`);
-    };
+    }
 
     function request(request: FieldValues, token: string) {
         const { date, requestType, isIncludeRecord, priority } = request;
+
+        console.log('request. requestType:', requestType);
 
         const promise = fetch(FCM_REQUEST_URL, {
             method: 'POST',
@@ -114,6 +119,7 @@ export default function FcmRequestForm({ authorizationKey }: Props) {
             .then(response => response.json())
             .then(data => {
                 if (data.success == 1) {
+                    console.log('response:', data);
                     onSuccess();
                 }
                 if (data.failure == 1) {
@@ -171,11 +177,11 @@ export default function FcmRequestForm({ authorizationKey }: Props) {
                            required />
                 </div>
                 <div>
-                    <label htmlFor="type"
+                    <label htmlFor="requestType"
                            className={globalStyle.fcmRequestForm.LABEL}>요청 타입</label>
-                    <select id="type"
+                    <select id="requestType"
                             className={globalStyle.fcmRequestForm.SELECT}
-                            {...register('type')}
+                            {...register('requestType')}
                             defaultValue={value.requestType}
                             onChange={event => setValue(prevState => ({
                                 ...prevState,
@@ -254,5 +260,15 @@ async function getFirebaseToken(phoneNumber: string) {
 }
 
 interface Props {
+
+    /**
+     * 인증 키.
+     */
     authorizationKey: string,
+
+    /**
+     * 파이어베이스 설정.
+     */
+    firebaseConfig: FirebaseConfig
+
 }
