@@ -3,16 +3,16 @@ import FcmRequestForm from '@/component/FcmRequestForm';
 import GlobalStyle from '@/style/GlobalStyle';
 import IrFirebaseConfig from '@/util/IrFirebaseConfig';
 
-export default function LinaPage() {
+export default function DBLifePage() {
 
     const irFirebaseConfig = new IrFirebaseConfig();
 
     return (
         <>
-            <h1 className={GlobalStyle.HEADING}>라이나</h1>
+            <h1 className={GlobalStyle.HEADING}>DB 생명</h1>
 
-            <FcmRequestForm authorizationKey={process.env.LINA_AUTHORIZATION_KEY!}
-                            firebaseConfig={irFirebaseConfig.LINA_FIREBASE_CONFIG} />
+            <FcmRequestForm authorizationKey={process.env.DBLIFE_AUTHORIZATION_KEY!}
+                            firebaseConfig={irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG} />
         </>
     );
 }
