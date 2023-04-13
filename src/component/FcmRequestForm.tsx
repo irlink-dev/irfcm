@@ -93,6 +93,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      */
     function onInvalid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
         // console.log(`onInvalid. data: ${data}, event: ${event}`);
+        // TODO onValid, onInvalid 함수 event param type undefined 삭제 가능 ?
     }
 
     function request(request: FieldValues, token: string) {
