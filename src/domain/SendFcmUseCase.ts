@@ -1,5 +1,6 @@
 import UseCase from '@/domain/UseCase';
 import IrResponse from '@/util/IrResponse';
+import LogUtil from '@/util/LogUtil';
 
 export default class SendFcmUseCase extends UseCase<Request, Response> {
 
@@ -48,7 +49,12 @@ export default class SendFcmUseCase extends UseCase<Request, Response> {
                 }
             })
             .catch(error => {
-                onResponse(error);
+                LogUtil.d(this.TAG, `request. error: ${error}`);
+                const response = new Response(
+                    IrResponse.Code.FAIL,
+                    'FCM 요청 중 에러가 발생했습니다. 다시 시도해주세요.'
+                );
+                onResponse(response);
             });
     }
 
