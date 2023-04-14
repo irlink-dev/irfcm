@@ -5,22 +5,22 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { get, getDatabase, ref } from 'firebase/database';
 import GlobalStyle from '@/style/GlobalStyle';
 import FirebaseUtil from '@/util/FirebaseUtil';
+import LogUtil from '@/util/LogUtil';
 import FcmRequestType from '@/util/FcmRequestType';
+import SendFcmUseCase from '@/domain/SendFcmUseCase';
 
 export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Props) {
 
     const TAG: string = 'FcmRequestForm';
 
     const firebaseUtil = new FirebaseUtil();
+    const sendFcmUseCase = new SendFcmUseCase();
 
 
     /**
      * 요청 URL.
      */
     const FCM_REQUEST_URL = 'https://fcm.googleapis.com/fcm/send';
-
-    const globalStyle = new GlobalStyle();
-
 
     /**
      * 중요도.
@@ -52,8 +52,8 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * 사용자 입력값 상태 관리.
      */
     const [value, setValue] = useState<Request>({
-        phoneNumber: '',
-        date: '',
+        phoneNumber: '01083184910',
+        date: '2023-04-11',
         requestType: FcmRequestType.UPLOAD_LOGS,
         isIncludeRecord: false,
         priority: 'high'
@@ -75,16 +75,36 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
         // TODO phoneNumber input 정규식, 숫자 11자리만 사용.
         // TODO date input 정규식, 숫자 8자리만 가져와서 YYYY-MM-DD 형태로 변경.
 
-        const { phoneNumber, requestType } = data;
-        console.log('onValid. requestType:', requestType);
+        const {
+            phoneNumber,                // 법인폰 번호.
+            date,                       // 날짜.
+            requestType,                // 요청 타입.
+            isIncludeRecord,            // 녹취 포함 여부.
+            priority                    // 중요도.
+        } = data;                       // 사용자 입력 데이터.
 
         getFirebaseToken(phoneNumber)
             .then((token) => {
-                console.log(`getFirebaseToken. token: ${token}`);
-                request(data, token);
+                LogUtil.d(TAG, `getFirebaseToken. token: ${token}`);
+
+                // request(data, token);
+                const request = {
+                    authorizationKey: authorizationKey,
+                    token: token,
+                    date: date,
+                    requestType: requestType,
+                    isIncludeRecord: isIncludeRecord,
+                    priority: priority
+                };
+                sendFcmUseCase.request(request, (response) => {
+                    response.task({
+                        onSuccess: () => LogUtil.d(TAG, response.message!),
+                        onFail: () => LogUtil.d(TAG, response.message!)
+                    });
+                });
             })
             .catch((error) => {
-                console.log('getFirebaseToken. error:', error);
+                LogUtil.d(TAG, `getFirebaseToken. error: ${error}`);
             });
     }
 
@@ -92,48 +112,15 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * 양식이 유효하지 않으면 실행.
      */
     function onInvalid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        // console.log(`onInvalid. data: ${data}, event: ${event}`);
         // TODO onValid, onInvalid 함수 event param type undefined 삭제 가능 ?
+        LogUtil.d(TAG, `onInvalid. data: ${data}, event: ${event}`);
     }
 
-    function request(request: FieldValues, token: string) {
-        const { date, requestType, isIncludeRecord, priority } = request;
-
-        console.log('request. requestType:', requestType);
-
-        const promise = fetch(FCM_REQUEST_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authorizationKey
-            },
-            body: JSON.stringify({
-                'to': String(token),
-                'data': {
-                    'type': Number(requestType),
-                    'date': String(date),
-                    'isIncludeRecord': Boolean(isIncludeRecord)
-                },
-                'priority': String(priority)
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success == 1) {
-                    console.log('response:', data);
-                    onSuccess();
-                }
-                if (data.failure == 1) {
-                    onFailure();
-                }
-            })
-            .catch(error => console.error(error));
-    }
 
     /**
      * FCM 정상 응답 시.
      */
-    function onSuccess() {
+    function onSuc() {
         console.log(TAG, 'onSuccess.');
     }
 
@@ -146,14 +133,14 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
     }
 
     return (
-        <form className="p-4 max-w-3xl"
+        <form className={GlobalStyle.CONTAINER}
               onSubmit={handleSubmit(onValid, onInvalid)}>
             <div className="grid gap-6 mb-6 md:grid-cols-3">
                 <div>
                     <label htmlFor="phone_number"
-                           className={globalStyle.fcmRequestForm.LABEL}>법인폰 번호</label>
+                           className={GlobalStyle.LABEL}>법인폰 번호</label>
                     <input type="tel" id="phone_number"
-                           className={globalStyle.fcmRequestForm.INPUT}
+                           className={GlobalStyle.INPUT}
                            placeholder="법인폰 번호를 입력하세요"
                            {...register('phoneNumber')}
                            defaultValue={value.phoneNumber}
@@ -165,9 +152,9 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                 </div>
                 <div>
                     <label htmlFor="date"
-                           className={globalStyle.fcmRequestForm.LABEL}>날짜</label>
+                           className={GlobalStyle.LABEL}>날짜</label>
                     <input type="text" id="date"
-                           className={globalStyle.fcmRequestForm.INPUT}
+                           className={GlobalStyle.INPUT}
                            placeholder="YYYY-MM-DD 형태로 날짜를 입력하세요"
                            {...register('date')}
                            defaultValue={value.date}
@@ -179,9 +166,9 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                 </div>
                 <div>
                     <label htmlFor="requestType"
-                           className={globalStyle.fcmRequestForm.LABEL}>요청 타입</label>
+                           className={GlobalStyle.LABEL}>요청 타입</label>
                     <select id="requestType"
-                            className={globalStyle.fcmRequestForm.SELECT}
+                            className={GlobalStyle.INPUT}
                             {...register('requestType')}
                             defaultValue={value.requestType}
                             onChange={event => setValue(prevState => ({
@@ -194,9 +181,9 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                 </div>
                 <div>
                     <label htmlFor="is_include_record"
-                           className={globalStyle.fcmRequestForm.LABEL}>녹취 포함 여부</label>
+                           className={GlobalStyle.LABEL}>녹취 포함 여부</label>
                     <select id="is_include_record"
-                            className={globalStyle.fcmRequestForm.SELECT}
+                            className={GlobalStyle.INPUT}
                             {...register('isIncludeRecord')}
                             defaultValue={value.isIncludeRecord ? isIncludeRecord.TRUE : isIncludeRecord.FALSE}
                             onChange={event => setValue(prevState => ({
@@ -209,9 +196,9 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                 </div>
                 <div>
                     <label htmlFor="priority"
-                           className={globalStyle.fcmRequestForm.LABEL}>중요도</label>
+                           className={GlobalStyle.LABEL}>중요도</label>
                     <select id="priority"
-                            className={globalStyle.fcmRequestForm.SELECT}
+                            className={GlobalStyle.INPUT}
                             {...register('priority')}
                             defaultValue={value.priority}
                             onChange={event => setValue(prevState => ({
@@ -273,3 +260,38 @@ interface Props {
     firebaseConfig: FirebaseConfig
 
 }
+
+
+// function request(request: FieldValues, token: string) {
+//     const { date, requestType, isIncludeRecord, priority } = request;
+//
+//     console.log('request. requestType:', requestType);
+//
+//     const promise = fetch(FCM_REQUEST_URL, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': authorizationKey
+//         },
+//         body: JSON.stringify({
+//             'to': String(token),
+//             'data': {
+//                 'type': Number(requestType),
+//                 'date': String(date),
+//                 'isIncludeRecord': Boolean(isIncludeRecord)
+//             },
+//             'priority': String(priority)
+//         })
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.success == 1) {
+//                 console.log('response:', data);
+//                 onSuc();
+//             }
+//             if (data.failure == 1) {
+//                 onFailure();
+//             }
+//         })
+//         .catch(error => console.error(error));
+// }

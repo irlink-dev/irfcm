@@ -1,4 +1,5 @@
 import firebase from 'firebase/compat/app';
+import LogUtil from '@/util/LogUtil';
 
 export default class FirebaseUtil {
 
@@ -8,7 +9,7 @@ export default class FirebaseUtil {
      * 파이어베이스 초기화.
      */
     initFirebaseApp = (firebaseConfig: FirebaseConfig) => {
-        console.log(this.TAG, `initFirebaseApp. projectId: ${firebaseConfig.projectId}`);
+        LogUtil.d(this.TAG, `initFirebaseApp. projectId: ${firebaseConfig.projectId}`);
 
         if (firebase.apps.length == 0) {
             firebase.initializeApp(firebaseConfig);                                         // 앱이 존재하지 않으면, 앱을 초기화.
