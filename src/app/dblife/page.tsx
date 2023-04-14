@@ -9,7 +9,7 @@ export default function DBLifePage() {
 
     return (
         <>
-            <h1 className={GlobalStyle.HEADING}>DB 생명</h1>
+            <h1 className={GlobalStyle.CLIENT_NAME}>DB 생명</h1>
 
             <FcmRequestForm authorizationKey={process.env.DBLIFE_AUTHORIZATION_KEY!}
                             firebaseConfig={irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG} />

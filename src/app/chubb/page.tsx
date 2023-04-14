@@ -9,7 +9,7 @@ export default function ChubbPage() {
 
     return (
         <>
-            <h1 className={GlobalStyle.HEADING}>처브 CDM</h1>
+            <h1 className={GlobalStyle.CLIENT_NAME}>처브 CDM</h1>
 
             <FcmRequestForm authorizationKey={process.env.CHUBB_AUTHORIZATION_KEY!}
                             firebaseConfig={irFirebaseConfig.CHUBB_FIREBASE_CONFIG} />

@@ -9,7 +9,7 @@ export default function LinaPage() {
 
     return (
         <>
-            <h1 className={GlobalStyle.HEADING}>라이나</h1>
+            <h1 className={GlobalStyle.CLIENT_NAME}>라이나</h1>
 
             <FcmRequestForm authorizationKey={process.env.LINA_AUTHORIZATION_KEY!}
                             firebaseConfig={irFirebaseConfig.LINA_FIREBASE_CONFIG} />
