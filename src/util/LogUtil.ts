@@ -12,7 +12,7 @@ export default class LogUtil {
     /**
      * 예외(에러) 로그.
      */
-    static exception(tag: string, error: Error) {
+    static exception(tag: string, error: Error | unknown) {
         this.printErrorLog(tag, error);
     }
 
@@ -26,7 +26,7 @@ export default class LogUtil {
     /**
      * 콘솔 에러 로그 출력.
      */
-    static printErrorLog(tag: string, error: Error) {
+    static printErrorLog(tag: string, error: Error | unknown) {
         console.error(`[${tag}] ${error}`);
     }
 
