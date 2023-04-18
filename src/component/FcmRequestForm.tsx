@@ -18,11 +18,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
 
 
     /**
-     * 요청 URL.
-     */
-    const FCM_REQUEST_URL = 'https://fcm.googleapis.com/fcm/send';
-
-    /**
      * 중요도.
      */
     const priority = {
@@ -49,7 +44,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
     }
 
     /**
-     * 사용자 입력값 상태 관리.
+     * 사용자 입력값.
      */
     const [value, setValue] = useState<Request>({
         phoneNumber: '01083184910',
@@ -87,7 +82,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
             .then((token) => {
                 LogUtil.d(TAG, `getFirebaseToken. token: ${token}`);
 
-                // request(data, token);
                 const request = {
                     authorizationKey: authorizationKey,
                     token: token,
@@ -104,7 +98,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                 });
             })
             .catch((error) => {
-                LogUtil.d(TAG, `getFirebaseToken. error: ${error}`);
+                LogUtil.exception(TAG, error);
             });
     }
 
@@ -116,20 +110,14 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
         LogUtil.d(TAG, `onInvalid. data: ${data}, event: ${event}`);
     }
 
-
     /**
-     * FCM 정상 응답 시.
+     * 법인폰 번호로 파이어베이스 토큰 조회.
+     * @param phoneNumber 법인폰 번호.
      */
-    function onSuc() {
-        console.log(TAG, 'onSuccess.');
-    }
-
-    /**
-     * FCM 응답 실패 시.
-     */
-    function onFailure() {
-        console.log(TAG, 'onFailure.');
-        console.log(TAG, '잘못된 요청이거나, 앱이 실행 중이지 않습니다.');
+    async function getFirebaseToken(phoneNumber: string) {
+        const database = getDatabase();
+        const snapshot = await get(ref(database, `users/${phoneNumber}`));
+        return snapshot.val();
     }
 
     return (
@@ -237,16 +225,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
 
 }
 
-/**
- * 법인폰 번호로 파이어베이스 토큰 조회.
- * @param phoneNumber 법인폰 번호.
- */
-async function getFirebaseToken(phoneNumber: string) {
-    const database = getDatabase();
-    const snapshot = await get(ref(database, `users/${phoneNumber}`));
-    return snapshot.val();
-}
-
 interface Props {
 
     /**
@@ -260,38 +238,3 @@ interface Props {
     firebaseConfig: FirebaseConfig
 
 }
-
-
-// function request(request: FieldValues, token: string) {
-//     const { date, requestType, isIncludeRecord, priority } = request;
-//
-//     console.log('request. requestType:', requestType);
-//
-//     const promise = fetch(FCM_REQUEST_URL, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': authorizationKey
-//         },
-//         body: JSON.stringify({
-//             'to': String(token),
-//             'data': {
-//                 'type': Number(requestType),
-//                 'date': String(date),
-//                 'isIncludeRecord': Boolean(isIncludeRecord)
-//             },
-//             'priority': String(priority)
-//         })
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success == 1) {
-//                 console.log('response:', data);
-//                 onSuc();
-//             }
-//             if (data.failure == 1) {
-//                 onFailure();
-//             }
-//         })
-//         .catch(error => console.error(error));
-// }
