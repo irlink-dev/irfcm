@@ -16,6 +16,7 @@ export default class FirebaseUtil {
         } else {
             firebase.app().delete().then(() => firebase.initializeApp(firebaseConfig));     // 앱이 존재하면, 삭제하고 다시 초기화.
         }
+        return firebase;
     };
 
 }
