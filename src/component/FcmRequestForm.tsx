@@ -245,9 +245,9 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                 </div>
 
                 {message.length == 0 ? '' : message.length < 16 ? (
-                    <span className='text-green-700'>FCM 전송 성공.</span>
+                    <span className='text-green-600 font-semibold'>{message}</span>
                 ) : (
-                    <span className='text-red-700'>FCM 전송 실패.</span>
+                    <span className='text-red-500 font-semibold'>{message}</span>
                 )}
             </div>
 
