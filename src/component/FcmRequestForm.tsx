@@ -42,8 +42,8 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * 사용자 입력값.
      */
     const [value, setValue] = useState<Request>({
-        phoneNumber: '01083184910',
-        date: '2023-04-11',
+        phoneNumber: '',
+        date: '',
         requestType: FcmRequestType.UPLOAD_LOGS,
         isIncludeRecord: false,
         // priority: 'high'
