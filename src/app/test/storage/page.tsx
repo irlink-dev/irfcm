@@ -6,9 +6,9 @@ import { useEffect } from 'react';
 import 'firebase/compat/storage';
 import FirebaseUtil from '@/util/FirebaseUtil';
 
-export default function TestPage() {
+export default function StorageTestPage() {
 
-    const TAG: string = 'TestPage';
+    const TAG: string = 'StorageTestPage';
 
     const firebaseUtil = new FirebaseUtil();
     const irFirebaseConfig = new IrFirebaseConfig();
@@ -52,7 +52,7 @@ export default function TestPage() {
 
     return (
         <>
-            <button onClick={getLogs}>테스트 버튼</button>
+            <button onClick={getLogs}>스토리지에서 로그 가져오기</button>
         </>
     );
 }
