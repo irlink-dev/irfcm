@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import LogUtil from '@/util/LogUtil';
 import FormatUtil from '@/util/FormatUtil';
+import 'firebase/compat/storage';
 
 export default class FirebaseUtil {
 
@@ -60,11 +61,14 @@ export default class FirebaseUtil {
             return urls;
 
         } catch (error) {
-            LogUtil.exception(this.TAG, error);
             LogUtil.d(this.TAG, `getLogDownloadLinks. return empty array.`);
+            LogUtil.exception(this.TAG, error);
             return [];
         }
     }
 
 }
+
+// TODO FirebaseUtil -> FirebaseManager 클래스 이름 변경.
+// TODO FirebaseManager 내부에서 config, bucket 관리.
 
