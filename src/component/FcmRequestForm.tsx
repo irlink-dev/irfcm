@@ -143,6 +143,21 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
         return snapshot.val();
     }
 
+    /**
+     * 저장소 조회 버튼 클릭 시.
+     */
+    function handleStorageSearchClick() {
+        LogUtil.d(TAG, 'handleStorageSearchClick.');
+        const app = firebaseUtil.initFirebaseApp(firebaseConfig);
+        // const bucketName = firebaseConfig?.storageBucket;
+        // setBucket(() => app.storage().refFromURL(`gs://${bucketName}`));
+
+        // TODO app 이 없음. firebaseConfig 가 process.env 1회성인 듯.. 따로 저장하던가 해야할 듯!
+
+        firebaseUtil.getLogDownloadLinks(value.phoneNumber, value.date, bucket)
+            .then(urls => setUrls(urls));
+    }
+
     return (
         <form className={GlobalStyle.CONTAINER}
               onSubmit={handleSubmit(onValid, onInvalid)}>
@@ -223,14 +238,20 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
 
             <div className="flex">
                 <div className="inline-flex rounded-md shadow-sm mb-4 mr-4" role="group">
+                    {/*<button type="button"*/}
+                    {/*        className="px-4 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-200 rounded-l-lg*/}
+                    {/*    hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"*/}
+                    {/*        onClick={() => {*/}
+                    {/*            console.log(watch());*/}
+                    {/*            // console.log(firebaseConfig);*/}
+                    {/*        }}>*/}
+                    {/*    테스트 버튼*/}
+                    {/*</button>*/}
                     <button type="button"
                             className="px-4 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-200 rounded-l-lg
                         hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
-                            onClick={() => {
-                                console.log(watch());
-                                // console.log(firebaseConfig);
-                            }}>
-                        테스트 버튼
+                            onClick={handleStorageSearchClick}>
+                        저장소 조회
                     </button>
                     {/*<button type="button"*/}
                     {/*        className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200
@@ -245,9 +266,9 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                 </div>
 
                 {message.length == 0 ? '' : message.length < 16 ? (
-                    <span className='text-green-600 font-semibold'>{message}</span>
+                    <span className="text-green-600 font-semibold">{message}</span>
                 ) : (
-                    <span className='text-red-500 font-semibold'>{message}</span>
+                    <span className="text-red-500 font-semibold">{message}</span>
                 )}
             </div>
 
