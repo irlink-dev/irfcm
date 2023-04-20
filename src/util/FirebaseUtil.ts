@@ -2,17 +2,20 @@ import firebase from 'firebase/compat/app';
 import LogUtil from '@/util/LogUtil';
 import FormatUtil from '@/util/FormatUtil';
 import 'firebase/compat/storage';
+import { get, getDatabase, ref } from 'firebase/database';
+import SendFcmUseCase from '@/domain/SendFcmUseCase';
 
 export default class FirebaseUtil {
 
     TAG: string = 'FirebaseUtil';
 
     formatUtil = new FormatUtil();
+    sendFcmUseCase = new SendFcmUseCase();
 
     /**
      * 파이어베이스 초기화.
      */
-    initFirebaseApp = (firebaseConfig: FirebaseConfig) => {
+    initFirebaseApp(firebaseConfig: FirebaseConfig) {
         LogUtil.d(this.TAG, `initFirebaseApp. projectId: ${firebaseConfig.projectId}`);
 
         if (firebase.apps.length == 0) {
@@ -67,8 +70,61 @@ export default class FirebaseUtil {
         }
     }
 
+    /**
+     * 법인폰 토큰 전체 조회.
+     */
+    async getAllTokens() {
+        const database = getDatabase();
+        const snapshot = await get(ref(database, 'users'));
+        return snapshot.val();
+    }
+
+    /**
+     *  법인폰 전체에 FCM 요청.
+     */
+    async sendFcmToAllTokens(key: string, date: string) {
+        const tokens = await this.getAllTokens();
+
+        for (const token in tokens) {
+            const request = {
+                token: tokens[token],
+                requestType: '1',
+                date: date,
+                isIncludeRecord: true,
+                priority: 'high',
+                authorizationKey: key
+            };
+            this.sendFcmUseCase.request(request, () => {
+                /* empty */
+            });
+        }
+    }
+
+    /**
+     * 로그 폴더 내 모든 파일 가져오기.
+     */
+    async getLogsInFolder(phoneNumber: string, date: string) {
+        const phoneNumberWithHyphen = this.formatUtil.formatPhoneNumberWithHyphen(phoneNumber);
+        const directoryPath = `log/${phoneNumberWithHyphen}/${date}`;
+        const directoryRef = firebase.storage().ref(directoryPath);
+
+        const { items } = await directoryRef.listAll();
+        const urls = await Promise.all(
+            items.map(item => item.getDownloadURL())
+        );
+        LogUtil.d(this.TAG, `getLogsInFolder. phoneNumber: ${phoneNumber}, urls: ${urls.length}`);
+        return urls;
+    }
+
+    /**
+     * 법인폰 번호 리스트 가져오기.
+     */
+    async getPhoneNumberList(bucket: firebase.storage.Reference) {
+        const folderRef = bucket.child('log');
+        const { prefixes } = await folderRef.listAll();
+        return prefixes.map(({ name }) => name);
+    }
 }
 
 // TODO FirebaseUtil -> FirebaseManager 클래스 이름 변경.
 // TODO FirebaseManager 내부에서 config, bucket 관리.
-

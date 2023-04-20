@@ -2,6 +2,8 @@
 
 import FormatUtil from '@/util/FormatUtil';
 import LogUtil from '@/util/LogUtil';
+import GlobalStyle from '@/style/GlobalStyle';
+import ButtonStyle from '@/style/ButtonStyle';
 
 export default function UnitTestPage() {
 
@@ -22,11 +24,23 @@ export default function UnitTestPage() {
         LogUtil.d(TAG, `filename1: ${filename1}, filename2: ${filename2}`);
     }
 
+    function testParseUrl() {
+        const url: string = 'https://firebasestorage.googleapis.com/v0/b/db-life.appspot.com/o/log%2F010-2343-4168%2F2023-04-18%2FIRRecorderLog_20230418.txt?alt=media&token=55a17f9b-3069-4644-9444-a2181933682f';
+        const parseUrl = formatUtil.parseUrl(url);
+        LogUtil.d(TAG, `${parseUrl?.date}, ${parseUrl?.phoneNumber}, ${parseUrl?.fileName}`);
+    }
+
     return (
-        <>
-            <button onClick={testFormatPhoneNumberWithHyphen}>formatPhoneNumberWithHyphen</button>
-            <br />
-            <button onClick={testExtractFileNameFromUrl}>extractFileNameFromUrl</button>
-        </>
+        <section className={GlobalStyle.CONTAINER}>
+            <button className={ButtonStyle.ALTERNATIVE}
+                    onClick={testFormatPhoneNumberWithHyphen}>FORMAT PHONE NUMBER w/ HYPHEN
+            </button>
+            <button className={ButtonStyle.ALTERNATIVE}
+                    onClick={testExtractFileNameFromUrl}>EXTRACT FILENAME FROM URL
+            </button>
+            <button className={ButtonStyle.DEFAULT}
+                    onClick={testParseUrl}>PARSE URL
+            </button>
+        </section>
     );
 }
