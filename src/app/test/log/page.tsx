@@ -18,10 +18,10 @@ export default function LogTestPage() {
     const irFirebaseConfig = new IrFirebaseConfig();
     const formatUtil = new FormatUtil();
 
-    const DATE = '2023-04-18';
+    const [date, setDate] = useState<string>('');
     const [bucket, setBucket] = useState<any>();
     const [downloadLinks, setDownloadLinks] = useState<Array<string>>([]);
-    const [showUrl, setShowUrl] = useState<boolean>();
+    const [showUrl, setShowUrl] = useState<boolean>(false);
 
     function initApp() {
         const app = firebaseUtil.initFirebaseApp(irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG);
@@ -35,7 +35,7 @@ export default function LogTestPage() {
         const data = await response.json();
         const authorizationKey = data.authorizationKey;
         LogUtil.d(TAG, `fcmRequest. authorizationKey: ${authorizationKey}`);
-        await firebaseUtil.sendFcmToAllTokens(authorizationKey, DATE);
+        await firebaseUtil.sendFcmToAllTokens(authorizationKey, date);
     }
 
     async function getLogs() {
@@ -49,7 +49,7 @@ export default function LogTestPage() {
         setDownloadLinks([]);                                           // 다운로드 링크 목록 비우기.
 
         for (const phoneNumber of phoneNumberList) {
-            firebaseUtil.getLogsInFolder(phoneNumber, DATE)
+            firebaseUtil.getLogsInFolder(phoneNumber, date)
                 .then((urls) => {
                     setDownloadLinks(prevState => prevState.concat(urls));
                 })
@@ -66,9 +66,18 @@ export default function LogTestPage() {
         }
     }
 
+    function handleDateChange(event: any) {
+        setDate(event.target.value);
+    }
+
     return (
         <section className={GlobalStyle.CONTAINER}>
 
+            <input type="text"
+                   value={date}
+                   onChange={handleDateChange}
+                   placeholder='YYYY-MM-DD 형태로 날짜를 입력하세요.'
+                   className={GlobalStyle.INPUT} /><br />
             <button type="button"
                     onClick={initApp}
                     className={ButtonStyle.ALTERNATIVE}>INIT APP
@@ -108,7 +117,7 @@ export default function LogTestPage() {
                     <tbody>
                     {showUrl ? (
                         downloadLinks.map(url => (
-                            <TableList key={url}
+                            <TableListRow key={url}
                                        fileName={formatUtil.parseUrl(url)?.fileName!}
                                        phoneNumber={formatUtil.parseUrl(url)?.phoneNumber!}
                                        date={formatUtil.parseUrl(url)?.date!}
@@ -122,7 +131,7 @@ export default function LogTestPage() {
     );
 }
 
-function TableList({
+function TableListRow({
                        fileName,
                        phoneNumber,
                        date,
