@@ -10,6 +10,7 @@ import LogUtil from '@/util/LogUtil';
 import FcmRequestType from '@/util/FcmRequestType';
 import SendFcmUseCase from '@/domain/SendFcmUseCase';
 import FormatUtil from '@/util/FormatUtil';
+import ProgressSpinner from '@/component/ProgressSpinner';
 
 export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Props) {
 
@@ -64,6 +65,11 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      */
     const [message, setMessage] = useState<string>('');
 
+    /**
+     * 진행상태 표시 여부.
+     */
+    const [progress, setProgress] = useState<boolean>(false);
+
 
     useEffect(() => {
         const app = firebaseUtil.initFirebaseApp(firebaseConfig);
@@ -82,6 +88,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
     function onValid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
         // TODO phoneNumber input 정규식, 숫자 11자리만 사용.
         // TODO date input 정규식, 숫자 8자리만 가져와서 YYYY-MM-DD 형태로 변경.
+        showProgressFiveSeconds();
 
         const {
             phoneNumber,                // 법인폰 번호.
@@ -139,7 +146,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      */
     async function getFirebaseToken(phoneNumber: string) {
         const database = getDatabase();
-        const snapshot = await get(ref(database, `users/${phoneNumber}`));
+        const snapshot = await get(ref(database, `users/${phoneNumber.replace(/-/g, '')}`));
         return snapshot.val();
     }
 
@@ -158,6 +165,16 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
             .then(urls => setUrls(urls));
     }
 
+    /**
+     * ProgressSpinner 표시.
+     */
+    function showProgressFiveSeconds() {
+        setProgress(true);
+        setTimeout(() => {
+            setProgress(false);
+        }, 5000);
+    }
+
     return (
         <form className={GlobalStyle.CONTAINER}
               onSubmit={handleSubmit(onValid, onInvalid)}>
@@ -174,7 +191,8 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                                ...prevState,
                                phoneNumber: event.target.value,
                            }))}
-                           required /> {/* pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" */}
+                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}|[0-9]{11}"
+                           required />
                 </div>
                 <div>
                     <label htmlFor="date"
@@ -188,6 +206,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                                ...prevState,
                                date: event.target.value,
                            }))}
+                           pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                            required />
                 </div>
                 <div>
@@ -259,9 +278,10 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                     {/*    Settings*/}
                     {/*</button>*/}
                     <button type="submit"
-                            className="px-4 py-2 text-sm font-semibold text-gray-900 bg-white border border-gray-200 rounded-r-md
+                            className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-900 bg-white border border-gray-200 rounded-r-md
                         hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-                        FCM 요청
+                        {progress ? <ProgressSpinner size={4} /> : null}
+                        <span className="block">FCM 요청</span>
                     </button>
                 </div>
 
