@@ -48,7 +48,7 @@ export default function TopFixedNavbar() {
                     <img src="https://cdn.imweb.me/thumbnail/20200406/37563d3a84b79.png" className="h-10"
                          alt="Flowbite Logo" />
                 </button>
-                <div className="hidden flex items-center md:order-2">{/* TODO hidden */}
+                <div className="hidden flex items-center md:order-2">
                     <a href="#"
                        className="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 mr-1 md:mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Login</a>
                     <a href="#"
@@ -80,7 +80,7 @@ export default function TopFixedNavbar() {
                                     onMouseEnter={openDropdown}         // 트리거 위에 마우스를 올리면 메뉴 표시.
                                     onMouseLeave={closeDropdown}        // 트리거 밖으로 마우스가 나가면 메뉴 숨김.
                                     className="hidden flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-                                고객사 목록 {/* TODO hidden */}
+                                고객사 목록
                                 <svg aria-hidden="true" className="w-5 h-5 ml-1" fill="currentColor"
                                      viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd"
@@ -88,7 +88,6 @@ export default function TopFixedNavbar() {
                                           clipRule="evenodd"></path>
                                 </svg>
                             </button>
-                            {/* TODO dropdown 클릭 시가 아닌, hover 시에 표시되도록 변경. */}
                             <div id="mega-menu-icons-dropdown"
                                  onMouseEnter={openDropdown}            // 메뉴 위에 마우스를 올리면 메뉴 표시.
                                  onMouseLeave={closeDropdown}           // 메뉴 밖으로 마우스가 나가면 메뉴 숨김.

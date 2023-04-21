@@ -126,5 +126,3 @@ export default class FirebaseUtil {
     }
 }
 
-// TODO FirebaseUtil -> FirebaseManager 클래스 이름 변경.
-// TODO FirebaseManager 내부에서 config, bucket 관리.

@@ -86,8 +86,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * 양식이 유효하면 실행.
      */
     function onValid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        // TODO phoneNumber input 정규식, 숫자 11자리만 사용.
-        // TODO date input 정규식, 숫자 8자리만 가져와서 YYYY-MM-DD 형태로 변경.
         showProgressFiveSeconds();
 
         const {
@@ -136,7 +134,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * 양식이 유효하지 않으면 실행.
      */
     function onInvalid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        // TODO onValid, onInvalid 함수 event param type undefined 삭제 가능 ?
         LogUtil.d(TAG, `onInvalid. data: ${data}, event: ${event}`);
     }
 
@@ -158,8 +155,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
         const app = firebaseUtil.initFirebaseApp(firebaseConfig);
         // const bucketName = firebaseConfig?.storageBucket;
         // setBucket(() => app.storage().refFromURL(`gs://${bucketName}`));
-
-        // TODO app 이 없음. firebaseConfig 가 process.env 1회성인 듯.. 따로 저장하던가 해야할 듯!
 
         firebaseUtil.getLogDownloadLinks(value.phoneNumber, value.date, bucket)
             .then(urls => setUrls(urls));
