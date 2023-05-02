@@ -10,6 +10,7 @@ import LogUtil from '@/util/LogUtil';
 import FcmRequestType from '@/util/FcmRequestType';
 import SendFcmUseCase from '@/domain/SendFcmUseCase';
 import FormatUtil from '@/util/FormatUtil';
+import ProgressSpinner from '@/component/ProgressSpinner';
 
 export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Props) {
 
@@ -64,6 +65,11 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      */
     const [message, setMessage] = useState<string>('');
 
+    /**
+     * 진행상태 표시 여부.
+     */
+    const [progress, setProgress] = useState<boolean>(false);
+
 
     useEffect(() => {
         const app = firebaseUtil.initFirebaseApp(firebaseConfig);
@@ -80,8 +86,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * 양식이 유효하면 실행.
      */
     function onValid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        // TODO phoneNumber input 정규식, 숫자 11자리만 사용.
-        // TODO date input 정규식, 숫자 8자리만 가져와서 YYYY-MM-DD 형태로 변경.
+        showProgressFiveSeconds();
 
         const {
             phoneNumber,                // 법인폰 번호.
@@ -129,7 +134,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * 양식이 유효하지 않으면 실행.
      */
     function onInvalid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        // TODO onValid, onInvalid 함수 event param type undefined 삭제 가능 ?
         LogUtil.d(TAG, `onInvalid. data: ${data}, event: ${event}`);
     }
 
@@ -139,8 +143,31 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      */
     async function getFirebaseToken(phoneNumber: string) {
         const database = getDatabase();
-        const snapshot = await get(ref(database, `users/${phoneNumber}`));
+        const snapshot = await get(ref(database, `users/${phoneNumber.replace(/-/g, '')}`));
         return snapshot.val();
+    }
+
+    /**
+     * 저장소 조회 버튼 클릭 시.
+     */
+    function handleStorageSearchClick() {
+        LogUtil.d(TAG, 'handleStorageSearchClick.');
+        const app = firebaseUtil.initFirebaseApp(firebaseConfig);
+        // const bucketName = firebaseConfig?.storageBucket;
+        // setBucket(() => app.storage().refFromURL(`gs://${bucketName}`));
+
+        firebaseUtil.getLogDownloadLinks(value.phoneNumber, value.date, bucket)
+            .then(urls => setUrls(urls));
+    }
+
+    /**
+     * ProgressSpinner 표시.
+     */
+    function showProgressFiveSeconds() {
+        setProgress(true);
+        setTimeout(() => {
+            setProgress(false);
+        }, 5000);
     }
 
     return (
@@ -159,7 +186,8 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                                ...prevState,
                                phoneNumber: event.target.value,
                            }))}
-                           required /> {/* pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" */}
+                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}|[0-9]{11}"
+                           required />
                 </div>
                 <div>
                     <label htmlFor="date"
@@ -173,6 +201,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                                ...prevState,
                                date: event.target.value,
                            }))}
+                           pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                            required />
                 </div>
                 <div>
@@ -223,14 +252,20 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
 
             <div className="flex">
                 <div className="inline-flex rounded-md shadow-sm mb-4 mr-4" role="group">
+                    {/*<button type="button"*/}
+                    {/*        className="px-4 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-200 rounded-l-lg*/}
+                    {/*    hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"*/}
+                    {/*        onClick={() => {*/}
+                    {/*            console.log(watch());*/}
+                    {/*            // console.log(firebaseConfig);*/}
+                    {/*        }}>*/}
+                    {/*    테스트 버튼*/}
+                    {/*</button>*/}
                     <button type="button"
                             className="px-4 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-200 rounded-l-lg
                         hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
-                            onClick={() => {
-                                console.log(watch());
-                                // console.log(firebaseConfig);
-                            }}>
-                        테스트 버튼
+                            onClick={handleStorageSearchClick}>
+                        저장소 조회
                     </button>
                     {/*<button type="button"*/}
                     {/*        className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200
@@ -238,16 +273,17 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                     {/*    Settings*/}
                     {/*</button>*/}
                     <button type="submit"
-                            className="px-4 py-2 text-sm font-semibold text-gray-900 bg-white border border-gray-200 rounded-r-md
+                            className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-900 bg-white border border-gray-200 rounded-r-md
                         hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-                        FCM 요청
+                        {progress ? <ProgressSpinner size={4} /> : null}
+                        <span className="block">FCM 요청</span>
                     </button>
                 </div>
 
                 {message.length == 0 ? '' : message.length < 16 ? (
-                    <span className='text-green-600 font-semibold'>{message}</span>
+                    <span className="text-green-600 font-semibold">{message}</span>
                 ) : (
-                    <span className='text-red-500 font-semibold'>{message}</span>
+                    <span className="text-red-500 font-semibold">{message}</span>
                 )}
             </div>
 

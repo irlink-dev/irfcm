@@ -1,4 +1,5 @@
-import * as process from 'process';
+import * as process from 'process'
+import FirebaseManager from '@/manager/FirebaseManager'
 
 export default class IrFirebaseConfig {
 
@@ -12,17 +13,17 @@ export default class IrFirebaseConfig {
         projectId: 'aia-life-7d127',
         storageBucket: 'aia-life-7d127.appspot.com',
         appId: process.env.AIA_LIFE_APP_ID!
-    };
+    }
 
     /**
      * 셀러링.
      */
-    CELERING_FIREBASE_CONFIG = {};
+    CELERING_FIREBASE_CONFIG = {}
 
     /**
      * 셀러링 라이나.
      */
-    CELERING_LINA_FIREBASE_CONFIG = {};
+    CELERING_LINA_FIREBASE_CONFIG = {}
 
     /**
      * 처브 CDM.
@@ -35,7 +36,7 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.CHUBB_MESSAGING_SENDER_ID!,
         appId: process.env.CHUBB_APP_ID!,
         measurementId: process.env.CHUBB_MEASUREMENT_ID!
-    };
+    }
 
     /**
      * CJ O 쇼핑.
@@ -49,7 +50,7 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.CJ_O_SHOPPING_MESSAGING_SENDER_ID!,
         appId: process.env.CJ_O_SHOPPING_APP_ID!,
         measurementId: process.env.CJ_O_SHOPPING_MEASUREMENT_ID!
-    };
+    }
 
     /**
      * DB 생명.
@@ -62,7 +63,7 @@ export default class IrFirebaseConfig {
         storageBucket: 'db-life.appspot.com',
         messagingSenderId: process.env.DB_LIFE_MESSAGING_SENDER_ID!,
         appId: process.env.DB_LIFE_APP_ID!
-    };
+    }
 
     /**
      * GS 샵.
@@ -75,7 +76,7 @@ export default class IrFirebaseConfig {
         storageBucket: 'gs-shop-9b944.appspot.com',
         messagingSenderId: process.env.GS_SHOP_MEASUREMENT_ID!,
         appId: process.env.GS_SHOP_APP_ID!
-    };
+    }
 
     /**
      * 하나손해보험.
@@ -87,7 +88,7 @@ export default class IrFirebaseConfig {
         storageBucket: 'hana-6d9ee.appspot.com',
         messagingSenderId: process.env.HANA_MESSAGING_SENDER_ID!,
         appId: process.env.HANA_APP_ID!
-    };
+    }
 
     /**
      * 현대해상.
@@ -101,7 +102,7 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.HYUNDAI_MESSAGING_SENDER_ID!,
         appId: process.env.HYUNDAI_APP_ID!,
         measurementId: process.env.HYUNDAI_MEASUREMENT_ID!
-    };
+    }
 
     /**
      * KB 손보.
@@ -115,7 +116,7 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.KB_WIRELESS_MESSAGING_SENDER_ID!,
         appId: process.env.KB_WIRELESS_APP_ID!,
         measurementId: process.env.KB_WIRELESS_MEASUREMENT_ID!
-    };
+    }
 
     /**
      * 라이나 생명.
@@ -128,7 +129,7 @@ export default class IrFirebaseConfig {
         storageBucket: 'irlink-lina.appspot.com',
         messagingSenderId: process.env.LINA_MESSAGING_SENDER_ID!,
         appId: process.env.LINA_APP_ID!
-    };
+    }
 
     /**
      * 롯데 홈쇼핑.
@@ -141,7 +142,7 @@ export default class IrFirebaseConfig {
         storageBucket: 'lotte-homeshopping.appspot.com',
         messagingSenderId: process.env.LOTTE_HOME_SHOPPING_MESSAGING_SENDER_ID!,
         appId: process.env.LOTTE_HOME_SHOPPING_APP_ID!
-    };
+    }
 
     /**
      * 메리츠.
@@ -155,7 +156,7 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.MERITZ_MESSAGING_SENDER_ID!,
         appId: process.env.MERITZ_APP_ID!,
         measurementId: process.env.MERITZ_MEASUREMENT_ID!
-    };
+    }
 
     /**
      * 모렉스.
@@ -169,7 +170,7 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.MORECX_MESSAGING_SENDER_ID!,
         appId: process.env.MORECX_APP_ID!,
         measurementId: process.env.MORECX_MEASUREMENT_ID!
-    };
+    }
 
     /**
      * 신한 카드.
@@ -182,7 +183,7 @@ export default class IrFirebaseConfig {
         storageBucket: 'shinhan-card.appspot.com',
         messagingSenderId: process.env.SHINHAN_CARD_MESSAGING_SENDER_ID!,
         appId: process.env.SHINHAN_CARD_APP_ID!
-    };
+    }
 
     /**
      * SK 엠엔 서비스.
@@ -196,7 +197,7 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.SK_MN_SERVICE_MESSAGING_SENDER_ID!,
         appId: process.env.SK_MN_SERVICE_APP_ID!,
         measurementId: process.env.SK_MN_SERVICE_MEASUREMENT_ID!
-    };
+    }
 
     /**
      * 지링크.
@@ -210,6 +211,32 @@ export default class IrFirebaseConfig {
         messagingSenderId: process.env.ZILINK_MESSAGING_SENDER_ID!,
         appId: process.env.ZILINK_APP_ID!,
         measurementId: process.env.ZILINK_MEASUREMENT_ID!
-    };
+    }
+
+    /**
+     * 설정 객체 반환.
+     */
+    getFirebaseConfig(clientKey: string) {
+        const firebaseManager = new FirebaseManager()
+        if (clientKey == '') {
+            return null
+        } else if (clientKey == firebaseManager.clientKey.CHUBB) {
+            return this.CHUBB_FIREBASE_CONFIG
+        } else if (clientKey == firebaseManager.clientKey.DB_LIFE) {
+            return this.DB_LIFE_FIREBASE_CONFIG
+        } else if (clientKey == firebaseManager.clientKey.HANA) {
+            return this.HANA_FIREBASE_CONFIG
+        } else if (clientKey == firebaseManager.clientKey.KB_WIRELESS) {
+            return this.KB_WIRELESS_FIREBASE_CONFIG
+        } else if (clientKey == firebaseManager.clientKey.LINA) {
+            return this.LINA_FIREBASE_CONFIG
+        } else if (clientKey == firebaseManager.clientKey.SHINHAN_CARD) {
+            return this.SHINHAN_CARD_FIREBASE_CONFIG
+        } else if (clientKey == firebaseManager.clientKey.ZILINK) {
+            return this.ZILINK_FIREBASE_CONFIG
+        } else {
+            return null
+        }
+    }
 
 }

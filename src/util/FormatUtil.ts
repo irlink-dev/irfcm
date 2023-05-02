@@ -26,4 +26,21 @@ export default class FormatUtil {
         return lastPart;
     }
 
+    /**
+     * URL 파싱.
+     */
+    parseUrl(url: string) {
+        const regex =
+            /^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^/]+\/o\/log%2F(?<phoneNumber>[^/]+)%2F(?<date>[^/]+)%2F(?<fileName>[^?]+)\?(?<params>[^#]+)/;
+        const match = url.match(regex);
+        if (!match) {
+            return null;
+        }
+        const { phoneNumber, date, fileName, params } = match.groups!;
+        const paramsMap = new URLSearchParams(params);
+        const token = paramsMap.get('token')!;
+        const alt = paramsMap.get('alt')!;
+        return { phoneNumber, date, fileName, alt, token };
+    }
+
 }

@@ -1,33 +1,33 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-import GlobalStyle from '@/style/GlobalStyle';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import ProgressSpinner from '@/component/ProgressSpinner';
+import Image from 'next/image'
+import GlobalStyle from '@/style/GlobalStyle'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import ProgressSpinner from '@/component/ProgressSpinner'
 
 export default function HomePage() {
 
-    const [client, setClient] = useState<string>('');
+    const [client, setClient] = useState<string>('')
 
     function ClientListRow({ name, route, image }: any) {
 
-        const router = useRouter();
+        const router = useRouter()
 
         return (
             <button
                 className="flex justify-between w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 hover:font-semibold focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
                 onClick={() => {
-                    router.push(route);
-                    setClient(() => route);
+                    router.push(route)
+                    setClient(() => route)
                 }}>
-                <Image src={image} alt={name} width={64} height={64} />
+                <Image src={image} alt={name} width={64} height={64} priority={true} />
                 <div className="block text-right">
-                    <div className='mb-3'>{name}</div>
+                    <div className="mb-3">{name}</div>
                     {client == route ? <ProgressSpinner size={7} /> : null}
                 </div>
             </button>
-        );
+        )
     }
 
     return (
@@ -53,13 +53,5 @@ export default function HomePage() {
                 {/*<ClientListRow name="지링크" route="/zilink" />*/}
             </div>
         </section>
-    );
+    )
 }
-
-/**
- * TODO 1. 단일 로그 요청. 로그 파일 다운로드 링크 제공.
- * TODO 2. 법인폰 리스트. 사용 중 여부 체크. 단일 로그 요청 기능과 통합.
- * TODO 3. 주기적 로그 요청 자동화. 어제 것 분석. 앱 재시작, 통화 횟수 등 정보 자동 분석. 대시보드.
- *
- * TODO 4. app/[client]/page.tsx 형태로 통합 ?
- */
