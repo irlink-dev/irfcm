@@ -1,5 +1,4 @@
-import TopFixedNavbar from '@/component/TopFixedNavbar';
-import BottomFixedFooter from '@/component/BottomFixedFooter';
+import TopFixedNavbar from '@/component/TopFixedNavbar'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -17,5 +16,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/*<BottomFixedFooter />*/}
         </body>
         </html>
-    );
+    )
 }
