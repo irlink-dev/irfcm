@@ -1,23 +1,26 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
-import { get, getDatabase, ref } from 'firebase/database';
-import 'firebase/compat/storage';
-import GlobalStyle from '@/style/GlobalStyle';
-import FirebaseUtil from '@/util/FirebaseUtil';
-import LogUtil from '@/util/LogUtil';
-import FcmRequestType from '@/util/FcmRequestType';
-import SendFcmUseCase from '@/domain/SendFcmUseCase';
-import FormatUtil from '@/util/FormatUtil';
-import ProgressSpinner from '@/component/ProgressSpinner';
+import React, { useEffect, useState } from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
+import { get, getDatabase, ref } from 'firebase/database'
+import 'firebase/compat/storage'
+import GlobalStyle from '@/style/GlobalStyle'
+import FirebaseUtil from '@/util/FirebaseUtil'
+import LogUtil from '@/util/LogUtil'
+import FcmRequestType from '@/util/FcmRequestType'
+import SendFcmUseCase from '@/domain/SendFcmUseCase'
+import FormatUtil from '@/util/FormatUtil'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+import SendIcon from '@mui/icons-material/Send'
+import Grid from '@mui/material/Grid'
 
 export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Props) {
 
-    const TAG: string = 'FcmRequestForm';
+    const TAG: string = 'FcmRequestForm'
 
-    const firebaseUtil = new FirebaseUtil();
-    const sendFcmUseCase = new SendFcmUseCase();
+    const firebaseUtil = new FirebaseUtil()
+    const sendFcmUseCase = new SendFcmUseCase()
 
 
     /**
@@ -26,7 +29,7 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
     const isIncludeRecord = {
         TRUE: 'true',
         FALSE: 'false'
-    };
+    }
 
     /**
      * 요청 타입.
@@ -48,45 +51,46 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
         requestType: FcmRequestType.UPLOAD_LOGS,
         isIncludeRecord: false,
         // priority: 'high'
-    });
+    })
 
     /**
      * 파이어베이스 스토리지 버킷.
      */
-    const [bucket, setBucket] = useState<any>();
+    const [bucket, setBucket] = useState<any>()
 
     /**
      * 스토리지 파일 다운로드 링크.
      */
-    const [urls, setUrls] = useState<Array<string>>([]);
+    const [urls, setUrls] = useState<Array<string>>([])
 
     /**
      * 사용자 알림 메시지.
      */
-    const [message, setMessage] = useState<string>('');
+    const [message, setMessage] = useState<string>('')
 
     /**
      * 진행상태 표시 여부.
      */
-    const [progress, setProgress] = useState<boolean>(false);
+    const [progress, setProgress] = useState<boolean>(false)
 
 
     useEffect(() => {
-        const app = firebaseUtil.initFirebaseApp(firebaseConfig);
-        const bucketName = firebaseConfig?.storageBucket;
-        setBucket(() => app.storage().refFromURL(`gs://${bucketName}`));
-    }, []);
+        const app = firebaseUtil.initFirebaseApp(firebaseConfig)
+        const bucketName = firebaseConfig?.storageBucket
+        setBucket(() => app.storage().refFromURL(`gs://${bucketName}`))
+    }, [])
 
     /**
      * React Hook Form.
      */
-    const { register, handleSubmit, watch } = useForm();
+    const { register, handleSubmit, watch } = useForm()
 
     /**
      * 양식이 유효하면 실행.
      */
     function onValid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        showProgressFiveSeconds();
+        event?.preventDefault()
+        showProgressFiveSeconds()
 
         const {
             phoneNumber,                // 법인폰 번호.
@@ -94,11 +98,11 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
             requestType,                // 요청 타입.
             isIncludeRecord,            // 녹취 포함 여부.
             // priority                    // 중요도.
-        } = data;                       // 사용자 입력 데이터.
+        } = data                       // 사용자 입력 데이터.
 
         getFirebaseToken(phoneNumber)
             .then((token) => {
-                LogUtil.d(TAG, `getFirebaseToken. token: ${token}`);
+                LogUtil.d(TAG, `getFirebaseToken. token: ${token}`)
 
                 const request = {
                     authorizationKey: authorizationKey,
@@ -107,34 +111,34 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                     requestType: requestType,
                     isIncludeRecord: isIncludeRecord,
                     priority: 'high'
-                };
+                }
                 sendFcmUseCase.request(request, (response) => {
                     response.task({
                         onSuccess: () => {
-                            LogUtil.d(TAG, response.message!);
-                            setMessage(() => response.message!);
+                            LogUtil.d(TAG, response.message!)
+                            setMessage(() => response.message!)
                             setTimeout(() => {
                                 firebaseUtil.getLogDownloadLinks(phoneNumber, date, bucket)
-                                    .then(urls => setUrls(urls));
-                            }, 3000);   // 로그가 올라올 때까지 대기.
+                                    .then(urls => setUrls(urls))
+                            }, 3000)   // 로그가 올라올 때까지 대기.
                         },
                         onFail: () => {
-                            LogUtil.d(TAG, response.message!);
-                            setMessage(() => response.message!);
+                            LogUtil.d(TAG, response.message!)
+                            setMessage(() => response.message!)
                         }
-                    });
-                });
+                    })
+                })
             })
             .catch((error) => {
-                LogUtil.exception(TAG, error);
-            });
+                LogUtil.exception(TAG, error)
+            })
     }
 
     /**
      * 양식이 유효하지 않으면 실행.
      */
     function onInvalid(data: FieldValues, event: React.BaseSyntheticEvent | undefined) {
-        LogUtil.d(TAG, `onInvalid. data: ${data}, event: ${event}`);
+        LogUtil.d(TAG, `onInvalid. data: ${data}, event: ${event}`)
     }
 
     /**
@@ -142,154 +146,124 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
      * @param phoneNumber 법인폰 번호.
      */
     async function getFirebaseToken(phoneNumber: string) {
-        const database = getDatabase();
-        const snapshot = await get(ref(database, `users/${phoneNumber.replace(/-/g, '')}`));
-        return snapshot.val();
+        const database = getDatabase()
+        const snapshot = await get(ref(database, `users/${phoneNumber.replace(/-/g, '')}`))
+        return snapshot.val()
     }
 
     /**
      * 저장소 조회 버튼 클릭 시.
      */
     function handleStorageSearchClick() {
-        LogUtil.d(TAG, 'handleStorageSearchClick.');
-        const app = firebaseUtil.initFirebaseApp(firebaseConfig);
+        LogUtil.d(TAG, 'handleStorageSearchClick.')
+        const app = firebaseUtil.initFirebaseApp(firebaseConfig)
         // const bucketName = firebaseConfig?.storageBucket;
         // setBucket(() => app.storage().refFromURL(`gs://${bucketName}`));
 
         firebaseUtil.getLogDownloadLinks(value.phoneNumber, value.date, bucket)
-            .then(urls => setUrls(urls));
+            .then(urls => setUrls(urls))
     }
 
     /**
      * ProgressSpinner 표시.
      */
     function showProgressFiveSeconds() {
-        setProgress(true);
+        setProgress(true)
         setTimeout(() => {
-            setProgress(false);
-        }, 5000);
+            setProgress(false)
+        }, 5000)
     }
 
-    return (
-        <form className={GlobalStyle.CONTAINER}
-              onSubmit={handleSubmit(onValid, onInvalid)}>
-            <div className="grid gap-6 mb-6 md:grid-cols-4">
-                <div>
-                    <label htmlFor="phone_number"
-                           className={GlobalStyle.LABEL}>법인폰 번호</label>
-                    <input type="tel" id="phone_number"
-                           className={GlobalStyle.INPUT}
-                           placeholder="법인폰 번호를 입력하세요"
-                           {...register('phoneNumber')}
-                           defaultValue={value.phoneNumber}
-                           onChange={event => setValue(prevState => ({
-                               ...prevState,
-                               phoneNumber: event.target.value,
-                           }))}
-                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}|[0-9]{11}"
-                           required />
-                </div>
-                <div>
-                    <label htmlFor="date"
-                           className={GlobalStyle.LABEL}>날짜</label>
-                    <input type="text" id="date"
-                           className={GlobalStyle.INPUT}
-                           placeholder="YYYY-MM-DD 형태로 날짜를 입력하세요"
-                           {...register('date')}
-                           defaultValue={value.date}
-                           onChange={event => setValue(prevState => ({
-                               ...prevState,
-                               date: event.target.value,
-                           }))}
-                           pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
-                           required />
-                </div>
-                <div>
-                    <label htmlFor="requestType"
-                           className={GlobalStyle.LABEL}>요청 타입</label>
-                    <select id="requestType"
-                            className={GlobalStyle.INPUT}
-                            {...register('requestType')}
-                            defaultValue={value.requestType}
-                            onChange={event => setValue(prevState => ({
-                                ...prevState,
-                                requestType: Number(event.target.value),
-                            }))}>
-                        <option value={FcmRequestType.UPLOAD_LOGS}>[1] 로그</option>
-                        <option value={FcmRequestType.UPLOAD_FILE_LIST}>[2] 파일 리스트</option>
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="is_include_record"
-                           className={GlobalStyle.LABEL}>녹취 포함 여부</label>
-                    <select id="is_include_record"
-                            className={GlobalStyle.INPUT}
-                            {...register('isIncludeRecord')}
-                            defaultValue={value.isIncludeRecord ? isIncludeRecord.TRUE : isIncludeRecord.FALSE}
-                            onChange={event => setValue(prevState => ({
-                                ...prevState,
-                                isIncludeRecord: event.target.value == isIncludeRecord.TRUE,
-                            }))}>
-                        <option value={isIncludeRecord.FALSE}>false</option>
-                        <option value={isIncludeRecord.TRUE}>true</option>
-                    </select>
-                </div>
-                {/*<div>*/}
-                {/*    <label htmlFor="priority"*/}
-                {/*           className={GlobalStyle.LABEL}>중요도</label>*/}
-                {/*    <select id="priority"*/}
-                {/*            className={GlobalStyle.INPUT}*/}
-                {/*            {...register('priority')}*/}
-                {/*            defaultValue={value.priority}*/}
-                {/*            onChange={event => setValue(prevState => ({*/}
-                {/*                ...prevState,*/}
-                {/*                priority: event.target.value,*/}
-                {/*            }))}>*/}
-                {/*        <option value={priority.HIGH}>높음</option>*/}
-                {/*    </select>*/}
-                {/*</div>*/}
-            </div>
+    return <Grid container spacing={3}>
+        <Grid item xs={12} lg={6}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <form onSubmit={handleSubmit(onValid, onInvalid)}>
+                    <div className="grid gap-6 mb-6">
+                        <div>
+                            <label htmlFor="phone_number"
+                                   className={GlobalStyle.LABEL}>법인폰 번호</label>
+                            <input type="tel" id="phone_number"
+                                   className={GlobalStyle.INPUT}
+                                   placeholder="법인폰 번호를 입력하세요"
+                                   {...register('phoneNumber')}
+                                   defaultValue={value.phoneNumber}
+                                   onChange={event => setValue(prevState => ({
+                                       ...prevState,
+                                       phoneNumber: event.target.value,
+                                   }))}
+                                   pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}|[0-9]{11}"
+                                   required />
+                        </div>
+                        <div>
+                            <label htmlFor="date"
+                                   className={GlobalStyle.LABEL}>날짜</label>
+                            <input type="text" id="date"
+                                   className={GlobalStyle.INPUT}
+                                   placeholder="YYYY-MM-DD 형태로 날짜를 입력하세요"
+                                   {...register('date')}
+                                   defaultValue={value.date}
+                                   onChange={event => setValue(prevState => ({
+                                       ...prevState,
+                                       date: event.target.value,
+                                   }))}
+                                   pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+                                   required />
+                        </div>
+                        <div>
+                            <label htmlFor="requestType"
+                                   className={GlobalStyle.LABEL}>요청 타입</label>
+                            <select id="requestType"
+                                    className={GlobalStyle.INPUT}
+                                    {...register('requestType')}
+                                    defaultValue={value.requestType}
+                                    onChange={event => setValue(prevState => ({
+                                        ...prevState,
+                                        requestType: Number(event.target.value),
+                                    }))}>
+                                <option value={FcmRequestType.UPLOAD_LOGS}>[1] 로그</option>
+                                <option value={FcmRequestType.UPLOAD_FILE_LIST}>[2] 파일 리스트</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="is_include_record"
+                                   className={GlobalStyle.LABEL}>녹취 포함 여부</label>
+                            <select id="is_include_record"
+                                    className={GlobalStyle.INPUT}
+                                    {...register('isIncludeRecord')}
+                                    defaultValue={value.isIncludeRecord ? isIncludeRecord.TRUE : isIncludeRecord.FALSE}
+                                    onChange={event => setValue(prevState => ({
+                                        ...prevState,
+                                        isIncludeRecord: event.target.value == isIncludeRecord.TRUE,
+                                    }))}>
+                                <option value={isIncludeRecord.FALSE}>false</option>
+                                <option value={isIncludeRecord.TRUE}>true</option>
+                            </select>
+                        </div>
+                        {/*<div>*/}
+                        {/*    <label htmlFor="priority"*/}
+                        {/*           className={GlobalStyle.LABEL}>중요도</label>*/}
+                        {/*    <select id="priority"*/}
+                        {/*            className={GlobalStyle.INPUT}*/}
+                        {/*            {...register('priority')}*/}
+                        {/*            defaultValue={value.priority}*/}
+                        {/*            onChange={event => setValue(prevState => ({*/}
+                        {/*                ...prevState,*/}
+                        {/*                priority: event.target.value,*/}
+                        {/*            }))}>*/}
+                        {/*        <option value={priority.HIGH}>높음</option>*/}
+                        {/*    </select>*/}
+                        {/*</div>*/}
+                    </div>
 
-            <div className="flex">
-                <div className="inline-flex rounded-md shadow-sm mb-4 mr-4" role="group">
-                    {/*<button type="button"*/}
-                    {/*        className="px-4 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-200 rounded-l-lg*/}
-                    {/*    hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"*/}
-                    {/*        onClick={() => {*/}
-                    {/*            console.log(watch());*/}
-                    {/*            // console.log(firebaseConfig);*/}
-                    {/*        }}>*/}
-                    {/*    테스트 버튼*/}
-                    {/*</button>*/}
-                    <button type="button"
-                            className="px-4 py-2 text-sm font-medium text-gray-400 bg-white border border-gray-200 rounded-l-lg
-                        hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
-                            onClick={handleStorageSearchClick}>
-                        저장소 조회
-                    </button>
-                    {/*<button type="button"*/}
-                    {/*        className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200
-                           hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">*/}
-                    {/*    Settings*/}
-                    {/*</button>*/}
-                    <button type="submit"
-                            className="flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-900 bg-white border border-gray-200 rounded-r-md
-                        hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
-                        {progress ? <ProgressSpinner size={4} /> : null}
-                        <span className="block">FCM 요청</span>
-                    </button>
-                </div>
-
-                {message.length == 0 ? '' : message.length < 16 ? (
-                    <span className="text-green-600 font-semibold">{message}</span>
-                ) : (
-                    <span className="text-red-500 font-semibold">{message}</span>
-                )}
-            </div>
-
-
-            <div className="bg-white py-5">
-                {/*<dt className="text-sm font-medium text-gray-500">저장소 파일</dt>*/}
+                    <Button type="submit" variant="outlined" color="primary" endIcon={<SendIcon />}>
+                        Send
+                    </Button>
+                </form>
+            </Paper>
+        </Grid>
+        <Grid item xs={12} lg={6}>
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                <dt className="text-sm font-medium text-gray-500">스토리지 파일</dt>
                 {urls.length > 0 ? (
                     <dd className="mt-1 text-sm text-gray-900">
                         <ul
@@ -302,17 +276,15 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                         </ul>
                     </dd>
                 ) : null}
-            </div>
-
-        </form>
-    );
-
+            </Paper>
+        </Grid>
+    </Grid>
 }
 
 function FileListRow({ url }: any) {
 
-    const formatUtil = new FormatUtil();
-    const fileName = formatUtil.extractFileNameFromUrl(url);
+    const formatUtil = new FormatUtil()
+    const fileName = formatUtil.extractFileNameFromUrl(url)
 
     return (
         <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
@@ -325,7 +297,7 @@ function FileListRow({ url }: any) {
                 </a>
             </div>
         </li>
-    );
+    )
 }
 
 interface Props {

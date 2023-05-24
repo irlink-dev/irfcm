@@ -1,7 +1,7 @@
-import GlobalStyle from '@/style/GlobalStyle'
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
 import FcmRequestForm from '@/component/FcmRequestForm'
+import Typography from '@mui/material/Typography'
 
 export default function ClientPage({ params }: any) {
 
@@ -27,7 +27,7 @@ export default function ClientPage({ params }: any) {
 
     return (
         <>
-            <h1 className={GlobalStyle.CLIENT_NAME}>{clientName[clientKey]}</h1>
+            <h1 className="mb-4">{clientName[clientKey]}</h1>
 
             <FcmRequestForm authorizationKey={authorizationKey!}
                             firebaseConfig={firebaseConfig!} />

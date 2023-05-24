@@ -1,6 +1,6 @@
-import TopFixedNavbar from '@/component/TopFixedNavbar'
+import Dashboard from '@/component/dashboard/Dashboard'
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <html lang="ko">
         <head>
@@ -11,10 +11,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </head>
 
         <body>
-        <TopFixedNavbar />
-        {children}
-        {/*<BottomFixedFooter />*/}
+        <Dashboard>
+            {children}
+        </Dashboard>
         </body>
         </html>
     )
 }
+
+export default RootLayout
