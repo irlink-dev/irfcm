@@ -10,7 +10,7 @@ import BarChartIcon from '@mui/icons-material/BarChart'
 import LayersIcon from '@mui/icons-material/Layers'
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import DrawerListRow from '@/component/DrawerListRow'
-
+import { usePathname, useRouter } from 'next/navigation'
 
 export const mainListItems = (
     <React.Fragment>
@@ -35,31 +35,39 @@ export const mainListItems = (
     </React.Fragment>
 )
 
-export const secondaryListItems = (
-    <React.Fragment>
-        <ListSubheader component="div" inset>
-            Saved reports
-        </ListSubheader>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Current month" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Last quarter" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Year-end sale" />
-        </ListItemButton>
-    </React.Fragment>
-)
+export const SecondaryListItems = () => {
+    const TEST_LOG_URL = '/test/log'
+    const router = useRouter()
+    const pathname = usePathname()
+    return (
+        <React.Fragment>
+            <ListSubheader component="div" inset>
+                Experimental Function (Lab.)
+            </ListSubheader>
+            <ListItemButton
+                onClick={() => router.push(TEST_LOG_URL)}
+                selected={pathname === TEST_LOG_URL}>
+                <ListItemIcon>
+                    <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="전체 로그 수집" />
+            </ListItemButton>
+            {/*<ListItemButton>*/}
+            {/*    <ListItemIcon>*/}
+            {/*        <AssignmentIcon />*/}
+            {/*    </ListItemIcon>*/}
+            {/*    <ListItemText primary="Last quarter" />*/}
+            {/*</ListItemButton>*/}
+            {/*<ListItemButton>*/}
+            {/*    <ListItemIcon>*/}
+            {/*        <AssignmentIcon />*/}
+            {/*    </ListItemIcon>*/}
+            {/*    <ListItemText primary="Year-end sale" />*/}
+            {/*</ListItemButton>*/}
+        </React.Fragment>
+    )
+}
+
 
 /**
  * mainListItems

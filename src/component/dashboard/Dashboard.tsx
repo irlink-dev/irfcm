@@ -18,7 +18,7 @@ import Paper from '@mui/material/Paper'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import { mainListItems, secondaryListItems } from './listItems'
+import { mainListItems, SecondaryListItems } from './listItems'
 import Deposits from './Deposits'
 import Orders from './Orders'
 import Copyright from './Copyright'
@@ -86,7 +86,7 @@ export default function Dashboard({ children }: any) {
             <List component="nav">
                 {mainListItems}
                 {/* <Divider sx={{ my: 1 }} /> */}
-                {/* {secondaryListItems} */}
+                <SecondaryListItems />
             </List>
         </Drawer>
         <Box
