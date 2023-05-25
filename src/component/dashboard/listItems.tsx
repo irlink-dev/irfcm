@@ -11,29 +11,52 @@ import LayersIcon from '@mui/icons-material/Layers'
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import DrawerListRow from '@/component/DrawerListRow'
 import { usePathname, useRouter } from 'next/navigation'
+import { Collapse } from '@mui/material'
+import { ExpandLess, ExpandMore, StarBorder, AccountCircle } from '@mui/icons-material'
+import List from '@mui/material/List'
 
-export const mainListItems = (
-    <React.Fragment>
-        <DrawerListRow
-            name="라이나 생명" route="/lina" desc="kr.co.irlink.lina"
-            image="/images/lina_app_icon.png" />
-        <DrawerListRow
-            name="처브 CDM" route="/chubb" desc="kr.co.irlink.chubb"
-            image="/images/chubb_app_icon.png" />
-        <DrawerListRow
-            name="하나손해보험" route="/hana" desc="kr.co.irlink.hana"
-            image="/images/hana_app_icon.png" />
-        <DrawerListRow
-            name="신한카드" route="/shinhan" desc="kr.co.irlink.shinhan"
-            image="/images/shinhan_card_app_icon.png" />
-        <DrawerListRow
-            name="DB 생명" route="/dblife" desc="kr.co.irlink.dblife"
-            image="/images/db_life_app_icon.png" />
-        <DrawerListRow
-            name="KB 손해보험" route="/kb" desc="kr.co.irlink.kb"
-            image="/images/kb_wireless_app_icon.png" />
-    </React.Fragment>
-)
+export const MainListItems = () => {
+    const [open, setOpen] = React.useState(true)
+
+    const handleClick = () => {
+        setOpen(!open)
+    }
+
+    return (
+        <React.Fragment>
+            <ListItemButton onClick={handleClick}>
+                <ListItemIcon>
+                    {/* <AccountCircle /> */}
+                    <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="고객사 리스트" />
+                {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    <DrawerListRow
+                        name="라이나 생명" route="/lina" desc="kr.co.irlink.lina"
+                        image="/images/lina_app_icon.png" />
+                    <DrawerListRow
+                        name="처브 CDM" route="/chubb" desc="kr.co.irlink.chubb"
+                        image="/images/chubb_app_icon.png" />
+                    <DrawerListRow
+                        name="하나손해보험" route="/hana" desc="kr.co.irlink.hana"
+                        image="/images/hana_app_icon.png" />
+                    <DrawerListRow
+                        name="신한카드" route="/shinhan" desc="kr.co.irlink.shinhan"
+                        image="/images/shinhan_card_app_icon.png" />
+                    <DrawerListRow
+                        name="DB 생명" route="/dblife" desc="kr.co.irlink.dblife"
+                        image="/images/db_life_app_icon.png" />
+                    <DrawerListRow
+                        name="KB 손해보험" route="/kb" desc="kr.co.irlink.kb"
+                        image="/images/kb_wireless_app_icon.png" />
+                </List>
+            </Collapse>
+        </React.Fragment>
+    )
+}
 
 export const SecondaryListItems = () => {
     const TEST_LOG_URL = '/test/log'

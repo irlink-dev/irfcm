@@ -239,20 +239,6 @@ export default function FcmRequestForm({ authorizationKey, firebaseConfig }: Pro
                                 <option value={isIncludeRecord.TRUE}>true</option>
                             </select>
                         </div>
-                        {/*<div>*/}
-                        {/*    <label htmlFor="priority"*/}
-                        {/*           className={GlobalStyle.LABEL}>중요도</label>*/}
-                        {/*    <select id="priority"*/}
-                        {/*            className={GlobalStyle.INPUT}*/}
-                        {/*            {...register('priority')}*/}
-                        {/*            defaultValue={value.priority}*/}
-                        {/*            onChange={event => setValue(prevState => ({*/}
-                        {/*                ...prevState,*/}
-                        {/*                priority: event.target.value,*/}
-                        {/*            }))}>*/}
-                        {/*        <option value={priority.HIGH}>높음</option>*/}
-                        {/*    </select>*/}
-                        {/*</div>*/}
                     </div>
 
                     <Button type="submit" variant="outlined" color="primary" endIcon={<SendIcon />}>

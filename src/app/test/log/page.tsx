@@ -1,14 +1,24 @@
 'use client'
 
+import { useState } from 'react'
+import LogUtil from '@/util/LogUtil'
+import FormatUtil from '@/util/FormatUtil'
 import FirebaseUtil from '@/util/FirebaseUtil'
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
-import GlobalStyle from '@/style/GlobalStyle'
-import LogUtil from '@/util/LogUtil'
-import { useState } from 'react'
 import FirebaseManager from '@/manager/FirebaseManager'
-import FormatUtil from '@/util/FormatUtil'
-import ButtonStyle from '@/style/ButtonStyle'
-import { Button, Paper, TextField, Typography } from '@mui/material'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import TableContainer from '@mui/material/TableContainer'
+import Table from '@mui/material/Table'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import TableBody from '@mui/material/TableBody'
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
 
 export default function LogTestPage() {
 
@@ -74,90 +84,66 @@ export default function LogTestPage() {
     return <>
         <Typography sx={{ mb: 2 }}>전체 로그 수집</Typography>
         <Paper sx={{ p: 2, mb: 1 }}>
-            <TextField
-                label="YYYY-MM-DD 형태로 날짜를 입력하세요"
-                variant="filled"
-                size="small"
-                fullWidth
-                value={date}
-                onChange={handleDateChange}
-                sx={{ mb: 1 }} />
+            <Box sx={{ mb: 1, width: '100%', display: 'flex', justifyContent: 'space-between', gap: 1 }}>
+                <TextField
+                    label="Date"
+                    placeholder="yyyy-mm-dd"
+                    variant="outlined"
+                    size="small"
+                    value={date}
+                    onChange={handleDateChange}
+                    sx={{ width: '100%' }} />
+                <Button
+                    variant="contained"
+                    onClick={fcmRequest}
+                    color="primary"
+                    sx={{ height: '40px' }}>
 
-            <Button variant="outlined" onClick={initApp}>
-                INIT APP w/ DB_LIFE
-            </Button>{' '}
-            <Button variant="outlined" onClick={fcmRequest} color="secondary">
-                <strong>FCM REQUEST</strong>
-            </Button>{' '}
-            <Button variant="outlined" onClick={getLogs}>
-                GET LOGS
-            </Button>{' '}
-            <Button variant="outlined" onClick={showUrls}>
-                SHOW URLS
-            </Button>
+                    <Typography noWrap sx={{ width: '140px', fontSize: '0.875rem', fontWeight: 500 }}>
+                        FCM REQUEST
+                    </Typography>
+                </Button>
+            </Box>
+            <Box>
+                <Button variant="outlined" onClick={initApp}>
+                    INIT APP w/ DB_LIFE
+                </Button>{' '}
+                <Button variant="outlined" onClick={getLogs}>
+                    GET LOGS
+                </Button>{' '}
+                <Button variant="outlined" onClick={showUrls}>
+                    SHOW URLS
+                </Button>
+            </Box>
         </Paper>
-        <Paper sx={{ p: 2 }}>
-            <div className="relative overflow-x-auto my-4">
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            File name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Phone number
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Download
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {showUrl ? (
+        <TableContainer component={Paper} sx={{ p: 2 }}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>File name</TableCell>
+                        <TableCell>Phone number</TableCell>
+                        <TableCell>Date</TableCell>
+                        <TableCell>Download</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {showUrl && (
                         downloadLinks.map(url => (
-                            <TableListRow
+                            <TableRow
                                 key={url}
-                                fileName={formatUtil.parseUrl(url)?.fileName!}
-                                phoneNumber={formatUtil.parseUrl(url)?.phoneNumber!}
-                                date={formatUtil.parseUrl(url)?.date!}
-                                downloadUrl={url} />
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+
+                                <TableCell>{formatUtil.parseUrl(url)?.fileName!}</TableCell>
+                                <TableCell>{formatUtil.parseUrl(url)?.phoneNumber!}</TableCell>
+                                <TableCell>{formatUtil.parseUrl(url)?.date!}</TableCell>
+                                <TableCell>
+                                    <Link href={url} underline="hover">다운로드</Link>
+                                </TableCell>
+                            </TableRow>
                         ))
-                    ) : null}
-                    </tbody>
-                </table>
-            </div>
-        </Paper>
+                    )}
+                </TableBody>
+            </Table>
+        </TableContainer>
     </>
-}
-
-interface TableListRowProps {
-    fileName: string
-    phoneNumber: string
-    date: string
-    downloadUrl: string
-}
-
-function TableListRow({ fileName, phoneNumber, date, downloadUrl }: TableListRowProps) {
-    return (
-        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {fileName}
-            </th>
-            <td className="px-6 py-4">
-                {phoneNumber}
-            </td>
-            <td className="px-6 py-4">
-                {date}
-            </td>
-            <td className="px-6 py-4">
-                <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                   href={downloadUrl}
-                   download={`${fileName}_${phoneNumber}.txt`}>다운로드</a>
-            </td>
-        </tr>
-    )
 }

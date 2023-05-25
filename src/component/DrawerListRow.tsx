@@ -14,8 +14,8 @@ interface DrawerListRowProps {
 const DrawerListRow = ({ name, desc, route, image }: DrawerListRowProps) => {
     const router = useRouter()
     const pathname = usePathname()
-    return <ListItemButton divider selected={pathname === route} onClick={() => router.push(route)}>
-        <ListItemAvatar sx={{ marginRight: 2 }}>
+    return <ListItemButton divider selected={pathname === route} onClick={() => router.push(route)} sx={{ pl: 4 }}>
+        <ListItemAvatar sx={{ mr: 2 }}>
             <Image src={image} alt={name} width={64} height={64} priority={true} />
         </ListItemAvatar>
         <ListItemText primary={name} secondary={desc} />

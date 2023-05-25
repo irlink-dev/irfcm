@@ -1,7 +1,7 @@
+import '@/style/tailwind.css'
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
 import FcmRequestForm from '@/component/FcmRequestForm'
-import Typography from '@mui/material/Typography'
 
 export default function ClientPage({ params }: any) {
 
