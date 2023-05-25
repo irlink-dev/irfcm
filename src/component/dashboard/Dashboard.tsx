@@ -35,7 +35,7 @@ export default function Dashboard({ children }: any) {
 
     return <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open} drawerWidth={DRAWER_WIDTH}>
+        <AppBar position="absolute" open={open} drawer_width={DRAWER_WIDTH}>
             <Toolbar
                 sx={{
                     pr: '24px', // keep right padding when drawer closed
@@ -69,7 +69,7 @@ export default function Dashboard({ children }: any) {
                 </IconButton>
             </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open} drawerWidth={DRAWER_WIDTH}>
+        <Drawer variant="permanent" open={open} drawer_width={DRAWER_WIDTH}>
             <Toolbar
                 sx={{
                     display: 'flex',
