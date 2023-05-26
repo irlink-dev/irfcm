@@ -24,11 +24,15 @@ import Orders from './Orders'
 import Copyright from './Copyright'
 import AppBar from './AppBar'
 import Drawer from './Drawer'
+import { useRouter } from 'next/navigation'
 
 const DRAWER_WIDTH: number = 360
 
 export default function Dashboard({ children }: any) {
+    const router = useRouter()
+
     const [open, setOpen] = React.useState(true)
+
     const toggleDrawer = () => {
         setOpen(!open)
     }
@@ -58,7 +62,8 @@ export default function Dashboard({ children }: any) {
                     variant="h6"
                     color="inherit"
                     noWrap
-                    sx={{ flexGrow: 1 }}
+                    sx={{ flexGrow: 1, cursor: 'pointer' }}
+                    onClick={() => router.push('/')}
                 >
                     Firebase Cloud Messaging Service
                 </Typography>
@@ -85,7 +90,7 @@ export default function Dashboard({ children }: any) {
             <Divider />
             <List component="nav">
                 <MainListItems />
-                {/* <Divider sx={{ my: 1 }} /> */}
+                <Divider sx={{ my: 1 }} />
                 <SecondaryListItems />
             </List>
         </Drawer>

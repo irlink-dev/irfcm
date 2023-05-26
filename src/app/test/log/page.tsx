@@ -83,7 +83,7 @@ export default function LogTestPage() {
 
     return <>
         <Typography sx={{ mb: 2 }}>전체 로그 수집</Typography>
-        <Paper sx={{ p: 2, mb: 1 }}>
+        <Paper sx={{ p: 2, mb: 2 }}>
             <Box sx={{ mb: 1, width: '100%', display: 'flex', justifyContent: 'space-between', gap: 1 }}>
                 <TextField
                     label="Date"
