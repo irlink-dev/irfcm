@@ -25,11 +25,13 @@ import Copyright from './Copyright'
 import AppBar from './AppBar'
 import Drawer from './Drawer'
 import { useRouter } from 'next/navigation'
+import { LinearProgress } from '@mui/material'
 
 const DRAWER_WIDTH: number = 360
 
 export default function Dashboard({ children }: any) {
     const router = useRouter()
+    const isLoading = true
 
     const [open, setOpen] = React.useState(true)
 
@@ -37,83 +39,87 @@ export default function Dashboard({ children }: any) {
         setOpen(!open)
     }
 
-    return <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open} drawer_width={DRAWER_WIDTH}>
-            <Toolbar
-                sx={{
-                    pr: '24px', // keep right padding when drawer closed
-                }}
-            >
-                <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={toggleDrawer}
+    return (
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar position="absolute" open={open} drawer_width={DRAWER_WIDTH}>
+                <Toolbar
                     sx={{
-                        marginRight: '36px',
-                        ...(open && { display: 'none' }),
+                        pr: '24px', // keep right padding when drawer closed
                     }}
                 >
-                    <MenuIcon />
-                </IconButton>
-                <Typography
-                    component="h1"
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    sx={{ flexGrow: 1, cursor: 'pointer' }}
-                    onClick={() => router.push('/')}
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={toggleDrawer}
+                        sx={{
+                            marginRight: '36px',
+                            ...(open && { display: 'none' }),
+                        }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography
+                        component="h1"
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        sx={{ flexGrow: 1, cursor: 'pointer' }}
+                        onClick={() => router.push('/')}
+                    >
+                        Firebase Cloud Messaging Service
+                    </Typography>
+                    <IconButton color="inherit">
+                        <Badge badgeContent={4} color="secondary">
+                            <NotificationsIcon />
+                        </Badge>
+                    </IconButton>
+                </Toolbar>
+                {isLoading &&
+                    <LinearProgress sx={{ position: 'absolute', bottom: 0, left: 0, width: '100%' }} color="primary" />}
+            </AppBar>
+            <Drawer variant="permanent" open={open} drawer_width={DRAWER_WIDTH}>
+                <Toolbar
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        px: [1],
+                    }}
                 >
-                    Firebase Cloud Messaging Service
-                </Typography>
-                <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-            </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open} drawer_width={DRAWER_WIDTH}>
-            <Toolbar
+                    <IconButton onClick={toggleDrawer}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </Toolbar>
+                <Divider />
+                <List component="nav">
+                    <MainListItems />
+                    <Divider sx={{ my: 1 }} />
+                    <SecondaryListItems />
+                </List>
+            </Drawer>
+            <Box
+                component="main"
                 sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    px: [1],
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light'
+                            ? theme.palette.grey[100]
+                            : theme.palette.grey[900],
+                    flexGrow: 1,
+                    height: '100vh',
+                    overflow: 'auto',
                 }}
             >
-                <IconButton onClick={toggleDrawer}>
-                    <ChevronLeftIcon />
-                </IconButton>
-            </Toolbar>
-            <Divider />
-            <List component="nav">
-                <MainListItems />
-                <Divider sx={{ my: 1 }} />
-                <SecondaryListItems />
-            </List>
-        </Drawer>
-        <Box
-            component="main"
-            sx={{
-                backgroundColor: (theme) =>
-                    theme.palette.mode === 'light'
-                        ? theme.palette.grey[100]
-                        : theme.palette.grey[900],
-                flexGrow: 1,
-                height: '100vh',
-                overflow: 'auto',
-            }}
-        >
 
-            <Toolbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                {children}
-                <Copyright sx={{ pt: 4 }} />
-            </Container>
+                <Toolbar />
+                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    {children}
+                    <Copyright sx={{ pt: 4 }} />
+                </Container>
+            </Box>
         </Box>
-    </Box>
+    )
 }
 
 
