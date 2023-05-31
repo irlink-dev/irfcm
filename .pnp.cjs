@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase-admin", "npm:11.5.0"],\
             ["flowbite", "npm:1.6.5"],\
             ["next", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:13.2.4"],\
+            ["notistack", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:3.0.1"],\
             ["postcss", "npm:8.4.23"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:18.2.0"],\
@@ -3703,6 +3704,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["goober", [\
+        ["npm:2.1.13", {\
+          "packageLocation": "./.yarn/cache/goober-npm-2.1.13-7afde46601-0c00b90d26.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "npm:2.1.13"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:0867d6bfbcce423a89ed025679dcfc75d97ffd08c37fd6fc53803d22e84c11b8404cb5703dab6a30aa6c300176f0740ead3a68504c2cb067964cce9f0d97554c#npm:2.1.13", {\
+          "packageLocation": "./.yarn/__virtual__/goober-virtual-780c69edfb/0/cache/goober-npm-2.1.13-7afde46601-0c00b90d26.zip/node_modules/goober/",\
+          "packageDependencies": [\
+            ["goober", "virtual:0867d6bfbcce423a89ed025679dcfc75d97ffd08c37fd6fc53803d22e84c11b8404cb5703dab6a30aa6c300176f0740ead3a68504c2cb067964cce9f0d97554c#npm:2.1.13"],\
+            ["@types/csstype", null],\
+            ["csstype", null]\
+          ],\
+          "packagePeers": [\
+            "@types/csstype",\
+            "csstype"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["google-auth-library", [\
         ["npm:8.7.0", {\
           "packageLocation": "./.yarn/cache/google-auth-library-npm-8.7.0-5b2f8eb41a-978d1c5f76.zip/node_modules/google-auth-library/",\
@@ -3977,6 +4000,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase-admin", "npm:11.5.0"],\
             ["flowbite", "npm:1.6.5"],\
             ["next", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:13.2.4"],\
+            ["notistack", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:3.0.1"],\
             ["postcss", "npm:8.4.23"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:18.2.0"],\
@@ -4913,6 +4937,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/normalize-range-npm-0.1.2-bec5e259e2-9b2f14f093.zip/node_modules/normalize-range/",\
           "packageDependencies": [\
             ["normalize-range", "npm:0.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["notistack", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/notistack-npm-3.0.1-2b0e3bf24a-421c970308.zip/node_modules/notistack/",\
+          "packageDependencies": [\
+            ["notistack", "npm:3.0.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:3.0.1", {\
+          "packageLocation": "./.yarn/__virtual__/notistack-virtual-0867d6bfbc/0/cache/notistack-npm-3.0.1-2b0e3bf24a-421c970308.zip/node_modules/notistack/",\
+          "packageDependencies": [\
+            ["notistack", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:3.0.1"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", null],\
+            ["clsx", "npm:1.2.1"],\
+            ["goober", "virtual:0867d6bfbcce423a89ed025679dcfc75d97ffd08c37fd6fc53803d22e84c11b8404cb5703dab6a30aa6c300176f0740ead3a68504c2cb067964cce9f0d97554c#npm:2.1.13"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
