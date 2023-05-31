@@ -11,13 +11,13 @@ const sendFcmUseCase = new SendFcmUseCase()
 /**
  * 파이어베이스 초기화.
  */
-const initFirebaseApp = (firebaseConfig: FirebaseConfig) => {
+const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
     LogUtil.d(TAG, `initFirebaseApp. projectId: ${firebaseConfig.projectId}`)
 
     if (firebase.apps.length === 0) {
-        firebase.initializeApp(firebaseConfig)                                         // 앱이 존재하지 않으면, 앱을 초기화.
+        await firebase.initializeApp(firebaseConfig)                                         // 앱이 존재하지 않으면, 앱을 초기화.
     } else {
-        firebase.app().delete().then(() => firebase.initializeApp(firebaseConfig))     // 앱이 존재하면, 삭제하고 다시 초기화.
+        await firebase.app().delete().then(() => firebase.initializeApp(firebaseConfig))     // 앱이 존재하면, 삭제하고 다시 초기화.
     }
     return firebase
 }
@@ -138,6 +138,26 @@ const getPhoneNumberList = async (bucket: firebase.storage.Reference) => {
     return prefixes.map(({ name }) => name)
 }
 
+/**
+ * 스토리지 파일 링크 가져오기.
+ */
+const getStorageFileUrls = async (
+    phoneNumber: string,
+    date: string,
+    storageRef: firebase.storage.Reference
+) => {
+    const phoneNumberWithHyphen = formatUtil.formatPhoneNumberWithHyphen(phoneNumber)
+    const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
+    const listRef = storageRef.child(directoryPath)
+    const response = await listRef.listAll()
+
+    console.log(directoryPath)
+
+    return await Promise.all(
+        response.items.map(async (item) => await item.getDownloadURL())
+    )
+}
+
 
 export {
     initFirebaseApp,
@@ -147,5 +167,6 @@ export {
     getAllTokens,
     sendFcmToAllTokens,
     getLogsInFolder,
-    getPhoneNumberList
+    getPhoneNumberList,
+    getStorageFileUrls
 }

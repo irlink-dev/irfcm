@@ -1,6 +1,3 @@
-import IrResponse from '@/util/IrResponse'
-import LogUtil from '@/util/LogUtil'
-
 /**
  * 요청 타입.
  */
@@ -83,7 +80,7 @@ const requestType = () => {
     }
 }
 
-interface Request {
+export interface Request {
 
     /**
      * 고객사별 파이어베이스 인증 키.
@@ -122,7 +119,7 @@ interface Request {
 const requestFcm = async (request: Request) => {
     const FCM_REQUEST_URL = 'https://fcm.googleapis.com/fcm/send'
 
-    const response = await fetch(FCM_REQUEST_URL, {
+    return await fetch(FCM_REQUEST_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
