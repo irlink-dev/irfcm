@@ -1,4 +1,7 @@
+'use client'
+
 import Dashboard from '@/component/dashboard/Dashboard'
+import { SnackbarProvider } from 'notistack'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -7,7 +10,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <title>IRFCM :: IRLINK Firebase Cloud Messaging Service</title>
             <link rel="icon" href="/icons/postman.svg" />
 
-            {/* tailwind cdn 사용 시 material ui 와 충돌. */}
+            {/* tailwind 사용 시 material ui 와 충돌. */}
             {/* <script src="https://cdn.tailwindcss.com" /> */}
 
             {/* flowbite datepicker plugin */}
@@ -15,9 +18,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         </head>
 
         <body>
-        <Dashboard>
-            {children}
-        </Dashboard>
+        <SnackbarProvider maxSnack={3}>
+            <Dashboard>{children}</Dashboard>
+        </SnackbarProvider>
         </body>
         </html>
     )

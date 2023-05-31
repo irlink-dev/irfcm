@@ -1,7 +1,6 @@
-import '@/style/tailwind.css'
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
-import FcmRequestForm from '@/component/FcmRequestForm'
+import FcmRequestFormV2 from '@/component/FcmRequestFormV2'
 
 export default function ClientPage({ params }: any) {
 
@@ -27,10 +26,18 @@ export default function ClientPage({ params }: any) {
 
     return (
         <>
-            <h1 className="mb-4">{clientName[clientKey]}</h1>
+            <h4>{clientName[clientKey]}</h4>
 
-            <FcmRequestForm authorizationKey={authorizationKey!}
-                            firebaseConfig={firebaseConfig!} />
+            <FcmRequestFormV2
+                authorizationKey={authorizationKey!}
+                firebaseConfig={firebaseConfig!} />
         </>
     )
 }
+
+
+/**
+ * <FcmRequestForm
+ *     authorizationKey={authorizationKey!}
+ *     firebaseConfig={firebaseConfig!} />
+ */

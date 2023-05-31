@@ -31,7 +31,7 @@ const DRAWER_WIDTH: number = 360
 
 export default function Dashboard({ children }: any) {
     const router = useRouter()
-    const isLoading = true
+    const isLoading = false
 
     const [open, setOpen] = React.useState(true)
 
