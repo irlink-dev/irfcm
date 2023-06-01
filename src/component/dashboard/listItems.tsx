@@ -36,7 +36,9 @@ const ClientListItem = (
         <ListItemButton
             sx={{ pl: 4 }}
             onClick={() => {
-                showProgress()
+                if (pathname !== href) {
+                    showProgress()
+                }
                 router.push(href)
             }}
             selected={pathname === href}>
@@ -107,7 +109,9 @@ export const MainListItems = () => {
                     <ListItemButton
                         sx={{ pl: 4 }}
                         onClick={() => {
-                            showProgress()
+                            if (pathname !== TEST_LOG_URL) {
+                                showProgress()
+                            }
                             router.push(TEST_LOG_URL)
                         }}
                         selected={pathname === TEST_LOG_URL}>

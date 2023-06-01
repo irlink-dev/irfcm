@@ -22,7 +22,9 @@ const DrawerListRow = ({ name, desc, route, image }: DrawerListRowProps) => {
             sx={{ pl: 4 }}
             selected={pathname === route}
             onClick={() => {
-                showProgress()
+                if (pathname !== route) {
+                    showProgress()
+                }
                 router.push(route)
             }}>
             <ListItemAvatar sx={{ mr: 2 }}>

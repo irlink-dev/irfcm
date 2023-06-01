@@ -46,10 +46,6 @@ export default function Dashboard({ children }: any) {
         setOpen(!open)
     }
 
-    const handleMenuClick = () => {
-        showProgress()
-    }
-
     React.useEffect(() => {
         dismissProgress()
     }, [pathname])
@@ -82,7 +78,9 @@ export default function Dashboard({ children }: any) {
                         noWrap
                         sx={{ flexGrow: 1, cursor: 'pointer' }}
                         onClick={() => {
-                            showProgress()
+                            if (pathname !== '/') {
+                                showProgress()
+                            }
                             router.push('/')
                         }}
                     >
