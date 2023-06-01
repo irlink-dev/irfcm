@@ -1,4 +1,9 @@
-import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from 'notistack'
+import {
+    OptionsObject,
+    SnackbarKey,
+    SnackbarMessage,
+    VariantType
+} from 'notistack'
 
 /**
  * Snackbar 위치 옵션.
@@ -12,9 +17,12 @@ const anchorOrigin = {
  * Snackbar 표시.
  */
 const showVariantSnackbar = (
+    enqueueSnackbar: (
+        message: SnackbarMessage,
+        options?: OptionsObject
+    ) => SnackbarKey,
     message: string,
-    variant: VariantType,
-    enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject) => SnackbarKey
+    variant: VariantType
 ) => {
     enqueueSnackbar(message, {
         variant,
@@ -29,29 +37,91 @@ const showVariantSnackbar = (
  * 기본 Snackbar 표시.
  */
 const showDefaultSnackbar = (
-    message: string,
-    enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject) => SnackbarKey
+    enqueueSnackbar: (
+        message: SnackbarMessage,
+        options?: OptionsObject
+    ) => SnackbarKey,
+    message: string
 ) => {
-    enqueueSnackbar(message, {
-        anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'right'
-        }
-    })
+    showVariantSnackbar(
+        enqueueSnackbar,
+        message,
+        'default'
+    )
 }
 
 /**
  * Success Snackbar 표시.
  */
 const showSuccessSnackbar = (
-    message: string,
-    enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject) => SnackbarKey
+    enqueueSnackbar: (
+        message: SnackbarMessage,
+        options?: OptionsObject
+    ) => SnackbarKey,
+    message: string
 ) => {
     showVariantSnackbar(
+        enqueueSnackbar,
         message,
-        'success',
-        enqueueSnackbar
+        'success'
     )
 }
 
-export { showDefaultSnackbar, showSuccessSnackbar }
+/**
+ * Error Snackbar 표시.
+ */
+const showErrorSnackbar = (
+    enqueueSnackbar: (
+        message: SnackbarMessage,
+        options?: OptionsObject
+    ) => SnackbarKey,
+    message: string
+) => {
+    showVariantSnackbar(
+        enqueueSnackbar,
+        message,
+        'error'
+    )
+}
+
+/**
+ * Warning Snackbar 표시.
+ */
+const showWarningSnackbar = (
+    enqueueSnackbar: (
+        message: SnackbarMessage,
+        options?: OptionsObject
+    ) => SnackbarKey,
+    message: string
+) => {
+    showVariantSnackbar(
+        enqueueSnackbar,
+        message,
+        'warning'
+    )
+}
+
+/**
+ * Info Snackbar 표시.
+ */
+const showInfoSnackbar = (
+    enqueueSnackbar: (
+        message: SnackbarMessage,
+        options?: OptionsObject
+    ) => SnackbarKey,
+    message: string
+) => {
+    showVariantSnackbar(
+        enqueueSnackbar,
+        message,
+        'info'
+    )
+}
+
+export {
+    showDefaultSnackbar,
+    showSuccessSnackbar,
+    showErrorSnackbar,
+    showWarningSnackbar,
+    showInfoSnackbar
+}
