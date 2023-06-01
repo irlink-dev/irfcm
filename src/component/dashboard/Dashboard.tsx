@@ -70,11 +70,11 @@ export default function Dashboard({ children }: any) {
                     >
                         Firebase Cloud Messaging Service
                     </Typography>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
+                    {/*<IconButton color="inherit">*/}
+                    {/*    <Badge badgeContent={4} color="secondary">*/}
+                    {/*        <NotificationsIcon />*/}
+                    {/*    </Badge>*/}
+                    {/*</IconButton>*/}
                 </Toolbar>
                 {isLoading &&
                     <LinearProgress sx={{ position: 'absolute', bottom: 0, left: 0, width: '100%' }} color="primary" />}
