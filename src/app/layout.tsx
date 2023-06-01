@@ -2,6 +2,7 @@
 
 import Dashboard from '@/component/dashboard/Dashboard'
 import { SnackbarProvider } from 'notistack'
+import { LoadingProvider } from '@/components/context/LoadingContext'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -18,9 +19,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         </head>
 
         <body>
-        <SnackbarProvider maxSnack={3}>
-            <Dashboard>{children}</Dashboard>
-        </SnackbarProvider>
+        <LoadingProvider>
+            <SnackbarProvider maxSnack={3}>
+                <Dashboard>{children}</Dashboard>
+            </SnackbarProvider>
+        </LoadingProvider>
         </body>
         </html>
     )

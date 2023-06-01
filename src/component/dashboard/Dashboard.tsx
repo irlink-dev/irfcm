@@ -24,20 +24,35 @@ import Orders from './Orders'
 import Copyright from './Copyright'
 import AppBar from './AppBar'
 import Drawer from './Drawer'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { LinearProgress } from '@mui/material'
+import { LoadingContext } from '@/components/context/LoadingContext'
 
 const DRAWER_WIDTH: number = 360
 
 export default function Dashboard({ children }: any) {
     const router = useRouter()
-    const isLoading = false
+    const pathname = usePathname()
 
-    const [open, setOpen] = React.useState(true)
+    const [open, setOpen] = React.useState(true)                    // Drawer 열림 여부.
+
+    const {
+        isLoading,
+        showProgress,
+        dismissProgress
+    } = React.useContext(LoadingContext)
 
     const toggleDrawer = () => {
         setOpen(!open)
     }
+
+    const handleMenuClick = () => {
+        showProgress()
+    }
+
+    React.useEffect(() => {
+        dismissProgress()
+    }, [pathname])
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -66,7 +81,10 @@ export default function Dashboard({ children }: any) {
                         color="inherit"
                         noWrap
                         sx={{ flexGrow: 1, cursor: 'pointer' }}
-                        onClick={() => router.push('/')}
+                        onClick={() => {
+                            showProgress()
+                            router.push('/')
+                        }}
                     >
                         Firebase Cloud Messaging Service
                     </Typography>

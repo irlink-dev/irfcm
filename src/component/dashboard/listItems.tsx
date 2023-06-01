@@ -3,18 +3,15 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import PeopleIcon from '@mui/icons-material/People'
 import ScienceIcon from '@mui/icons-material/Science'
-import BarChartIcon from '@mui/icons-material/BarChart'
-import LayersIcon from '@mui/icons-material/Layers'
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import { usePathname, useRouter } from 'next/navigation'
 import { Avatar, Collapse } from '@mui/material'
-import { ExpandLess, ExpandMore, StarBorder, AccountCircle } from '@mui/icons-material'
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import List from '@mui/material/List'
 import { green, lightBlue, blue } from '@mui/material/colors'
+import { LoadingContext } from '@/components/context/LoadingContext'
 
 const NULL = 'state.open.NULL'
 const CLIENT_LIST = 'state.open.CLIENT_LIST'
@@ -22,12 +19,51 @@ const LAB = 'state.open.LAB'
 
 const TEST_LOG_URL = '/test/log'
 
+interface ListItemProps {
+    href: string
+    text: string
+    alias: string
+    color: any
+}
+
+const ClientListItem = (
+    { href, text, alias, color }: ListItemProps
+) => {
+    const router = useRouter()
+    const pathname = usePathname()
+    const { showProgress } = React.useContext(LoadingContext)
+    return (
+        <ListItemButton
+            sx={{ pl: 4 }}
+            onClick={() => {
+                showProgress()
+                router.push(href)
+            }}
+            selected={pathname === href}>
+            <ListItemIcon><Avatar sx={{
+                width: 24,
+                height: 24,
+                fontSize: '13px',
+                fontWeight: 600,
+                bgcolor: color
+            }}>{alias}</Avatar></ListItemIcon>
+            <ListItemText primary={text} />
+        </ListItemButton>
+    )
+}
+
 export const MainListItems = () => {
+
     const router = useRouter()
     const pathname = usePathname()
 
     const [selectedItem, setSelectedItem] = React.useState(NULL)
 
+    const { showProgress } = React.useContext(LoadingContext)
+
+    /**
+     * 메뉴 드롭다운 클릭 시.
+     */
     const handleClick = (item: string) => {
         if (selectedItem === item) {
             setSelectedItem(NULL)
@@ -38,9 +74,10 @@ export const MainListItems = () => {
 
     return (
         <React.Fragment>
+
+            {/* 고객사 리스트 */}
             <ListItemButton onClick={() => handleClick(CLIENT_LIST)}>
                 <ListItemIcon>
-                    {/* <AccountCircle /> */}
                     <PeopleIcon />
                 </ListItemIcon>
                 <ListItemText primary="고객사 리스트" />
@@ -48,99 +85,16 @@ export const MainListItems = () => {
             </ListItemButton>
             <Collapse in={selectedItem === CLIENT_LIST} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    <ListItemButton
-                        sx={{ pl: 4 }}
-                        onClick={() => router.push('/lina')}
-                        selected={pathname === '/lina'}>
-                        <ListItemIcon>
-                            <Avatar sx={{
-                                width: 24,
-                                height: 24,
-                                fontSize: '13px',
-                                fontWeight: 600,
-                                bgcolor: blue[500]
-                            }}>LN</Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary="라이나 생명" />
-                    </ListItemButton>
-                    <ListItemButton
-                        sx={{ pl: 4 }}
-                        onClick={() => router.push('/chubb')}
-                        selected={pathname === '/chubb'}>
-                        <ListItemIcon>
-                            <Avatar sx={{
-                                width: 24,
-                                height: 24,
-                                fontSize: '13px',
-                                fontWeight: 600,
-                                bgcolor: '#666666'
-                            }}>CH</Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary="처브 CDM" />
-                    </ListItemButton>
-                    <ListItemButton
-                        sx={{ pl: 4 }}
-                        onClick={() => router.push('/hana')}
-                        selected={pathname === '/hana'}>
-                        <ListItemIcon>
-                            <Avatar sx={{
-                                width: 24,
-                                height: 24,
-                                fontSize: '13px',
-                                fontWeight: 600,
-                                bgcolor: '#2F9C90'
-                            }}>HN</Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary="하나손해보험" />
-                    </ListItemButton>
-                    <ListItemButton
-                        sx={{ pl: 4 }}
-                        onClick={() => router.push('/shinhan')}
-                        selected={pathname === '/shinhan'}>
-                        <ListItemIcon>
-                            <Avatar
-                                sx={{
-                                    width: 24,
-                                    height: 24,
-                                    fontSize: '13px',
-                                    fontWeight: 600,
-                                    bgcolor: lightBlue[500]
-                                }}>SH</Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary="신한카드" />
-                    </ListItemButton>
-                    <ListItemButton
-                        sx={{ pl: 4 }}
-                        onClick={() => router.push('/dblife')}
-                        selected={pathname === '/dblife'}>
-                        <ListItemIcon>
-                            <Avatar sx={{
-                                width: 24,
-                                height: 24,
-                                fontSize: '13px',
-                                fontWeight: 600,
-                                bgcolor: green[500]
-                            }}>DB</Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary="DB 생명" />
-                    </ListItemButton>
-                    <ListItemButton
-                        sx={{ pl: 4 }}
-                        onClick={() => router.push('/kb')}
-                        selected={pathname === '/kb'}>
-                        <ListItemIcon>
-                            <Avatar sx={{
-                                width: 24,
-                                height: 24,
-                                fontSize: '13px',
-                                fontWeight: 600,
-                                bgcolor: '#F0C861'
-                            }}>KB</Avatar>
-                        </ListItemIcon>
-                        <ListItemText primary="KB 손해보험" />
-                    </ListItemButton>
+                    <ClientListItem href="/lina" text="라이나 생명" alias="LN" color={blue[500]} />
+                    <ClientListItem href="/chubb" text="처브 CDM" alias="CH" color="#666666" />
+                    <ClientListItem href="/hana" text="하나손해보험" alias="HN" color="#2F9C90" />
+                    <ClientListItem href="/shinhan" text="신한카드" alias="SH" color={lightBlue[500]} />
+                    <ClientListItem href="/dblife" text="DB 생명" alias="DB" color={green[500]} />
+                    <ClientListItem href="/kb" text="KB 손해보험" alias="KB" color="#F0C861" />
                 </List>
             </Collapse>
+
+            {/* 실험실 */}
             <ListItemButton onClick={() => handleClick(LAB)}>
                 <ListItemIcon>
                     <ScienceIcon />
@@ -152,7 +106,10 @@ export const MainListItems = () => {
                 <List component="div" disablePadding>
                     <ListItemButton
                         sx={{ pl: 4 }}
-                        onClick={() => router.push(TEST_LOG_URL)}
+                        onClick={() => {
+                            showProgress()
+                            router.push(TEST_LOG_URL)
+                        }}
                         selected={pathname === TEST_LOG_URL}>
                         <ListItemIcon>
                             <AssignmentIcon />
