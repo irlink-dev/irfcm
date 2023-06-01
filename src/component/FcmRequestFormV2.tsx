@@ -24,14 +24,12 @@ import FormatUtil from '@/util/FormatUtil'
 import { Request, requestFcm, requestType } from '@/hooks/fcm'
 import { createFileData, FileData } from '@/hooks/data'
 import { getFirebaseToken, getStorageFileUrls, initFirebaseApp } from '@/hooks/firebase'
-import { showDefaultSnackbar, showSuccessSnackbar } from '@/hooks/snackbar'
+import { showErrorSnackbar, showSuccessSnackbar } from '@/hooks/snackbar'
 import { useSnackbar } from 'notistack'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-
-const { UPLOAD_LOGS, UPLOAD_FILE_LIST } = requestType()
 
 interface FcmRequestFormProps {
 
@@ -47,13 +45,55 @@ interface FcmRequestFormProps {
 
 }
 
-const FcmRequestFormV2 = ({ authorizationKey, firebaseConfig }: FcmRequestFormProps) => {
+interface Values {
 
-    const [values, setValues] = React.useState({
-        phoneNumber: '',
-        date: '',
-        type: UPLOAD_LOGS,
-        isIncludeRecord: false
+    /**
+     * 법인폰 번호.
+     */
+    phoneNumber: string
+
+    /**
+     * 날짜.
+     */
+    date: string
+
+    /**
+     * 요청 타입.
+     */
+    type: number
+
+    /**
+     * 녹취 포함 여부.
+     */
+    isIncludeRecord: boolean
+
+}
+
+const FcmRequestFormV2 = (
+    { authorizationKey, firebaseConfig }: FcmRequestFormProps
+) => {
+
+    const LOCAL_STORAGE_KEY = `irfcm:values:${firebaseConfig?.projectId}`
+
+    const { UPLOAD_LOGS, UPLOAD_FILE_LIST } = requestType()
+
+    const saveValuesToLocalStorage = (values: Values) => {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values))
+    }
+
+    const getValuesFromLocalStorage = () => {
+        const storedValues = localStorage.getItem(LOCAL_STORAGE_KEY)
+        return storedValues ? JSON.parse(storedValues) : null
+    }
+
+    const [values, setValues] = React.useState<Values>(() => {
+        const savedValues = getValuesFromLocalStorage()
+        return savedValues ? savedValues : {
+            phoneNumber: '',
+            date: '',
+            type: UPLOAD_LOGS,
+            isIncludeRecord: false
+        }
     })
 
     const {
@@ -75,6 +115,10 @@ const FcmRequestFormV2 = ({ authorizationKey, firebaseConfig }: FcmRequestFormPr
     React.useEffect(() => {
         init().then(ref => setStorageRef(ref))
     }, [])
+
+    React.useEffect(() => {
+        saveValuesToLocalStorage(values)
+    }, [values])
 
     const { enqueueSnackbar } = useSnackbar()
 
@@ -124,16 +168,15 @@ const FcmRequestFormV2 = ({ authorizationKey, firebaseConfig }: FcmRequestFormPr
         console.log(response)
 
         if (response.success === 1) {
-            showSuccessSnackbar('FCM 전송 성공', enqueueSnackbar)
+            showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
             setTimeout(() => {
                 getStorageFiles().then(() => {
                     /* empty */
                 })
             }, 3000)
-
         }
         if (response.failure === 1) {
-            enqueueSnackbar('FCM 전송 실패', { variant: 'error' })
+            showErrorSnackbar(enqueueSnackbar, 'FCM 전송 실패')
         }
     }
 
