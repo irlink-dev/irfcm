@@ -73,16 +73,17 @@ const FcmRequestFormV2 = (
     { authorizationKey, firebaseConfig }: FcmRequestFormProps
 ) => {
 
-    const LOCAL_STORAGE_KEY = `irfcm:values:${firebaseConfig?.projectId}`
+    const LOCAL_STORAGE_VALUES_KEY = `irfcm:values:${firebaseConfig?.projectId}`
+    const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebaseConfig?.projectId}`
 
     const { UPLOAD_LOGS, UPLOAD_FILE_LIST } = requestType()
 
     const saveValuesToLocalStorage = (values: Values) => {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values))
+        localStorage.setItem(LOCAL_STORAGE_VALUES_KEY, JSON.stringify(values))
     }
 
     const getValuesFromLocalStorage = () => {
-        const storedValues = localStorage.getItem(LOCAL_STORAGE_KEY)
+        const storedValues = localStorage.getItem(LOCAL_STORAGE_VALUES_KEY)
         return storedValues ? JSON.parse(storedValues) : null
     }
 
@@ -103,8 +104,20 @@ const FcmRequestFormV2 = (
         isIncludeRecord
     } = values
 
+    const saveFileDataToLocalStorage = (fileData: Array<FileData>) => {
+        localStorage.setItem(LOCAL_STORAGE_FILE_DATA_KEY, JSON.stringify(fileData))
+    }
+
+    const getFileDataFromLocalStorage = () => {
+        const storedFileData = localStorage.getItem(LOCAL_STORAGE_FILE_DATA_KEY)
+        return storedFileData ? JSON.parse(storedFileData) : null
+    }
+
     const [storageRef, setStorageRef] = React.useState<firebase.storage.Reference>()
-    const [storageFileData, setStorageFileData] = React.useState<Array<FileData>>([])
+    const [storageFileData, setStorageFileData] = React.useState<Array<FileData>>(() => {
+        const savedFileData = getFileDataFromLocalStorage()
+        return savedFileData ? savedFileData : []
+    })
 
     const init = async () => {
         const firebase = await initFirebaseApp(firebaseConfig)
@@ -119,6 +132,10 @@ const FcmRequestFormV2 = (
     React.useEffect(() => {
         saveValuesToLocalStorage(values)
     }, [values])
+
+    React.useEffect(() => {
+        saveFileDataToLocalStorage(storageFileData)
+    }, [storageFileData])
 
     const { enqueueSnackbar } = useSnackbar()
 
@@ -229,6 +246,12 @@ const FcmRequestFormV2 = (
                         FCM 요청
                     </Button>
                 </Paper>
+                <Button
+                    onClick={() => console.log(values)}
+                    sx={{ mt: 2 }}
+                >
+                    Show req values
+                </Button>
             </Grid>
             <Grid item xs={12} lg={6}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -268,10 +291,6 @@ const FcmRequestFormV2 = (
                         </Typography>
                     )}
                 </Paper>
-            </Grid>
-
-            <Grid item>
-                <Button onClick={() => console.log(values)}>Show req values</Button>
             </Grid>
         </Grid>
     )
