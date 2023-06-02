@@ -7,12 +7,17 @@
     "export": "next export"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@firebase/app": "^0.9.7",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.2",
     "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
     "firebase-admin": "^11.5.0",
     "flowbite": "^1.6.5",
     "next": "^13.2.4",
+    "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9"
@@ -22,6 +27,9 @@
     "@types/next": "^9.0.0",
     "@types/node": "^18.15.11",
     "@types/react": "18.0.28",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
     "typescript": "5.0.2"
   }
 }

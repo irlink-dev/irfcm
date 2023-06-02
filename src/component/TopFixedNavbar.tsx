@@ -45,8 +45,8 @@ export default function TopFixedNavbar() {
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
                 <button className="flex items-center" onClick={() => router.push('/')}>
-                    <img src="https://cdn.imweb.me/thumbnail/20200406/37563d3a84b79.png" className="h-10"
-                         alt="Flowbite Logo" />
+                    <img src="https://cdn.imweb.me/thumbnail/20200406/37563d3a84b79.png" className="h-16"
+                         alt="Home" />
                 </button>
                 <div className="hidden flex items-center md:order-2">
                     <a href="#"
