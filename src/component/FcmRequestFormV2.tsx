@@ -30,6 +30,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
+import { FirebaseConfig } from '@/types'
 
 interface FcmRequestFormProps {
 

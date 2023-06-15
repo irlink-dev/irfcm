@@ -3,6 +3,7 @@ import { get, getDatabase, ref } from 'firebase/database'
 import LogUtil from '@/util/LogUtil'
 import FormatUtil from '@/util/FormatUtil'
 import SendFcmUseCase from '@/domain/SendFcmUseCase'
+import { FirebaseConfig } from '@/types'
 
 const TAG = '@/hooks/firebase'
 const formatUtil = new FormatUtil()

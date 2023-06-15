@@ -30,3 +30,13 @@ const HomePage = () => {
 }
 
 export default HomePage
+
+
+/**
+ * TODO LIST
+ *
+ * FCM Request Type 에 따른 분기 처리.
+ * > UPLOAD_LOGS, UPLOAD_FILE_LIST 는 POST 후 자동으로 다운로드 링크 GET.
+ * > FORCE_CONVERT_FILE, ENABLE_BLOCK_WINDOW 등은 POST 만.
+ *
+ */
