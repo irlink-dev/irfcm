@@ -10,6 +10,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <head>
             <title>IRFCM :: IRLINK Firebase Cloud Messaging Service</title>
             <link rel="icon" href="/icons/postman.svg" />
+            <meta charSet="utf-8" />
 
             {/* tailwind 사용 시 material ui 와 충돌. */}
             {/* <script src="https://cdn.tailwindcss.com" /> */}

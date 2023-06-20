@@ -39,7 +39,7 @@ const FcmRequestForm = (
     const LOCAL_STORAGE_VALUES_KEY = `irfcm:values:${firebaseConfig?.projectId}`
     const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebaseConfig?.projectId}`
 
-    const { UPLOAD_LOGS, UPLOAD_FILE_LIST } = requestType()
+    const { UPLOAD_LOGS, UPLOAD_FILE_LIST, UPLOAD_RECORDS } = requestType()
 
     const saveValuesToLocalStorage = (values: RequestValues) => {
         localStorage.setItem(LOCAL_STORAGE_VALUES_KEY, JSON.stringify(values))
@@ -188,6 +188,7 @@ const FcmRequestForm = (
                         >
                             <MenuItem value={UPLOAD_LOGS}>[1] 로그</MenuItem>
                             <MenuItem value={UPLOAD_FILE_LIST}>[2] 파일 리스트</MenuItem>
+                            <MenuItem value={UPLOAD_RECORDS}>[5] 녹취 파일 업로드</MenuItem>
                         </Select>
                     </FormControl>
                     <FormGroup>
@@ -232,7 +233,19 @@ const FcmRequestForm = (
                                         key={storageFile.fileName}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
-                                        <TableCell>{storageFile.fileName}</TableCell>
+                                        <TableCell>
+                                            <Typography
+                                                sx={{
+                                                    width: 300,
+                                                    fontSize: 14,
+                                                    whiteSpace: 'nowrap',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis'
+                                                }}
+                                            >
+                                                {decodeURIComponent(storageFile.fileName)}
+                                            </Typography>
+                                        </TableCell>
                                         <TableCell>
                                             <Link
                                                 href={storageFile.downloadUrl}
