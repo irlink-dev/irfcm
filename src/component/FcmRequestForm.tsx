@@ -30,47 +30,9 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import { FirebaseConfig } from '@/types'
+import { FcmRequestFormProps, RequestValues } from '@/types'
 
-interface FcmRequestFormProps {
-
-    /**
-     * 인증 키.
-     */
-    authorizationKey: string
-
-    /**
-     * 파이어베이스 설정.
-     */
-    firebaseConfig: FirebaseConfig
-
-}
-
-interface Values {
-
-    /**
-     * 법인폰 번호.
-     */
-    phoneNumber: string
-
-    /**
-     * 날짜.
-     */
-    date: string
-
-    /**
-     * 요청 타입.
-     */
-    type: number
-
-    /**
-     * 녹취 포함 여부.
-     */
-    isIncludeRecord: boolean
-
-}
-
-const FcmRequestFormV2 = (
+const FcmRequestForm = (
     { authorizationKey, firebaseConfig }: FcmRequestFormProps
 ) => {
 
@@ -79,7 +41,7 @@ const FcmRequestFormV2 = (
 
     const { UPLOAD_LOGS, UPLOAD_FILE_LIST } = requestType()
 
-    const saveValuesToLocalStorage = (values: Values) => {
+    const saveValuesToLocalStorage = (values: RequestValues) => {
         localStorage.setItem(LOCAL_STORAGE_VALUES_KEY, JSON.stringify(values))
     }
 
@@ -88,7 +50,7 @@ const FcmRequestFormV2 = (
         return storedValues ? JSON.parse(storedValues) : null
     }
 
-    const [values, setValues] = React.useState<Values>(() => {
+    const [values, setValues] = React.useState<RequestValues>(() => {
         const savedValues = getValuesFromLocalStorage()
         return savedValues ? savedValues : {
             phoneNumber: '',
@@ -297,7 +259,7 @@ const FcmRequestFormV2 = (
     )
 }
 
-export default FcmRequestFormV2
+export default FcmRequestForm
 
 
 /**

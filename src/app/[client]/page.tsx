@@ -1,6 +1,6 @@
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
-import FcmRequestFormV2 from '@/component/FcmRequestFormV2'
+import FcmRequestForm from '@/component/FcmRequestForm'
 
 export default function ClientPage({ params }: any) {
 
@@ -28,16 +28,9 @@ export default function ClientPage({ params }: any) {
         <>
             <h4>{clientName[clientKey]}</h4>
 
-            <FcmRequestFormV2
+            <FcmRequestForm
                 authorizationKey={authorizationKey!}
                 firebaseConfig={firebaseConfig!} />
         </>
     )
 }
-
-
-/**
- * <FcmRequestForm
- *     authorizationKey={authorizationKey!}
- *     firebaseConfig={firebaseConfig!} />
- */
