@@ -4,6 +4,7 @@ import IrFirebaseConfig from '@/util/IrFirebaseConfig';
 import { useEffect } from 'react';
 import 'firebase/compat/storage';
 import FirebaseUtil from '@/util/FirebaseUtil';
+import firebase from 'firebase/compat/app';
 
 export default function StorageTestPage() {
 
@@ -12,7 +13,7 @@ export default function StorageTestPage() {
     const firebaseUtil = new FirebaseUtil();
     const irFirebaseConfig = new IrFirebaseConfig();
 
-    let bucket: any = null;
+    let bucket: any = null; // firebase.storage.Reference ?
 
     useEffect(() => {
         const app = firebaseUtil.initFirebaseApp(irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG);

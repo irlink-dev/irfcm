@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import * as React from 'react'
 import FormatUtil from '@/util/FormatUtil'
 import FirebaseUtil from '@/util/FirebaseUtil'
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
@@ -28,10 +28,10 @@ export default function LogTestPage() {
     const irFirebaseConfig = new IrFirebaseConfig()
     const formatUtil = new FormatUtil()
 
-    const [date, setDate] = useState<string>('')
-    const [bucket, setBucket] = useState<any>()
-    const [downloadLinks, setDownloadLinks] = useState<Array<string>>([])
-    const [showUrl, setShowUrl] = useState<boolean>(false)
+    const [date, setDate] = React.useState<string>('')
+    const [bucket, setBucket] = React.useState<any>()
+    const [downloadLinks, setDownloadLinks] = React.useState<Array<string>>([])
+    const [showUrl, setShowUrl] = React.useState<boolean>(false)
 
     function initApp() {
         const app = firebaseUtil.initFirebaseApp(irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG)
@@ -76,7 +76,7 @@ export default function LogTestPage() {
         }
     }
 
-    function handleDateChange(event: any) {
+    function handleDateChange(event: React.ChangeEvent<HTMLInputElement>) {
         setDate(event.target.value)
     }
 

@@ -5,8 +5,15 @@ import useAuthorizationKey from '@/hooks/useAuthorizationKey'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 import useClientName from '@/hooks/useClientName'
 import FirebasePreference from '@/types/FirebasePreference'
+import Pathname from '@/types/Pathname'
 
-const BatchPage = ({ params }: any) => {
+interface BatchPageProps {
+    params: {
+        client: Pathname
+    }
+}
+
+const BatchPage = ({ params }: BatchPageProps) => {
 
     const firebasePref: FirebasePreference = {
         authorizationKey: useAuthorizationKey(params.client)!,
