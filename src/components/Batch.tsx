@@ -18,7 +18,6 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import { RequestValues } from '@/types'
 import { Request, requestFcm, requestType } from '@/hooks/fcm'
 import { getFirebaseToken, getStorageFileUrls, initFirebaseApp } from '@/hooks/firebase'
 import { showErrorSnackbar, showSuccessSnackbar } from '@/hooks/snackbar'
@@ -26,6 +25,7 @@ import { grey } from '@mui/material/colors'
 import FormatUtil from '@/util/FormatUtil'
 import { createFileData } from '@/hooks/data'
 import FirebasePreference from '@/types/FirebasePreference'
+import Input from '@/types/Input'
 
 const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
@@ -89,7 +89,7 @@ const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
         // }
     }
 
-    const [values, setValues] = React.useState<RequestValues>({
+    const [values, setValues] = React.useState<Input>({
         phoneNumber: '',
         date: '',
         type: UPLOAD_LOGS,

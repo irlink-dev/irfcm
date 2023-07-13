@@ -1,3 +1,5 @@
+import Request from '@/types/Request'
+
 /**
  * 요청 타입.
  */
@@ -80,38 +82,6 @@ const requestType = () => {
     }
 }
 
-export interface Request {
-
-    /**
-     * 고객사별 파이어베이스 인증 키.
-     */
-    authorizationKey: string
-
-    /**
-     * 법인폰 파이어베이스 토큰.
-     */
-    token: string
-
-    /**
-     * 로그 날짜.
-     */
-    date: string
-
-    /**
-     * 요청 타입.
-     */
-    type: string
-
-    /**
-     * 녹취 파일 포함 여부.
-     */
-    isIncludeRecord: boolean
-
-    /**
-     * 중요도.
-     */
-    priority: string
-}
 
 /**
  * FCM 요청.

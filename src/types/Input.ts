@@ -1,7 +1,7 @@
 /**
- * FCM 요청 값 양식.
+ * 사용자 입력 값.
  */
-export interface RequestValues {
+export default interface Input {
 
     /**
      * 법인폰 번호.
