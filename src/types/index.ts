@@ -62,6 +62,9 @@ export interface FcmRequestFormProps {
 
 }
 
+/**
+ * FCM 요청 값 양식.
+ */
 export interface RequestValues {
 
     /**
