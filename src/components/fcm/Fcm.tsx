@@ -30,14 +30,13 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import { FcmRequestFormProps, RequestValues } from '@/types'
+import { RequestValues } from '@/types'
+import FirebasePreference from '@/types/FirebasePreference'
 
-const Fcm = (
-    { authorizationKey, firebaseConfig }: FcmRequestFormProps
-) => {
+const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
-    const LOCAL_STORAGE_VALUES_KEY = `irfcm:values:${firebaseConfig?.projectId}`
-    const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebaseConfig?.projectId}`
+    const LOCAL_STORAGE_VALUES_KEY = `irfcm:values:${firebasePref.config?.projectId}`
+    const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebasePref.config?.projectId}`
 
     const { UPLOAD_LOGS, UPLOAD_FILE_LIST, UPLOAD_RECORDS } = requestType()
 
@@ -83,7 +82,7 @@ const Fcm = (
     })
 
     const init = async () => {
-        const firebase = await initFirebaseApp(firebaseConfig)
+        const firebase = await initFirebaseApp(firebasePref.config)
         const storage = firebase.storage()      // import 'firebase/compat/storage'
         return storage.ref()
     }
@@ -137,7 +136,7 @@ const Fcm = (
     const handleSubmit = async () => {
         const token = await getFirebaseToken(values.phoneNumber)
         const request: Request = {
-            authorizationKey: authorizationKey,
+            authorizationKey: firebasePref.authorizationKey,
             token: token,
             date: values.date,
             type: values.type.toString(),

@@ -1,15 +1,20 @@
-import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
-import Fcm from '@/components/Fcm'
+import Fcm from '@/components/fcm/Fcm'
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
+import useAuthorizationKey from '@/hooks/useAuthorizationKey'
 
 export default function ClientPage({ params }: any) {
 
-    const irFirebaseConfig = new IrFirebaseConfig()
     const firebaseManager = new FirebaseManager()
 
     const clientKey = firebaseManager.getClientKeyFromPathname(params.client)
-    const firebaseConfig = irFirebaseConfig.getFirebaseConfig(clientKey)
-    const authorizationKey = firebaseManager.getAuthorizationKey(clientKey)
+    const firebaseConfig = useFirebaseConfig(params.client)
+
+    const firebasePref = {
+        authorizationKey: useAuthorizationKey(params.client),
+        firebaseConfig: useFirebaseConfig(params.client)
+    }
+
 
     type ClientName = {
         [key: string]: string
@@ -27,10 +32,7 @@ export default function ClientPage({ params }: any) {
     return (
         <>
             <h4>{clientName[clientKey]}</h4>
-
-            <Fcm
-                authorizationKey={authorizationKey!}
-                firebaseConfig={firebaseConfig!} />
+            <Fcm firebasePref={firebasePref} />
         </>
     )
 }

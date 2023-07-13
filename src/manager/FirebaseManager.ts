@@ -5,8 +5,6 @@ import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 
 export default class FirebaseManager {
 
-    irFirebaseConfig = new IrFirebaseConfig()
-
     /**
      * 고객사 키.
      */
@@ -34,25 +32,6 @@ export default class FirebaseManager {
             'zilink': this.clientKey.ZILINK
         }
         return clientKey[pathname]
-    }
-
-    /**
-     * 인증 키 반환.
-     */
-    getAuthorizationKey(clientKey: string) {
-        type AuthorizationKey = {
-            [key: string]: string
-        }
-        const authorizationKey: AuthorizationKey = {
-            'CHUBB': process.env.CHUBB_AUTHORIZATION_KEY!,
-            'DB_LIFE': process.env.DBLIFE_AUTHORIZATION_KEY!,
-            'HANA': process.env.HANA_AUTHORIZATION_KEY!,
-            'KB_WIRELESS': process.env.KB_AUTHORIZATION_KEY!,
-            'LINA': process.env.LINA_AUTHORIZATION_KEY!,
-            'SHINHAN_CARD': process.env.SHINHAN_AUTHORIZATION_KEY!,
-            'ZILINK': process.env.ZILINK_AUTHORIZATION_KEY!
-        }
-        return authorizationKey[clientKey]
     }
 
 }

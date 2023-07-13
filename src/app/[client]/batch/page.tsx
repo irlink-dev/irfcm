@@ -1,6 +1,8 @@
 import Batch from '@/components/Batch'
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
+import useAuthorizationKey from '@/hooks/useAuthorizationKey'
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
 const BatchPage = ({ params }: any) => {
 
@@ -8,8 +10,8 @@ const BatchPage = ({ params }: any) => {
     const firebaseManager = new FirebaseManager()
 
     const clientKey = firebaseManager.getClientKeyFromPathname(params.client)
-    const firebaseConfig = irFirebaseConfig.getFirebaseConfig(clientKey)
-    const authorizationKey = firebaseManager.getAuthorizationKey(clientKey)
+    const firebaseConfig = useFirebaseConfig(params.client)
+    const authorizationKey = useAuthorizationKey(params.client)
 
     type ClientName = {
         [key: string]: string
