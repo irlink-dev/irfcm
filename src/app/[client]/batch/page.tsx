@@ -1,5 +1,4 @@
 import Batch from '@/components/Batch'
-import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
 import useAuthorizationKey from '@/hooks/useAuthorizationKey'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
