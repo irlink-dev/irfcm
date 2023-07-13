@@ -30,7 +30,7 @@ import { LoadingContext } from '@/components/context/LoadingContext'
 
 const DRAWER_WIDTH: number = 360
 
-export default function Dashboard({ children }: any) {
+export default function Dashboard({ children }: { children: React.ReactNode }) {
     const router = useRouter()
     const pathname = usePathname()
 

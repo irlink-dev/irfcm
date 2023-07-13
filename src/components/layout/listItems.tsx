@@ -23,7 +23,7 @@ interface ListItemProps {
     href: string
     text: string
     alias: string
-    color: any
+    color: string
 }
 
 const ClientListItem = (
