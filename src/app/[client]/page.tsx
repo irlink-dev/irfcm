@@ -2,20 +2,18 @@ import FirebaseManager from '@/manager/FirebaseManager'
 import Fcm from '@/components/fcm/Fcm'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 import useAuthorizationKey from '@/hooks/useAuthorizationKey'
+import FirebasePreference from '@/types/FirebasePreference'
 
 export default function ClientPage({ params }: any) {
 
     const firebaseManager = new FirebaseManager()
-
     const clientKey = firebaseManager.getClientKeyFromPathname(params.client)
-    const firebaseConfig = useFirebaseConfig(params.client)
 
-    const firebasePref = {
-        authorizationKey: useAuthorizationKey(params.client),
-        firebaseConfig: useFirebaseConfig(params.client)
+    const firebasePref: FirebasePreference = {
+        authorizationKey: useAuthorizationKey(params.client)!,
+        config: useFirebaseConfig(params.client)!
     }
-
-
+    
     type ClientName = {
         [key: string]: string
     }
