@@ -22,7 +22,6 @@ import { requestFcm, requestType } from '@/hooks/fcm'
 import { getFirebaseToken, getStorageFileUrls, initFirebaseApp } from '@/hooks/firebase'
 import { showErrorSnackbar, showSuccessSnackbar } from '@/hooks/snackbar'
 import { grey } from '@mui/material/colors'
-import FormatUtil from '@/util/FormatUtil'
 import { createFileData } from '@/hooks/data'
 import FirebasePreference from '@/types/FirebasePreference'
 import Input from '@/types/Input'
@@ -80,11 +79,10 @@ const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
     const getStorageFiles = async () => {
         // const urls = await getStorageFileUrls(values.phoneNumber, values.date, storageRef!)
-        // const formatUtil = new FormatUtil()
         //
         // setStorageFileData([])
         // for (const url of urls) {
-        //     const fileName = formatUtil.extractFileNameFromUrl(url)
+        //     const fileName = parseUrl(url)?.fileName!
         //     const fileData = createFileData(fileName, '', '', url)
         //     setStorageFileData(prevState => [...prevState, fileData])
         // }

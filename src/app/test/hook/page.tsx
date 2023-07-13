@@ -4,14 +4,13 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import { initFirebaseApp, getFirebaseToken } from '@/hooks/firebase'
 import { requestFcm } from '@/hooks/fcm'
-import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
 const HookTestPage = () => {
 
     React.useEffect(() => {
-        const irFirebaseConfig = new IrFirebaseConfig()
-        initFirebaseApp(irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG)
+        initFirebaseApp(useFirebaseConfig('dblife')!)
     }, [])
 
     const handleClick = async () => {

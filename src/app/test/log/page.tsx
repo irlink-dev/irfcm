@@ -1,9 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import FormatUtil from '@/util/FormatUtil'
 import FirebaseUtil from '@/util/FirebaseUtil'
-import IrFirebaseConfig from '@/util/IrFirebaseConfig'
 import FirebaseManager from '@/manager/FirebaseManager'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
@@ -18,6 +16,8 @@ import TableBody from '@mui/material/TableBody'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
+import useFormat from '@/hooks/useFormat'
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
 export default function LogTestPage() {
 
@@ -25,17 +25,21 @@ export default function LogTestPage() {
 
     const firebaseUtil = new FirebaseUtil()
     const firebaseManager = new FirebaseManager()
-    const irFirebaseConfig = new IrFirebaseConfig()
-    const formatUtil = new FormatUtil()
 
     const [date, setDate] = React.useState<string>('')
     const [bucket, setBucket] = React.useState<any>()
     const [downloadLinks, setDownloadLinks] = React.useState<Array<string>>([])
     const [showUrl, setShowUrl] = React.useState<boolean>(false)
 
+    const {
+        parseUrl
+    } = useFormat()
+
+
+    /* TODO 'use client' 에서 config 가져오면 app deleted 됨. 정석대로 Server Side 에서 props 로 넘겨줘야 함. */
     function initApp() {
-        const app = firebaseUtil.initFirebaseApp(irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG)
-        const bucketName = irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG.storageBucket
+        const app = firebaseUtil.initFirebaseApp(useFirebaseConfig('dblife')!)
+        const bucketName = useFirebaseConfig('dblife')!.storageBucket
         const bucket = app.storage().refFromURL(`gs://${bucketName}`)
         setBucket(bucket)
     }
@@ -132,9 +136,9 @@ export default function LogTestPage() {
                                 key={url}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 
-                                <TableCell>{formatUtil.parseUrl(url)?.fileName!}</TableCell>
-                                <TableCell>{formatUtil.parseUrl(url)?.phoneNumber!}</TableCell>
-                                <TableCell>{formatUtil.parseUrl(url)?.date!}</TableCell>
+                                <TableCell>{parseUrl(url)?.fileName!}</TableCell>
+                                <TableCell>{parseUrl(url)?.phoneNumber!}</TableCell>
+                                <TableCell>{parseUrl(url)?.date!}</TableCell>
                                 <TableCell>
                                     <Link href={url} underline="hover">다운로드</Link>
                                 </TableCell>

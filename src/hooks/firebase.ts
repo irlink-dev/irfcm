@@ -1,12 +1,15 @@
 import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
-import FormatUtil from '@/util/FormatUtil'
 import SendFcmUseCase from '@/domain/SendFcmUseCase'
 import FirebaseConfig from '@/types/FirebaseConfig'
+import useFormat from '@/hooks/useFormat'
 
 const TAG = '@/hooks/firebase'
-const formatUtil = new FormatUtil()
 const sendFcmUseCase = new SendFcmUseCase()
+
+const {
+    toHyphenNumber
+} = useFormat()
 
 /**
  * 파이어베이스 초기화.
@@ -61,7 +64,7 @@ const getLogDownloadLinks = async (
     date: string,
     bucket: firebase.storage.Reference
 ) => {
-    const phoneNumberWithHyphen = formatUtil.formatPhoneNumberWithHyphen(phoneNumber)
+    const phoneNumberWithHyphen = toHyphenNumber(phoneNumber)
     const dateWithoutHyphen = date.replace(/-/g, '')
 
     const filenames = [
@@ -117,7 +120,7 @@ const sendFcmToAllTokens = async (
  * 로그 폴더 내 모든 파일 가져오기.
  */
 const getLogsInFolder = async (phoneNumber: string, date: string) => {
-    const phoneNumberWithHyphen = formatUtil.formatPhoneNumberWithHyphen(phoneNumber)
+    const phoneNumberWithHyphen = toHyphenNumber(phoneNumber)
     const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
     const directoryRef = firebase.storage().ref(directoryPath)
 
@@ -146,7 +149,7 @@ const getStorageFileUrls = async (
     date: string,
     storageRef: firebase.storage.Reference
 ) => {
-    const phoneNumberWithHyphen = formatUtil.formatPhoneNumberWithHyphen(phoneNumber)
+    const phoneNumberWithHyphen = toHyphenNumber(phoneNumber)
     const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
     const listRef = storageRef.child(directoryPath)
     const response = await listRef.listAll()

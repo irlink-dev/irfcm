@@ -10,7 +10,6 @@ import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
 import Link from '@mui/material/Link'
 import RefreshIcon from '@mui/icons-material/Refresh'
-import FormatUtil from '@/util/FormatUtil'
 import { createFileData, FileData } from '@/hooks/data'
 import { getStorageFileUrls, initFirebaseApp } from '@/hooks/firebase'
 import firebase from 'firebase/compat/app'
@@ -22,6 +21,7 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 import RequestForm from '@/components/fcm/RequestForm'
 import Input from '@/types/Input'
 import RequestType from '@/types/RequestType'
+import useFormat from '@/hooks/useFormat'
 
 const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
@@ -32,6 +32,10 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
         getLocalStorageData,
         setLocalStorageData
     } = useLocalStorage()
+
+    const {
+        parseUrl
+    } = useFormat()
 
     const [input, setInput] = React.useState<Input>(() => {
         const savedValues = getLocalStorageData(LOCAL_STORAGE_VALUES_KEY)
@@ -70,11 +74,10 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
     const getStorageFiles = async () => {
         const urls = await getStorageFileUrls(input.phoneNumber, input.date, storageRef!)
-        const formatUtil = new FormatUtil()
 
         setStorageFileData([])
         for (const url of urls) {
-            const fileName = formatUtil.extractFileNameFromUrl(url)
+            const fileName = parseUrl(url)?.fileName!
             const fileData = createFileData(fileName, '', '', url)
             setStorageFileData(prevState => [...prevState, fileData])
         }

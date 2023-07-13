@@ -1,23 +1,22 @@
 'use client';
 
-import IrFirebaseConfig from '@/util/IrFirebaseConfig';
 import { useEffect } from 'react';
 import 'firebase/compat/storage';
 import FirebaseUtil from '@/util/FirebaseUtil';
 import firebase from 'firebase/compat/app';
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
 export default function StorageTestPage() {
 
     const TAG: string = 'StorageTestPage';
 
     const firebaseUtil = new FirebaseUtil();
-    const irFirebaseConfig = new IrFirebaseConfig();
 
     let bucket: any = null; // firebase.storage.Reference ?
 
     useEffect(() => {
-        const app = firebaseUtil.initFirebaseApp(irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG);
-        const bucketName = irFirebaseConfig.DB_LIFE_FIREBASE_CONFIG.storageBucket;
+        const app = firebaseUtil.initFirebaseApp(useFirebaseConfig('dblife')!);
+        const bucketName = useFirebaseConfig('dblife')!.storageBucket;
         bucket = app.storage().refFromURL(`gs://${bucketName}`);
     }, []);
 
