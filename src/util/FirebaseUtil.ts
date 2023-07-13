@@ -3,7 +3,7 @@ import FormatUtil from '@/util/FormatUtil';
 import 'firebase/compat/storage';
 import { get, getDatabase, ref } from 'firebase/database';
 import SendFcmUseCase from '@/domain/SendFcmUseCase';
-import { FirebaseConfig } from '@/types'
+import FirebaseConfig from '@/types/FirebaseConfig'
 
 export default class FirebaseUtil {
 
