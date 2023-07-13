@@ -1,5 +1,4 @@
 import firebase from 'firebase/compat/app';
-import LogUtil from '@/util/LogUtil';
 import FormatUtil from '@/util/FormatUtil';
 import 'firebase/compat/storage';
 import { get, getDatabase, ref } from 'firebase/database';
@@ -17,7 +16,7 @@ export default class FirebaseUtil {
      * 파이어베이스 초기화.
      */
     initFirebaseApp(firebaseConfig: FirebaseConfig) {
-        LogUtil.d(this.TAG, `initFirebaseApp. projectId: ${firebaseConfig.projectId}`);
+        console.log(this.TAG, `initFirebaseApp. projectId: ${firebaseConfig.projectId}`);
 
         if (firebase.apps.length == 0) {
             firebase.initializeApp(firebaseConfig);                                         // 앱이 존재하지 않으면, 앱을 초기화.
@@ -61,12 +60,12 @@ export default class FirebaseUtil {
         ];
         try {
             const urls = await this.getFileDownloadLinks(filenames, bucket);
-            LogUtil.d(this.TAG, `getLogDownloadLinks. length: ${urls.length}`);
+            console.log(this.TAG, `getLogDownloadLinks. length: ${urls.length}`);
             return urls;
 
         } catch (error) {
-            LogUtil.d(this.TAG, `getLogDownloadLinks. return empty array.`);
-            LogUtil.exception(this.TAG, error);
+            console.log(this.TAG, `getLogDownloadLinks. return empty array.`);
+            console.log(this.TAG, error);
             return [];
         }
     }
@@ -113,7 +112,7 @@ export default class FirebaseUtil {
         const urls = await Promise.all(
             items.map(item => item.getDownloadURL())
         );
-        LogUtil.d(this.TAG, `getLogsInFolder. phoneNumber: ${phoneNumber}, urls: ${urls.length}`);
+        console.log(this.TAG, `getLogsInFolder. phoneNumber: ${phoneNumber}, urls: ${urls.length}`);
         return urls;
     }
 

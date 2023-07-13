@@ -1,6 +1,5 @@
 import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
-import LogUtil from '@/util/LogUtil'
 import FormatUtil from '@/util/FormatUtil'
 import SendFcmUseCase from '@/domain/SendFcmUseCase'
 import { FirebaseConfig } from '@/types'
@@ -13,7 +12,7 @@ const sendFcmUseCase = new SendFcmUseCase()
  * 파이어베이스 초기화.
  */
 const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
-    LogUtil.d(TAG, `initFirebaseApp. projectId: ${firebaseConfig.projectId}`)
+    console.log(`initFirebaseApp. projectId: ${firebaseConfig.projectId}`)
 
     if (firebase.apps.length === 0) {
         await firebase.initializeApp(firebaseConfig)                                         // 앱이 존재하지 않으면, 앱을 초기화.
@@ -71,12 +70,12 @@ const getLogDownloadLinks = async (
     ]
     try {
         const urls = await getFileDownloadLinks(filenames, bucket)
-        LogUtil.d(TAG, `getLogDownloadLinks. length: ${urls.length}`)
+        console.log(`getLogDownloadLinks. length: ${urls.length}`)
         return urls
 
     } catch (error) {
-        LogUtil.d(TAG, `getLogDownloadLinks. return empty array.`)
-        LogUtil.exception(TAG, error)
+        console.log(`getLogDownloadLinks. return empty array.`)
+        console.log(TAG, error)
         return []
     }
 }
@@ -126,7 +125,7 @@ const getLogsInFolder = async (phoneNumber: string, date: string) => {
     const urls = await Promise.all(
         items.map(item => item.getDownloadURL())
     )
-    LogUtil.d(TAG, `getLogsInFolder. phoneNumber: ${phoneNumber}, urls: ${urls.length}`)
+    console.log(`getLogsInFolder. phoneNumber: ${phoneNumber}, urls: ${urls.length}`)
     return urls
 }
 

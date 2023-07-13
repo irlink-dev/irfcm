@@ -1,7 +1,6 @@
 'use client';
 
 import IrFirebaseConfig from '@/util/IrFirebaseConfig';
-import LogUtil from '@/util/LogUtil';
 import { useEffect } from 'react';
 import 'firebase/compat/storage';
 import FirebaseUtil from '@/util/FirebaseUtil';
@@ -43,10 +42,10 @@ export default function StorageTestPage() {
         ];
         getFileDownloadLinks(filenames)
             .then(urls => {
-                LogUtil.d(TAG, `getFileDownloadLinks. length: ${urls.length}`);
+                console.log(TAG, `getFileDownloadLinks. length: ${urls.length}`);
             })
             .catch(error => {
-                LogUtil.exception(TAG, error);
+                console.log(TAG, error);
             });
     }
 

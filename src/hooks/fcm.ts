@@ -158,7 +158,7 @@ export { requestType, requestFcm }
  *     }
  * })
  * .catch(error => {
- *     LogUtil.d(this.TAG, `request. error: ${error}`)
+ *     console.log(this.TAG, `request. error: ${error}`)
  *     const response = new Response(
  *         IrResponse.Code.FAIL,
  *         'FCM 요청 중 에러가 발생했습니다. 다시 시도해주세요.'

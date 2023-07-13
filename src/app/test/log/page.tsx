@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import LogUtil from '@/util/LogUtil'
 import FormatUtil from '@/util/FormatUtil'
 import FirebaseUtil from '@/util/FirebaseUtil'
 import IrFirebaseConfig from '@/util/IrFirebaseConfig'
@@ -45,17 +44,17 @@ export default function LogTestPage() {
         const response = await fetch(`/api/AuthorizationKey?clientKey=${firebaseManager.clientKey.DB_LIFE}`)
         const data = await response.json()
         const authorizationKey = data.authorizationKey
-        LogUtil.d(TAG, `fcmRequest. authorizationKey: ${authorizationKey}`)
+        console.log(TAG, `fcmRequest. authorizationKey: ${authorizationKey}`)
         await firebaseUtil.sendFcmToAllTokens(authorizationKey, date)
     }
 
     async function getLogs() {
         if (!bucket) {
-            LogUtil.d(TAG, `getLogs. bucket is undefined. return.`)
+            console.log(TAG, `getLogs. bucket is undefined. return.`)
             return
         }
         const phoneNumberList = await firebaseUtil.getPhoneNumberList(bucket)
-        LogUtil.d(TAG, `getLogs. phoneNumberList: ${phoneNumberList.length}`)
+        console.log(TAG, `getLogs. phoneNumberList: ${phoneNumberList.length}`)
 
         setDownloadLinks([])                                           // 다운로드 링크 목록 비우기.
 
@@ -65,13 +64,13 @@ export default function LogTestPage() {
                     setDownloadLinks(prevState => prevState.concat(urls))
                 })
                 .catch(error => {
-                    LogUtil.exception(TAG, error)
+                    console.log(TAG, error)
                 })
         }
     }
 
     function showUrls() {
-        LogUtil.d(TAG, `showUrls. downloadLinks: ${downloadLinks.length}`)
+        console.log(TAG, `showUrls. downloadLinks: ${downloadLinks.length}`)
         if (downloadLinks.length > 0) {
             setShowUrl(true)
         }
