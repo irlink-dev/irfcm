@@ -1,6 +1,6 @@
 'use client'
 
-import DrawerListRow from '@/component/DrawerListRow'
+import DrawerListRow from '@/components/drawer/DrawerListRow'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 

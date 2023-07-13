@@ -32,7 +32,7 @@ import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import { FcmRequestFormProps, RequestValues } from '@/types'
 
-const FcmRequestForm = (
+const Fcm = (
     { authorizationKey, firebaseConfig }: FcmRequestFormProps
 ) => {
 
@@ -272,7 +272,7 @@ const FcmRequestForm = (
     )
 }
 
-export default FcmRequestForm
+export default Fcm
 
 
 /**

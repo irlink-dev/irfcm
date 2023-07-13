@@ -1,6 +1,6 @@
 'use client'
 
-import Dashboard from '@/component/dashboard/Dashboard'
+import Dashboard from '@/components/dashboard/Dashboard'
 import { SnackbarProvider } from 'notistack'
 import { LoadingProvider } from '@/components/context/LoadingContext'
 
