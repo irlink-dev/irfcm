@@ -32,6 +32,7 @@ import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import { RequestValues } from '@/types'
 import FirebasePreference from '@/types/FirebasePreference'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
@@ -40,17 +41,13 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
     const { UPLOAD_LOGS, UPLOAD_FILE_LIST, UPLOAD_RECORDS } = requestType()
 
-    const saveValuesToLocalStorage = (values: RequestValues) => {
-        localStorage.setItem(LOCAL_STORAGE_VALUES_KEY, JSON.stringify(values))
-    }
-
-    const getValuesFromLocalStorage = () => {
-        const storedValues = localStorage.getItem(LOCAL_STORAGE_VALUES_KEY)
-        return storedValues ? JSON.parse(storedValues) : null
-    }
+    const {
+        getLocalStorageData,
+        setLocalStorageData
+    } = useLocalStorage()
 
     const [values, setValues] = React.useState<RequestValues>(() => {
-        const savedValues = getValuesFromLocalStorage()
+        const savedValues = getLocalStorageData(LOCAL_STORAGE_VALUES_KEY)
         return savedValues ? savedValues : {
             phoneNumber: '',
             date: '',
@@ -66,18 +63,9 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
         isIncludeRecord
     } = values
 
-    const saveFileDataToLocalStorage = (fileData: Array<FileData>) => {
-        localStorage.setItem(LOCAL_STORAGE_FILE_DATA_KEY, JSON.stringify(fileData))
-    }
-
-    const getFileDataFromLocalStorage = () => {
-        const storedFileData = localStorage.getItem(LOCAL_STORAGE_FILE_DATA_KEY)
-        return storedFileData ? JSON.parse(storedFileData) : null
-    }
-
     const [storageRef, setStorageRef] = React.useState<firebase.storage.Reference>()
     const [storageFileData, setStorageFileData] = React.useState<Array<FileData>>(() => {
-        const savedFileData = getFileDataFromLocalStorage()
+        const savedFileData = getLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY)
         return savedFileData ? savedFileData : []
     })
 
@@ -92,11 +80,11 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
     }, [])
 
     React.useEffect(() => {
-        saveValuesToLocalStorage(values)
+        setLocalStorageData(LOCAL_STORAGE_VALUES_KEY, values)
     }, [values])
 
     React.useEffect(() => {
-        saveFileDataToLocalStorage(storageFileData)
+        setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)
     }, [storageFileData])
 
     const { enqueueSnackbar } = useSnackbar()
