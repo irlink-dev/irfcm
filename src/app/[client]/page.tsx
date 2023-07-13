@@ -3,34 +3,21 @@ import Fcm from '@/components/fcm/Fcm'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 import useAuthorizationKey from '@/hooks/useAuthorizationKey'
 import FirebasePreference from '@/types/FirebasePreference'
+import useClientName from '@/hooks/useClientName'
 
-export default function ClientPage({ params }: any) {
-
-    const firebaseManager = new FirebaseManager()
-    const clientKey = firebaseManager.getClientKeyFromPathname(params.client)
+const ClientPage = ({ params }: any) => {
 
     const firebasePref: FirebasePreference = {
         authorizationKey: useAuthorizationKey(params.client)!,
         config: useFirebaseConfig(params.client)!
     }
-    
-    type ClientName = {
-        [key: string]: string
-    }
-    const clientName: ClientName = {
-        CHUBB: '처브 CDM',
-        DB_LIFE: 'DB 생명',
-        HANA: '하나손해보험',
-        KB_WIRELESS: 'KB 손해보험',
-        LINA: '라이나 생명',
-        SHINHAN_CARD: '신한카드',
-        ZILINK: '지링크',
-    }
 
     return (
         <>
-            <h4>{clientName[clientKey]}</h4>
+            <h4>{useClientName(params.client)}</h4>
             <Fcm firebasePref={firebasePref} />
         </>
     )
 }
+
+export default ClientPage
