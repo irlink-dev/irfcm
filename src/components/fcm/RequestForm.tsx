@@ -11,6 +11,7 @@ import { showErrorSnackbar, showSuccessSnackbar } from '@/hooks/snackbar'
 import { useSnackbar } from 'notistack'
 import { SelectChangeEvent } from '@mui/material/Select'
 import {
+  Box,
   Button,
   Checkbox,
   FormControl,
@@ -89,7 +90,16 @@ const RequestForm = ({
     <>
       {/* Request Form */}
       <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Typography>요청 양식</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography>요청 양식</Typography>
+          <Button onClick={() => console.log(input)}>요청값 조회</Button>
+        </Box>
 
         {/* Corporate Phone Number */}
         <TextField
@@ -152,11 +162,6 @@ const RequestForm = ({
           FCM 요청
         </Button>
       </Paper>
-
-      {/* Show User Input */}
-      <Button onClick={() => console.log(input)} sx={{ mt: 2 }}>
-        Show req values
-      </Button>
     </>
   )
 }

@@ -88,6 +88,7 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
   return (
     <Grid container spacing={3}>
+      {/* 요청 양식 */}
       <Grid item xs={12} lg={6}>
         <RequestForm
           input={input}
@@ -97,6 +98,7 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
         />
       </Grid>
 
+      {/* 스토리지 파일 */}
       <Grid item xs={12} lg={6}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box

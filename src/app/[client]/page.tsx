@@ -1,9 +1,9 @@
 import Fcm from '@/components/fcm/Fcm'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 import useAuthorizationKey from '@/hooks/useAuthorizationKey'
-import useClientName from '@/hooks/useClientName'
 import FirebasePreference from '@/types/FirebasePreference'
 import Pathname from '@/types/Pathname'
+import ClientSelect from '@/components/ClientSelect'
 
 interface ClientPageProps {
   params: {
@@ -19,10 +19,24 @@ const ClientPage = ({ params }: ClientPageProps) => {
 
   return (
     <>
-      <h4>{useClientName(params.client)}</h4>
+      <ClientSelect params={params} />
       <Fcm firebasePref={firebasePref} />
     </>
   )
 }
 
 export default ClientPage
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { client: 'lina' } },
+      { params: { client: 'chubb' } },
+      { params: { client: 'hana' } },
+      { params: { client: 'shinhan' } },
+      { params: { client: 'dblife' } },
+      { params: { client: 'kb' } },
+    ],
+    fallback: false,
+  }
+}
