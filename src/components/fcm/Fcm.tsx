@@ -28,7 +28,6 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebasePref.config?.projectId}`
 
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
-
   const { parseUrl } = useFormat()
 
   const [input, setInput] = React.useState<Input>(() => {
@@ -100,7 +99,15 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
       {/* 스토리지 파일 */}
       <Grid item xs={12} lg={6}>
-        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Paper
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            overflow: 'auto',
+          }}
+        >
           <Box
             sx={{
               display: 'flex',
@@ -113,29 +120,28 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
               <RefreshIcon />
             </IconButton>
           </Box>
+
           {storageFileData.length > 0 ? (
             <Table>
               <TableBody>
                 {storageFileData.map((storageFile) => (
                   <TableRow
                     key={storageFile.fileName}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
                   >
                     <TableCell>
-                      <Typography
-                        sx={{
-                          width: 300,
-                          fontSize: 14,
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                        }}
-                      >
+                      <Typography sx={{ fontSize: 14 }}>
                         {decodeURIComponent(storageFile.fileName)}
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Link href={storageFile.downloadUrl} underline="hover">
+                      <Link
+                        href={storageFile.downloadUrl}
+                        underline="hover"
+                        sx={{ wordBreak: 'keep-all' }}
+                      >
                         다운로드
                       </Link>
                     </TableCell>
@@ -155,12 +161,3 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 }
 
 export default Fcm
-
-/**
- * <TableHead>
- *     <TableRow>
- *         <TableCell>File name</TableCell>
- *         <TableCell>Download</TableCell>
- *     </TableRow>
- * </TableHead>
- */

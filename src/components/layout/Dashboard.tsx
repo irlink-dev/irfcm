@@ -28,7 +28,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { LinearProgress } from '@mui/material'
 import { LoadingContext } from '@/components/context/LoadingContext'
 
-const DRAWER_WIDTH: number = 360
+const DRAWER_WIDTH: number = 260
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const router = useRouter()
