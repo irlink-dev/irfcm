@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.28"],\
             ["autoprefixer", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:10.4.14"],\
             ["dotenv", "npm:16.0.3"],\
+            ["encoding", "npm:0.1.13"],\
             ["firebase", "npm:9.19.1"],\
             ["firebase-admin", "npm:11.5.0"],\
             ["flowbite", "npm:1.6.5"],\
@@ -3996,6 +3997,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.28"],\
             ["autoprefixer", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:10.4.14"],\
             ["dotenv", "npm:16.0.3"],\
+            ["encoding", "npm:0.1.13"],\
             ["firebase", "npm:9.19.1"],\
             ["firebase-admin", "npm:11.5.0"],\
             ["flowbite", "npm:1.6.5"],\
