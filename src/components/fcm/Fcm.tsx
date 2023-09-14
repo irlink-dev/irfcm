@@ -23,7 +23,11 @@ import Input from '@/types/Input'
 import RequestType from '@/types/RequestType'
 import useFormat from '@/hooks/useFormat'
 
-const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
+const FcmContainer = ({
+  firebasePref,
+}: {
+  firebasePref: FirebasePreference
+}) => {
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`
   const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebasePref.config?.projectId}`
 
@@ -90,10 +94,8 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
       {/* 요청 양식 */}
       <Grid item xs={12} lg={6}>
         <RequestForm
-          input={input}
-          setInput={setInput}
-          getStorageFiles={getStorageFiles}
           firebasePref={firebasePref}
+          getStorageFiles={getStorageFiles}
         />
       </Grid>
 
@@ -160,4 +162,4 @@ const Fcm = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   )
 }
 
-export default Fcm
+export default FcmContainer

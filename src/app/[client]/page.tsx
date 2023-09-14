@@ -4,6 +4,7 @@ import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 import useAuthorizationKey from '@/hooks/useAuthorizationKey'
 import FirebasePreference from '@/types/FirebasePreference'
 import Pathname from '@/types/Pathname'
+import RequestForm from '@/components/fcm/RequestForm'
 
 interface ClientPageProps {
   params: {
