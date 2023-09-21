@@ -33,6 +33,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@firebase/app", "npm:0.9.7"],\
             ["@mui/icons-material", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:5.11.16"],\
             ["@mui/material", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:5.13.2"],\
+            ["@next/eslint-plugin-next", "npm:13.5.2"],\
             ["@types/next", "npm:9.0.0"],\
             ["@types/node", "npm:18.15.11"],\
             ["@types/react", "npm:18.0.28"],\
@@ -1948,6 +1949,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@next-env-npm-13.3.0-e71408894d-17dbea6d01.zip/node_modules/@next/env/",\
           "packageDependencies": [\
             ["@next/env", "npm:13.3.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@next/eslint-plugin-next", [\
+        ["npm:13.5.2", {\
+          "packageLocation": "./.yarn/cache/@next-eslint-plugin-next-npm-13.5.2-cfef85ee53-5ce46cbbc5.zip/node_modules/@next/eslint-plugin-next/",\
+          "packageDependencies": [\
+            ["@next/eslint-plugin-next", "npm:13.5.2"],\
+            ["glob", "npm:7.1.7"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3960,6 +3971,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
+        ["npm:7.1.7", {\
+          "packageLocation": "./.yarn/cache/glob-npm-7.1.7-5698ad9c48-b61f48973b.zip/node_modules/glob/",\
+          "packageDependencies": [\
+            ["glob", "npm:7.1.7"],\
+            ["fs.realpath", "npm:1.0.0"],\
+            ["inflight", "npm:1.0.6"],\
+            ["inherits", "npm:2.0.4"],\
+            ["minimatch", "npm:3.1.2"],\
+            ["once", "npm:1.4.0"],\
+            ["path-is-absolute", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:7.2.3", {\
           "packageLocation": "./.yarn/cache/glob-npm-7.2.3-2d866d17a5-29452e97b3.zip/node_modules/glob/",\
           "packageDependencies": [\
@@ -4319,6 +4343,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@firebase/app", "npm:0.9.7"],\
             ["@mui/icons-material", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:5.11.16"],\
             ["@mui/material", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:5.13.2"],\
+            ["@next/eslint-plugin-next", "npm:13.5.2"],\
             ["@types/next", "npm:9.0.0"],\
             ["@types/node", "npm:18.15.11"],\
             ["@types/react", "npm:18.0.28"],\

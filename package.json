@@ -24,6 +24,7 @@
   },
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.5.2",
     "@types/next": "^9.0.0",
     "@types/node": "^18.15.11",
     "@types/react": "18.0.28",
