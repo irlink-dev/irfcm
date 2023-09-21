@@ -15,7 +15,6 @@
     "dotenv": "^16.0.3",
     "firebase": "^9.19.1",
     "firebase-admin": "^11.5.0",
-    "flowbite": "^1.6.5",
     "next": "^13.2.4",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
@@ -24,13 +23,12 @@
   },
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.5.2",
     "@types/next": "^9.0.0",
     "@types/node": "^18.15.11",
     "@types/react": "18.0.28",
-    "autoprefixer": "^10.4.14",
     "encoding": "^0.1.13",
-    "postcss": "^8.4.23",
-    "tailwindcss": "^3.3.2",
+    "eslint": "^8.49.0",
     "typescript": "5.0.2"
   }
 }

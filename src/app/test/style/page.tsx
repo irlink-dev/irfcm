@@ -6,21 +6,22 @@ import { styled } from '@mui/material/styles'
 // import '@/style/tailwind.css'
 
 const Button = styled(MuiButton, {
-    shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme }) => ({
-    zIndex: theme.zIndex.drawer + 1,
+  zIndex: theme.zIndex.drawer + 1,
 }))
 
 const StyleTestPage = () => {
-    return <Paper sx={{ p: 2 }}>
-        <Button variant="contained">TEST</Button>
-        <br />
-        <button className="bg-[#1da1f2]">Tests</button>
+  return (
+    <Paper sx={{ p: 2 }}>
+      <Button variant="contained">TEST</Button>
+      <br />
+      <button className="bg-[#1da1f2]">Tests</button>
     </Paper>
+  )
 }
 
 export default StyleTestPage
-
 
 /**
  * const AppBar = styled(MuiAppBar, {

@@ -18,15 +18,15 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import { requestFcm, requestType } from '@/hooks/fcm'
+import { requestFcm, requestType } from '@/utils/fcm'
 import {
   getFirebaseToken,
   getStorageFileUrls,
   initFirebaseApp,
-} from '@/hooks/firebase'
-import { showErrorSnackbar, showSuccessSnackbar } from '@/hooks/snackbar'
+} from '@/utils/firebase'
+import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { grey } from '@mui/material/colors'
-import { createFileData } from '@/hooks/data'
+import { createFileData } from '@/utils/data'
 import FirebasePreference from '@/types/FirebasePreference'
 import Input from '@/types/Input'
 import Request from '@/types/Request'
@@ -110,7 +110,7 @@ const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
     React.useState<firebase.storage.Reference>()
 
   const init = async () => {
-    const firebase = await initFirebaseApp(firebasePref.config)
+    // const firebase = await initFirebaseApp(firebasePref.config)
     const storage = firebase.storage() // import 'firebase/compat/storage'
     return storage.ref()
   }
