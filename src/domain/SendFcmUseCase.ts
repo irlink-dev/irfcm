@@ -1,5 +1,5 @@
 import UseCase from '@/domain/UseCase'
-import IrResponse from '@/util/IrResponse'
+import IrResponse from '@/utils/IrResponse'
 
 export default class SendFcmUseCase extends UseCase<Request, Response> {
   TAG: string = 'SendFcmUseCase'

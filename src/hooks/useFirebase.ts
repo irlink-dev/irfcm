@@ -3,8 +3,11 @@ import { useState } from 'react'
 import firebase from 'firebase/compat/app'
 import FirebasePreference from '@/types/FirebasePreference'
 import FirebaseConfig from '@/types/FirebaseConfig'
+import LogUtil from '@/utils/log'
 
 const useFirebase = (firebasePref: FirebasePreference) => {
+  const TAG = 'useFirebase'
+
   /**
    * 파이어베이스 스토리지.
    */
@@ -13,8 +16,8 @@ const useFirebase = (firebasePref: FirebasePreference) => {
   /**
    * 파이어베이스 초기화.
    */
-  const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
-    console.log(`initFirebaseApp. projectId: ${firebaseConfig.projectId}`)
+  const initApp = async (firebaseConfig: FirebaseConfig) => {
+    LogUtil.log(TAG, `initApp. projectId: ${firebaseConfig.projectId}`)
 
     if (firebase.apps.length !== 0) {
       await firebase.app().delete()
@@ -28,7 +31,7 @@ const useFirebase = (firebasePref: FirebasePreference) => {
    * IRFCM 페이지 초기화.
    */
   const initialize = async () => {
-    const firebase = await initFirebaseApp(firebasePref.config)
+    const firebase = await initApp(firebasePref.config)
     const storage = firebase.storage() // import 'firebase/compat/storage'
     setStorageRef(() => storage.ref())
   }

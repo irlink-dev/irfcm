@@ -1,13 +1,13 @@
+import { useEffect, useState } from 'react'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
-import useLocalStorage from './useLocalStorage'
-import { FileData, createFileData } from './data'
+import useLocalStorage from '@/hooks/useLocalStorage'
+import useFormat from '@/hooks/useFormat'
+import { FileData, createFileData } from '@/utils/data'
 import FirebasePreference from '@/types/FirebasePreference'
-import { useEffect, useState } from 'react'
-import { getStorageFileUrls } from './firebase'
+import { getStorageFileUrls } from '@/utils/firebase'
 import Input from '@/types/Input'
-import useFormat from './useFormat'
-import LogUtil from '@/util/log'
+import LogUtil from '@/utils/log'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,
@@ -24,10 +24,17 @@ const useStorageFiles = (
     },
   )
 
-  // useEffect가 아니라 storageFileData를 변경하는 함수에서 함께 호출.
-  // useEffect(() => {
-  //   setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)
-  // }, [storageFileData])
+  useEffect(() => {
+    setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)
+  }, [storageFileData])
+
+  /**
+   * 스토리지 파일 지우기.
+   */
+  const clearStorageFiles = () => {
+    LogUtil.log(TAG, `clearStorageFiles.`)
+    setStorageFileData([])
+  }
 
   /**
    * 스토리지 파일 가져오기.
@@ -42,7 +49,7 @@ const useStorageFiles = (
       input.date,
       storageRef!,
     )
-    setStorageFileData([])
+    clearStorageFiles()
     for (const url of urls) {
       const { parseUrl } = useFormat()
       const fileName = parseUrl(url)?.fileName!
@@ -51,7 +58,7 @@ const useStorageFiles = (
     }
   }
 
-  return { getStorageFiles, storageFileData }
+  return { clearStorageFiles, getStorageFiles, storageFileData }
 }
 
 export default useStorageFiles

@@ -5,7 +5,6 @@ import Grid from '@mui/material/Grid'
 import 'firebase/compat/storage'
 import FirebasePreference from '@/types/FirebasePreference'
 import RequestForm from '@/components/fcm/RequestForm'
-import useFormat from '@/hooks/useFormat'
 import useFcmRequest from '@/hooks/useFcmRequest'
 import useFirebase from '@/hooks/useFirebase'
 import StorageFiles from './StorageFiles'
@@ -19,17 +18,12 @@ const FcmContainer = ({
   firebasePref: FirebasePreference
 }) => {
   const { initialize, storageRef } = useFirebase(firebasePref)
-  const { input, isSuccess, handleChange, handleSubmit } =
+  const { input, trigger, setTrigger, handleChange, handleSubmit } =
     useFcmRequest(firebasePref)
 
   useEffect(() => {
     initialize()
   }, [])
-  useEffect(() => {
-    console.log(isSuccess)
-  }, [isSuccess])
-
-  const { parseUrl } = useFormat()
 
   return (
     <Grid container spacing={3}>
@@ -43,6 +37,8 @@ const FcmContainer = ({
       <Grid item xs={12} lg={6}>
         <StorageFiles
           input={input}
+          trigger={trigger}
+          setTrigger={setTrigger}
           firebasePref={firebasePref}
           storageRef={storageRef!}
         />

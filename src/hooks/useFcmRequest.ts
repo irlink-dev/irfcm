@@ -1,20 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
-import { getFirebaseToken } from '@/hooks/firebase'
+import { getFirebaseToken } from '@/utils/firebase'
 import Request from '@/types/Request'
-import { requestFcm } from '@/hooks/fcm'
-import { showErrorSnackbar, showSuccessSnackbar } from '@/hooks/snackbar'
+import { requestFcm } from '@/utils/fcm'
+import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { useSnackbar } from 'notistack'
 import RequestType from '@/types/RequestType'
 import FirebasePreference from '@/types/FirebasePreference'
 import Input from '@/types/Input'
 import useLocalStorage from './useLocalStorage'
+import LogUtil from '@/utils/log'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
+  const TAG = 'useFcmRequest'
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`
-
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
+  const { enqueueSnackbar } = useSnackbar()
 
+  const [trigger, setTrigger] = useState<boolean>(false) // get storage files trigger.
   const [input, setInput] = useState<Input>(() => {
     const savedValues = getLocalStorageData(LOCAL_STORAGE_VALUES_KEY)
     return savedValues
@@ -26,8 +29,10 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
           isIncludeRecord: false,
         }
   })
-  const [isSuccess, setIsSuccess] = useState(false)
-  const { enqueueSnackbar } = useSnackbar()
+
+  useEffect(() => {
+    setLocalStorageData(LOCAL_STORAGE_VALUES_KEY, input)
+  }, [input])
 
   /**
    * 요청 양식 값 변동 시.
@@ -50,7 +55,6 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
         [name]: value,
       })
     }
-    setLocalStorageData(LOCAL_STORAGE_VALUES_KEY, input)
   }
 
   /**
@@ -58,6 +62,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    */
   const handleSubmit = async () => {
     const token = await getFirebaseToken(input.phoneNumber)
+    LogUtil.log(TAG, `handleSubmit. token: ${token}`)
+
     const request: Request = {
       authorizationKey: firebasePref.authorizationKey,
       token: token,
@@ -67,17 +73,10 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       priority: 'high',
     }
     const response = await requestFcm(request)
-    console.log('[요청과 응답]', request, response)
 
-    setIsSuccess(false)
     if (response.success === 1) {
       showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
-      setIsSuccess(true)
-      // setTimeout(() => {
-      //   getStorageFiles().then(() => {
-      //     /* empty */
-      //   })
-      // }, 3000)
+      setTrigger(() => true)
     }
     if (response.failure === 1) {
       showErrorSnackbar(enqueueSnackbar, 'FCM 전송 실패')
@@ -86,7 +85,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
 
   return {
     input,
-    isSuccess,
+    trigger,
+    setTrigger,
     handleChange,
     handleSubmit,
   }

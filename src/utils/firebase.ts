@@ -3,8 +3,9 @@ import { get, getDatabase, ref } from 'firebase/database'
 import SendFcmUseCase from '@/domain/SendFcmUseCase'
 import FirebaseConfig from '@/types/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
+import LogUtil from './log'
 
-const TAG = '@/hooks/firebase'
+const TAG = 'utils/firebase'
 const sendFcmUseCase = new SendFcmUseCase()
 
 const { toHyphenNumber } = useFormat()
@@ -148,7 +149,7 @@ const getStorageFileUrls = async (
   const listRef = storageRef.child(directoryPath)
   const response = await listRef.listAll()
 
-  console.log(directoryPath)
+  LogUtil.log(TAG, `getStorageFileUrls. listRef: ${listRef}`)
 
   return await Promise.all(
     response.items.map(async (item) => await item.getDownloadURL()),
