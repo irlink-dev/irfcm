@@ -2,8 +2,8 @@
 
 import * as React from 'react'
 import Button from '@mui/material/Button'
-import { initFirebaseApp, getFirebaseToken } from '@/util/firebase'
-import { requestFcm } from '@/util/fcm'
+import { initFirebaseApp, getFirebaseToken } from '@/utils/firebase'
+import { requestFcm } from '@/utils/fcm'
 import FirebaseManager from '@/manager/FirebaseManager'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 

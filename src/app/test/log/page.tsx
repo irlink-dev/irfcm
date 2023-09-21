@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import FirebaseUtil from '@/util/FirebaseUtil'
+import FirebaseUtil from '@/utils/FirebaseUtil'
 import FirebaseManager from '@/manager/FirebaseManager'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
@@ -34,10 +34,10 @@ export default function LogTestPage() {
 
   /* TODO 'use client' 에서 config 가져오면 app deleted 됨. 정석대로 Server Side 에서 props 로 넘겨줘야 함. */
   function initApp() {
-    const app = firebaseUtil.initFirebaseApp(useFirebaseConfig('dblife')!)
-    const bucketName = useFirebaseConfig('dblife')!.storageBucket
-    const bucket = app.storage().refFromURL(`gs://${bucketName}`)
-    setBucket(bucket)
+    // const app = firebaseUtil.initFirebaseApp(useFirebaseConfig('dblife')!)
+    // const bucketName = useFirebaseConfig('dblife')!.storageBucket
+    // const bucket = app.storage().refFromURL(`gs://${bucketName}`)
+    // setBucket(bucket)
   }
 
   async function fcmRequest() {

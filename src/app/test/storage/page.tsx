@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import 'firebase/compat/storage'
-import FirebaseUtil from '@/util/FirebaseUtil'
+import FirebaseUtil from '@/utils/FirebaseUtil'
 import firebase from 'firebase/compat/app'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
@@ -14,9 +14,9 @@ export default function StorageTestPage() {
   let bucket: any = null // firebase.storage.Reference ?
 
   useEffect(() => {
-    const app = firebaseUtil.initFirebaseApp(useFirebaseConfig('dblife')!)
-    const bucketName = useFirebaseConfig('dblife')!.storageBucket
-    bucket = app.storage().refFromURL(`gs://${bucketName}`)
+    // const app = firebaseUtil.initFirebaseApp(useFirebaseConfig('dblife')!)
+    // const bucketName = useFirebaseConfig('dblife')!.storageBucket
+    // bucket = app.storage().refFromURL(`gs://${bucketName}`)
   }, [])
 
   async function getFileDownloadLinks(
