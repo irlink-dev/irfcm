@@ -10,15 +10,12 @@ import FirebasePreference from '@/types/FirebasePreference'
 import Input from '@/types/Input'
 import useLocalStorage from './useLocalStorage'
 
-const useFcmRequest = (
-  firebasePref: FirebasePreference,
-  getStorageFiles: () => any,
-) => {
+const useFcmRequest = (firebasePref: FirebasePreference) => {
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`
 
-  const { getLocalStorageData } = useLocalStorage()
+  const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
 
-  const [request, setRequest] = useState<Input>(() => {
+  const [input, setInput] = useState<Input>(() => {
     const savedValues = getLocalStorageData(LOCAL_STORAGE_VALUES_KEY)
     return savedValues
       ? savedValues
@@ -29,8 +26,12 @@ const useFcmRequest = (
           isIncludeRecord: false,
         }
   })
+  const [isSuccess, setIsSuccess] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
 
+  /**
+   * 요청 양식 값 변동 시.
+   */
   const handleChange = (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,39 +40,44 @@ const useFcmRequest = (
     const { value, name } = event.target
 
     if ('checked' in event.target && name === 'isIncludeRecord') {
-      setRequest({
-        ...request,
+      setInput({
+        ...input,
         [name]: event.target.checked,
       })
     } else {
-      setRequest({
-        ...request,
+      setInput({
+        ...input,
         [name]: value,
       })
     }
+    setLocalStorageData(LOCAL_STORAGE_VALUES_KEY, input)
   }
 
+  /**
+   * 요청 양식 제출 시.
+   */
   const handleSubmit = async () => {
-    const token = await getFirebaseToken(request.phoneNumber)
-    const _request: Request = {
+    const token = await getFirebaseToken(input.phoneNumber)
+    const request: Request = {
       authorizationKey: firebasePref.authorizationKey,
       token: token,
-      date: request.date,
-      type: request.type.toString(),
-      isIncludeRecord: request.isIncludeRecord,
+      date: input.date,
+      type: input.type.toString(),
+      isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
-    console.log(_request)
-    const response = await requestFcm(_request)
-    console.log(response)
+    const response = await requestFcm(request)
+    console.log('[요청과 응답]', request, response)
 
+    setIsSuccess(false)
     if (response.success === 1) {
       showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
-      setTimeout(() => {
-        getStorageFiles().then(() => {
-          /* empty */
-        })
-      }, 3000)
+      setIsSuccess(true)
+      // setTimeout(() => {
+      //   getStorageFiles().then(() => {
+      //     /* empty */
+      //   })
+      // }, 3000)
     }
     if (response.failure === 1) {
       showErrorSnackbar(enqueueSnackbar, 'FCM 전송 실패')
@@ -79,7 +85,8 @@ const useFcmRequest = (
   }
 
   return {
-    request,
+    input,
+    isSuccess,
     handleChange,
     handleSubmit,
   }
