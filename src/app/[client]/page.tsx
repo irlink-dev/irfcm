@@ -20,7 +20,7 @@ const ClientPage = ({ params }: ClientPageProps) => {
   return (
     <>
       <ClientSelect params={params} />
-      <Fcm firebasePref={firebasePref} />
+      <Fcm params={params} firebasePref={firebasePref} />
     </>
   )
 }

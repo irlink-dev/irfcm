@@ -30,12 +30,23 @@ const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
 /**
  * 법인폰 번호로 토큰 조회.
  */
-const getFirebaseToken = async (phoneNumber: string) => {
+const getFirebaseToken = async (phoneNumber: string, option: string = '') => {
+  LogUtil.log(TAG, `getFirebaseToken. phoneNumber: ${phoneNumber}`)
   const database = getDatabase()
-  const snapshot = await get(
-    ref(database, `users/${phoneNumber.replace(/-/g, '')}`),
-  )
-  return snapshot.val()
+
+  let snapshot
+  if (option === 'morecx') {
+    // morecx cloud.
+    snapshot = await get(
+      ref(database, `cloud/users/${toHyphenNumber(phoneNumber)}/token`),
+    )
+  } else {
+    // lina, chubb, hana, shinhan, dblife, kb.
+    snapshot = await get(
+      ref(database, `users/${phoneNumber.replace(/-/g, '')}`),
+    )
+  }
+  return snapshot?.val()
 }
 
 /**
@@ -45,6 +56,7 @@ const getFileDownloadLinks = async (
   filenames: Array<string>,
   bucket: firebase.storage.Reference,
 ) => {
+  LogUtil.log(TAG, `getFileDownloadLinks. length: ${filenames.length}`)
   const urls: Array<string> = []
 
   for (const filename of filenames) {
@@ -143,10 +155,20 @@ const getStorageFileUrls = async (
   phoneNumber: string,
   date: string,
   storageRef: firebase.storage.Reference,
+  client: string,
 ) => {
   const phoneNumberWithHyphen = toHyphenNumber(phoneNumber)
+  // const phoneNumberWithoutHyphen = phoneNumber.replace(/-/g, '')
+
   const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
-  const listRef = storageRef.child(directoryPath)
+  const morecxDirectoryPath = `cloud/log/${phoneNumberWithHyphen}/${date}`
+
+  let listRef
+  if (client === 'morecx') {
+    listRef = storageRef.child(morecxDirectoryPath)
+  } else {
+    listRef = storageRef.child(directoryPath)
+  }
   const response = await listRef.listAll()
 
   LogUtil.log(TAG, `getStorageFileUrls. listRef: ${listRef}`)

@@ -2,9 +2,8 @@ import * as React from 'react'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import ListSubheader from '@mui/material/ListSubheader'
-import PeopleIcon from '@mui/icons-material/People'
 import ScienceIcon from '@mui/icons-material/Science'
+import SendIcon from '@mui/icons-material/Send'
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import { usePathname, useRouter } from 'next/navigation'
 import { Avatar, Collapse } from '@mui/material'
@@ -80,8 +79,132 @@ export const MainListItems = () => {
 
   return (
     <React.Fragment>
-      {/* 고객사 리스트 */}
+      {/* 단일 요청 */}
       <ListItemButton onClick={() => handleClick(CLIENT_LIST)}>
+        <ListItemIcon>
+          <SendIcon />
+        </ListItemIcon>
+        <ListItemText primary="단일 요청" />
+        {selectedItem === CLIENT_LIST ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={selectedItem === CLIENT_LIST} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ClientListItem
+            href="/lina"
+            text="LEGACY v0"
+            alias="v0"
+            color="#666666"
+          />
+          {/* <ClientListItem
+            href="#"
+            text="HTTP v1"
+            alias="v1"
+            color={blue[500]}
+          /> */}
+        </List>
+      </Collapse>
+
+      {/* 실험실 */}
+      {/* <ListItemButton onClick={() => handleClick(LAB)}>
+        <ListItemIcon>
+          <ScienceIcon />
+        </ListItemIcon>
+        <ListItemText primary="실험실" />
+        {selectedItem === LAB ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={selectedItem === LAB} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton
+            sx={{ pl: 4 }}
+            onClick={() => {
+              if (pathname !== TEST_LOG_URL) {
+                showProgress()
+              }
+              router.push(TEST_LOG_URL)
+            }}
+            selected={pathname === TEST_LOG_URL}
+          >
+            <ListItemIcon>
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="전체 로그 수집" />
+          </ListItemButton>
+        </List>
+      </Collapse> */}
+    </React.Fragment>
+  )
+}
+
+export const SecondaryListItems = () => {
+  const router = useRouter()
+  const pathname = usePathname()
+  return (
+    <React.Fragment>
+      {/* <ListSubheader component="div" inset>
+        Experimental Function
+      </ListSubheader>
+      <ListItemButton
+        onClick={() => router.push(TEST_LOG_URL)}
+        selected={pathname === TEST_LOG_URL}
+      >
+        <ListItemIcon>
+          <ScienceIcon />
+        </ListItemIcon>
+        <ListItemText primary="전체 로그 수집" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Last quarter" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Year-end sale" />
+      </ListItemButton> */}
+    </React.Fragment>
+  )
+}
+
+/**
+ * mainListItems
+ *
+ * <ListItemButton>
+ *     <ListItemIcon>
+ *         <DashboardIcon />
+ *     </ListItemIcon>
+ *     <ListItemText primary="Dashboard" />
+ * </ListItemButton>
+ * <ListItemButton>
+ *     <ListItemIcon>
+ *         <ShoppingCartIcon />
+ *     </ListItemIcon>
+ *     <ListItemText primary="Orders" />
+ * </ListItemButton>
+ * <ListItemButton>
+ *     <ListItemIcon>
+ *         <PeopleIcon />
+ *     </ListItemIcon>
+ *     <ListItemText primary="Customers" />
+ * </ListItemButton>
+ * <ListItemButton>
+ *     <ListItemIcon>
+ *         <BarChartIcon />
+ *     </ListItemIcon>
+ *     <ListItemText primary="Reports" />
+ * </ListItemButton>
+ * <ListItemButton>
+ *     <ListItemIcon>
+ *         <LayersIcon />
+ *     </ListItemIcon>
+ *     <ListItemText primary="Integrations" />
+ * </ListItemButton>
+ */
+
+{
+  /* <ListItemButton onClick={() => handleClick(CLIENT_LIST)}>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
@@ -127,102 +250,5 @@ export const MainListItems = () => {
             color="#F0C861"
           />
         </List>
-      </Collapse>
-
-      {/* 실험실 */}
-      <ListItemButton onClick={() => handleClick(LAB)}>
-        <ListItemIcon>
-          <ScienceIcon />
-        </ListItemIcon>
-        <ListItemText primary="실험실" />
-        {selectedItem === LAB ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={selectedItem === LAB} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton
-            sx={{ pl: 4 }}
-            onClick={() => {
-              if (pathname !== TEST_LOG_URL) {
-                showProgress()
-              }
-              router.push(TEST_LOG_URL)
-            }}
-            selected={pathname === TEST_LOG_URL}
-          >
-            <ListItemIcon>
-              <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="전체 로그 수집" />
-          </ListItemButton>
-        </List>
-      </Collapse>
-    </React.Fragment>
-  )
+      </Collapse> */
 }
-
-export const SecondaryListItems = () => {
-  const router = useRouter()
-  const pathname = usePathname()
-  return (
-    <React.Fragment>
-      <ListSubheader component="div" inset>
-        {/* Experimental Function (Lab.) */}
-      </ListSubheader>
-      {/*<ListItemButton*/}
-      {/*    onClick={() => router.push(TEST_LOG_URL)}*/}
-      {/*    selected={pathname === TEST_LOG_URL}>*/}
-      {/*    <ListItemIcon>*/}
-      {/*        <AssignmentIcon />*/}
-      {/*    </ListItemIcon>*/}
-      {/*    <ListItemText primary="전체 로그 수집" />*/}
-      {/*</ListItemButton>*/}
-      {/*<ListItemButton>*/}
-      {/*    <ListItemIcon>*/}
-      {/*        <AssignmentIcon />*/}
-      {/*    </ListItemIcon>*/}
-      {/*    <ListItemText primary="Last quarter" />*/}
-      {/*</ListItemButton>*/}
-      {/*<ListItemButton>*/}
-      {/*    <ListItemIcon>*/}
-      {/*        <AssignmentIcon />*/}
-      {/*    </ListItemIcon>*/}
-      {/*    <ListItemText primary="Year-end sale" />*/}
-      {/*</ListItemButton>*/}
-    </React.Fragment>
-  )
-}
-
-/**
- * mainListItems
- *
- * <ListItemButton>
- *     <ListItemIcon>
- *         <DashboardIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Dashboard" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <ShoppingCartIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Orders" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <PeopleIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Customers" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <BarChartIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Reports" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <LayersIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Integrations" />
- * </ListItemButton>
- */

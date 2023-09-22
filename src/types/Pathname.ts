@@ -7,6 +7,7 @@ type Pathname =
   | 'hana'
   | 'kb'
   | 'lina'
+  | 'morecx'
   | 'shinhan'
   | 'zilink'
 

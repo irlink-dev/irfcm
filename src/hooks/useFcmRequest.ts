@@ -10,6 +10,7 @@ import FirebasePreference from '@/types/FirebasePreference'
 import Input from '@/types/Input'
 import useLocalStorage from './useLocalStorage'
 import LogUtil from '@/utils/log'
+import { usePathname } from 'next/navigation'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
@@ -60,8 +61,13 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   /**
    * 요청 양식 제출 시.
    */
-  const handleSubmit = async () => {
-    const token = await getFirebaseToken(input.phoneNumber)
+  const handleSubmit = async (option: string) => {
+    let token: string
+    if (option !== '') {
+      token = await getFirebaseToken(input.phoneNumber, option)
+    } else {
+      token = await getFirebaseToken(input.phoneNumber)
+    }
     LogUtil.log(TAG, `handleSubmit. token: ${token}`)
 
     const request: Request = {

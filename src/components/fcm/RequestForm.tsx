@@ -18,10 +18,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import Pathname from '@/types/Pathname'
 
 interface RequestFormProps {
+  params: { client: Pathname }
   input: Input
-  handleSubmit: () => void
+  handleSubmit: (option: string) => void
   handleChange: (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,10 +32,22 @@ interface RequestFormProps {
 }
 
 const RequestForm = ({
+  params,
   input,
   handleSubmit,
   handleChange,
 }: RequestFormProps) => {
+  /**
+   * 요청 버튼 클릭 시
+   */
+  const onRequestButtonClick = () => {
+    if (params.client === 'morecx') {
+      handleSubmit(params.client)
+      return
+    }
+    handleSubmit('')
+  }
+
   return (
     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
       <Box
@@ -91,7 +105,7 @@ const RequestForm = ({
           label="녹취 파일 포함"
         />
       </FormGroup>
-      <Button type="submit" onClick={handleSubmit} variant="contained">
+      <Button type="submit" onClick={onRequestButtonClick} variant="contained">
         FCM 요청
       </Button>
     </Paper>

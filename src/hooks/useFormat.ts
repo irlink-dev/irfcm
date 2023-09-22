@@ -1,4 +1,8 @@
+import LogUtil from '@/utils/log'
+
 const useFormat = () => {
+  const TAG = 'useFormat'
+
   /**
    * 전화번호 하이픈 형식.
    */
@@ -15,11 +19,17 @@ const useFormat = () => {
   /**
    * 다운로드 URL 파싱.
    */
-  const parseUrl = (url: string) => {
-    const match = url.match(
-      /^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^/]+\/o\/log%2F(?<phoneNumber>[^/]+)%2F(?<date>[^/]+)%2F(?<fileName>[^?]+)\?(?<params>[^#]+)/,
-    )
+  const parseUrl = (url: string, client: string = '') => {
+    const REGEX =
+      /^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^/]+\/o\/log%2F(?<phoneNumber>[^/]+)%2F(?<date>[^/]+)%2F(?<fileName>[^?]+)\?(?<params>[^#]+)/
+
+    const REGEX_MORECX =
+      /^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^/]+\/o\/cloud%2Flog%2F(?<phoneNumber>[^/]+)%2F(?<date>[^/]+)%2F(?<fileName>[^?]+)\?(?<params>[^#]+)/
+
+    const regex = client === 'morecx' ? REGEX_MORECX : REGEX
+    const match = url.match(regex)
     if (!match) {
+      LogUtil.log(TAG, `parseUrl. match: ${match}. return null.`)
       return null
     }
     const { phoneNumber, date, fileName, params } = match.groups!

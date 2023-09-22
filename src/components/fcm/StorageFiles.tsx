@@ -20,6 +20,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 import LogUtil from '@/utils/log'
 
 interface StorageFilesProps {
+  params: { client: string }
   input: Input
   trigger: boolean
   setTrigger: Dispatch<SetStateAction<boolean>>
@@ -28,6 +29,7 @@ interface StorageFilesProps {
 }
 
 const StorageFiles = ({
+  params,
   input,
   trigger,
   setTrigger,
@@ -39,36 +41,43 @@ const StorageFiles = ({
     useStorageFiles(firebasePref, storageRef)
 
   const onRefreshIconClick = () => {
-    getStorageFiles(input)
+    getStorageFiles(input, params.client)
   }
 
   useEffect(() => {
+    LogUtil.log(TAG, `useEffect(trigger). trigger: ${trigger}`)
+
     if (trigger) {
-      LogUtil.log(TAG, `useEffect(trigger). trigger: ${trigger}`)
       setTimeout(() => {
-        getStorageFiles(input).then(() => setTrigger(() => false))
+        getStorageFiles(input, params.client).then(() =>
+          setTrigger(() => false),
+        )
       }, 3000)
-    }
-    if (!trigger) {
-      LogUtil.log(TAG, `useEffect(trigger). trigger: ${trigger}`)
     }
   }, [trigger])
 
   return (
     <Paper
       sx={{
-        p: 2,
+        px: 2,
+        pb: 2,
         display: 'flex',
         flexDirection: 'column',
         gap: 2,
         overflow: 'auto',
+        maxHeight: 395,
+        position: 'relative',
       }}
     >
       <Box
         sx={{
+          pt: 2,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          backgroundColor: 'white',
+          position: 'sticky',
+          top: 0,
         }}
       >
         <Typography>스토리지 파일</Typography>

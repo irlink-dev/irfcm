@@ -40,6 +40,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     ['shinhan', '신한카드'],
     ['dblife', 'DB 생명'],
     ['kb', 'KB 손해보험'],
+    ['morecx', '모렉스'],
   ]
 
   return (

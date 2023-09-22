@@ -220,6 +220,7 @@ const useFirebaseConfig = (pathname: Pathname) => {
     pathname === 'hana' && (config = HANA_FIREBASE_CONFIG)
     pathname === 'kb' && (config = KB_WIRELESS_FIREBASE_CONFIG)
     pathname === 'lina' && (config = LINA_FIREBASE_CONFIG)
+    pathname === 'morecx' && (config = MORECX_FIREBASE_CONFIG)
     pathname === 'shinhan' && (config = SHINHAN_CARD_FIREBASE_CONFIG)
     pathname === 'zilink' && (config = ZILINK_FIREBASE_CONFIG)
 

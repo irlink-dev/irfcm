@@ -12,6 +12,8 @@ const useAuthorizationKey = (pathname: Pathname) => {
   pathname === 'kb' && (authorizationKey = process.env.KB_AUTHORIZATION_KEY!)
   pathname === 'lina' &&
     (authorizationKey = process.env.LINA_AUTHORIZATION_KEY!)
+  pathname === 'morecx' &&
+    (authorizationKey = process.env.MORECX_AUTHORIZATION_KEY!)
   pathname === 'shinhan' &&
     (authorizationKey = process.env.SHINHAN_AUTHORIZATION_KEY!)
   pathname === 'zilink' &&

@@ -39,7 +39,7 @@ const useStorageFiles = (
   /**
    * 스토리지 파일 가져오기.
    */
-  const getStorageFiles = async (input: Input) => {
+  const getStorageFiles = async (input: Input, client: string) => {
     LogUtil.log(
       TAG,
       `getStorageFiles. phoneNumber: ${input.phoneNumber}, date: ${input.date}`,
@@ -48,11 +48,13 @@ const useStorageFiles = (
       input.phoneNumber,
       input.date,
       storageRef!,
+      client,
     )
     clearStorageFiles()
+
     for (const url of urls) {
       const { parseUrl } = useFormat()
-      const fileName = parseUrl(url)?.fileName!
+      const fileName = parseUrl(url, client)?.fileName!
       const fileData = createFileData(fileName, '', '', url)
       setStorageFileData((prevState) => [...prevState, fileData])
     }
