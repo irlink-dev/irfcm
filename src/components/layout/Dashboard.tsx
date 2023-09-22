@@ -25,6 +25,7 @@ const DRAWER_WIDTH: number = 260
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
+  const packageJson = require('/package.json')
 
   const [open, setOpen] = React.useState(true) // Drawer 열림 여부.
 
@@ -94,10 +95,20 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             px: [1],
           }}
         >
+          <Box sx={{ display: 'flex', gap: 1, pl: 1 }}>
+            <Typography
+              sx={{ fontSize: 24, fontWeight: 600, color: '#333333' }}
+            >
+              {packageJson.name}
+            </Typography>
+            <Typography sx={{ color: '#888888' }}>
+              v{packageJson.version}
+            </Typography>
+          </Box>
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
           </IconButton>
