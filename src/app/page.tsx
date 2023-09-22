@@ -56,7 +56,7 @@ const HomePage = () => {
           name: '모렉스',
           route: '/morecx',
           desc: 'kr.co.irlink.morecx',
-          image: '',
+          image: '/images/morecx_app_icon.png',
         },
       ].map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={3}>
