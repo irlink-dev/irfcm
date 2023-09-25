@@ -1,18 +1,19 @@
 'use client'
 
-import DrawerListRow from '@/components/drawer/DrawerListRow'
+import { useContext } from 'react'
+import { LoadingContext } from '@/components/context/LoadingContext'
 import {
-  Box,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
   Grid,
-  Paper,
+  Typography,
 } from '@mui/material'
-import Typography from '@mui/material/Typography'
 
 const HomePage = () => {
+  const { showProgress } = useContext(LoadingContext)
+
   return (
     <Grid container spacing={3}>
       {[
@@ -60,20 +61,17 @@ const HomePage = () => {
         },
       ].map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Card sx={{ maxWidth: 345, marginTop: 2 }}>
+          <Card
+            key={item.route}
+            sx={{ maxWidth: 345, marginTop: 2 }}
+            onClick={() => showProgress()}
+          >
             <CardActionArea href={item.route}>
               <CardMedia
-                // component="img"
-                // height="140"
-                // image={item.image}
-                // alt={item.name}
-                style={{
-                  height: 140,
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center',
-                  backgroundImage: `url(${item.image})`,
-                }}
+                component="img"
+                height="140"
+                image={item.image}
+                alt={item.name}
                 title={item.name}
               />
               <CardContent>
