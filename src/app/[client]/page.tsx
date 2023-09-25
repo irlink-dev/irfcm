@@ -1,43 +1,42 @@
-import IrFirebaseConfig from '@/util/IrFirebaseConfig'
-import FirebaseManager from '@/manager/FirebaseManager'
-import FcmRequestFormV2 from '@/component/FcmRequestFormV2'
+import Fcm from '@/components/fcm/Fcm'
+import ClientSelect from '@/components/ClientSelect'
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
+import useAuthorizationKey from '@/hooks/useAuthorizationKey'
+import FirebasePreference from '@/types/FirebasePreference'
+import Pathname from '@/types/Pathname'
 
-export default function ClientPage({ params }: any) {
-
-    const irFirebaseConfig = new IrFirebaseConfig()
-    const firebaseManager = new FirebaseManager()
-
-    const clientKey = firebaseManager.getClientKeyFromPathname(params.client)
-    const firebaseConfig = irFirebaseConfig.getFirebaseConfig(clientKey)
-    const authorizationKey = firebaseManager.getAuthorizationKey(clientKey)
-
-    type ClientName = {
-        [key: string]: string
-    }
-    const clientName: ClientName = {
-        CHUBB: '처브 CDM',
-        DB_LIFE: 'DB 생명',
-        HANA: '하나손해보험',
-        KB_WIRELESS: 'KB 손해보험',
-        LINA: '라이나 생명',
-        SHINHAN_CARD: '신한카드',
-        ZILINK: '지링크',
-    }
-
-    return (
-        <>
-            <h4>{clientName[clientKey]}</h4>
-
-            <FcmRequestFormV2
-                authorizationKey={authorizationKey!}
-                firebaseConfig={firebaseConfig!} />
-        </>
-    )
+interface ClientPageProps {
+  params: {
+    client: Pathname
+  }
 }
 
+const ClientPage = ({ params }: ClientPageProps) => {
+  const firebasePref: FirebasePreference = {
+    authorizationKey: useAuthorizationKey(params.client)!,
+    config: useFirebaseConfig(params.client)!,
+  }
 
-/**
- * <FcmRequestForm
- *     authorizationKey={authorizationKey!}
- *     firebaseConfig={firebaseConfig!} />
- */
+  return (
+    <>
+      <ClientSelect params={params} />
+      <Fcm params={params} firebasePref={firebasePref} />
+    </>
+  )
+}
+
+export default ClientPage
+
+// export async function getStaticPaths() {
+//   return {
+//     paths: [
+//       { params: { client: 'lina' } },
+//       { params: { client: 'chubb' } },
+//       { params: { client: 'hana' } },
+//       { params: { client: 'shinhan' } },
+//       { params: { client: 'dblife' } },
+//       { params: { client: 'kb' } },
+//     ],
+//     fallback: false,
+//   }
+// }
