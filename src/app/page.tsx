@@ -60,9 +60,8 @@ const HomePage = () => {
           image: '/images/morecx_app_icon.png',
         },
       ].map((item) => (
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3} key={item.route}>
           <Card
-            key={item.route}
             sx={{ maxWidth: 345, marginTop: 2 }}
             onClick={() => showProgress()}
           >
