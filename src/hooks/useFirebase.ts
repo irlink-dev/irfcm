@@ -14,7 +14,7 @@ const useFirebase = (firebasePref: FirebasePreference) => {
   const [storageRef, setStorageRef] = useState<firebase.storage.Reference>()
 
   /**
-   * 파이어베이스 초기화.
+   * 앱 초기화.
    */
   const initApp = async (firebaseConfig: FirebaseConfig) => {
     LogUtil.log(TAG, `initApp. projectId: ${firebaseConfig.projectId}`)
@@ -28,12 +28,22 @@ const useFirebase = (firebasePref: FirebasePreference) => {
   }
 
   /**
+   * 스토리지 초기화.
+   */
+  const initStorage = (firebase: any) => {
+    if (firebase.apps.length > 0) {
+      LogUtil.log(TAG, `initStorage.`)
+      const storage = firebase.storage() // import 'firebase/compat/storage'
+      setStorageRef(() => storage.ref())
+    }
+  }
+
+  /**
    * IRFCM 페이지 초기화.
    */
   const initialize = async () => {
     const firebase = await initApp(firebasePref.config)
-    const storage = firebase.storage() // import 'firebase/compat/storage'
-    setStorageRef(() => storage.ref())
+    initStorage(firebase)
   }
 
   return { initialize, storageRef }
