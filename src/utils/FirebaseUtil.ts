@@ -1,16 +1,12 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import { get, getDatabase, ref } from 'firebase/database'
-import SendFcmUseCase from '@/domain/SendFcmUseCase'
-import FirebaseConfig from '@/types/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
 
 const { toHyphenNumber } = useFormat()
 
 export default class FirebaseUtil {
   TAG: string = 'FirebaseUtil'
-
-  sendFcmUseCase = new SendFcmUseCase()
 
   /**
    * 파일 다운로드 링크 받기.
