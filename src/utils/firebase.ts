@@ -1,12 +1,10 @@
 import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
-import SendFcmUseCase from '@/domain/SendFcmUseCase'
 import FirebaseConfig from '@/types/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
 import LogUtil from './log'
 
 const TAG = 'utils/firebase'
-const sendFcmUseCase = new SendFcmUseCase()
 
 const { toHyphenNumber } = useFormat()
 
@@ -117,9 +115,9 @@ const sendFcmToAllTokens = async (key: string, date: string) => {
       priority: 'high',
       authorizationKey: key,
     }
-    sendFcmUseCase.request(request, () => {
-      /* empty */
-    })
+    // sendFcmUseCase.request(request, () => {
+    //   /* empty */
+    // })
   }
 }
 

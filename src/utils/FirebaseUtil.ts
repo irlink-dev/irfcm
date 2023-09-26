@@ -82,9 +82,9 @@ export default class FirebaseUtil {
         priority: 'high',
         authorizationKey: key,
       }
-      this.sendFcmUseCase.request(request, () => {
-        /* empty */
-      })
+      // this.sendFcmUseCase.request(request, () => {
+      //   /* empty */
+      // })
     }
   }
 
