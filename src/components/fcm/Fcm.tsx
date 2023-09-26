@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
 import 'firebase/compat/storage'
 import FirebasePreference from '@/types/FirebasePreference'
@@ -20,35 +20,42 @@ const FcmContainer = ({
   params: { client: Pathname }
   firebasePref: FirebasePreference
 }) => {
+  const [isLoading, setIsLoading] = useState(true)
   const { initialize, storageRef } = useFirebase(firebasePref)
   const { input, trigger, setTrigger, handleChange, handleSubmit } =
     useFcmRequest(firebasePref)
 
   useEffect(() => {
-    initialize()
+    initialize().then(() => setIsLoading(false))
   }, [])
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} lg={6}>
-        <RequestForm
-          params={params}
-          input={input}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
-      </Grid>
-      <Grid item xs={12} lg={6}>
-        <StorageFiles
-          params={params}
-          input={input}
-          trigger={trigger}
-          setTrigger={setTrigger}
-          firebasePref={firebasePref}
-          storageRef={storageRef!}
-        />
-      </Grid>
-    </Grid>
+    <>
+      {isLoading && <>Loading...</>}
+
+      {!isLoading && (
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={6}>
+            <RequestForm
+              params={params}
+              input={input}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <StorageFiles
+              params={params}
+              input={input}
+              trigger={trigger}
+              setTrigger={setTrigger}
+              firebasePref={firebasePref}
+              storageRef={storageRef!}
+            />
+          </Grid>
+        </Grid>
+      )}
+    </>
   )
 }
 
