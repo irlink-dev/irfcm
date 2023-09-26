@@ -9,6 +9,7 @@ import useFcmRequest from '@/hooks/useFcmRequest'
 import useFirebase from '@/hooks/useFirebase'
 import StorageFiles from './StorageFiles'
 import Pathname from '@/types/Pathname'
+import { Box, CircularProgress } from '@mui/material'
 
 /**
  * FCM 컨테이너. Request 전역 상태 관리.
@@ -31,7 +32,19 @@ const FcmContainer = ({
 
   return (
     <>
-      {isLoading && <>Loading...</>}
+      {isLoading && (
+        <Box
+          sx={{
+            width: '100%',
+            height: 345,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <CircularProgress size={64} />
+        </Box>
+      )}
 
       {!isLoading && (
         <Grid container spacing={3}>
