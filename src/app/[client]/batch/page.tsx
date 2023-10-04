@@ -4,6 +4,7 @@ import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 import useClientName from '@/hooks/useClientName'
 import FirebasePreference from '@/types/FirebasePreference'
 import Pathname from '@/types/Pathname'
+import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
 
 interface BatchPageProps {
   params: {
@@ -13,7 +14,9 @@ interface BatchPageProps {
 
 const BatchPage = ({ params }: BatchPageProps) => {
   const firebasePref: FirebasePreference = {
-    authorizationKey: useAuthorizationKey(params.client)!,
+    authorizationKey: useAuthorizationKey(params.client),
+    oAuthClientId: getOAuthClientId(params.client),
+    oAuthClientSecret: getOAuthClientSecret(params.client),
     config: useFirebaseConfig(params.client)!,
   }
 
