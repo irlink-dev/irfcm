@@ -90,7 +90,7 @@ const requestFcm = async (request: Request) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: request.authorizationKey,
+      Authorization: request.authorizationKey!,
     },
     body: JSON.stringify({
       to: String(request.token),
