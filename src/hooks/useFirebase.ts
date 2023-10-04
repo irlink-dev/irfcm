@@ -17,7 +17,7 @@ const useFirebase = (firebasePref: FirebasePreference) => {
    * 앱 초기화.
    */
   const initApp = async (firebaseConfig: FirebaseConfig) => {
-    LogUtil.log(TAG, `initApp. projectId: ${firebaseConfig.projectId}`)
+    LogUtil.log(TAG, `initApp. projectId: ${firebaseConfig?.projectId}`)
 
     if (firebase.apps.length !== 0) {
       await firebase.app().delete()

@@ -45,6 +45,10 @@ const RequestForm = ({
       handleSubmit(params.client)
       return
     }
+    if (params.client === 'lpoint') {
+      handleSubmit(params.client)
+      return
+    }
     handleSubmit('')
   }
 

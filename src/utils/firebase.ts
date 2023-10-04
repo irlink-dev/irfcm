@@ -3,6 +3,7 @@ import { get, getDatabase, ref } from 'firebase/database'
 import FirebaseConfig from '@/types/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
 import LogUtil from './log'
+import Pathname from '@/types/Pathname'
 
 const TAG = 'utils/firebase'
 
@@ -12,7 +13,7 @@ const { toHyphenNumber } = useFormat()
  * 파이어베이스 초기화.
  */
 const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
-  console.log(`initFirebaseApp. projectId: ${firebaseConfig.projectId}`)
+  console.log(`initFirebaseApp. projectId: ${firebaseConfig?.projectId}`)
 
   if (firebase.apps.length === 0) {
     await firebase.initializeApp(firebaseConfig) // 앱이 존재하지 않으면, 앱을 초기화.
@@ -176,6 +177,20 @@ const getStorageFileUrls = async (
   )
 }
 
+/**
+ * OAuth 인증 코드 발급.
+ */
+const getOAuthCode = (clientId: string | null, redirectUri: string) => {
+  if (!window || !clientId || !redirectUri) {
+    LogUtil.log(TAG, 'getOAuthCode. return.')
+    return
+  }
+  window.location.href =
+    `https://accounts.google.com/o/oauth2/v2/auth` +
+    `?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code` +
+    `&scope=https://www.googleapis.com/auth/firebase.messaging&access_type=offline&prompt=consent`
+}
+
 export {
   initFirebaseApp,
   getFirebaseToken,
@@ -186,4 +201,5 @@ export {
   getLogsInFolder,
   getPhoneNumberList,
   getStorageFileUrls,
+  getOAuthCode,
 }

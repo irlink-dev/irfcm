@@ -144,6 +144,19 @@ const useFirebaseConfig = (pathname: Pathname) => {
   }
 
   /**
+   * 엘 포인트.
+   */
+  const L_POINT_FIREBASE_CONFIG = {
+    apiKey: process.env.L_POINT_API_KEY!,
+    authDomain: 'l-point.firebaseapp.com',
+    databaseURL: 'https://l-point-default-rtdb.firebaseio.com',
+    projectId: 'l-point',
+    storageBucket: 'l-point.appspot.com',
+    messagingSenderId: process.env.L_POINT_MESSAGING_SENDER_ID!,
+    appId: process.env.L_POINT_APP_ID!,
+  }
+
+  /**
    * 메리츠 화재.
    */
   const MERITZ_FIREBASE_CONFIG = {
@@ -220,6 +233,7 @@ const useFirebaseConfig = (pathname: Pathname) => {
     pathname === 'hana' && (config = HANA_FIREBASE_CONFIG)
     pathname === 'kb' && (config = KB_WIRELESS_FIREBASE_CONFIG)
     pathname === 'lina' && (config = LINA_FIREBASE_CONFIG)
+    pathname === 'lpoint' && (config = L_POINT_FIREBASE_CONFIG)
     pathname === 'morecx' && (config = MORECX_FIREBASE_CONFIG)
     pathname === 'shinhan' && (config = SHINHAN_CARD_FIREBASE_CONFIG)
     pathname === 'zilink' && (config = ZILINK_FIREBASE_CONFIG)

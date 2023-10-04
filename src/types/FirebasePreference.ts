@@ -7,7 +7,17 @@ export default interface FirebasePreference {
   /**
    * 인증 키.
    */
-  authorizationKey: string
+  authorizationKey: string | null
+
+  /**
+   * OAuth 클라이언트 ID.
+   */
+  oAuthClientId: string | null
+
+  /**
+   * OAuth 클라이언트 Secret.
+   */
+  oAuthClientSecret: string | null
 
   /**
    * 설정 객체.

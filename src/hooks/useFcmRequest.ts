@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
-import { getFirebaseToken } from '@/utils/firebase'
+import { getFirebaseToken, getOAuthCode } from '@/utils/firebase'
 import Request from '@/types/Request'
 import { requestFcm } from '@/utils/fcm'
 import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
@@ -10,7 +10,6 @@ import FirebasePreference from '@/types/FirebasePreference'
 import Input from '@/types/Input'
 import useLocalStorage from './useLocalStorage'
 import LogUtil from '@/utils/log'
-import { usePathname } from 'next/navigation'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
@@ -59,17 +58,24 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   }
 
   /**
-   * 요청 양식 제출 시.
+   * 토큰 가져오기.
    */
-  const handleSubmit = async (option: string) => {
+  const getToken = async (option: string) => {
     let token: string
+
     if (option !== '') {
       token = await getFirebaseToken(input.phoneNumber, option)
     } else {
       token = await getFirebaseToken(input.phoneNumber)
     }
     LogUtil.log(TAG, `handleSubmit. token: ${token}`)
+    return token
+  }
 
+  /**
+   * FCM 보내기.
+   */
+  const sendFcm = async (token: string) => {
     const request: Request = {
       authorizationKey: firebasePref.authorizationKey,
       token: token,
@@ -78,7 +84,23 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
-    const response = await requestFcm(request)
+    return await requestFcm(request)
+  }
+
+  /**
+   * 요청 양식 제출 시.
+   */
+  const handleSubmit = async (option: string) => {
+    const token = await getToken(option)
+    if (option === 'lpoint') {
+      getOAuthCode(
+        firebasePref.oAuthClientId,
+        `http://localhost:3000/${option}/oauth`,
+      )
+    }
+    return
+
+    const response = await sendFcm(token)
 
     if (response.success === 1) {
       showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')

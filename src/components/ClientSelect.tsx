@@ -35,6 +35,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
 
   const menu = [
     ['lina', '라이나 생명'],
+    ['lpoint', 'L 포인트'],
     ['chubb', '처브 CDM'],
     ['hana', '하나손해보험'],
     ['shinhan', '신한카드'],
