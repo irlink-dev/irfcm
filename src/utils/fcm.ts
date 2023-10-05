@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { AuthContext } from '@/components/context/AuthContext'
 import Request from '@/types/Request'
 
 /**
@@ -104,31 +106,31 @@ const requestFcm = async (request: Request) => {
   }).then((response) => response.json())
 }
 
-export { requestType, requestFcm }
-
 /**
- * .then(data => {
- *     if (data.success == 1) {
- *         const response = new Response(
- *             IrResponse.Code.SUCCESS,
- *             'FCM 전송 성공.'
- *         )
- *         onResponse(response)
- *     }
- *     if (data.failure == 1) {
- *         const response = new Response(
- *             IrResponse.Code.FAIL,
- *             '잘못된 요청이거나 법인폰 전원이 꺼져 있습니다.'
- *         )
- *         onResponse(response)
- *     }
- * })
- * .catch(error => {
- *     console.log(this.TAG, `request. error: ${error}`)
- *     const response = new Response(
- *         IrResponse.Code.FAIL,
- *         'FCM 요청 중 에러가 발생했습니다. 다시 시도해주세요.'
- *     )
- *     onResponse(response)
- * })
+ * FCM 전송. (HTTP v1)
  */
+const sendMessage = async (request: Request) => {
+  const projectId = 'l-point'
+  const { accessToken } = useContext(AuthContext)
+  const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`
+
+  return await fetch(FCM_REQUEST_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      message: {
+        token: String(request.token),
+        data: {
+          type: Number(request.type),
+          date: String(request.date),
+          isIncludeRecord: Boolean(request.isIncludeRecord),
+        },
+      },
+    }),
+  })
+}
+
+export { requestType, requestFcm, sendMessage }

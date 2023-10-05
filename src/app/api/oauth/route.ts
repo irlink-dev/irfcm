@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get('code')
+  console.log(code)
 
   const clientId = process.env.LPOINT_CLIENT_ID
   const clientSecret = process.env.LPOINT_CLIENT_SECRET
@@ -15,5 +16,6 @@ export async function POST(request: NextRequest) {
     body: `client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectUri}&grant_type=${grantType}&code=${code}`,
   })
   const data = await response.json()
+  console.log(data)
   return NextResponse.json(data)
 }

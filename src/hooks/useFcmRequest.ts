@@ -97,9 +97,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
         firebasePref.oAuthClientId,
         `http://localhost:3000/${option}/oauth`,
       )
+      return
     }
-    return
-
     const response = await sendFcm(token)
 
     if (response.success === 1) {
