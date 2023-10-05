@@ -6,9 +6,14 @@ export default interface IMessage {
   authKey?: string
 
   /**
+   * 액세스 토큰.
+   */
+  accessToken?: string
+
+  /**
    * 법인폰 번호
    */
-  phoneNumber: string
+  phoneNumber?: string
 
   /**
    * 법인폰 토큰.
