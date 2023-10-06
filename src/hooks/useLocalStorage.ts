@@ -4,7 +4,7 @@ const useLocalStorage = () => {
       return null
     }
     const data = localStorage?.getItem(key)
-    return data ? JSON.parse(data) : null
+    return data === 'undefined' ? null : data ? JSON.parse(data) : null
   }
 
   const setLocalStorageData = (key: string, data: unknown) => {

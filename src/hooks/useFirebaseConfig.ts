@@ -1,7 +1,8 @@
 import process from 'process'
 import Pathname from '@/types/Pathname'
+import { Client, ClientType } from '@/utils/constant'
 
-const useFirebaseConfig = (pathname: Pathname) => {
+const useFirebaseConfig = (client: ClientType) => {
   /**
    * AIA 생명.
    */
@@ -225,23 +226,22 @@ const useFirebaseConfig = (pathname: Pathname) => {
     measurementId: process.env.ZILINK_MEASUREMENT_ID!,
   }
 
-  const getConfig = (pathname: Pathname) => {
-    let config = null
-
-    pathname === 'chubb' && (config = CHUBB_FIREBASE_CONFIG)
-    pathname === 'dblife' && (config = DB_LIFE_FIREBASE_CONFIG)
-    pathname === 'hana' && (config = HANA_FIREBASE_CONFIG)
-    pathname === 'kb' && (config = KB_WIRELESS_FIREBASE_CONFIG)
-    pathname === 'lina' && (config = LINA_FIREBASE_CONFIG)
-    pathname === 'lpoint' && (config = L_POINT_FIREBASE_CONFIG)
-    pathname === 'morecx' && (config = MORECX_FIREBASE_CONFIG)
-    pathname === 'shinhan' && (config = SHINHAN_CARD_FIREBASE_CONFIG)
-    pathname === 'zilink' && (config = ZILINK_FIREBASE_CONFIG)
-
-    return config
+  /**
+   * Config 가져오기.
+   */
+  const getConfig = (client: ClientType) => {
+    if (client === Client.CHUBB) return CHUBB_FIREBASE_CONFIG
+    if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
+    if (client === Client.HANA) return HANA_FIREBASE_CONFIG
+    if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
+    if (client === Client.LINA) return LINA_FIREBASE_CONFIG
+    if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
+    if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
+    if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
+    if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }
 
-  return getConfig(pathname)
+  return getConfig(client)
 }
 
 export default useFirebaseConfig

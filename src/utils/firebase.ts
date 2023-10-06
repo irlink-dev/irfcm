@@ -4,6 +4,7 @@ import FirebaseConfig from '@/types/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
 import LogUtil from './log'
 import Pathname from '@/types/Pathname'
+import { Client, ClientType } from './constant'
 
 const TAG = 'utils/firebase'
 
@@ -27,24 +28,17 @@ const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
 }
 
 /**
- * 법인폰 번호로 토큰 조회.
+ * 유저 토큰 얻기. (Realtime Database)
  */
-const getFirebaseToken = async (phoneNumber: string, option: string = '') => {
-  LogUtil.log(TAG, `getFirebaseToken. phoneNumber: ${phoneNumber}`)
-  const database = getDatabase()
+const getUserToken = async (client: ClientType, phoneNumber: string) => {
+  LogUtil.log(TAG, `getUserToken. phoneNumber: ${phoneNumber}`)
 
-  let snapshot
-  if (option === 'morecx') {
-    // morecx cloud.
-    snapshot = await get(
-      ref(database, `cloud/users/${toHyphenNumber(phoneNumber)}/token`),
-    )
-  } else {
-    // lina, chubb, hana, shinhan, dblife, kb.
-    snapshot = await get(
-      ref(database, `users/${phoneNumber.replace(/-/g, '')}`),
-    )
-  }
+  const path =
+    client === Client.MORECX
+      ? `cloud/users/${toHyphenNumber(phoneNumber)}/token` // MORECX CLOUD
+      : `users/${phoneNumber.replace(/-/g, '')}`
+
+  const snapshot = await get(ref(getDatabase(), path))
   return snapshot?.val()
 }
 
@@ -180,9 +174,9 @@ const getStorageFileUrls = async (
 /**
  * OAuth 인증 코드 발급.
  */
-const getOAuthCode = (clientId: string | null, redirectUri: string) => {
+const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
   if (!window || !clientId || !redirectUri) {
-    LogUtil.log(TAG, 'getOAuthCode. return.')
+    LogUtil.log(TAG, 'getNewOAuthCode. return.')
     return
   }
   window.location.href =
@@ -193,7 +187,7 @@ const getOAuthCode = (clientId: string | null, redirectUri: string) => {
 
 export {
   initFirebaseApp,
-  getFirebaseToken,
+  getUserToken,
   getFileDownloadLinks,
   getLogDownloadLinks,
   getAllTokens,
@@ -201,5 +195,5 @@ export {
   getLogsInFolder,
   getPhoneNumberList,
   getStorageFileUrls,
-  getOAuthCode,
+  getNewOAuthCode,
 }

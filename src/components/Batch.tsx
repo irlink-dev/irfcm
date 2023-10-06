@@ -20,7 +20,7 @@ import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import { requestFcm, requestType } from '@/utils/fcm'
 import {
-  getFirebaseToken,
+  getUserToken,
   getStorageFileUrls,
   initFirebaseApp,
 } from '@/utils/firebase'
@@ -57,7 +57,7 @@ const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   }
 
   const handleSubmit = async () => {
-    // const token = await getFirebaseToken(values.phoneNumber)
+    // const token = await getUserToken(values.phoneNumber)
     // const request: Request = {
     //     authorizationKey: authorizationKey,
     //     token: token,

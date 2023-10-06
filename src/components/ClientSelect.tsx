@@ -45,26 +45,22 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
   ]
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} lg={6}>
-        <FormControl fullWidth>
-          <InputLabel id="client-select">요청 헤더</InputLabel>
+    <FormControl fullWidth>
+      <InputLabel id="client-select">요청 헤더</InputLabel>
 
-          <Select
-            id="client-select"
-            label="요청 헤더"
-            value={params.client}
-            onChange={handleChange}
-          >
-            {menu.map((item) => (
-              <MenuItem key={item[0]} value={item[0]}>
-                {item[1]}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-    </Grid>
+      <Select
+        id="client-select"
+        label="요청 헤더"
+        value={params.client}
+        onChange={handleChange}
+      >
+        {menu.map((item) => (
+          <MenuItem key={item[0]} value={item[0]}>
+            {item[1]}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   )
 }
 

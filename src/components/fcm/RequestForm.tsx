@@ -19,11 +19,13 @@ import {
   Typography,
 } from '@mui/material'
 import Pathname from '@/types/Pathname'
+import { Client, ClientType, FcmMethod } from '@/utils/constant'
 
 interface RequestFormProps {
-  params: { client: Pathname }
+  params: { client: ClientType }
   input: Input
-  handleSubmit: (option: string) => void
+  // handleSubmit: (option: string) => void
+  onSubmit: (method: number | undefined, client: ClientType) => void
   handleChange: (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -34,22 +36,19 @@ interface RequestFormProps {
 const RequestForm = ({
   params,
   input,
-  handleSubmit,
+  // handleSubmit,
+  onSubmit,
   handleChange,
 }: RequestFormProps) => {
   /**
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
-    if (params.client === 'morecx') {
-      handleSubmit(params.client)
-      return
+    if (params.client === Client.L_POINT) {
+      onSubmit(FcmMethod.HTTP_V1, params.client)
+    } else {
+      onSubmit(FcmMethod.LEGACY, params.client)
     }
-    if (params.client === 'lpoint') {
-      handleSubmit(params.client)
-      return
-    }
-    handleSubmit('')
   }
 
   return (

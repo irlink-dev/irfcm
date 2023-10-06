@@ -2,6 +2,8 @@ import { useContext } from 'react'
 import { AuthContext } from '@/components/context/AuthContext'
 import Request from '@/types/Request'
 import IMessage from '@/types/IMessage'
+import { ClientType } from './constant'
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
 /**
  * 요청 타입.
@@ -110,9 +112,9 @@ const requestFcm = async (request: Request) => {
 /**
  * FCM 전송. (HTTP v1)
  */
-const sendMessage = async (message: IMessage) => {
-  const projectId = 'l-point'
-  const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${projectId}/messages:send`
+const sendMessage = async (client: ClientType, message: IMessage) => {
+  const config = useFirebaseConfig(client)
+  const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${config?.projectId}/messages:send`
 
   return await fetch(FCM_REQUEST_URL, {
     method: 'POST',
@@ -122,8 +124,7 @@ const sendMessage = async (message: IMessage) => {
     },
     body: JSON.stringify({
       message: {
-        token:
-          'fohZvZgzRU23trQDAOSxaT:APA91bEczk4DIEnW9Nk_ldiyUk3h-saIzx800SVJO93_mz_kycx83Trf74xzM3C-jZv_x_p9AZTONQo_KX3z_XWk__XgTHYuE9fOQ7ESFo7aWPIz5EOX6as9lqrCeRKMm19eEtwrldOH', // String(message.token),
+        token: String(message.token),
         data: {
           type: String(message.type),
           date: String(message.date),
