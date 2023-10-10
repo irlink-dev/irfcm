@@ -1,5 +1,3 @@
-import { useContext } from 'react'
-import { AuthContext } from '@/components/context/AuthContext'
 import Request from '@/types/Request'
 import IMessage from '@/types/IMessage'
 import { ClientType } from './constant'

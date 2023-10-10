@@ -1,14 +1,11 @@
 'use client'
 
 import useSWR from 'swr'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Box, CircularProgress } from '@mui/material'
-import { AuthContext } from '@/components/context/AuthContext'
-import { sendMessage } from '@/utils/fcm'
 import { Client } from '@/utils/constant'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import LogUtil from '@/utils/log'
 
 const TAG = 'ClientOAuthPage'
 
