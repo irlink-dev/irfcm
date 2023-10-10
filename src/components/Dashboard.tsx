@@ -18,7 +18,7 @@ import AppBar from './AppBar'
 import Drawer from './Drawer'
 import { usePathname, useRouter } from 'next/navigation'
 import { Badge, LinearProgress } from '@mui/material'
-import { LoadingContext } from '@/components/context/LoadingContext'
+import { LoadingContext } from '@/contexts/LoadingContext'
 
 const DRAWER_WIDTH: number = 260
 

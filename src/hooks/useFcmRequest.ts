@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
 import { getUserToken, getNewOAuthCode } from '@/utils/firebase'
-import Request from '@/types/Request'
+import Request from '@/interfaces/Request'
 import { requestFcm, sendMessage } from '@/utils/fcm'
 import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { useSnackbar } from 'notistack'
-import RequestType from '@/types/RequestType'
-import FirebasePreference from '@/types/FirebasePreference'
-import Input from '@/types/Input'
+import FirebasePreference from '@/interfaces/FirebasePreference'
+import Input from '@/interfaces/Input'
 import useLocalStorage from './useLocalStorage'
 import LogUtil from '@/utils/log'
-import { Client, ClientType, FcmMethod } from '@/utils/constant'
-import IMessage from '@/types/IMessage'
+import { FcmMethod } from '@/enums/FcmMethod'
+import { Client, ClientType } from '@/enums/Client'
+import Message from '@/interfaces/Message'
+import { FcmType } from '@/enums/FcmType'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
@@ -34,7 +35,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       : {
           phoneNumber: '',
           date: '',
-          type: RequestType.UPLOAD_LOGS,
+          type: FcmType.UPLOAD_LOGS,
           isIncludeRecord: false,
         }
   })
@@ -160,7 +161,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   const doHttpV1Process = async (client: ClientType) => {
     const userToken = await getUserToken(client, input.phoneNumber)
 
-    const message: IMessage = {
+    const message: Message = {
       accessToken: accessToken,
       token: userToken,
       date: input.date,

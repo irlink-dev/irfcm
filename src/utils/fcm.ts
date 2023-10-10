@@ -1,6 +1,6 @@
-import Request from '@/types/Request'
-import IMessage from '@/types/IMessage'
-import { ClientType } from './constant'
+import Request from '@/interfaces/Request'
+import Message from '@/interfaces/Message'
+import { ClientType } from '@/enums/Client'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
 /**
@@ -110,7 +110,7 @@ const requestFcm = async (request: Request) => {
 /**
  * FCM 전송. (HTTP v1)
  */
-const sendMessage = async (client: ClientType, message: IMessage) => {
+const sendMessage = async (client: ClientType, message: Message) => {
   const config = useFirebaseConfig(client)
   const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${config?.projectId}/messages:send`
 

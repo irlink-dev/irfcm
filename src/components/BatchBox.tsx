@@ -27,11 +27,11 @@ import {
 import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { grey } from '@mui/material/colors'
 import { createFileData } from '@/utils/data'
-import FirebasePreference from '@/types/FirebasePreference'
-import Input from '@/types/Input'
-import Request from '@/types/Request'
+import FirebasePreference from '@/interfaces/FirebasePreference'
+import Input from '@/interfaces/Input'
+import Request from '@/interfaces/Request'
 
-const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
+const BatchBox = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   const { UPLOAD_LOGS, UPLOAD_FILE_LIST, UPLOAD_RECORDS } = requestType()
 
   const handleChange = (
@@ -250,4 +250,4 @@ const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   )
 }
 
-export default Batch
+export default BatchBox

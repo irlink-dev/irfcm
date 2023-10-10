@@ -1,8 +1,8 @@
 'use client'
 
-import Dashboard from '@/components/layout/Dashboard'
+import Dashboard from '@/components/Dashboard'
 import { SnackbarProvider } from 'notistack'
-import { LoadingProvider } from '@/components/context/LoadingContext'
+import { LoadingProvider } from '@/contexts/LoadingContext'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

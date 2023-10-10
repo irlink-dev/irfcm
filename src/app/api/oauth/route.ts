@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Client, ClientType, GoogleApi, GrantType } from '@/utils/constant'
+import { GoogleApi } from '@/enums/GoogleApi'
+import { GrantType } from '@/enums/GrantType'
+import { Client, ClientType } from '@/enums/Client'
 import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
-import LogUtil from '@/utils/log'
 
 const TAG = '/api/oauth'
 

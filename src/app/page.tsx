@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
-import { LoadingContext } from '@/components/context/LoadingContext'
+import { LoadingContext } from '@/contexts/LoadingContext'
 import {
   Card,
   CardActionArea,

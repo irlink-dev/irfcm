@@ -3,22 +3,20 @@
 import React, { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
 import 'firebase/compat/storage'
-import FirebasePreference from '@/types/FirebasePreference'
-import RequestForm from '@/components/fcm/RequestForm'
+import FirebasePreference from '@/interfaces/FirebasePreference'
+import RequestForm from '@/components/RequestForm'
 import useFcmRequest from '@/hooks/useFcmRequest'
 import useFirebase from '@/hooks/useFirebase'
-import StorageFiles from './StorageFiles'
-import Pathname from '@/types/Pathname'
-import { Box, Button, CircularProgress } from '@mui/material'
-import { Client, ClientType, FcmMethod } from '@/utils/constant'
-import { getUserToken } from '@/utils/firebase'
+import StorageFiles from '@/components/StorageFiles'
+import { Box, CircularProgress } from '@mui/material'
+import { ClientType } from '@/enums/Client'
 import ClientSelect from '@/components/ClientSelect'
 import OAuthButton from '@/components/OAuthButton'
 
 /**
  * FCM 컨테이너. Request 전역 상태 관리.
  */
-const FcmContainer = ({
+const FcmBox = ({
   params,
   firebasePref,
 }: {
@@ -92,4 +90,4 @@ const FcmContainer = ({
   )
 }
 
-export default FcmContainer
+export default FcmBox

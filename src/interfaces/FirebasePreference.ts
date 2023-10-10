@@ -1,4 +1,4 @@
-import FirebaseConfig from '@/types/FirebaseConfig'
+import FirebaseConfig from '@/interfaces/FirebaseConfig'
 
 /**
  * 파이어베이스 설정.

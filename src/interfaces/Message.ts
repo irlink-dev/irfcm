@@ -1,4 +1,4 @@
-export default interface IMessage {
+export default interface Message {
   /**
    * @deprecated
    * 고객사별 인증 키. (LEGACY)

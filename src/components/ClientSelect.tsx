@@ -3,7 +3,7 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { styled } from '@mui/material/styles'
-import { LoadingContext } from '@/components/context/LoadingContext'
+import { LoadingContext } from '@/contexts/LoadingContext'
 import { FormControl, Grid, InputLabel, MenuItem } from '@mui/material'
 import MuiSelect, {
   SelectProps as MuiSelectProps,

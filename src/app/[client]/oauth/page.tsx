@@ -4,7 +4,7 @@ import useSWR from 'swr'
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Box, CircularProgress } from '@mui/material'
-import { Client } from '@/utils/constant'
+import { Client } from '@/enums/Client'
 import useLocalStorage from '@/hooks/useLocalStorage'
 
 const TAG = 'ClientOAuthPage'

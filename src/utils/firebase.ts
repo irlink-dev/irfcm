@@ -1,10 +1,9 @@
 import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
-import FirebaseConfig from '@/types/FirebaseConfig'
+import FirebaseConfig from '@/interfaces/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
 import LogUtil from './log'
-import Pathname from '@/types/Pathname'
-import { Client, ClientType } from './constant'
+import { Client, ClientType } from '@/enums/Client'
 
 const TAG = 'utils/firebase'
 

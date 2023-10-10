@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
-import FirebasePreference from '@/types/FirebasePreference'
-import FirebaseConfig from '@/types/FirebaseConfig'
+import FirebasePreference from '@/interfaces/FirebasePreference'
+import FirebaseConfig from '@/interfaces/FirebaseConfig'
 import LogUtil from '@/utils/log'
 
 const useFirebase = (firebasePref: FirebasePreference) => {

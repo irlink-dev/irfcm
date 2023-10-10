@@ -4,9 +4,9 @@ import 'firebase/compat/storage'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import useFormat from '@/hooks/useFormat'
 import { FileData, createFileData } from '@/utils/data'
-import FirebasePreference from '@/types/FirebasePreference'
+import FirebasePreference from '@/interfaces/FirebasePreference'
 import { getStorageFileUrls } from '@/utils/firebase'
-import Input from '@/types/Input'
+import Input from '@/interfaces/Input'
 import LogUtil from '@/utils/log'
 
 const useStorageFiles = (
