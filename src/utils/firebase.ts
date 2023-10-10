@@ -178,7 +178,6 @@ const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
   LogUtil.log(TAG, `getNewOAuthCode. clientId: ${clientId}`)
 
   if (!window || !clientId || !redirectUri) {
-    LogUtil.log(TAG, `getNewOAuthCode. return.`)
     return
   }
   window.location.href =

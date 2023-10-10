@@ -24,6 +24,12 @@ const HomePage = () => {
           image: '/images/lina_app_icon.png',
         },
         {
+          name: 'L 포인트',
+          route: '/lpoint',
+          desc: 'kr.co.irlink.lpoint',
+          image: '/images/lpoint_app_icon.png',
+        },
+        {
           name: '처브 CDM',
           route: '/chubb',
           desc: 'kr.co.irlink.chubb',
