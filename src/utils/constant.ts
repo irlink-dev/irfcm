@@ -30,3 +30,18 @@ export enum FcmMethod {
  * type FcmMethodType = | FcmMethod.LEGACY | FcmMethod.HTTP_V1 ...
  */
 export type FcmMethodType = (typeof FcmMethod)[keyof typeof FcmMethod]
+
+/**
+ * 구글 API.
+ */
+export enum GoogleApi {
+  OAUTH_TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token',
+}
+
+/**
+ * OAuth 인증 유형.
+ */
+export enum GrantType {
+  AUTHORIZATION_CODE = 'authorization_code',
+  REFRESH_TOKEN = 'refresh_token',
+}

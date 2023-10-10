@@ -11,7 +11,6 @@ import Input from '@/types/Input'
 import useLocalStorage from './useLocalStorage'
 import LogUtil from '@/utils/log'
 import { Client, ClientType, FcmMethod } from '@/utils/constant'
-import Pathname from '@/types/Pathname'
 import IMessage from '@/types/IMessage'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
@@ -69,7 +68,9 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   const doAuth = (client: ClientType) => {
     getNewOAuthCode(
       firebasePref.oAuthClientId,
-      `http://localhost:3000/${client}/oauth`,
+      process.env.NODE_ENV === 'development'
+        ? `http://localhost:3000/${client}/oauth`
+        : `https://irfcm.vercel.app/${client}/oauth`,
     )
   }
 
@@ -82,8 +83,15 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   ) => {
     LogUtil.log(TAG, `refreshAccessToken. client: ${client}`)
 
-    /** @todo API 호출. */
-    return 'newAccessToken: string'
+    const accessToken = await fetch(
+      `/api/oauth?client=${client}&refresh_token=${refreshToken}`,
+      { method: 'POST' },
+    )
+      .then((response) => response.json())
+      .then((data) => data.access_token)
+      .catch((error) => LogUtil.error(TAG, error))
+
+    return accessToken
   }
 
   /**
@@ -114,9 +122,16 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
         setTrigger(() => true)
       }
       if (response.status === 401) {
-        // 액세스 토큰 만료(401). 리프레시 토큰을 이용해 새로운 액세스 토큰 발급.
-        const newAccessToken = await refreshAccessToken(client, refreshToken)
-        setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newAccessToken)
+        if (
+          !getLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY) ||
+          !getLocalStorageData(LOCAL_STORAGE_REFRESH_TOKEN_KEY)
+        ) {
+          doAuth(client)
+        } else {
+          const newAccessToken = await refreshAccessToken(client, refreshToken)
+          setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newAccessToken)
+          window?.location.reload()
+        }
       }
     }
   }
