@@ -175,8 +175,10 @@ const getStorageFileUrls = async (
  * OAuth 인증 코드 발급.
  */
 const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
+  LogUtil.log(TAG, `getNewOAuthCode. clientId: ${clientId}`)
+
   if (!window || !clientId || !redirectUri) {
-    LogUtil.log(TAG, 'getNewOAuthCode. return.')
+    LogUtil.log(TAG, `getNewOAuthCode. return.`)
     return
   }
   window.location.href =
