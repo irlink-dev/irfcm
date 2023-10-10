@@ -1,25 +1,17 @@
-import Pathname from '@/types/Pathname'
+import { Client, ClientType } from '@/enums/Client'
 
-const useAuthorizationKey = (pathname: Pathname) => {
-  let authorizationKey = null
-
-  pathname === 'chubb' &&
-    (authorizationKey = process.env.CHUBB_AUTHORIZATION_KEY!)
-  pathname === 'dblife' &&
-    (authorizationKey = process.env.DBLIFE_AUTHORIZATION_KEY!)
-  pathname === 'hana' &&
-    (authorizationKey = process.env.HANA_AUTHORIZATION_KEY!)
-  pathname === 'kb' && (authorizationKey = process.env.KB_AUTHORIZATION_KEY!)
-  pathname === 'lina' &&
-    (authorizationKey = process.env.LINA_AUTHORIZATION_KEY!)
-  pathname === 'morecx' &&
-    (authorizationKey = process.env.MORECX_AUTHORIZATION_KEY!)
-  pathname === 'shinhan' &&
-    (authorizationKey = process.env.SHINHAN_AUTHORIZATION_KEY!)
-  pathname === 'zilink' &&
-    (authorizationKey = process.env.ZILINK_AUTHORIZATION_KEY!)
-
-  return authorizationKey
+/**
+ * Authorization Key 반환. (LEGACY)
+ */
+const useAuthorizationKey = (client: ClientType) => {
+  if (client === Client.CHUBB) return process.env.CHUBB_AUTHORIZATION_KEY!
+  if (client === Client.DB_LIFE) return process.env.DBLIFE_AUTHORIZATION_KEY!
+  if (client === Client.HANA) return process.env.HANA_AUTHORIZATION_KEY!
+  if (client === Client.KB_WIRELESS) return process.env.KB_AUTHORIZATION_KEY!
+  if (client === Client.LINA) return process.env.LINA_AUTHORIZATION_KEY!
+  if (client === Client.MORECX) return process.env.MORECX_AUTHORIZATION_KEY!
+  if (client === Client.SHINHAN_CARD) return process.env.SHINHAN_AUTHORIZATION_KEY!
+  if (client === Client.ZILINK) return process.env.ZILINK_AUTHORIZATION_KEY!
 }
 
 export default useAuthorizationKey

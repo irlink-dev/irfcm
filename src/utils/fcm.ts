@@ -1,4 +1,7 @@
-import Request from '@/types/Request'
+import Request from '@/interfaces/Request'
+import Message from '@/interfaces/Message'
+import { ClientType } from '@/enums/Client'
+import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 
 /**
  * 요청 타입.
@@ -90,7 +93,7 @@ const requestFcm = async (request: Request) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: request.authorizationKey,
+      Authorization: request.authorizationKey!,
     },
     body: JSON.stringify({
       to: String(request.token),
@@ -104,31 +107,30 @@ const requestFcm = async (request: Request) => {
   }).then((response) => response.json())
 }
 
-export { requestType, requestFcm }
-
 /**
- * .then(data => {
- *     if (data.success == 1) {
- *         const response = new Response(
- *             IrResponse.Code.SUCCESS,
- *             'FCM 전송 성공.'
- *         )
- *         onResponse(response)
- *     }
- *     if (data.failure == 1) {
- *         const response = new Response(
- *             IrResponse.Code.FAIL,
- *             '잘못된 요청이거나 법인폰 전원이 꺼져 있습니다.'
- *         )
- *         onResponse(response)
- *     }
- * })
- * .catch(error => {
- *     console.log(this.TAG, `request. error: ${error}`)
- *     const response = new Response(
- *         IrResponse.Code.FAIL,
- *         'FCM 요청 중 에러가 발생했습니다. 다시 시도해주세요.'
- *     )
- *     onResponse(response)
- * })
+ * FCM 전송. (HTTP v1)
  */
+const sendMessage = async (client: ClientType, message: Message) => {
+  const config = useFirebaseConfig(client)
+  const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${config?.projectId}/messages:send`
+
+  return await fetch(FCM_REQUEST_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${message.accessToken}`,
+    },
+    body: JSON.stringify({
+      message: {
+        token: String(message.token),
+        data: {
+          type: String(message.type),
+          date: String(message.date),
+          isIncludeRecord: String(message.isIncludeRecord),
+        },
+      },
+    }),
+  })
+}
+
+export { requestType, requestFcm, sendMessage }

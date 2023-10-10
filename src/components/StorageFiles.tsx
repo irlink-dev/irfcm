@@ -12,10 +12,10 @@ import {
 import RefreshIcon from '@mui/icons-material/Refresh'
 import DeleteIcon from '@mui/icons-material/Delete'
 import useStorageFiles from '@/hooks/useStorageFiles'
-import FirebasePreference from '@/types/FirebasePreference'
+import FirebasePreference from '@/interfaces/FirebasePreference'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
-import Input from '@/types/Input'
+import Input from '@/interfaces/Input'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import LogUtil from '@/utils/log'
 

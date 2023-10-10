@@ -20,18 +20,18 @@ import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import { requestFcm, requestType } from '@/utils/fcm'
 import {
-  getFirebaseToken,
+  getUserToken,
   getStorageFileUrls,
   initFirebaseApp,
 } from '@/utils/firebase'
 import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { grey } from '@mui/material/colors'
 import { createFileData } from '@/utils/data'
-import FirebasePreference from '@/types/FirebasePreference'
-import Input from '@/types/Input'
-import Request from '@/types/Request'
+import FirebasePreference from '@/interfaces/FirebasePreference'
+import Input from '@/interfaces/Input'
+import Request from '@/interfaces/Request'
 
-const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
+const BatchBox = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   const { UPLOAD_LOGS, UPLOAD_FILE_LIST, UPLOAD_RECORDS } = requestType()
 
   const handleChange = (
@@ -57,7 +57,7 @@ const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   }
 
   const handleSubmit = async () => {
-    // const token = await getFirebaseToken(values.phoneNumber)
+    // const token = await getUserToken(values.phoneNumber)
     // const request: Request = {
     //     authorizationKey: authorizationKey,
     //     token: token,
@@ -250,4 +250,4 @@ const Batch = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
   )
 }
 
-export default Batch
+export default BatchBox

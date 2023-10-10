@@ -1,8 +1,7 @@
 'use client'
 
 import React from 'react'
-import RequestType from '@/types/RequestType'
-import Input from '@/types/Input'
+import Input from '@/interfaces/Input'
 import {
   Box,
   Button,
@@ -18,12 +17,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import Pathname from '@/types/Pathname'
+import { FcmMethod } from '@/enums/FcmMethod'
+import { Client, ClientType } from '@/enums/Client'
+import { FcmType } from '@/enums/FcmType'
 
 interface RequestFormProps {
-  params: { client: Pathname }
+  params: { client: ClientType }
   input: Input
-  handleSubmit: (option: string) => void
+  // handleSubmit: (option: string) => void
+  onSubmit: (method: number | undefined, client: ClientType) => void
   handleChange: (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -34,18 +36,19 @@ interface RequestFormProps {
 const RequestForm = ({
   params,
   input,
-  handleSubmit,
+  // handleSubmit,
+  onSubmit,
   handleChange,
 }: RequestFormProps) => {
   /**
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
-    if (params.client === 'morecx') {
-      handleSubmit(params.client)
-      return
+    if (params.client === Client.L_POINT) {
+      onSubmit(FcmMethod.HTTP_V1, params.client)
+    } else {
+      onSubmit(FcmMethod.LEGACY, params.client)
     }
-    handleSubmit('')
   }
 
   return (
@@ -83,11 +86,11 @@ const RequestForm = ({
           label="요청 타입"
           onChange={handleChange}
         >
-          <MenuItem value={RequestType.UPLOAD_LOGS}>[1] 로그</MenuItem>
-          <MenuItem value={RequestType.UPLOAD_FILE_LIST}>
+          <MenuItem value={FcmType.UPLOAD_LOGS}>[1] 로그</MenuItem>
+          <MenuItem value={FcmType.UPLOAD_FILE_LIST}>
             [2] 파일 리스트
           </MenuItem>
-          <MenuItem value={RequestType.UPLOAD_RECORDS}>
+          <MenuItem value={FcmType.UPLOAD_RECORDS}>
             [5] 녹취 파일 업로드
           </MenuItem>
         </Select>

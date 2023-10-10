@@ -1,28 +1,19 @@
-import Fcm from '@/components/fcm/Fcm'
-import ClientSelect from '@/components/ClientSelect'
+import FcmBox from '@/components/FcmBox'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
 import useAuthorizationKey from '@/hooks/useAuthorizationKey'
-import FirebasePreference from '@/types/FirebasePreference'
-import Pathname from '@/types/Pathname'
+import FirebasePreference from '@/interfaces/FirebasePreference'
+import { ClientType } from '@/enums/Client'
+import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
 
-interface ClientPageProps {
-  params: {
-    client: Pathname
-  }
-}
-
-const ClientPage = ({ params }: ClientPageProps) => {
+const ClientPage = ({ params }: { params: { client: ClientType } }) => {
   const firebasePref: FirebasePreference = {
     authorizationKey: useAuthorizationKey(params.client)!,
+    oAuthClientId: getOAuthClientId(params.client),
+    oAuthClientSecret: getOAuthClientSecret(params.client),
     config: useFirebaseConfig(params.client)!,
   }
 
-  return (
-    <>
-      <ClientSelect params={params} />
-      <Fcm params={params} firebasePref={firebasePref} />
-    </>
-  )
+  return <FcmBox params={params} firebasePref={firebasePref} />
 }
 
 export default ClientPage

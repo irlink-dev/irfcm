@@ -1,8 +1,9 @@
 import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
-import FirebaseConfig from '@/types/FirebaseConfig'
+import FirebaseConfig from '@/interfaces/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
 import LogUtil from './log'
+import { Client, ClientType } from '@/enums/Client'
 
 const TAG = 'utils/firebase'
 
@@ -12,7 +13,7 @@ const { toHyphenNumber } = useFormat()
  * 파이어베이스 초기화.
  */
 const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
-  console.log(`initFirebaseApp. projectId: ${firebaseConfig.projectId}`)
+  console.log(`initFirebaseApp. projectId: ${firebaseConfig?.projectId}`)
 
   if (firebase.apps.length === 0) {
     await firebase.initializeApp(firebaseConfig) // 앱이 존재하지 않으면, 앱을 초기화.
@@ -26,24 +27,17 @@ const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
 }
 
 /**
- * 법인폰 번호로 토큰 조회.
+ * 유저 토큰 얻기. (Realtime Database)
  */
-const getFirebaseToken = async (phoneNumber: string, option: string = '') => {
-  LogUtil.log(TAG, `getFirebaseToken. phoneNumber: ${phoneNumber}`)
-  const database = getDatabase()
+const getUserToken = async (client: ClientType, phoneNumber: string) => {
+  LogUtil.log(TAG, `getUserToken. phoneNumber: ${phoneNumber}`)
 
-  let snapshot
-  if (option === 'morecx') {
-    // morecx cloud.
-    snapshot = await get(
-      ref(database, `cloud/users/${toHyphenNumber(phoneNumber)}/token`),
-    )
-  } else {
-    // lina, chubb, hana, shinhan, dblife, kb.
-    snapshot = await get(
-      ref(database, `users/${phoneNumber.replace(/-/g, '')}`),
-    )
-  }
+  const path =
+    client === Client.MORECX
+      ? `cloud/users/${toHyphenNumber(phoneNumber)}/token` // MORECX CLOUD
+      : `users/${phoneNumber.replace(/-/g, '')}`
+
+  const snapshot = await get(ref(getDatabase(), path))
   return snapshot?.val()
 }
 
@@ -176,9 +170,24 @@ const getStorageFileUrls = async (
   )
 }
 
+/**
+ * OAuth 인증 코드 발급.
+ */
+const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
+  LogUtil.log(TAG, `getNewOAuthCode. clientId: ${clientId}`)
+
+  if (!window || !clientId || !redirectUri) {
+    return
+  }
+  window.location.href =
+    `https://accounts.google.com/o/oauth2/v2/auth` +
+    `?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code` +
+    `&scope=https://www.googleapis.com/auth/firebase.messaging&access_type=offline&prompt=consent`
+}
+
 export {
   initFirebaseApp,
-  getFirebaseToken,
+  getUserToken,
   getFileDownloadLinks,
   getLogDownloadLinks,
   getAllTokens,
@@ -186,4 +195,5 @@ export {
   getLogsInFolder,
   getPhoneNumberList,
   getStorageFileUrls,
+  getNewOAuthCode,
 }

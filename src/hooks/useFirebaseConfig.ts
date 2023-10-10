@@ -1,7 +1,7 @@
 import process from 'process'
-import Pathname from '@/types/Pathname'
+import { Client, ClientType } from '@/enums/Client'
 
-const useFirebaseConfig = (pathname: Pathname) => {
+const useFirebaseConfig = (client: ClientType) => {
   /**
    * AIA 생명.
    */
@@ -144,6 +144,19 @@ const useFirebaseConfig = (pathname: Pathname) => {
   }
 
   /**
+   * 엘 포인트.
+   */
+  const L_POINT_FIREBASE_CONFIG = {
+    apiKey: process.env.L_POINT_API_KEY!,
+    authDomain: 'l-point.firebaseapp.com',
+    databaseURL: 'https://l-point-default-rtdb.firebaseio.com',
+    projectId: 'l-point',
+    storageBucket: 'l-point.appspot.com',
+    messagingSenderId: process.env.L_POINT_MESSAGING_SENDER_ID!,
+    appId: process.env.L_POINT_APP_ID!,
+  }
+
+  /**
    * 메리츠 화재.
    */
   const MERITZ_FIREBASE_CONFIG = {
@@ -212,22 +225,22 @@ const useFirebaseConfig = (pathname: Pathname) => {
     measurementId: process.env.ZILINK_MEASUREMENT_ID!,
   }
 
-  const getConfig = (pathname: Pathname) => {
-    let config = null
-
-    pathname === 'chubb' && (config = CHUBB_FIREBASE_CONFIG)
-    pathname === 'dblife' && (config = DB_LIFE_FIREBASE_CONFIG)
-    pathname === 'hana' && (config = HANA_FIREBASE_CONFIG)
-    pathname === 'kb' && (config = KB_WIRELESS_FIREBASE_CONFIG)
-    pathname === 'lina' && (config = LINA_FIREBASE_CONFIG)
-    pathname === 'morecx' && (config = MORECX_FIREBASE_CONFIG)
-    pathname === 'shinhan' && (config = SHINHAN_CARD_FIREBASE_CONFIG)
-    pathname === 'zilink' && (config = ZILINK_FIREBASE_CONFIG)
-
-    return config
+  /**
+   * Config 가져오기.
+   */
+  const getConfig = (client: ClientType) => {
+    if (client === Client.CHUBB) return CHUBB_FIREBASE_CONFIG
+    if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
+    if (client === Client.HANA) return HANA_FIREBASE_CONFIG
+    if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
+    if (client === Client.LINA) return LINA_FIREBASE_CONFIG
+    if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
+    if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
+    if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
+    if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }
 
-  return getConfig(pathname)
+  return getConfig(client)
 }
 
 export default useFirebaseConfig

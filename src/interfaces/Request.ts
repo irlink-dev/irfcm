@@ -2,7 +2,7 @@ export default interface Request {
   /**
    * 고객사별 인증 키.
    */
-  authorizationKey: string
+  authorizationKey: string | null
 
   /**
    * 법인폰 토큰.

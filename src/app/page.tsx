@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
-import { LoadingContext } from '@/components/context/LoadingContext'
+import { LoadingContext } from '@/contexts/LoadingContext'
 import {
   Card,
   CardActionArea,
@@ -22,6 +22,12 @@ const HomePage = () => {
           route: '/lina',
           desc: 'kr.co.irlink.lina',
           image: '/images/lina_app_icon.png',
+        },
+        {
+          name: 'L 포인트',
+          route: '/lpoint',
+          desc: 'kr.co.irlink.lpoint',
+          image: '/images/lpoint_app_icon.png',
         },
         {
           name: '처브 CDM',

@@ -4,7 +4,7 @@ import * as React from 'react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { ListItemButton, ListItemText, ListItemAvatar } from '@mui/material'
-import { LoadingContext } from '@/components/context/LoadingContext'
+import { LoadingContext } from '@/contexts/LoadingContext'
 
 interface DrawerListRowProps {
   name: string
