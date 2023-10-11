@@ -43,15 +43,19 @@ const ClientOAuthPage = () => {
   }
 
   useEffect(() => {
-    if (!isLoading && data) {
-      const { access_token, refresh_token } = data
-      setTokens(access_token, refresh_token)
-    }
-  }, [data])
+    const tokenStatus = isLoading ? '🚫 INACTIVE' : '✅ ACTIVE'
 
-  useEffect(() => {
-    router.push('/lpoint')
-  }, [accessToken])
+    Logger.log(
+      TAG,
+      `useEffect(isLoading). isLoading: ${isLoading},\n\n` +
+        `🔐 (accessToken): ${accessToken}\n\n` +
+        `${tokenStatus}.\n\n`,
+    )
+    if (!isLoading && data) {
+      setTokens(data.access_token, data.refresh_token)
+      router.push('/lpoint')
+    }
+  }, [isLoading])
 
   return (
     <>
