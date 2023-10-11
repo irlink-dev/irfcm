@@ -60,15 +60,20 @@ export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const client = searchParams.get('client') as ClientType
 
-  // Logger.log(TAG, `POST. client: ${client}`)
-
   const clientId = getOAuthClientId(client) as string
   const clientSecret = getOAuthClientSecret(client) as string
   const authCode = searchParams.get('code')
   const refreshToken = searchParams.get('refresh_token')
 
-  // Logger.log(TAG, `POST. clientId: ${clientId}, clientSecret: ${clientSecret}`)
-  // Logger.log(TAG, `POST. authCode: ${authCode}, refreshToken: ${refreshToken}`)
+  Logger.log(
+    TAG,
+    `POST. REQUEST \n` +
+      `    - client: ${client}\n` +
+      `    - clientId: ${clientId}\n` +
+      `    - clientSecret: ${clientSecret}\n` +
+      `    - authCode: ${authCode}\n` +
+      `    - refreshToken: ${refreshToken}`,
+  )
 
   if (authCode) {
     const data = await fetchTokens(clientId, clientSecret, authCode)

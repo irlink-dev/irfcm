@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Box, CircularProgress } from '@mui/material'
 import { Client } from '@/enums/Client'
 import useLocalStorage from '@/hooks/useLocalStorage'
+import Logger from '@/utils/log'
 
 const TAG = 'ClientOAuthPage'
 
@@ -21,17 +22,30 @@ const ClientOAuthPage = () => {
     },
   )
 
-  const LOCAL_STORAGE_ACCESS_TOKEN_KEY = `irfcm:access_token:${Client.L_POINT}`
-  const LOCAL_STORAGE_REFRESH_TOKEN_KEY = `irfcm:refresh_token:${Client.L_POINT}`
-
-  const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
+  const {
+    getLocalStorageData,
+    setLocalStorageData,
+    LOCAL_STORAGE_ACCESS_TOKEN_KEY,
+    LOCAL_STORAGE_REFRESH_TOKEN_KEY,
+  } = useLocalStorage(Client.L_POINT)
 
   const accessToken = getLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
 
+  const setTokens = (accessToken: string, refreshToken: string) => {
+    Logger.log(
+      TAG,
+      `setTokens.\n\n` +
+        `🔐 [accessToken]: ${accessToken}\n\n` +
+        `♻️ [refreshToken]: ${refreshToken}\n\n`,
+    )
+    setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, accessToken)
+    setLocalStorageData(LOCAL_STORAGE_REFRESH_TOKEN_KEY, refreshToken)
+  }
+
   useEffect(() => {
-    if (!isLoading) {
-      setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, data?.access_token)
-      setLocalStorageData(LOCAL_STORAGE_REFRESH_TOKEN_KEY, data?.refresh_token)
+    if (!isLoading && data) {
+      const { access_token, refresh_token } = data
+      setTokens(access_token, refresh_token)
     }
   }, [data])
 
