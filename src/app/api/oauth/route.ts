@@ -3,6 +3,7 @@ import { GoogleApi } from '@/enums/GoogleApi'
 import { GrantType } from '@/enums/GrantType'
 import { Client, ClientType } from '@/enums/Client'
 import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
+import Logger from '@/utils/log'
 
 const TAG = '/api/oauth'
 
@@ -59,15 +60,15 @@ export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const client = searchParams.get('client') as ClientType
 
-  // LogUtil.log(TAG, `POST. client: ${client}`)
+  // Logger.log(TAG, `POST. client: ${client}`)
 
   const clientId = getOAuthClientId(client) as string
   const clientSecret = getOAuthClientSecret(client) as string
   const authCode = searchParams.get('code')
   const refreshToken = searchParams.get('refresh_token')
 
-  // LogUtil.log(TAG, `POST. clientId: ${clientId}, clientSecret: ${clientSecret}`)
-  // LogUtil.log(TAG, `POST. authCode: ${authCode}, refreshToken: ${refreshToken}`)
+  // Logger.log(TAG, `POST. clientId: ${clientId}, clientSecret: ${clientSecret}`)
+  // Logger.log(TAG, `POST. authCode: ${authCode}, refreshToken: ${refreshToken}`)
 
   if (authCode) {
     const data = await fetchTokens(clientId, clientSecret, authCode)

@@ -1,6 +1,6 @@
 import Error from 'next/error'
 
-export default class LogUtil {
+export default class Logger {
   /**
    * 로그.
    */

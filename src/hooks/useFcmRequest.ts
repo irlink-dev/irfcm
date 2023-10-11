@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import Input from '@/interfaces/Input'
 import useLocalStorage from './useLocalStorage'
-import LogUtil from '@/utils/log'
+import Logger from '@/utils/log'
 import { FcmMethod } from '@/enums/FcmMethod'
 import { Client, ClientType } from '@/enums/Client'
 import Message from '@/interfaces/Message'
@@ -82,7 +82,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     client: ClientType,
     refreshToken: string,
   ) => {
-    LogUtil.log(TAG, `refreshAccessToken. client: ${client}`)
+    Logger.log(TAG, `refreshAccessToken. client: ${client}`)
 
     const accessToken = await fetch(
       `/api/oauth?client=${client}&refresh_token=${refreshToken}`,
@@ -90,7 +90,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     )
       .then((response) => response.json())
       .then((data) => data.access_token)
-      .catch((error) => LogUtil.error(TAG, error))
+      .catch((error) => Logger.error(TAG, error))
 
     return accessToken
   }
@@ -103,7 +103,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     response: IFcmResponse,
     client: ClientType,
   ) => {
-    LogUtil.log(
+    Logger.log(
       TAG,
       `onResponse. status: ${response?.status || response?.success}`,
     )
@@ -177,7 +177,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 요청 양식 제출 시.
    */
   const onSubmit = (method: number = FcmMethod.LEGACY, client: ClientType) => {
-    LogUtil.log(
+    Logger.log(
       TAG,
       `onSubmit. method: ${FcmMethod[method]}, client: ${client}`,
     )
