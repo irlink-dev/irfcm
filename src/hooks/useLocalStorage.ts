@@ -1,4 +1,9 @@
-const useLocalStorage = () => {
+import { ClientType } from '@/enums/Client'
+
+const useLocalStorage = (client: ClientType | null = null) => {
+  const LOCAL_STORAGE_ACCESS_TOKEN_KEY = `irfcm:access_token:${client}`
+  const LOCAL_STORAGE_REFRESH_TOKEN_KEY = `irfcm:refresh_token:${client}`
+
   const getLocalStorageData = (key: string) => {
     if (typeof window === 'undefined') {
       return null
@@ -17,6 +22,8 @@ const useLocalStorage = () => {
   return {
     getLocalStorageData,
     setLocalStorageData,
+    LOCAL_STORAGE_ACCESS_TOKEN_KEY,
+    LOCAL_STORAGE_REFRESH_TOKEN_KEY,
   }
 }
 

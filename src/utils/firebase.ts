@@ -2,7 +2,7 @@ import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
 import FirebaseConfig from '@/interfaces/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
-import LogUtil from './log'
+import Logger from './log'
 import { Client, ClientType } from '@/enums/Client'
 
 const TAG = 'utils/firebase'
@@ -30,7 +30,7 @@ const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
  * 유저 토큰 얻기. (Realtime Database)
  */
 const getUserToken = async (client: ClientType, phoneNumber: string) => {
-  LogUtil.log(TAG, `getUserToken. phoneNumber: ${phoneNumber}`)
+  Logger.log(TAG, `getUserToken. phoneNumber: ${phoneNumber}`)
 
   const path =
     client === Client.MORECX
@@ -48,7 +48,7 @@ const getFileDownloadLinks = async (
   filenames: Array<string>,
   bucket: firebase.storage.Reference,
 ) => {
-  LogUtil.log(TAG, `getFileDownloadLinks. length: ${filenames.length}`)
+  Logger.log(TAG, `getFileDownloadLinks. length: ${filenames.length}`)
   const urls: Array<string> = []
 
   for (const filename of filenames) {
@@ -163,7 +163,7 @@ const getStorageFileUrls = async (
   }
   const response = await listRef.listAll()
 
-  LogUtil.log(TAG, `getStorageFileUrls. listRef: ${listRef}`)
+  Logger.log(TAG, `getStorageFileUrls. listRef: ${listRef}`)
 
   return await Promise.all(
     response.items.map(async (item) => await item.getDownloadURL()),
@@ -174,7 +174,7 @@ const getStorageFileUrls = async (
  * OAuth 인증 코드 발급.
  */
 const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
-  LogUtil.log(TAG, `getNewOAuthCode. clientId: ${clientId}`)
+  Logger.log(TAG, `getNewOAuthCode. clientId: ${clientId}`)
 
   if (!window || !clientId || !redirectUri) {
     return

@@ -3,6 +3,7 @@ import { GoogleApi } from '@/enums/GoogleApi'
 import { GrantType } from '@/enums/GrantType'
 import { Client, ClientType } from '@/enums/Client'
 import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
+import Logger from '@/utils/log'
 
 const TAG = '/api/oauth'
 
@@ -29,6 +30,9 @@ async function fetchTokens(
       `&redirect_uri=${REDIRECT_URI}` +
       `&code=${authCode}`,
   })
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
   return await response.json()
 }
 
@@ -49,6 +53,9 @@ async function refreshAccessToken(
       `&grant_type=${GrantType.REFRESH_TOKEN}` +
       `&refresh_token=${refreshToken}`,
   })
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
   return await response.json()
 }
 
@@ -59,23 +66,51 @@ export async function POST(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const client = searchParams.get('client') as ClientType
 
-  // LogUtil.log(TAG, `POST. client: ${client}`)
+  if (!Object.values(Client).includes(client as Client)) {
+    Logger.log(TAG, `Invalid client value: ${client}`)
+    return NextResponse.json({ ok: false, error: 'Invalid client value' })
+  }
 
   const clientId = getOAuthClientId(client) as string
   const clientSecret = getOAuthClientSecret(client) as string
   const authCode = searchParams.get('code')
   const refreshToken = searchParams.get('refresh_token')
 
-  // LogUtil.log(TAG, `POST. clientId: ${clientId}, clientSecret: ${clientSecret}`)
-  // LogUtil.log(TAG, `POST. authCode: ${authCode}, refreshToken: ${refreshToken}`)
-
-  if (authCode) {
-    const data = await fetchTokens(clientId, clientSecret, authCode)
-    return NextResponse.json(data)
-  }
-  if (refreshToken) {
-    const data = await refreshAccessToken(clientId, clientSecret, refreshToken)
-    return NextResponse.json(data)
+  Logger.log(
+    TAG,
+    `POST. REQUEST \n` +
+      `    - client: ${client}\n` +
+      `    - clientId: ${clientId}\n` +
+      `    - clientSecret: ${clientSecret}\n` +
+      `    - authCode: ${authCode}\n` +
+      `    - refreshToken: ${refreshToken}`,
+  )
+  try {
+    if (authCode) {
+      const data = await fetchTokens(clientId, clientSecret, authCode)
+      return NextResponse.json(data)
+    }
+    if (refreshToken) {
+      const data = await refreshAccessToken(
+        clientId,
+        clientSecret,
+        refreshToken,
+      )
+      if (!data?.access_token) {
+        Logger.log(
+          TAG,
+          `Unexpected response from OAuth server: ${JSON.stringify(data)}`,
+        )
+        return NextResponse.json({
+          ok: false,
+          error: 'Unexpected response from OAuth server',
+        })
+      }
+      return NextResponse.json(data)
+    }
+  } catch (error: any) {
+    Logger.log(TAG, `Error during OAuth process: ${error.message}`)
+    return NextResponse.json({ ok: false, error: 'Internal server error' })
   }
   return NextResponse.json({ ok: false })
 }

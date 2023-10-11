@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import Input from '@/interfaces/Input'
 import useLocalStorage from './useLocalStorage'
-import LogUtil from '@/utils/log'
+import Logger from '@/utils/log'
 import { FcmMethod } from '@/enums/FcmMethod'
 import { Client, ClientType } from '@/enums/Client'
 import Message from '@/interfaces/Message'
@@ -59,10 +59,6 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       : setInput({ ...input, [name]: value })
   }
 
-  /*************************************************************************/
-  /**********************  REFACTORING NEW FUNCTIONS  **********************/
-  /*************************************************************************/
-
   /**
    * [NEW] 신규 인증 진행.
    */
@@ -82,7 +78,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     client: ClientType,
     refreshToken: string,
   ) => {
-    LogUtil.log(TAG, `refreshAccessToken. client: ${client}`)
+    Logger.log(TAG, `refreshAccessToken. client: ${client}`)
 
     const accessToken = await fetch(
       `/api/oauth?client=${client}&refresh_token=${refreshToken}`,
@@ -90,50 +86,64 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     )
       .then((response) => response.json())
       .then((data) => data.access_token)
-      .catch((error) => LogUtil.error(TAG, error))
+      .catch((error) => Logger.error(TAG, error))
 
     return accessToken
   }
 
   /**
-   * [NEW] 응답 후처리 로직.
+   * [NEW] 응답 성공 시.
+   */
+  const onSuccess = () => {
+    showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
+    setTrigger(() => true)
+  }
+
+  /**
+   * [NEW] 응답 실패 시.
+   */
+  const onFailure = () => {
+    showErrorSnackbar(enqueueSnackbar, 'FCM 전송 실패')
+  }
+
+  /**
+   * [NEW] "권한 없음(401)" 응답 시.
+   */
+  const onUnauthorized = async (client: ClientType) => {
+    Logger.log(
+      TAG,
+      `onUnauthorized. client: ${client}, \n\n` +
+        `♻️ (refreshToken): ${refreshToken}\n\n`,
+    )
+    if (refreshToken) {
+      const newAccessToken = await refreshAccessToken(client, refreshToken)
+      setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newAccessToken)
+      window?.location.reload()
+    } else {
+      showErrorSnackbar(enqueueSnackbar, 'OAuth 2.0 인증 필요')
+      // doAuth(client)
+    }
+  }
+
+  /**
+   * [NEW] 응답 후 처리.
    */
   const onResponse = async (
     method: FcmMethod,
     response: IFcmResponse,
     client: ClientType,
   ) => {
-    LogUtil.log(
+    Logger.log(
       TAG,
       `onResponse. status: ${response?.status || response?.success}`,
     )
-
     if (method === FcmMethod.LEGACY) {
-      if (response.success === 1) {
-        showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
-        setTrigger(() => true)
-      }
-      if (response.failure === 1) {
-        showErrorSnackbar(enqueueSnackbar, 'FCM 전송 실패')
-      }
+      if (response.success === 1) onSuccess()
+      if (response.failure === 1) onFailure()
     }
     if (method === FcmMethod.HTTP_V1) {
-      if (response.status === 200) {
-        showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
-        setTrigger(() => true)
-      }
-      if (response.status === 401) {
-        if (
-          !getLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY) ||
-          !getLocalStorageData(LOCAL_STORAGE_REFRESH_TOKEN_KEY)
-        ) {
-          doAuth(client)
-        } else {
-          const newAccessToken = await refreshAccessToken(client, refreshToken)
-          setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newAccessToken)
-          window?.location.reload()
-        }
-      }
+      if (response.status === 200) onSuccess()
+      if (response.status === 401) onUnauthorized(client)
     }
   }
 
@@ -151,6 +161,14 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
+    Logger.log(
+      TAG,
+      `doLegacyProcess.\n\n` +
+        `📱 (userToken): ${userToken}\n\n` +
+        `📄 date: ${input.date}, ` +
+        `type: ${FcmType[input.type]}(${input.type}), ` +
+        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+    )
     const response = await requestFcm(request)
     onResponse(FcmMethod.LEGACY, response, client)
   }
@@ -169,6 +187,14 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
+    Logger.log(
+      TAG,
+      `doLegacyProcess.\n\n` +
+        `📱 (userToken): ${userToken}\n\n` +
+        `📄 date: ${input.date}, ` +
+        `type: ${FcmType[input.type]}(${input.type}), ` +
+        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+    )
     const response = await sendMessage(client, message)
     onResponse(FcmMethod.HTTP_V1, response, client)
   }
@@ -177,10 +203,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 요청 양식 제출 시.
    */
   const onSubmit = (method: number = FcmMethod.LEGACY, client: ClientType) => {
-    LogUtil.log(
-      TAG,
-      `onSubmit. method: ${FcmMethod[method]}, client: ${client}`,
-    )
+    Logger.log(TAG, `onSubmit. method: ${FcmMethod[method]}, client: ${client}`)
+
     if (method === FcmMethod.LEGACY) {
       doLegacyProcess(client)
     }
@@ -194,7 +218,6 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     trigger,
     setTrigger,
     handleChange,
-    // handleSubmit,
     onSubmit,
     doAuth,
   }

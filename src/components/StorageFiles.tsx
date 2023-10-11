@@ -17,7 +17,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Input from '@/interfaces/Input'
 import { Dispatch, SetStateAction, useEffect } from 'react'
-import LogUtil from '@/utils/log'
+import Logger from '@/utils/log'
 
 interface StorageFilesProps {
   params: { client: string }
@@ -45,7 +45,7 @@ const StorageFiles = ({
   }
 
   useEffect(() => {
-    LogUtil.log(TAG, `useEffect(trigger). trigger: ${trigger}`)
+    Logger.log(TAG, `useEffect(trigger). trigger: ${trigger}`)
 
     if (trigger) {
       setTimeout(() => {

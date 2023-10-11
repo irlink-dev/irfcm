@@ -1,4 +1,4 @@
-import LogUtil from '@/utils/log'
+import Logger from '@/utils/log'
 
 const useFormat = () => {
   const TAG = 'useFormat'
@@ -29,7 +29,7 @@ const useFormat = () => {
     const regex = client === 'morecx' ? REGEX_MORECX : REGEX
     const match = url.match(regex)
     if (!match) {
-      LogUtil.log(TAG, `parseUrl. match: ${match}. return null.`)
+      Logger.log(TAG, `parseUrl. match: ${match}. return null.`)
       return null
     }
     const { phoneNumber, date, fileName, params } = match.groups!

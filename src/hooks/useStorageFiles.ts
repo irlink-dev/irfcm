@@ -7,7 +7,7 @@ import { FileData, createFileData } from '@/utils/data'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import { getStorageFileUrls } from '@/utils/firebase'
 import Input from '@/interfaces/Input'
-import LogUtil from '@/utils/log'
+import Logger from '@/utils/log'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,
@@ -32,7 +32,7 @@ const useStorageFiles = (
    * 스토리지 파일 지우기.
    */
   const clearStorageFiles = () => {
-    LogUtil.log(TAG, `clearStorageFiles.`)
+    Logger.log(TAG, `clearStorageFiles.`)
     setStorageFileData([])
   }
 
@@ -40,7 +40,7 @@ const useStorageFiles = (
    * 스토리지 파일 가져오기.
    */
   const getStorageFiles = async (input: Input, client: string) => {
-    LogUtil.log(
+    Logger.log(
       TAG,
       `getStorageFiles. phoneNumber: ${input.phoneNumber}, date: ${input.date}`,
     )
