@@ -85,7 +85,6 @@ export async function POST(request: NextRequest) {
       `    - authCode: ${authCode}\n` +
       `    - refreshToken: ${refreshToken}`,
   )
-
   try {
     if (authCode) {
       const data = await fetchTokens(clientId, clientSecret, authCode)

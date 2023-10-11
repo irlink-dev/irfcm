@@ -35,8 +35,8 @@ const ClientOAuthPage = () => {
     Logger.log(
       TAG,
       `setTokens.\n\n` +
-        `🔐 [accessToken]: ${accessToken}\n\n` +
-        `♻️ [refreshToken]: ${refreshToken}\n\n`,
+        `🔐 (accessToken): ${accessToken}\n\n` +
+        `♻️ (refreshToken): ${refreshToken}\n\n`,
     )
     setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, accessToken)
     setLocalStorageData(LOCAL_STORAGE_REFRESH_TOKEN_KEY, refreshToken)
