@@ -37,6 +37,20 @@ const useStorageFiles = (
   }
 
   /**
+   * 스토리지 파일 표시.
+   */
+  const showStorageFiles = (urls: Array<string>, client: string) => {
+    Logger.log(TAG, `showStorageFiles. length: ${urls.length || 0}`)
+
+    for (const url of urls) {
+      const { parseUrl } = useFormat()
+      const fileName = parseUrl(url, client)?.fileName!
+      const fileData = createFileData(fileName, '', '', url)
+      setStorageFileData((prevState) => [...prevState, fileData])
+    }
+  }
+
+  /**
    * 스토리지 파일 가져오기.
    */
   const getStorageFiles = async (input: Input, client: string) => {
@@ -51,13 +65,7 @@ const useStorageFiles = (
       client,
     )
     clearStorageFiles()
-
-    for (const url of urls) {
-      const { parseUrl } = useFormat()
-      const fileName = parseUrl(url, client)?.fileName!
-      const fileData = createFileData(fileName, '', '', url)
-      setStorageFileData((prevState) => [...prevState, fileData])
-    }
+    showStorageFiles(urls, client)
   }
 
   return { clearStorageFiles, getStorageFiles, storageFileData }
