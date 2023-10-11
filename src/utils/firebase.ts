@@ -163,7 +163,7 @@ const getStorageFileUrls = async (
   }
   const response = await listRef.listAll()
 
-  Logger.log(TAG, `getStorageFileUrls. listRef: ${listRef}`)
+  Logger.log(TAG, `getStorageFileUrls.\n\n` + `🔗 listRef: ${listRef}\n\n`)
 
   return await Promise.all(
     response.items.map(async (item) => await item.getDownloadURL()),
@@ -174,7 +174,12 @@ const getStorageFileUrls = async (
  * OAuth 인증 코드 발급.
  */
 const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
-  Logger.log(TAG, `getNewOAuthCode. clientId: ${clientId}`)
+  Logger.log(
+    TAG,
+    `getNewOAuthCode.\n\n` +
+      `💳 (clientId): ${clientId}\n\n` +
+      `🔗 (redirectUri): ${redirectUri}\n\n`,
+  )
 
   if (!window || !clientId || !redirectUri) {
     return

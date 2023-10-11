@@ -43,15 +43,13 @@ const ClientOAuthPage = () => {
   }
 
   useEffect(() => {
-    if (!isLoading && data) {
-      const { access_token, refresh_token } = data
-      setTokens(access_token, refresh_token)
-    }
-  }, [data])
+    Logger.log(TAG, `useEffect(isLoading). isLoading: ${isLoading}`)
 
-  useEffect(() => {
-    router.push('/lpoint')
-  }, [accessToken])
+    if (!isLoading && data) {
+      setTokens(data.access_token, data.refresh_token)
+      router.push('/lpoint')
+    }
+  }, [isLoading])
 
   return (
     <>
