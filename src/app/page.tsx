@@ -65,6 +65,12 @@ const HomePage = () => {
           desc: 'kr.co.irlink.morecx',
           image: '/images/morecx_app_icon.png',
         },
+        {
+          name: '지링크',
+          route: '/zilink',
+          desc: 'kr.co.irlink.usbcontrol',
+          image: '/images/zilink_app_icon.png',
+        },
       ].map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={item.route}>
           <Card
