@@ -189,7 +189,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     }
     Logger.log(
       TAG,
-      `doLegacyProcess.\n\n` +
+      `doHttpV1Process.\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
         `📄 date: ${input.date}, ` +
         `type: ${FcmType[input.type]}(${input.type}), ` +
