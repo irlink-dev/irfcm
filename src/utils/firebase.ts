@@ -163,7 +163,7 @@ const getStorageFileUrls = async (
   }
   const response = await listRef.listAll()
 
-  Logger.log(TAG, `getStorageFileUrls.\n\n` + `🔗 listRef: ${listRef}\n\n`)
+  Logger.log(TAG, `getStorageFileUrls.\n\n` + `🔗 (listRef): ${listRef}\n\n`)
 
   return await Promise.all(
     response.items.map(async (item) => await item.getDownloadURL()),
