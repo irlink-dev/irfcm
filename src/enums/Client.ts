@@ -33,6 +33,11 @@ export enum Client {
   L_POINT = 'lpoint',
 
   /**
+   * 메리츠 화재.
+   */
+  MERITZ = 'meritz',
+
+  /**
    * 모렉스.
    */
   MORECX = 'morecx',

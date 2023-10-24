@@ -35,6 +35,8 @@ const getUserToken = async (client: ClientType, phoneNumber: string) => {
   const path =
     client === Client.MORECX
       ? `cloud/users/${toHyphenNumber(phoneNumber)}/token` // MORECX CLOUD
+      : client === Client.MERITZ
+      ? `users/${phoneNumber.replace(/-/g, '')}/token` // MERITZ
       : `users/${phoneNumber.replace(/-/g, '')}`
 
   const snapshot = await get(ref(getDatabase(), path))
@@ -150,17 +152,19 @@ const getStorageFileUrls = async (
   client: string,
 ) => {
   const phoneNumberWithHyphen = toHyphenNumber(phoneNumber)
-  // const phoneNumberWithoutHyphen = phoneNumber.replace(/-/g, '')
+  const phoneNumberWithoutHyphen = phoneNumber.replace(/-/g, '')
 
   const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
   const morecxDirectoryPath = `cloud/log/${phoneNumberWithHyphen}/${date}`
+  const meritzDirectoryPath = `applogs/${phoneNumberWithoutHyphen}`
 
-  let listRef
-  if (client === 'morecx') {
-    listRef = storageRef.child(morecxDirectoryPath)
-  } else {
-    listRef = storageRef.child(directoryPath)
-  }
+  const listRef = storageRef.child(
+    client === Client.MORECX
+      ? morecxDirectoryPath
+      : client === Client.MERITZ
+      ? meritzDirectoryPath
+      : directoryPath,
+  )
   const response = await listRef.listAll()
 
   Logger.log(TAG, `getStorageFileUrls.\n\n` + `🔗 (listRef): ${listRef}\n\n`)

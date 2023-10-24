@@ -9,8 +9,10 @@ const useAuthorizationKey = (client: ClientType) => {
   if (client === Client.HANA) return process.env.HANA_AUTHORIZATION_KEY!
   if (client === Client.KB_WIRELESS) return process.env.KB_AUTHORIZATION_KEY!
   if (client === Client.LINA) return process.env.LINA_AUTHORIZATION_KEY!
+  if (client === Client.MERITZ) return process.env.MERITZ_AUTHORIZATION_KEY!
   if (client === Client.MORECX) return process.env.MORECX_AUTHORIZATION_KEY!
-  if (client === Client.SHINHAN_CARD) return process.env.SHINHAN_AUTHORIZATION_KEY!
+  if (client === Client.SHINHAN_CARD)
+    return process.env.SHINHAN_AUTHORIZATION_KEY!
   if (client === Client.ZILINK) return process.env.ZILINK_AUTHORIZATION_KEY!
 }
 

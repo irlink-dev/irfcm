@@ -2,6 +2,9 @@ import Request from '@/interfaces/Request'
 import Message from '@/interfaces/Message'
 import { ClientType } from '@/enums/Client'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
+import Logger from '@/utils/log'
+
+const TAG = 'utils/fcm'
 
 /**
  * 요청 타입.

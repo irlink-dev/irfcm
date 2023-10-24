@@ -13,6 +13,7 @@ import { FcmMethod } from '@/enums/FcmMethod'
 import { Client, ClientType } from '@/enums/Client'
 import Message from '@/interfaces/Message'
 import { FcmType } from '@/enums/FcmType'
+import { MeritzFcmType } from '@/enums/MeritzFcmType'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
@@ -148,6 +149,28 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   }
 
   /**
+   * [NEW] 메리츠 LEGACY 방식 요청.
+   */
+  const doMeritzProcess = async (client: ClientType) => {
+    const userToken = await getUserToken(client, input.phoneNumber)
+
+    const request: Request = {
+      authorizationKey: firebasePref.authorizationKey,
+      token: userToken,
+      type: String(input.type),
+      priority: 'high',
+    }
+    Logger.log(
+      TAG,
+      `doMeritzProcess.\n\n` +
+        `📱 (userToken): ${userToken}\n\n` +
+        `📄 type: ${MeritzFcmType[input.type]}(${input.type})\n\n `,
+    )
+    const response = await requestFcm(request)
+    onResponse(FcmMethod.LEGACY, response, client)
+  }
+
+  /**
    * [NEW] LEGACY 방식 요청.
    */
   const doLegacyProcess = async (client: ClientType) => {
@@ -206,7 +229,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     Logger.log(TAG, `onSubmit. method: ${FcmMethod[method]}, client: ${client}`)
 
     if (method === FcmMethod.LEGACY) {
-      doLegacyProcess(client)
+      if (client === Client.MERITZ) {
+        doMeritzProcess(client)
+      } else {
+        doLegacyProcess(client)
+      }
     }
     if (method === FcmMethod.HTTP_V1) {
       doHttpV1Process(client)

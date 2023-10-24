@@ -12,7 +12,7 @@ export default interface Request {
   /**
    * 로그 날짜.
    */
-  date: string
+  date?: string
 
   /**
    * 요청 타입.
@@ -22,7 +22,7 @@ export default interface Request {
   /**
    * 녹취 파일 포함 여부.
    */
-  isIncludeRecord: boolean
+  isIncludeRecord?: boolean
 
   /**
    * 중요도.

@@ -235,6 +235,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG
     if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
+    if (client === Client.MERITZ) return MERITZ_FIREBASE_CONFIG
     if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
     if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG

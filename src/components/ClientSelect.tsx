@@ -44,6 +44,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.KB_WIRELESS, 'KB 손해보험'],
     [Client.MORECX, '모렉스'],
     [Client.ZILINK, '지링크'],
+    [Client.MERITZ, '메리츠 화재'],
   ]
 
   return (
