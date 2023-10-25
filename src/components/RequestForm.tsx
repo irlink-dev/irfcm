@@ -41,6 +41,8 @@ const RequestForm = ({
   onSubmit,
   handleChange,
 }: RequestFormProps) => {
+  const IS_MERITZ = params.client === Client.MERITZ
+
   /**
    * 요청 버튼 클릭 시
    */
@@ -77,6 +79,7 @@ const RequestForm = ({
         value={input.date}
         onChange={handleChange}
         required
+        disabled={IS_MERITZ}
       />
       <FormControl>
         <InputLabel id="type">요청 타입</InputLabel>
@@ -88,22 +91,22 @@ const RequestForm = ({
           onChange={handleChange}
         >
           {/* 메리츠 */}
-          {params.client === Client.MERITZ && (
+          {IS_MERITZ && (
             <MenuItem value={MeritzFcmType.UPLOAD_LOGS}>
               [0] 메리츠 로그
             </MenuItem>
           )}
 
           {/* 일반 */}
-          {params.client !== Client.MERITZ && (
+          {!IS_MERITZ && (
             <MenuItem value={FcmType.UPLOAD_LOGS}>[1] 로그</MenuItem>
           )}
-          {params.client !== Client.MERITZ && (
+          {!IS_MERITZ && (
             <MenuItem value={FcmType.UPLOAD_FILE_LIST}>
               [2] 파일 리스트
             </MenuItem>
           )}
-          {params.client !== Client.MERITZ && (
+          {!IS_MERITZ && (
             <MenuItem value={FcmType.UPLOAD_RECORDS}>
               [5] 녹취 파일 업로드
             </MenuItem>
@@ -121,6 +124,7 @@ const RequestForm = ({
             />
           }
           label="녹취 파일 포함"
+          disabled={IS_MERITZ}
         />
       </FormGroup>
       <Button type="submit" onClick={onRequestButtonClick} variant="contained">

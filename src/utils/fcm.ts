@@ -111,6 +111,28 @@ const requestFcm = async (request: Request) => {
 }
 
 /**
+ * 메리츠 FCM 요청.
+ */
+const requestMeritzFcm = async (request: Request) => {
+  const FCM_REQUEST_URL = 'https://fcm.googleapis.com/fcm/send'
+
+  return await fetch(FCM_REQUEST_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: request.authorizationKey!,
+    },
+    body: JSON.stringify({
+      to: String(request.token),
+      data: {
+        sendType: String(request.type),
+      },
+      priority: String(request.priority),
+    }),
+  }).then((response) => response.json())
+}
+
+/**
  * FCM 전송. (HTTP v1)
  */
 const sendMessage = async (client: ClientType, message: Message) => {
@@ -136,4 +158,4 @@ const sendMessage = async (client: ClientType, message: Message) => {
   })
 }
 
-export { requestType, requestFcm, sendMessage }
+export { requestType, requestFcm, requestMeritzFcm, sendMessage }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
 import { getUserToken, getNewOAuthCode } from '@/utils/firebase'
 import Request from '@/interfaces/Request'
-import { requestFcm, sendMessage } from '@/utils/fcm'
+import { requestFcm, requestMeritzFcm, sendMessage } from '@/utils/fcm'
 import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { useSnackbar } from 'notistack'
 import FirebasePreference from '@/interfaces/FirebasePreference'
@@ -164,9 +164,9 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       TAG,
       `doMeritzProcess.\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
-        `📄 type: ${MeritzFcmType[input.type]}(${input.type})\n\n `,
+        `📄 type: ${MeritzFcmType[input.type]}(${input.type})\n\n`,
     )
-    const response = await requestFcm(request)
+    const response = await requestMeritzFcm(request)
     onResponse(FcmMethod.LEGACY, response, client)
   }
 
@@ -180,7 +180,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       authorizationKey: firebasePref.authorizationKey,
       token: userToken,
       date: input.date,
-      type: String(input.type),
+      type: Number(input.type),
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }

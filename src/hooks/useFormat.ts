@@ -1,3 +1,4 @@
+import { Client } from '@/enums/Client'
 import Logger from '@/utils/log'
 
 const useFormat = () => {
@@ -26,7 +27,16 @@ const useFormat = () => {
     const REGEX_MORECX =
       /^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^/]+\/o\/cloud%2Flog%2F(?<phoneNumber>[^/]+)%2F(?<date>[^/]+)%2F(?<fileName>[^?]+)\?(?<params>[^#]+)/
 
-    const regex = client === 'morecx' ? REGEX_MORECX : REGEX
+    const REGEX_MERITZ =
+      /^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^/]+\/o\/applogs%2F(?<phoneNumber>[^/]+)%2F(?<fileName>[^?]+)\?(?<params>[^#]+)/
+
+    const regex =
+      client === Client.MORECX
+        ? REGEX_MORECX
+        : client === Client.MERITZ
+        ? REGEX_MERITZ
+        : REGEX
+
     const match = url.match(regex)
     if (!match) {
       Logger.log(TAG, `parseUrl. match: ${match}. return null.`)

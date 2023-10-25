@@ -17,7 +17,7 @@ export default interface Request {
   /**
    * 요청 타입.
    */
-  type: string
+  type: number | string
 
   /**
    * 녹취 파일 포함 여부.
