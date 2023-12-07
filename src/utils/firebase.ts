@@ -2,8 +2,9 @@ import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
 import FirebaseConfig from '@/interfaces/FirebaseConfig'
 import useFormat from '@/hooks/useFormat'
-import Logger from './log'
+import Logger from '@/utils/log'
 import { Client, ClientType } from '@/enums/Client'
+import { requestFcm } from '@/utils/fcm'
 
 const TAG = 'utils/firebase'
 
@@ -105,28 +106,37 @@ const sendFcmToAllTokens = async (key: string, date: string) => {
   for (const token in tokens) {
     const request = {
       token: tokens[token],
-      requestType: '1',
+      type: '1',
       date: date,
       isIncludeRecord: true,
       priority: 'high',
       authorizationKey: key,
     }
-    // sendFcmUseCase.request(request, () => {
-    //   /* empty */
-    // })
+    const response = requestFcm(request)
   }
 }
 
 /**
  * 로그 폴더 내 모든 파일 가져오기.
  */
-const getLogsInFolder = async (phoneNumber: string, date: string) => {
+const getLogsInFolder = async (
+  phoneNumber: string,
+  date: string,
+  filter = '',
+) => {
   const phoneNumberWithHyphen = toHyphenNumber(phoneNumber)
   const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
   const directoryRef = firebase.storage().ref(directoryPath)
 
   const { items } = await directoryRef.listAll()
-  const urls = await Promise.all(items.map((item) => item.getDownloadURL()))
+  const filteredItems =
+    filter === 'amr'
+      ? items.filter((item) => item.name.endsWith('.amr'))
+      : items
+
+  const urls = await Promise.all(
+    filteredItems.map((item) => item.getDownloadURL()),
+  )
   console.log(
     `getLogsInFolder. phoneNumber: ${phoneNumber}, urls: ${urls.length}`,
   )
