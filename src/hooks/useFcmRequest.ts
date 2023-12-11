@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import Input from '@/interfaces/Input'
 import useLocalStorage from './useLocalStorage'
-import Logger from '@/utils/log'
+import { printErrorLog, printLog } from '@/utils/log'
 import { FcmMethod } from '@/enums/FcmMethod'
 import { Client, ClientType } from '@/enums/Client'
 import Message from '@/interfaces/Message'
@@ -79,7 +79,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     client: ClientType,
     refreshToken: string,
   ) => {
-    Logger.log(TAG, `refreshAccessToken. client: ${client}`)
+    printLog(TAG, `refreshAccessToken. client: ${client}`)
 
     const accessToken = await fetch(
       `/api/oauth?client=${client}&refresh_token=${refreshToken}`,
@@ -87,7 +87,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     )
       .then((response) => response.json())
       .then((data) => data.access_token)
-      .catch((error) => Logger.error(TAG, error))
+      .catch((error) => printErrorLog(TAG, error))
 
     return accessToken
   }
@@ -111,7 +111,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] "권한 없음(401)" 응답 시.
    */
   const onUnauthorized = async (client: ClientType) => {
-    Logger.log(
+    printLog(
       TAG,
       `onUnauthorized. client: ${client}, \n\n` +
         `♻️ (refreshToken): ${refreshToken}\n\n`,
@@ -134,7 +134,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     response: IFcmResponse,
     client: ClientType,
   ) => {
-    Logger.log(
+    printLog(
       TAG,
       `onResponse. status: ${response?.status || response?.success}`,
     )
@@ -160,7 +160,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       type: String(input.type),
       priority: 'high',
     }
-    Logger.log(
+    printLog(
       TAG,
       `doMeritzProcess.\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
@@ -184,7 +184,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
-    Logger.log(
+    printLog(
       TAG,
       `doLegacyProcess.\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
@@ -210,7 +210,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
-    Logger.log(
+    printLog(
       TAG,
       `doHttpV1Process.\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
@@ -226,7 +226,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 요청 양식 제출 시.
    */
   const onSubmit = (method: number = FcmMethod.LEGACY, client: ClientType) => {
-    Logger.log(TAG, `onSubmit. method: ${FcmMethod[method]}, client: ${client}`)
+    printLog(TAG, `onSubmit. method: ${FcmMethod[method]}, client: ${client}`)
 
     if (method === FcmMethod.LEGACY) {
       if (client === Client.MERITZ) {

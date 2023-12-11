@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 import archiver from 'archiver'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 
 const TAG = '/api/compress'
 
@@ -14,7 +14,7 @@ const filesPerZip = 350
  * 디렉토리에서 AMR 파일 읽기.
  */
 function getAmrFiles(dir: string) {
-  Logger.log(TAG, `getAmrFiles. dir: ${dir}`)
+  printLog(TAG, `getAmrFiles. dir: ${dir}`)
   return fs
     .readdirSync(dir)
     .filter((file) => path.extname(file).toLowerCase() === '.amr')
@@ -25,7 +25,7 @@ function getAmrFiles(dir: string) {
  * 파일 그룹화.
  */
 function chunkArray(array: Array<any>, size: number) {
-  Logger.log(TAG, `chunkArray. length: ${array.length}, filesPerZip: ${size}`)
+  printLog(TAG, `chunkArray. length: ${array.length}, filesPerZip: ${size}`)
   const chunks = []
   for (let i = 0; i < array.length; i += size) {
     chunks.push(array.slice(i, i + size))
@@ -37,7 +37,7 @@ function chunkArray(array: Array<any>, size: number) {
  * ZIP 파일 생성.
  */
 function createZip(files: Array<any>, index: number) {
-  Logger.log(
+  printLog(
     TAG,
     `createZip. files: ${files.length}, output: ${outputDirectory}\\output_${index}.zip`,
   )

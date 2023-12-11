@@ -147,6 +147,12 @@ export const SecondaryListItems = () => {
         </ListItemIcon>
         <ListItemText primary="단일 요청" />
       </ListItemButton>
+      <ListItemButton onClick={() => router.push('/lina/batch')}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="일괄 요청 (Batch)" />
+      </ListItemButton>
     </React.Fragment>
   )
 }

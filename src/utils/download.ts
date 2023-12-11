@@ -1,13 +1,12 @@
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import fs from 'fs'
-import useFormat from '@/hooks/useFormat'
-import Logger from '@/utils/log'
+import { printErrorLog, printLog } from '@/utils/log'
+import { parseDownloadUrl } from '@/utils/format'
 
 const TAG = 'utils/download'
 const DOWNLOAD_CONCURRENCY_LIMIT = 100
 
-const { parseUrl } = useFormat()
 
 /**
  * axios 재시도 설정.
@@ -24,9 +23,9 @@ axiosRetry(axios, {
  * URL 다운로드.
  */
 export const download = (url: string) => {
-  const parsingValues = parseUrl(url)
+  const parsingValues = parseDownloadUrl(url)
   if (!parsingValues) {
-    Logger.log(TAG, 'URL 파싱 실패.')
+    printLog(TAG, 'URL 파싱 실패.')
     return
   }
   const decodedFileName = decodeURIComponent(parsingValues?.fileName)
@@ -40,11 +39,11 @@ export const download = (url: string) => {
     .then((response) => {
       response.data.pipe(fs.createWriteStream(localFilePath))
       response.data.on('end', () => {
-        Logger.log(TAG, `download. localFilePath: ${localFilePath}`)
+        printLog(TAG, `download. localFilePath: ${localFilePath}`)
       })
     })
     .catch((error: any) => {
-      Logger.error(TAG, error)
+      printErrorLog(TAG, error)
     })
 }
 
@@ -52,7 +51,7 @@ export const download = (url: string) => {
  * URL 일괄 다운로드.
  */
 export const batchDownload = async (urls: string[]) => {
-  Logger.log(
+  printLog(
     TAG,
     `batchDownload. length: ${urls.length}, concurrency: ${DOWNLOAD_CONCURRENCY_LIMIT}`,
   )

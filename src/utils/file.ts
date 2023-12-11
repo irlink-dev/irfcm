@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 
 const TAG = 'utils/file'
 
@@ -16,6 +16,6 @@ export const readFiles = (directoryPath: string, extension: string = '') => {
     const extensionPattern = new RegExp(`.${extension}$`, 'i')
     files = files.filter((file) => extensionPattern.test(file))
   }
-  Logger.log(TAG, `readFiles. length: ${files.length}`)
+  printLog(TAG, `readFiles. length: ${files.length}`)
   return files
 }

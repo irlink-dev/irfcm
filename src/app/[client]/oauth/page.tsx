@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Box, CircularProgress } from '@mui/material'
 import { Client } from '@/enums/Client'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 
 const TAG = 'ClientOAuthPage'
 
@@ -32,7 +32,7 @@ const ClientOAuthPage = () => {
   const accessToken = getLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
 
   const setTokens = (accessToken: string, refreshToken: string) => {
-    Logger.log(
+    printLog(
       TAG,
       `setTokens.\n\n` +
         `🔐 (accessToken): ${accessToken}\n\n` +
@@ -43,7 +43,7 @@ const ClientOAuthPage = () => {
   }
 
   useEffect(() => {
-    Logger.log(TAG, `useEffect(isLoading). isLoading: ${isLoading}`)
+    printLog(TAG, `useEffect(isLoading). isLoading: ${isLoading}`)
 
     if (!isLoading && data) {
       setTokens(data.access_token, data.refresh_token)

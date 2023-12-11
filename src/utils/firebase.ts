@@ -1,19 +1,17 @@
 import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
 import FirebaseConfig from '@/interfaces/FirebaseConfig'
-import useFormat from '@/hooks/useFormat'
-import Logger from '@/utils/log'
 import { Client, ClientType } from '@/enums/Client'
+import { printLog } from '@/utils/log'
 import { requestFcm } from '@/utils/fcm'
+import { toHyphenNumber } from '@/utils/format'
 
 const TAG = 'utils/firebase'
-
-const { toHyphenNumber } = useFormat()
 
 /**
  * 파이어베이스 초기화.
  */
-const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
+export const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
   console.log(`initFirebaseApp. projectId: ${firebaseConfig?.projectId}`)
 
   if (firebase.apps.length === 0) {
@@ -30,8 +28,8 @@ const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
 /**
  * 유저 토큰 얻기. (Realtime Database)
  */
-const getUserToken = async (client: ClientType, phoneNumber: string) => {
-  Logger.log(TAG, `getUserToken. phoneNumber: ${phoneNumber}`)
+export const getUserToken = async (client: ClientType, phoneNumber: string) => {
+  printLog(TAG, `getUserToken. phoneNumber: ${phoneNumber}`)
 
   const path =
     client === Client.MORECX
@@ -47,11 +45,11 @@ const getUserToken = async (client: ClientType, phoneNumber: string) => {
 /**
  * 파일 다운로드 링크 받기.
  */
-const getFileDownloadLinks = async (
+export const getFileDownloadLinks = async (
   filenames: Array<string>,
   bucket: firebase.storage.Reference,
 ) => {
-  Logger.log(TAG, `getFileDownloadLinks. length: ${filenames.length}`)
+  printLog(TAG, `getFileDownloadLinks. length: ${filenames.length}`)
   const urls: Array<string> = []
 
   for (const filename of filenames) {
@@ -65,7 +63,7 @@ const getFileDownloadLinks = async (
 /**
  * 로그 다운로드 링크 받기.
  */
-const getLogDownloadLinks = async (
+export const getLogDownloadLinks = async (
   phoneNumber: string,
   date: string,
   bucket: firebase.storage.Reference,
@@ -91,7 +89,7 @@ const getLogDownloadLinks = async (
 /**
  * 법인폰 토큰 전체 조회.
  */
-const getAllTokens = async () => {
+export const getAllTokens = async () => {
   const database = getDatabase()
   const snapshot = await get(ref(database, 'users'))
   return snapshot.val()
@@ -100,7 +98,7 @@ const getAllTokens = async () => {
 /**
  *  법인폰 전체에 FCM 요청.
  */
-const sendFcmToAllTokens = async (key: string, date: string) => {
+export const sendFcmToAllTokens = async (key: string, date: string) => {
   const tokens = await getAllTokens()
 
   for (const token in tokens) {
@@ -119,7 +117,7 @@ const sendFcmToAllTokens = async (key: string, date: string) => {
 /**
  * 로그 폴더 내 모든 파일 가져오기.
  */
-const getLogsInFolder = async (
+export const getLogsInFolder = async (
   phoneNumber: string,
   date: string,
   filter = '',
@@ -146,7 +144,7 @@ const getLogsInFolder = async (
 /**
  * 법인폰 번호 리스트 가져오기.
  */
-const getPhoneNumberList = async (bucket: firebase.storage.Reference) => {
+export const getPhoneNumberList = async (bucket: firebase.storage.Reference) => {
   const folderRef = bucket.child('log')
   const { prefixes } = await folderRef.listAll()
   return prefixes.map(({ name }) => name)
@@ -155,7 +153,7 @@ const getPhoneNumberList = async (bucket: firebase.storage.Reference) => {
 /**
  * 스토리지 파일 링크 가져오기.
  */
-const getStorageFileUrls = async (
+export const getStorageFileUrls = async (
   phoneNumber: string,
   date: string,
   storageRef: firebase.storage.Reference,
@@ -177,7 +175,7 @@ const getStorageFileUrls = async (
   )
   const response = await listRef.listAll()
 
-  Logger.log(TAG, `getStorageFileUrls.\n\n` + `🔗 (listRef): ${listRef}\n\n`)
+  printLog(TAG, `getStorageFileUrls.\n\n` + `🔗 (listRef): ${listRef}\n\n`)
 
   return await Promise.all(
     response.items.map(async (item) => await item.getDownloadURL()),
@@ -187,8 +185,8 @@ const getStorageFileUrls = async (
 /**
  * OAuth 인증 코드 발급.
  */
-const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
-  Logger.log(
+export const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
+  printLog(
     TAG,
     `getNewOAuthCode.\n\n` +
       `💳 (clientId): ${clientId}\n\n` +
@@ -202,17 +200,4 @@ const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
     `https://accounts.google.com/o/oauth2/v2/auth` +
     `?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code` +
     `&scope=https://www.googleapis.com/auth/firebase.messaging&access_type=offline&prompt=consent`
-}
-
-export {
-  initFirebaseApp,
-  getUserToken,
-  getFileDownloadLinks,
-  getLogDownloadLinks,
-  getAllTokens,
-  sendFcmToAllTokens,
-  getLogsInFolder,
-  getPhoneNumberList,
-  getStorageFileUrls,
-  getNewOAuthCode,
 }

@@ -1,13 +1,13 @@
 'use client'
 
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 import { Box, Button } from '@mui/material'
 
 const ArchiveBox = () => {
   const TAG = 'ArchiveBox'
 
   const doBatchRename = async () => {
-    Logger.log(TAG, `doBatchRename.`)
+    printLog(TAG, `doBatchRename.`)
     const data = await fetch(`/api/rename`, { method: 'POST' }).then(
       (response) => response.json(),
     )
@@ -15,7 +15,7 @@ const ArchiveBox = () => {
   }
 
   const doBatchCompress = async () => {
-    Logger.log(TAG, `doBatchCompress.`)
+    printLog(TAG, `doBatchCompress.`)
     const data = await fetch(`/api/compress`, { method: 'POST' }).then(
       (response) => response.json(),
     )

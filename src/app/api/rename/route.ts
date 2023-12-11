@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 
 const TAG = '/api/rename'
 
@@ -11,7 +11,7 @@ const directoryPath = 'E:\\directoryPath'
  * 파일명 변경.
  */
 function renameFiles(dir: string) {
-  Logger.log(TAG, `renameFiles. dir: ${dir}`)
+  printLog(TAG, `renameFiles. dir: ${dir}`)
 
   fs.readdirSync(dir).forEach((file) => {
     if (path.extname(file).toLowerCase() === '.amr') {

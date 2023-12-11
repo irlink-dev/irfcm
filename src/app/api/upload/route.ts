@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { upload } from '@/utils/upload'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 import { readFiles } from '@/utils/file'
 
 const TAG = '/api/upload'
@@ -14,7 +14,7 @@ async function doBatchDownload(files: Array<any>) {
 
   for (const file of files) {
     upload(file, uploadHost, uploadPath, (response) => {
-      Logger.log(TAG, response)
+      printLog(TAG, response)
     })
   }
 }

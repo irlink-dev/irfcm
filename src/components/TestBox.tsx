@@ -12,7 +12,6 @@ import {
 } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 
-import useFormat from '@/hooks/useFormat'
 import useFirebase from '@/hooks/useFirebase'
 import useFcmRequest from '@/hooks/useFcmRequest'
 import useStorageFiles from '@/hooks/useStorageFiles'
@@ -31,6 +30,7 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { CloudDownload, Downloading, FileDownload } from '@mui/icons-material'
 import { batchDownload } from '@/utils/download'
+import { parseDownloadUrl } from '@/utils/format'
 
 const TAG = 'TestBox'
 
@@ -66,8 +66,6 @@ const TestBox = ({
       JSON.stringify(downloadLinks),
     )
   }, [downloadLinks])
-
-  const { parseUrl } = useFormat()
 
   /**
    * FCM 일괄 요청.
@@ -186,9 +184,9 @@ const TestBox = ({
   const rows = downloadLinks
     ? downloadLinks.map((url, index) => ({
         id: index + 1,
-        fileName: decodeURIComponent(parseUrl(url)?.fileName || ''),
-        phoneNumber: parseUrl(url)?.phoneNumber || '',
-        date: parseUrl(url)?.date || '',
+        fileName: decodeURIComponent(parseDownloadUrl(url)?.fileName || ''),
+        phoneNumber: parseDownloadUrl(url)?.phoneNumber || '',
+        date: parseDownloadUrl(url)?.date || '',
         download: url,
       }))
     : [

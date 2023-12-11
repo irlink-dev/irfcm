@@ -2,14 +2,13 @@ import Request from '@/interfaces/Request'
 import Message from '@/interfaces/Message'
 import { ClientType } from '@/enums/Client'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
-import Logger from '@/utils/log'
 
 const TAG = 'utils/fcm'
 
 /**
  * 요청 타입.
  */
-const requestType = () => {
+export const requestType = () => {
   /**
    * 로그 파일 업로드.
    */
@@ -89,7 +88,7 @@ const requestType = () => {
 /**
  * FCM 요청.
  */
-const requestFcm = async (request: Request) => {
+export const requestFcm = async (request: Request) => {
   const FCM_REQUEST_URL = 'https://fcm.googleapis.com/fcm/send'
 
   return await fetch(FCM_REQUEST_URL, {
@@ -113,7 +112,7 @@ const requestFcm = async (request: Request) => {
 /**
  * 메리츠 FCM 요청.
  */
-const requestMeritzFcm = async (request: Request) => {
+export const requestMeritzFcm = async (request: Request) => {
   const FCM_REQUEST_URL = 'https://fcm.googleapis.com/fcm/send'
 
   return await fetch(FCM_REQUEST_URL, {
@@ -135,7 +134,7 @@ const requestMeritzFcm = async (request: Request) => {
 /**
  * FCM 전송. (HTTP v1)
  */
-const sendMessage = async (client: ClientType, message: Message) => {
+export const sendMessage = async (client: ClientType, message: Message) => {
   const config = useFirebaseConfig(client)
   const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${config?.projectId}/messages:send`
 
@@ -157,5 +156,3 @@ const sendMessage = async (client: ClientType, message: Message) => {
     }),
   })
 }
-
-export { requestType, requestFcm, requestMeritzFcm, sendMessage }

@@ -2,7 +2,7 @@ import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
 import FormData from 'form-data'
-import Logger from '@/utils/log'
+import { printErrorLog, printLog } from '@/utils/log'
 
 const TAG = 'utils/upload'
 
@@ -30,7 +30,7 @@ export const upload = async (
   onResponse: (data: any) => void,
 ) => {
   const formData = createFormData(file, uploadPath)
-  Logger.log(TAG, `upload. formData: ${JSON.stringify(formData)}`)
+  printLog(TAG, `upload. formData: ${JSON.stringify(formData)}`)
 
   try {
     const response = await axios.post(uploadHost, formData, {
@@ -39,7 +39,7 @@ export const upload = async (
     onResponse(response)
     ////
   } catch (error: any) {
-    Logger.error(TAG, error)
+    printErrorLog(TAG, error)
     onResponse(error)
   }
 }

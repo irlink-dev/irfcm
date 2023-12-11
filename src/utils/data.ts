@@ -8,7 +8,7 @@ export interface FileData {
 /**
  * 파일 데이터 생성.
  */
-const createFileData = (
+export const createFileData = (
   fileName: string,
   phoneNumber: string,
   date: string,
@@ -21,8 +21,6 @@ const createFileData = (
     downloadUrl,
   }
 }
-
-export { createFileData }
 
 /**
  * const rows = [
