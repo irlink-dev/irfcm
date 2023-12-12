@@ -19,12 +19,14 @@ const OAuthButton = ({
       {params.client === Client.L_POINT && (
         <Button
           variant="outlined"
+          size="small"
           onClick={() => doAuth(params.client)}
           sx={{
-            width: '100%',
-            height: 56,
+            // width: '100%',
+            // height: 56,
             backgroundColor: 'white',
             fontWeight: 600,
+            textTransform: 'none',
           }}
         >
           Google로 OAuth 2.0 시작하기

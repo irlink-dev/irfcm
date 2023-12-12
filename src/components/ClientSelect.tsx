@@ -56,6 +56,11 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
         label="요청 헤더"
         value={params.client}
         onChange={handleChange}
+        sx={{
+          // width: '200px',
+          mb: 0,
+        }}
+        // size="small"
       >
         {menu.map((item) => (
           <MenuItem key={item[0]} value={item[0]}>

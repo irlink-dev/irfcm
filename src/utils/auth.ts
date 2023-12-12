@@ -3,7 +3,7 @@ import { Client, ClientType } from '@/enums/Client'
 /**
  * Authorization Key 반환. (LEGACY)
  */
-const useAuthorizationKey = (client: ClientType) => {
+export const getLegacyAuthKey = (client: ClientType) => {
   if (client === Client.CHUBB) return process.env.CHUBB_AUTHORIZATION_KEY!
   if (client === Client.DB_LIFE) return process.env.DBLIFE_AUTHORIZATION_KEY!
   if (client === Client.HANA) return process.env.HANA_AUTHORIZATION_KEY!
@@ -15,5 +15,3 @@ const useAuthorizationKey = (client: ClientType) => {
     return process.env.SHINHAN_AUTHORIZATION_KEY!
   if (client === Client.ZILINK) return process.env.ZILINK_AUTHORIZATION_KEY!
 }
-
-export default useAuthorizationKey

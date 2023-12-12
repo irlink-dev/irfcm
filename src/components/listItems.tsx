@@ -138,7 +138,7 @@ export const SecondaryListItems = () => {
   const pathname = usePathname()
   return (
     <React.Fragment>
-      <ListSubheader component="div" inset>
+      {/* <ListSubheader component="div" inset>
         Function List
       </ListSubheader>
       <ListItemButton onClick={() => router.push('/lina')}>
@@ -152,7 +152,7 @@ export const SecondaryListItems = () => {
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="일괄 요청 (Batch)" />
-      </ListItemButton>
+      </ListItemButton> */}
     </React.Fragment>
   )
 }
