@@ -8,10 +8,19 @@ import RequestForm from '@/components/RequestForm'
 import useFcmRequest from '@/hooks/useFcmRequest'
 import useFirebase from '@/hooks/useFirebase'
 import StorageFiles from '@/components/StorageFiles'
-import { Box, CircularProgress } from '@mui/material'
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  CircularProgress,
+  Tab,
+  Tabs,
+} from '@mui/material'
 import { ClientType } from '@/enums/Client'
 import ClientSelect from '@/components/ClientSelect'
 import OAuthButton from '@/components/OAuthButton'
+import { useRouter } from 'next/navigation'
+import TopNav from './TopNav'
 
 /**
  * FCM 컨테이너. Request 전역 상태 관리.
@@ -23,6 +32,7 @@ const FcmBox = ({
   params: { client: ClientType }
   firebasePref: FirebasePreference
 }) => {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const { initialize, storageRef } = useFirebase(firebasePref)
   const { input, trigger, setTrigger, handleChange, onSubmit, doAuth } =
@@ -41,37 +51,36 @@ const FcmBox = ({
 
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item xs={12} lg={6}>
-          <ClientSelect params={params} />
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <OAuthButton params={params} firebasePref={firebasePref} />
-        </Grid>
-      </Grid>
+      <TopNav params={params} />
 
-      {!isLoading && (
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={6}>
-            <RequestForm
-              params={params}
-              input={input}
-              handleChange={handleChange}
-              onSubmit={onSubmit}
-            />
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <StorageFiles
-              params={params}
-              input={input}
-              trigger={trigger}
-              setTrigger={setTrigger}
-              firebasePref={firebasePref}
-              storageRef={storageRef!}
-            />
-          </Grid>
-        </Grid>
-      )}
+      <Box sx={{ display: 'flex', justifyContent: 'end', pb: 1 }}>
+        <OAuthButton params={params} firebasePref={firebasePref} />
+      </Box>
+
+      <Grid container rowSpacing={2} columnSpacing={3}>
+        {!isLoading && (
+          <>
+            <Grid item xs={12} lg={6}>
+              <RequestForm
+                params={params}
+                input={input}
+                handleChange={handleChange}
+                onSubmit={onSubmit}
+              />
+            </Grid>
+            <Grid item xs={12} lg={6}>
+              <StorageFiles
+                params={params}
+                input={input}
+                trigger={trigger}
+                setTrigger={setTrigger}
+                firebasePref={firebasePref}
+                storageRef={storageRef!}
+              />
+            </Grid>
+          </>
+        )}
+      </Grid>
 
       {isLoading && (
         <Box

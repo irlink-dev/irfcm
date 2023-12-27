@@ -2,24 +2,34 @@ import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
 import { getUserToken, getNewOAuthCode } from '@/utils/firebase'
 import Request from '@/interfaces/Request'
-import { requestFcm, sendMessage } from '@/utils/fcm'
+import { requestFcm, requestMeritzFcm, sendMessage } from '@/utils/fcm'
 import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { useSnackbar } from 'notistack'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import Input from '@/interfaces/Input'
 import useLocalStorage from './useLocalStorage'
-import Logger from '@/utils/log'
+import { printErrorLog, printLog } from '@/utils/log'
 import { FcmMethod } from '@/enums/FcmMethod'
 import { Client, ClientType } from '@/enums/Client'
 import Message from '@/interfaces/Message'
 import { FcmType } from '@/enums/FcmType'
+import { MeritzFcmType } from '@/enums/MeritzFcmType'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
 
+  const projectId = firebasePref.config?.projectId
+
+  const client =
+    projectId === 'gs-shop-irusb'
+      ? Client.GS_SHOP_USB
+      : projectId === 'l-point'
+      ? Client.L_POINT
+      : null
+
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`
-  const LOCAL_STORAGE_ACCESS_TOKEN_KEY = `irfcm:access_token:${Client.L_POINT}`
-  const LOCAL_STORAGE_REFRESH_TOKEN_KEY = `irfcm:refresh_token:${Client.L_POINT}`
+  const LOCAL_STORAGE_ACCESS_TOKEN_KEY = `irfcm:access_token:${client}`
+  const LOCAL_STORAGE_REFRESH_TOKEN_KEY = `irfcm:refresh_token:${client}`
 
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
   const { enqueueSnackbar } = useSnackbar()
@@ -78,7 +88,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     client: ClientType,
     refreshToken: string,
   ) => {
-    Logger.log(TAG, `refreshAccessToken. client: ${client}`)
+    printLog(TAG, `refreshAccessToken. client: ${client}`)
 
     const accessToken = await fetch(
       `/api/oauth?client=${client}&refresh_token=${refreshToken}`,
@@ -86,7 +96,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     )
       .then((response) => response.json())
       .then((data) => data.access_token)
-      .catch((error) => Logger.error(TAG, error))
+      .catch((error) => printErrorLog(TAG, error))
 
     return accessToken
   }
@@ -110,7 +120,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] "권한 없음(401)" 응답 시.
    */
   const onUnauthorized = async (client: ClientType) => {
-    Logger.log(
+    printLog(
       TAG,
       `onUnauthorized. client: ${client}, \n\n` +
         `♻️ (refreshToken): ${refreshToken}\n\n`,
@@ -133,7 +143,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     response: IFcmResponse,
     client: ClientType,
   ) => {
-    Logger.log(
+    printLog(
       TAG,
       `onResponse. status: ${response?.status || response?.success}`,
     )
@@ -148,6 +158,28 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   }
 
   /**
+   * [NEW] 메리츠 LEGACY 방식 요청.
+   */
+  const doMeritzProcess = async (client: ClientType) => {
+    const userToken = await getUserToken(client, input.phoneNumber)
+
+    const request: Request = {
+      authorizationKey: firebasePref.authorizationKey,
+      token: userToken,
+      type: String(input.type),
+      priority: 'high',
+    }
+    printLog(
+      TAG,
+      `doMeritzProcess.\n\n` +
+        `📱 (userToken): ${userToken}\n\n` +
+        `📄 type: ${MeritzFcmType[input.type]}(${input.type})\n\n`,
+    )
+    const response = await requestMeritzFcm(request)
+    onResponse(FcmMethod.LEGACY, response, client)
+  }
+
+  /**
    * [NEW] LEGACY 방식 요청.
    */
   const doLegacyProcess = async (client: ClientType) => {
@@ -157,11 +189,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       authorizationKey: firebasePref.authorizationKey,
       token: userToken,
       date: input.date,
-      type: String(input.type),
+      type: Number(input.type),
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
-    Logger.log(
+    printLog(
       TAG,
       `doLegacyProcess.\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
@@ -187,9 +219,10 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }
-    Logger.log(
+    printLog(
       TAG,
       `doHttpV1Process.\n\n` +
+        `🔐 (accessToken): ${accessToken}\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
         `📄 date: ${input.date}, ` +
         `type: ${FcmType[input.type]}(${input.type}), ` +
@@ -203,10 +236,14 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 요청 양식 제출 시.
    */
   const onSubmit = (method: number = FcmMethod.LEGACY, client: ClientType) => {
-    Logger.log(TAG, `onSubmit. method: ${FcmMethod[method]}, client: ${client}`)
+    printLog(TAG, `onSubmit. method: ${FcmMethod[method]}, client: ${client}`)
 
     if (method === FcmMethod.LEGACY) {
-      doLegacyProcess(client)
+      if (client === Client.MERITZ) {
+        doMeritzProcess(client)
+      } else {
+        doLegacyProcess(client)
+      }
     }
     if (method === FcmMethod.HTTP_V1) {
       doHttpV1Process(client)

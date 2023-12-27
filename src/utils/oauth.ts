@@ -1,20 +1,19 @@
 import { Client, ClientType } from '@/enums/Client'
 
-
 /**
  * OAuth 클라이언트 Secret 반환.
  */
-const getOAuthClientId = (client: ClientType) => {
+export const getOAuthClientId = (client: ClientType) => {
   if (client === Client.L_POINT) return process.env.LPOINT_CLIENT_ID!
+  if (client === Client.GS_SHOP_USB) return process.env.GSSHOPUSB_CLIENT_ID!
   return null
 }
 
 /**
  * OAuth 클라이언트 Secret 반환.
  */
-const getOAuthClientSecret = (client: ClientType) => {
+export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.L_POINT) return process.env.LPOINT_CLIENT_SECRET!
+  if (client === Client.GS_SHOP_USB) return process.env.GSSHOPUSB_CLIENT_SECRET!
   return null
 }
-
-export { getOAuthClientId, getOAuthClientSecret }

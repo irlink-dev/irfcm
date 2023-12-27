@@ -13,6 +13,11 @@ export enum Client {
   DB_LIFE = 'dblife',
 
   /**
+   * GS 홈쇼핑 (IR-USB).
+   */
+  GS_SHOP_USB = 'gsshopusb',
+
+  /**
    * 하나손해보험.
    */
   HANA = 'hana',
@@ -31,6 +36,11 @@ export enum Client {
    * L 포인트.
    */
   L_POINT = 'lpoint',
+
+  /**
+   * 메리츠 화재.
+   */
+  MERITZ = 'meritz',
 
   /**
    * 모렉스.

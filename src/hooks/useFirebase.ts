@@ -3,7 +3,7 @@ import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import FirebaseConfig from '@/interfaces/FirebaseConfig'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 
 const useFirebase = (firebasePref: FirebasePreference) => {
   const TAG = 'useFirebase'
@@ -17,7 +17,7 @@ const useFirebase = (firebasePref: FirebasePreference) => {
    * 앱 초기화.
    */
   const initApp = async (firebaseConfig: FirebaseConfig) => {
-    Logger.log(TAG, `initApp. projectId: ${firebaseConfig?.projectId}`)
+    printLog(TAG, `initApp. projectId: ${firebaseConfig?.projectId}`)
 
     if (firebase.apps.length !== 0) {
       await firebase.app().delete()
@@ -32,7 +32,7 @@ const useFirebase = (firebasePref: FirebasePreference) => {
    */
   const initStorage = (firebase: any) => {
     if (firebase.apps.length > 0) {
-      Logger.log(TAG, `initStorage.`)
+      printLog(TAG, `initStorage.`)
       const storage = firebase.storage() // import 'firebase/compat/storage'
       setStorageRef(() => storage.ref())
     }

@@ -44,6 +44,8 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.KB_WIRELESS, 'KB 손해보험'],
     [Client.MORECX, '모렉스'],
     [Client.ZILINK, '지링크'],
+    [Client.MERITZ, '메리츠 화재'],
+    [Client.GS_SHOP_USB, 'GS 홈쇼핑'],
   ]
 
   return (
@@ -55,6 +57,11 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
         label="요청 헤더"
         value={params.client}
         onChange={handleChange}
+        sx={{
+          // width: '200px',
+          mb: 0,
+        }}
+        // size="small"
       >
         {menu.map((item) => (
           <MenuItem key={item[0]} value={item[0]}>

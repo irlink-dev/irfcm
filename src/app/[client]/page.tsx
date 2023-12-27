@@ -1,13 +1,13 @@
 import FcmBox from '@/components/FcmBox'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
-import useAuthorizationKey from '@/hooks/useAuthorizationKey'
+import { getLegacyAuthKey } from '@/utils/auth'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import { ClientType } from '@/enums/Client'
 import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
 
 const ClientPage = ({ params }: { params: { client: ClientType } }) => {
   const firebasePref: FirebasePreference = {
-    authorizationKey: useAuthorizationKey(params.client)!,
+    authorizationKey: getLegacyAuthKey(params.client)!,
     oAuthClientId: getOAuthClientId(params.client),
     oAuthClientSecret: getOAuthClientSecret(params.client),
     config: useFirebaseConfig(params.client)!,

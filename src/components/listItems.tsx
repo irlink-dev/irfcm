@@ -6,7 +6,7 @@ import ScienceIcon from '@mui/icons-material/Science'
 import SendIcon from '@mui/icons-material/Send'
 import AssignmentIcon from '@mui/icons-material/Assignment'
 import { usePathname, useRouter } from 'next/navigation'
-import { Avatar, Collapse } from '@mui/material'
+import { Avatar, Collapse, ListSubheader } from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import List from '@mui/material/List'
 import { green, lightBlue, blue } from '@mui/material/colors'
@@ -79,8 +79,7 @@ export const MainListItems = () => {
 
   return (
     <React.Fragment>
-      {/* 단일 요청 */}
-      <ListItemButton onClick={() => handleClick(CLIENT_LIST)}>
+      {/* <ListItemButton onClick={() => handleClick(CLIENT_LIST)}>
         <ListItemIcon>
           <SendIcon />
         </ListItemIcon>
@@ -95,16 +94,15 @@ export const MainListItems = () => {
             alias="v0"
             color="#666666"
           />
-          {/* <ClientListItem
+          <ClientListItem
             href="#"
             text="HTTP v1"
             alias="v1"
             color={blue[500]}
-          /> */}
+          />
         </List>
-      </Collapse>
+      </Collapse> */}
 
-      {/* 실험실 */}
       {/* <ListItemButton onClick={() => handleClick(LAB)}>
         <ListItemIcon>
           <ScienceIcon />
@@ -141,28 +139,19 @@ export const SecondaryListItems = () => {
   return (
     <React.Fragment>
       {/* <ListSubheader component="div" inset>
-        Experimental Function
+        Function List
       </ListSubheader>
-      <ListItemButton
-        onClick={() => router.push(TEST_LOG_URL)}
-        selected={pathname === TEST_LOG_URL}
-      >
-        <ListItemIcon>
-          <ScienceIcon />
-        </ListItemIcon>
-        <ListItemText primary="전체 로그 수집" />
-      </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => router.push('/lina')}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Last quarter" />
+        <ListItemText primary="단일 요청" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={() => router.push('/lina/batch')}>
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
-        <ListItemText primary="Year-end sale" />
+        <ListItemText primary="일괄 요청 (Batch)" />
       </ListItemButton> */}
     </React.Fragment>
   )

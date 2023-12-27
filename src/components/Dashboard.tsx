@@ -109,9 +109,9 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
               v{packageJson.version}
             </Typography>
           </Box>
-          <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
+          {/*<IconButton onClick={toggleDrawer}>*/}
+          {/*  <ChevronLeftIcon />*/}
+          {/*</IconButton>*/}
         </Toolbar>
         <Divider />
         <List component="nav">

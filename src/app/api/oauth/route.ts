@@ -3,14 +3,9 @@ import { GoogleApi } from '@/enums/GoogleApi'
 import { GrantType } from '@/enums/GrantType'
 import { Client, ClientType } from '@/enums/Client'
 import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
 
 const TAG = '/api/oauth'
-
-const REDIRECT_URI =
-  process.env.NODE_ENV === 'development'
-    ? `http://localhost:3000/${Client.L_POINT}/oauth`
-    : `https://irfcm.vercel.app/${Client.L_POINT}/oauth`
 
 /**
  * authorization_code로 access_token과 refresh_token 발급.
@@ -19,6 +14,7 @@ async function fetchTokens(
   clientId: string,
   clientSecret: string,
   authCode: string,
+  redirectUri: string,
 ) {
   const response = await fetch(GoogleApi.OAUTH_TOKEN_ENDPOINT, {
     method: 'POST',
@@ -27,7 +23,7 @@ async function fetchTokens(
       `client_id=${clientId}` +
       `&client_secret=${clientSecret}` +
       `&grant_type=${GrantType.AUTHORIZATION_CODE}` +
-      `&redirect_uri=${REDIRECT_URI}` +
+      `&redirect_uri=${redirectUri}` +
       `&code=${authCode}`,
   })
   if (!response.ok) {
@@ -67,16 +63,21 @@ export async function POST(request: NextRequest) {
   const client = searchParams.get('client') as ClientType
 
   if (!Object.values(Client).includes(client as Client)) {
-    Logger.log(TAG, `Invalid client value: ${client}`)
+    printLog(TAG, `Invalid client value: ${client}`)
     return NextResponse.json({ ok: false, error: 'Invalid client value' })
   }
+
+  const redirectUri =
+    process.env.NODE_ENV === 'development'
+      ? `http://localhost:3000/${client}/oauth`
+      : `https://irfcm.vercel.app/${client}/oauth`
 
   const clientId = getOAuthClientId(client) as string
   const clientSecret = getOAuthClientSecret(client) as string
   const authCode = searchParams.get('code')
   const refreshToken = searchParams.get('refresh_token')
 
-  Logger.log(
+  printLog(
     TAG,
     `POST. REQUEST \n` +
       `    - client: ${client}\n` +
@@ -87,7 +88,12 @@ export async function POST(request: NextRequest) {
   )
   try {
     if (authCode) {
-      const data = await fetchTokens(clientId, clientSecret, authCode)
+      const data = await fetchTokens(
+        clientId,
+        clientSecret,
+        authCode,
+        redirectUri,
+      )
       return NextResponse.json(data)
     }
     if (refreshToken) {
@@ -97,7 +103,7 @@ export async function POST(request: NextRequest) {
         refreshToken,
       )
       if (!data?.access_token) {
-        Logger.log(
+        printLog(
           TAG,
           `Unexpected response from OAuth server: ${JSON.stringify(data)}`,
         )
@@ -109,7 +115,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(data)
     }
   } catch (error: any) {
-    Logger.log(TAG, `Error during OAuth process: ${error.message}`)
+    printLog(TAG, `Error during OAuth process: ${error.message}`)
     return NextResponse.json({ ok: false, error: 'Internal server error' })
   }
   return NextResponse.json({ ok: false })

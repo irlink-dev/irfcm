@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import useFormat from '@/hooks/useFormat'
 import { FileData, createFileData } from '@/utils/data'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import { getStorageFileUrls } from '@/utils/firebase'
 import Input from '@/interfaces/Input'
-import Logger from '@/utils/log'
+import { printLog } from '@/utils/log'
+import { parseDownloadUrl } from '@/utils/format'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,
@@ -32,7 +32,7 @@ const useStorageFiles = (
    * 스토리지 파일 지우기.
    */
   const clearStorageFiles = () => {
-    Logger.log(TAG, `clearStorageFiles.`)
+    printLog(TAG, `clearStorageFiles.`)
     setStorageFileData([])
   }
 
@@ -40,11 +40,10 @@ const useStorageFiles = (
    * 스토리지 파일 표시.
    */
   const showStorageFiles = (urls: Array<string>, client: string) => {
-    Logger.log(TAG, `showStorageFiles. length: ${urls.length || 0}`)
+    printLog(TAG, `showStorageFiles. length: ${urls.length || 0}`)
 
     for (const url of urls) {
-      const { parseUrl } = useFormat()
-      const fileName = parseUrl(url, client)?.fileName!
+      const fileName = parseDownloadUrl(url, client)?.fileName!
       const fileData = createFileData(fileName, '', '', url)
       setStorageFileData((prevState) => [...prevState, fileData])
     }
@@ -54,7 +53,7 @@ const useStorageFiles = (
    * 스토리지 파일 가져오기.
    */
   const getStorageFiles = async (input: Input, client: string) => {
-    Logger.log(
+    printLog(
       TAG,
       `getStorageFiles. phoneNumber: ${input.phoneNumber}, date: ${input.date}`,
     )

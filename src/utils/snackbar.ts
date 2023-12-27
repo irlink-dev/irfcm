@@ -16,7 +16,7 @@ const anchorOrigin = {
 /**
  * Snackbar 표시.
  */
-const showVariantSnackbar = (
+export const showVariantSnackbar = (
   enqueueSnackbar: (
     message: SnackbarMessage,
     options?: OptionsObject,
@@ -36,7 +36,7 @@ const showVariantSnackbar = (
 /**
  * 기본 Snackbar 표시.
  */
-const showDefaultSnackbar = (
+export const showDefaultSnackbar = (
   enqueueSnackbar: (
     message: SnackbarMessage,
     options?: OptionsObject,
@@ -49,7 +49,7 @@ const showDefaultSnackbar = (
 /**
  * Success Snackbar 표시.
  */
-const showSuccessSnackbar = (
+export const showSuccessSnackbar = (
   enqueueSnackbar: (
     message: SnackbarMessage,
     options?: OptionsObject,
@@ -62,7 +62,7 @@ const showSuccessSnackbar = (
 /**
  * Error Snackbar 표시.
  */
-const showErrorSnackbar = (
+export const showErrorSnackbar = (
   enqueueSnackbar: (
     message: SnackbarMessage,
     options?: OptionsObject,
@@ -75,7 +75,7 @@ const showErrorSnackbar = (
 /**
  * Warning Snackbar 표시.
  */
-const showWarningSnackbar = (
+export const showWarningSnackbar = (
   enqueueSnackbar: (
     message: SnackbarMessage,
     options?: OptionsObject,
@@ -88,7 +88,7 @@ const showWarningSnackbar = (
 /**
  * Info Snackbar 표시.
  */
-const showInfoSnackbar = (
+export const showInfoSnackbar = (
   enqueueSnackbar: (
     message: SnackbarMessage,
     options?: OptionsObject,
@@ -96,12 +96,4 @@ const showInfoSnackbar = (
   message: string,
 ) => {
   showVariantSnackbar(enqueueSnackbar, message, 'info')
-}
-
-export {
-  showDefaultSnackbar,
-  showSuccessSnackbar,
-  showErrorSnackbar,
-  showWarningSnackbar,
-  showInfoSnackbar,
 }

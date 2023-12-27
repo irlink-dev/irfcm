@@ -30,8 +30,16 @@ import { createFileData } from '@/utils/data'
 import FirebasePreference from '@/interfaces/FirebasePreference'
 import Input from '@/interfaces/Input'
 import Request from '@/interfaces/Request'
+import { ClientType } from '@/enums/Client'
+import TopNav from './TopNav'
 
-const BatchBox = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
+const BatchBox = ({
+  params,
+  firebasePref,
+}: {
+  params: { client: ClientType }
+  firebasePref: FirebasePreference
+}) => {
   const { UPLOAD_LOGS, UPLOAD_FILE_LIST, UPLOAD_RECORDS } = requestType()
 
   const handleChange = (
@@ -121,6 +129,8 @@ const BatchBox = ({ firebasePref }: { firebasePref: FirebasePreference }) => {
 
   return (
     <>
+      <TopNav params={params} />
+
       <Grid container spacing={3}>
         <Grid item xs={12} lg={6}>
           <Paper

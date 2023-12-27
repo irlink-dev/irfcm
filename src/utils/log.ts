@@ -1,17 +1,22 @@
 import Error from 'next/error'
 
-export default class Logger {
-  /**
-   * 로그.
-   */
-  static log(tag: string, message: unknown) {
-    console.log(`[${tag}] ${message}`)
-  }
+/**
+ * 로그 출력.
+ */
+export const printLog = (tag: string, message: unknown) => {
+  console.log(`[${tag}] ${message}`)
+}
 
-  /**
-   * 에러 로그.
-   */
-  static error(tag: string, error: Error) {
-    console.log(`[${tag}] ${error}`)
-  }
+/**
+ * 경고 로그 출력.
+ */
+export const printWarningLog = (tag: string, message: unknown) => {
+  console.warn(`[${tag}] ${message}`)
+}
+
+/**
+ * 에러 로그 출력.
+ */
+export const printErrorLog = (tag: string, error: Error) => {
+  console.error(`[${tag}] ${error}`)
 }
