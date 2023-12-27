@@ -2,6 +2,7 @@ import Request from '@/interfaces/Request'
 import Message from '@/interfaces/Message'
 import { ClientType } from '@/enums/Client'
 import useFirebaseConfig from '@/hooks/useFirebaseConfig'
+import { printWarningLog } from '@/utils/log'
 
 const TAG = 'utils/fcm'
 

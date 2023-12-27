@@ -26,7 +26,7 @@ const TopNav = ({ params }: { params: { client: ClientType } }) => {
         <ClientSelect params={params} />
       </Grid>
       <Grid item xs={12} lg={6}>
-        <ButtonGroup
+        {/* <ButtonGroup
           variant="outlined"
           sx={{
             width: '100%',
@@ -48,27 +48,7 @@ const TopNav = ({ params }: { params: { client: ClientType } }) => {
           >
             일괄 요청
           </Button>
-        </ButtonGroup>
-        {/* <FormControl>
-          <RadioGroup
-            row
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <FormControlLabel
-              value="single"
-              control={<Radio />}
-              label="단일 요청"
-            />
-            <FormControlLabel
-              value="batch"
-              control={<Radio />}
-              label="일괄 요청"
-            />
-          </RadioGroup>
-        </FormControl> */}
+        </ButtonGroup> */}
       </Grid>
     </Grid>
   )
