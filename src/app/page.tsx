@@ -77,6 +77,12 @@ const HomePage = () => {
           desc: 'com.irlink.meritz',
           image: '/images/meritz_app_icon.png',
         },
+        {
+          name: 'GS 홈쇼핑',
+          route: '/gsshopusb',
+          desc: 'kr.co.irlink.gsshopusb',
+          image: '/images/gs_shop_usb_app_icon.png',
+        },
       ].map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={item.route}>
           <Card

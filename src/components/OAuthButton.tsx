@@ -14,9 +14,12 @@ const OAuthButton = ({
 }) => {
   const { doAuth } = useFcmRequest(firebasePref)
 
+  const IS_SHOW =
+    params.client === Client.L_POINT || params.client === Client.GS_SHOP_USB
+
   return (
     <>
-      {params.client === Client.L_POINT && (
+      {IS_SHOW && (
         <Button
           variant="outlined"
           size="small"

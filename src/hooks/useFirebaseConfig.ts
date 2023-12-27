@@ -78,6 +78,19 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * GS 홈쇼핑. (IR-USB)
+   */
+  const GS_SHOP_USB_FIREBASE_CONFIG = {
+    apiKey: process.env.GS_SHOP_USB_API_KEY!,
+    authDomain: 'gs-shop-irusb.firebaseapp.com',
+    databaseURL: 'https://gs-shop-irusb-default-rtdb.firebaseio.com',
+    projectId: 'gs-shop-irusb',
+    storageBucket: 'gs-shop-irusb.appspot.com',
+    messagingSenderId: process.env.GS_SHOP_USB_MESSAGING_SENDER_ID!,
+    appId: process.env.GS_SHOP_USB_APP_ID!,
+  }
+
+  /**
    * 하나손해보험.
    */
   const HANA_FIREBASE_CONFIG = {
@@ -231,6 +244,7 @@ const useFirebaseConfig = (client: ClientType) => {
   const getConfig = (client: ClientType) => {
     if (client === Client.CHUBB) return CHUBB_FIREBASE_CONFIG
     if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
+    if (client === Client.GS_SHOP_USB) return GS_SHOP_USB_FIREBASE_CONFIG
     if (client === Client.HANA) return HANA_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG

@@ -7,11 +7,6 @@ import { printLog } from '@/utils/log'
 
 const TAG = '/api/oauth'
 
-const REDIRECT_URI =
-  process.env.NODE_ENV === 'development'
-    ? `http://localhost:3000/${Client.L_POINT}/oauth`
-    : `https://irfcm.vercel.app/${Client.L_POINT}/oauth`
-
 /**
  * authorization_code로 access_token과 refresh_token 발급.
  */
@@ -19,6 +14,7 @@ async function fetchTokens(
   clientId: string,
   clientSecret: string,
   authCode: string,
+  redirectUri: string,
 ) {
   const response = await fetch(GoogleApi.OAUTH_TOKEN_ENDPOINT, {
     method: 'POST',
@@ -27,7 +23,7 @@ async function fetchTokens(
       `client_id=${clientId}` +
       `&client_secret=${clientSecret}` +
       `&grant_type=${GrantType.AUTHORIZATION_CODE}` +
-      `&redirect_uri=${REDIRECT_URI}` +
+      `&redirect_uri=${redirectUri}` +
       `&code=${authCode}`,
   })
   if (!response.ok) {
@@ -71,6 +67,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Invalid client value' })
   }
 
+  const redirectUri =
+    process.env.NODE_ENV === 'development'
+      ? `http://localhost:3000/${client}/oauth`
+      : `https://irfcm.vercel.app/${client}/oauth`
+
   const clientId = getOAuthClientId(client) as string
   const clientSecret = getOAuthClientSecret(client) as string
   const authCode = searchParams.get('code')
@@ -87,7 +88,12 @@ export async function POST(request: NextRequest) {
   )
   try {
     if (authCode) {
-      const data = await fetchTokens(clientId, clientSecret, authCode)
+      const data = await fetchTokens(
+        clientId,
+        clientSecret,
+        authCode,
+        redirectUri,
+      )
       return NextResponse.json(data)
     }
     if (refreshToken) {

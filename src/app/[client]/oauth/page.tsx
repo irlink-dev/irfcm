@@ -2,20 +2,20 @@
 
 import useSWR from 'swr'
 import { useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Box, CircularProgress } from '@mui/material'
-import { Client } from '@/enums/Client'
+import { Client, ClientType } from '@/enums/Client'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import { printLog } from '@/utils/log'
 
 const TAG = 'ClientOAuthPage'
 
-const ClientOAuthPage = () => {
+const ClientOAuthPage = ({ params }: { params: { client: ClientType } }) => {
   const router = useRouter()
   const code = useSearchParams().get('code')
 
   const { data, isLoading } = useSWR(
-    `/api/oauth?client=${Client.L_POINT}&code=${code}`,
+    `/api/oauth?client=${params.client}&code=${code}`,
     async (url: string) => {
       const response = await fetch(url, { method: 'POST' })
       return await response.json()
@@ -27,7 +27,7 @@ const ClientOAuthPage = () => {
     setLocalStorageData,
     LOCAL_STORAGE_ACCESS_TOKEN_KEY,
     LOCAL_STORAGE_REFRESH_TOKEN_KEY,
-  } = useLocalStorage(Client.L_POINT)
+  } = useLocalStorage(params.client)
 
   const accessToken = getLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
 
@@ -47,7 +47,7 @@ const ClientOAuthPage = () => {
 
     if (!isLoading && data) {
       setTokens(data.access_token, data.refresh_token)
-      router.push('/lpoint')
+      router.push(`/${params.client}`)
     }
   }, [isLoading])
 

@@ -47,7 +47,10 @@ const RequestForm = ({
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
-    if (params.client === Client.L_POINT) {
+    const IS_HTTP_V1 =
+      params.client === Client.L_POINT || params.client === Client.GS_SHOP_USB
+
+    if (IS_HTTP_V1) {
       onSubmit(FcmMethod.HTTP_V1, params.client)
     } else {
       onSubmit(FcmMethod.LEGACY, params.client)

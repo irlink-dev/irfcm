@@ -18,9 +18,18 @@ import { MeritzFcmType } from '@/enums/MeritzFcmType'
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
 
+  const projectId = firebasePref.config?.projectId
+
+  const client =
+    projectId === 'gs-shop-irusb'
+      ? Client.GS_SHOP_USB
+      : projectId === 'l-point'
+      ? Client.L_POINT
+      : null
+
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`
-  const LOCAL_STORAGE_ACCESS_TOKEN_KEY = `irfcm:access_token:${Client.L_POINT}`
-  const LOCAL_STORAGE_REFRESH_TOKEN_KEY = `irfcm:refresh_token:${Client.L_POINT}`
+  const LOCAL_STORAGE_ACCESS_TOKEN_KEY = `irfcm:access_token:${client}`
+  const LOCAL_STORAGE_REFRESH_TOKEN_KEY = `irfcm:refresh_token:${client}`
 
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
   const { enqueueSnackbar } = useSnackbar()
@@ -213,6 +222,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `doHttpV1Process.\n\n` +
+        `🔐 (accessToken): ${accessToken}\n\n` +
         `📱 (userToken): ${userToken}\n\n` +
         `📄 date: ${input.date}, ` +
         `type: ${FcmType[input.type]}(${input.type}), ` +
