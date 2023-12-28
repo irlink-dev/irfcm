@@ -21,6 +21,9 @@ import { FcmMethod } from '@/enums/FcmMethod'
 import { Client, ClientType } from '@/enums/Client'
 import { FcmType } from '@/enums/FcmType'
 import { MeritzFcmType } from '@/enums/MeritzFcmType'
+import { printLog, printWarningLog } from '@/utils/log'
+
+const TAG = 'RequestForm'
 
 interface RequestFormProps {
   params: { client: ClientType }
@@ -32,6 +35,8 @@ interface RequestFormProps {
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | SelectChangeEvent<number>,
   ) => void
+  showInputValues: (isBatch: boolean) => void
+  isBatch?: boolean
 }
 
 const RequestForm = ({
@@ -40,6 +45,8 @@ const RequestForm = ({
   // handleSubmit,
   onSubmit,
   handleChange,
+  showInputValues,
+  isBatch = false,
 }: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
@@ -67,15 +74,19 @@ const RequestForm = ({
         }}
       >
         <Typography>요청 양식</Typography>
-        <Button onClick={() => console.log(input)}>요청값 조회</Button>
+        <Button onClick={() => showInputValues(isBatch)}>
+          입력값 조회
+        </Button>
       </Box>
-      <TextField
-        label="법인폰 번호"
-        name="phoneNumber"
-        value={input.phoneNumber}
-        onChange={handleChange}
-        required
-      />
+      {!isBatch && (
+        <TextField
+          label="법인폰 번호"
+          name="phoneNumber"
+          value={input.phoneNumber}
+          onChange={handleChange}
+          required
+        />
+      )}
       <TextField
         label="날짜"
         name="date"
