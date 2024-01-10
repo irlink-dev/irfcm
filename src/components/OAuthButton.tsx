@@ -15,7 +15,9 @@ const OAuthButton = ({
   const { doAuth } = useFcmRequest(firebasePref)
 
   const IS_SHOW =
-    params.client === Client.L_POINT || params.client === Client.GS_SHOP_USB
+    params.client === Client.L_POINT ||
+    params.client === Client.GS_SHOP_USB ||
+    params.client === Client.KT_COMMERCE
 
   return (
     <>

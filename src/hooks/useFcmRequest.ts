@@ -25,6 +25,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.GS_SHOP_USB
       : projectId === 'l-point'
       ? Client.L_POINT
+      : projectId === 'irlink-kt-commerce'
+      ? Client.KT_COMMERCE
       : null
 
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`

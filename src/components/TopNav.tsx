@@ -26,7 +26,7 @@ const TopNav = ({ params }: { params: { client: ClientType } }) => {
         <ClientSelect params={params} />
       </Grid>
       <Grid item xs={12} lg={6}>
-        <ButtonGroup
+        {/* <ButtonGroup
           variant="outlined"
           sx={{
             width: '100%',
@@ -48,7 +48,7 @@ const TopNav = ({ params }: { params: { client: ClientType } }) => {
           >
             일괄 요청
           </Button>
-        </ButtonGroup>
+        </ButtonGroup> */}
       </Grid>
     </Grid>
   )

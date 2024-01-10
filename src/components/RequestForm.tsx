@@ -55,7 +55,9 @@ const RequestForm = ({
    */
   const onRequestButtonClick = () => {
     const IS_HTTP_V1 =
-      params.client === Client.L_POINT || params.client === Client.GS_SHOP_USB
+      params.client === Client.L_POINT ||
+      params.client === Client.GS_SHOP_USB ||
+      params.client === Client.KT_COMMERCE
 
     if (IS_HTTP_V1) {
       onSubmit(FcmMethod.HTTP_V1, params.client)
@@ -74,9 +76,7 @@ const RequestForm = ({
         }}
       >
         <Typography>요청 양식</Typography>
-        <Button onClick={() => showInputValues(isBatch)}>
-          입력값 조회
-        </Button>
+        <Button onClick={() => showInputValues(isBatch)}>입력값 조회</Button>
       </Box>
       {!isBatch && (
         <TextField

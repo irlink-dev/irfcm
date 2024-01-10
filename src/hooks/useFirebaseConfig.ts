@@ -131,6 +131,19 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * KT 커머스.
+   */
+  const KT_COMMERCE_FIREBASE_CONFIG = {
+    apiKey: process.env.KT_COMMERCE_API_KEY!,
+    authDomain: 'irlink-kt-commerce.firebaseapp.com',
+    databaseURL: 'https://irlink-kt-commerce-default-rtdb.firebaseio.com',
+    projectId: 'irlink-kt-commerce',
+    storageBucket: 'irlink-kt-commerce.appspot.com',
+    messagingSenderId: process.env.KT_COMMERCE_MESSAGING_SENDER_ID!,
+    appId: process.env.KT_COMMERCE_APP_ID!,
+  }
+
+  /**
    * 라이나 생명.
    */
   const LINA_FIREBASE_CONFIG = {
@@ -247,6 +260,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.GS_SHOP_USB) return GS_SHOP_USB_FIREBASE_CONFIG
     if (client === Client.HANA) return HANA_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
+    if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG
     if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
     if (client === Client.MERITZ) return MERITZ_FIREBASE_CONFIG
