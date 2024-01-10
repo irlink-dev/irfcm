@@ -1,8 +1,6 @@
-import chubbMessageList from '@/constants/chubbMessageList'
-import chubbValidMessageList from '@/constants/chubbValidMessageList'
-import testMessageList from '@/constants/testMessageList'
 import { printLog } from '@/utils/log'
 import { NextRequest, NextResponse } from 'next/server'
+import emptyArray from '@/constants/emptyArray'
 
 const TAG = '/api/message/validation'
 const SEPARATOR = '60uNd@ry'
@@ -32,6 +30,6 @@ function filterValidMessage(messageList: string[]) {
 }
 
 export async function POST(request: NextRequest) {
-  const validMessageList = filterValidMessage(chubbValidMessageList)
+  const validMessageList = filterValidMessage(emptyArray)
   return NextResponse.json({ validMessageList })
 }

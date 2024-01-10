@@ -32,9 +32,7 @@ import { CloudDownload, Downloading, FileDownload } from '@mui/icons-material'
 import { batchDownload } from '@/utils/download'
 import { parseDownloadUrl } from '@/utils/format'
 import { getAllTokens } from '@/utils/firebase'
-import chubbPhoneNumbers from '@/constants/chubbPhoneNumbers'
-import chubbTokensInLina from '@/constants/chubbTokensInLina'
-import chubbTokensInChubb from '@/constants/chubbTokensInChubb'
+import emptyArray from '@/constants/emptyArray'
 
 const TAG = 'TestBox'
 
@@ -96,7 +94,7 @@ const TestBox = ({
     ]
 
     // ? 실제 사용할 토큰 배열로 교체.
-    const tokenList = chubbTokensInChubb
+    const tokenList = emptyArray
 
     for (const date of dates) {
       for (const token of tokenList) {

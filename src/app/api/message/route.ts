@@ -1,8 +1,8 @@
-import testMessageList from '@/constants/testMessageList'
 import { printLog } from '@/utils/log'
 import axios from 'axios'
 import https from 'https'
 import { NextRequest, NextResponse } from 'next/server'
+import emptyArray from '@/constants/emptyArray'
 
 const TAG = '/api/message'
 const REQUEST_URL = 'https://175.126.124.137/cdm/devMessage'
@@ -33,8 +33,7 @@ async function doBatchInsertMessageDb(message: string) {
 }
 
 async function doInsertMessageProcess() {
-  // ! 테스트 메시지 리스트 사용 중...
-  for (const message of testMessageList) {
+  for (const message of emptyArray) {
     const response = await doBatchInsertMessageDb(message)
     printLog(
       TAG,
