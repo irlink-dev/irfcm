@@ -7,7 +7,6 @@ import { parseDownloadUrl } from '@/utils/format'
 const TAG = 'utils/download'
 const DOWNLOAD_CONCURRENCY_LIMIT = 100
 
-
 /**
  * axios 재시도 설정.
  */
@@ -28,7 +27,10 @@ export const download = (url: string) => {
     printLog(TAG, 'URL 파싱 실패.')
     return
   }
-  const decodedFileName = decodeURIComponent(parsingValues?.fileName)
+  // 로그 구분을 위한 법인폰 번호 필요: phoneNumber
+  const decodedFileName = `${parsingValues?.phoneNumber}_${decodeURIComponent(
+    parsingValues?.fileName,
+  )}`
   const localFilePath = `E:\\irfcm_download\\${decodedFileName}`
 
   axios({

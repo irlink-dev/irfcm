@@ -49,3 +49,6 @@ next-env.d.ts
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# PRIVACY DATA
+constants/private/

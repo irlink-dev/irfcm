@@ -96,7 +96,7 @@ export const getAllTokens = async () => {
 }
 
 /**
- *  법인폰 전체에 FCM 요청.
+ * 법인폰 전체에 FCM 요청.
  */
 export const sendFcmToAllTokens = async (key: string, date: string) => {
   const tokens = await getAllTokens()
@@ -130,6 +130,8 @@ export const getLogsInFolder = async (
   const filteredItems =
     filter === 'amr'
       ? items.filter((item) => item.name.endsWith('.amr'))
+      : filter === 'txt'
+      ? items.filter((item) => item.name.endsWith('.txt'))
       : items
 
   const urls = await Promise.all(
@@ -144,7 +146,9 @@ export const getLogsInFolder = async (
 /**
  * 법인폰 번호 리스트 가져오기.
  */
-export const getPhoneNumberList = async (bucket: firebase.storage.Reference) => {
+export const getPhoneNumberList = async (
+  bucket: firebase.storage.Reference,
+) => {
   const folderRef = bucket.child('log')
   const { prefixes } = await folderRef.listAll()
   return prefixes.map(({ name }) => name)
@@ -185,7 +189,10 @@ export const getStorageFileUrls = async (
 /**
  * OAuth 인증 코드 발급.
  */
-export const getNewOAuthCode = (clientId: string | null, redirectUri: string) => {
+export const getNewOAuthCode = (
+  clientId: string | null,
+  redirectUri: string,
+) => {
   printLog(
     TAG,
     `getNewOAuthCode.\n\n` +

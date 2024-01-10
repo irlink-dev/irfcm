@@ -35,8 +35,16 @@ const FcmBox = ({
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const { initialize, storageRef } = useFirebase(firebasePref)
-  const { input, trigger, setTrigger, handleChange, onSubmit, doAuth } =
-    useFcmRequest(firebasePref)
+
+  const {
+    input,
+    trigger,
+    setTrigger,
+    handleChange,
+    onSubmit,
+    doAuth,
+    showInputValues,
+  } = useFcmRequest(firebasePref)
 
   useEffect(() => {
     initialize().then(() => setIsLoading(false))
@@ -66,6 +74,7 @@ const FcmBox = ({
                 input={input}
                 handleChange={handleChange}
                 onSubmit={onSubmit}
+                showInputValues={showInputValues}
               />
             </Grid>
             <Grid item xs={12} lg={6}>

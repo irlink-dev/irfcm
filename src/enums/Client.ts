@@ -28,6 +28,11 @@ export enum Client {
   KB_WIRELESS = 'kb',
 
   /**
+   * KT 커머스.
+   */
+  KT_COMMERCE = 'ktcommerce',
+
+  /**
    * 라이나 생명.
    */
   LINA = 'lina',

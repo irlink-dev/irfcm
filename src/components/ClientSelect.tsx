@@ -46,6 +46,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.ZILINK, '지링크'],
     [Client.MERITZ, '메리츠 화재'],
     [Client.GS_SHOP_USB, 'GS 홈쇼핑'],
+    [Client.KT_COMMERCE, 'KT 커머스'],
   ]
 
   return (

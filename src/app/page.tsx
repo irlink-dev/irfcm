@@ -83,6 +83,12 @@ const HomePage = () => {
           desc: 'kr.co.irlink.gsshopusb',
           image: '/images/gs_shop_usb_app_icon.png',
         },
+        {
+          name: 'KT 커머스',
+          route: '/ktcommerce',
+          desc: 'kr.co.irlink.ktcommerce',
+          image: '/images/kt_commerce_app_icon.png',
+        },
       ].map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={item.route}>
           <Card

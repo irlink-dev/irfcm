@@ -8,7 +8,7 @@ const TAG = '/api/upload'
 /**
  * 파일 일괄 업로드.
  */
-async function doBatchDownload(files: Array<any>) {
+async function doBatchUpload(files: Array<any>) {
   const uploadHost = 'https://175.126.124.136/upload'
   const uploadPath = '/chubb_reupload'
 
@@ -25,7 +25,7 @@ async function doBatchDownload(files: Array<any>) {
 export async function POST(request: NextRequest) {
   const directoryPath = ''
   const files = readFiles(directoryPath, 'amr')
-  doBatchDownload(files)
+  doBatchUpload(files)
 
   return NextResponse.json({ ok: true })
 }

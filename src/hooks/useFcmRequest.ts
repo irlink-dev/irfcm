@@ -25,6 +25,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.GS_SHOP_USB
       : projectId === 'l-point'
       ? Client.L_POINT
+      : projectId === 'irlink-kt-commerce'
+      ? Client.KT_COMMERCE
       : null
 
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`
@@ -250,6 +252,24 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     }
   }
 
+  /**
+   * 사용자 입력 값 조회.
+   */
+  const showInputValues = (isBatch: boolean) => {
+    const text = isBatch
+      ? '⚠️ (경고) 프로젝트 내 모든 법인폰에 FCM 요청을 수행합니다. \n\n'
+      : `📱 (phoneNumber): ${input.phoneNumber}\n\n`
+
+    printLog(
+      TAG,
+      `showInputValues. \n\n` +
+        text +
+        `📄 date: ${input.date}, ` +
+        `type: ${FcmType[input.type]}(${input.type}), ` +
+        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+    )
+  }
+
   return {
     input,
     trigger,
@@ -257,6 +277,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     handleChange,
     onSubmit,
     doAuth,
+    showInputValues,
   }
 }
 

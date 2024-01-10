@@ -24,13 +24,15 @@ import {
   sendFcmToAllTokens,
 } from '@/utils/firebase'
 
-import { ClientType } from '@/enums/Client'
+import { Client, ClientType } from '@/enums/Client'
 import { requestFcm } from '@/utils/fcm'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { CloudDownload, Downloading, FileDownload } from '@mui/icons-material'
 import { batchDownload } from '@/utils/download'
 import { parseDownloadUrl } from '@/utils/format'
+import { getAllTokens } from '@/utils/firebase'
+import emptyArray from '@/constants/emptyArray'
 
 const TAG = 'TestBox'
 
@@ -71,22 +73,28 @@ const TestBox = ({
    * FCM 일괄 요청.
    */
   const doFcmRequest = async () => {
-    console.log('return.')
-    return
-    console.log('doFcmRequest.')
+    // ? 유저 토큰 얻기.
+    // let tokens = []
+    // for (const phoneNumber of chubbPhoneNumbers) {
+    //   const token = await getUserToken(Client.LINA, phoneNumber)
+    //   tokens.push(token)
+    // }
+    // console.log(tokens)
 
-    // 22일부터 28일까지.
+    // ? 날짜 리스트 설정.
     const dates = [
-      '2023-11-22', // 수
-      '2023-11-23', // 목
-      '2023-11-24', // 금
-      '2023-11-25', // (토)
-      '2023-11-26', // (일)
-      '2023-11-27', // 월
-      '2023-11-28', // 화
+      //   '2023-11-22', // * 수
+      //   '2023-11-23', // * 목
+      //   '2023-11-24', // * 금
+      //   '2023-11-25', // * (토)
+      //   '2023-11-26', // * (일)
+      //   '2023-11-27', // * 월
+      //   '2023-11-28', // * 화
+      '2024-01-03', // * 처브 부재콜 이력 누락
     ]
 
-    const tokenList = [''] // 실제 사용할 토큰 배열로 교체.
+    // ? 실제 사용할 토큰 배열로 교체.
+    const tokenList = emptyArray
 
     for (const date of dates) {
       for (const token of tokenList) {
@@ -94,7 +102,7 @@ const TestBox = ({
           token: token,
           type: '1',
           date: date,
-          isIncludeRecord: true,
+          isIncludeRecord: false, // ! 녹취 파일 포함하지 않음.
           priority: 'high',
           authorizationKey: pref.authorizationKey!,
         }
@@ -102,6 +110,8 @@ const TestBox = ({
         console.log('➡️ FCM 요청 to:', token, ' | on date:', date)
       }
     }
+
+    // return // ! return
   }
 
   const handleBatchProcess = async () => {
@@ -124,7 +134,7 @@ const TestBox = ({
     setDownloadLinks([]) // 다운로드 링크 목록 비우기.
 
     for (const phoneNumber of phoneNumberList) {
-      const urls = await getLogsInFolder(phoneNumber, date, 'amr')
+      const urls = await getLogsInFolder(phoneNumber, date, 'txt')
       setDownloadLinks((prevState) => prevState.concat(urls))
     }
   }
@@ -145,11 +155,23 @@ const TestBox = ({
     })
   }
 
+  /**
+   * 일괄 다운로드.
+   */
   const doBatchDownload = async () => {
     const data = await fetch(`/api/download`, { method: 'POST' }).then(
       (response) => response.json(),
     )
     console.log(data)
+  }
+
+  /**
+   * 일괄 검색.
+   */
+  const doBatchSearchProcess = async () => {
+    const data = await fetch(`/api/search`, { method: 'POST' }).then(
+      (response) => response.json(),
+    )
   }
 
   const showLocalStorageUrls = async () => {
@@ -266,12 +288,20 @@ const TestBox = ({
               </IconButton>
             </Tooltip> */}
 
-            <Button
+            {/* <Button
               variant="contained"
               color="primary"
               onClick={showLocalStorageUrls}
             >
               로컬 스토리지 파일 조회
+            </Button> */}
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={doBatchSearchProcess}
+            >
+              텍스트 일괄 검색
             </Button>
 
             {/* <Button
