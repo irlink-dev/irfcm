@@ -1,12 +1,1 @@
-HISTORY
-- v0.1.0 https://irfcm-f1z8x802x-irlink.vercel.app/
-- v0.1.1 https://irfcm-9n6ekuquz-irlink.vercel.app/
-- v0.1.2 https://irfcm-2y9yaexgg-irlink.vercel.app/
-- v0.1.3 https://irfcm-3dsoapnn0-irlink.vercel.app/
-- v0.1.4 https://irfcm-2a7eg6zzd-irlink.vercel.app/
-- v0.1.5 https://irfcm-9bn1k1crk-irlink.vercel.app/
-- v0.2.0 https://irfcm-jrrl483nu-irlink.vercel.app/
-- v0.2.1 https://irfcm-fcse3ie91-irlink.vercel.app/
-- v0.2.2 https://irfcm-2z8ny1m24-irlink.vercel.app/
-- v0.3.0 https://irfcm-feowmuorl-irlink.vercel.app/
-- v0.3.1 https://irfcm-r461topw6-irlink.vercel.app/
+IRFCM. IR-LINK Firebase Cloud Messaging Service
