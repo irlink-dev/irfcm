@@ -12,6 +12,11 @@ import {
 import ClientSelect from './ClientSelect'
 import { usePathname, useRouter } from 'next/navigation'
 import { ClientType } from '@/enums/Client'
+import { useContext, useEffect } from 'react'
+import useLocalStorage from '@/hooks/useLocalStorage'
+import { MorecxVariants } from '@/enums/MorecxVariants'
+import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
+import MorecxVariantSelect from './MorecxVariantSelect'
 
 const TopNav = ({ params }: { params: { client: ClientType } }) => {
   const router = useRouter()
@@ -20,12 +25,24 @@ const TopNav = ({ params }: { params: { client: ClientType } }) => {
   const SINGLE_URL = `/${params.client}`
   const BATCH_URL = `/${params.client}/batch`
 
+  const { getLocalStorageData } = useLocalStorage()
+  const { setVariant } = useContext(MorecxVariantsContext)
+
+  useEffect(() => {
+    const LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY = `irfcm:build_variant:morecx`
+    const data = getLocalStorageData(LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY)
+    const variant = data ? data : MorecxVariants.CLOUD
+    setVariant(() => variant)
+  }, [])
+
   return (
     <Grid container rowSpacing={2} columnSpacing={3} sx={{ pb: 1 }}>
       <Grid item xs={12} lg={6}>
         <ClientSelect params={params} />
       </Grid>
       <Grid item xs={12} lg={6}>
+        <MorecxVariantSelect params={params} />
+
         {/* <ButtonGroup
           variant="outlined"
           sx={{

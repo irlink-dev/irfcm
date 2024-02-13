@@ -73,7 +73,11 @@ const TestBox = ({
    * FCM 일괄 요청.
    */
   const doFcmRequest = async () => {
-    // ? 유저 토큰 얻기.
+    // ? 전체 유저 토큰 얻기. (방법 1)
+    // const lpointTokens = await getAllTokens()
+    // console.log(lpointTokens)
+
+    // ? 전체 유저 토큰 얻기. (방법 2)
     // let tokens = []
     // for (const phoneNumber of chubbPhoneNumbers) {
     //   const token = await getUserToken(Client.LINA, phoneNumber)
@@ -90,7 +94,8 @@ const TestBox = ({
       //   '2023-11-26', // * (일)
       //   '2023-11-27', // * 월
       //   '2023-11-28', // * 화
-      '2024-01-03', // * 처브 부재콜 이력 누락
+      // '2024-01-03', // * 처브 부재콜 이력 누락
+      '2024-01-26', // * 레킨스코리아 [전화 끊기] 버튼 UI 변경되지 않음
     ]
 
     // ? 실제 사용할 토큰 배열로 교체.
