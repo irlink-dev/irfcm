@@ -211,11 +211,9 @@ const TestBox = ({
   const rows = downloadLinks
     ? downloadLinks.map((url, index) => ({
         id: index + 1,
-        fileName: decodeURIComponent(
-          parseDownloadUrl(url, undefined, -1)?.fileName || '',
-        ),
-        phoneNumber: parseDownloadUrl(url, undefined, -1)?.phoneNumber || '',
-        date: parseDownloadUrl(url, undefined, -1)?.date || '',
+        fileName: decodeURIComponent(parseDownloadUrl(url)?.fileName || ''),
+        phoneNumber: parseDownloadUrl(url)?.phoneNumber || '',
+        date: parseDownloadUrl(url)?.date || '',
         download: url,
       }))
     : [

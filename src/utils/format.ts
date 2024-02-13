@@ -23,7 +23,7 @@ export const toHyphenNumber = (phoneNumber: string) => {
 export const parseDownloadUrl = (
   url: string,
   client: string = '',
-  variant: number,
+  variant: number = -1,
 ) => {
   const REGEX =
     /^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[^/]+\/o\/log%2F(?<phoneNumber>[^/]+)%2F(?<date>[^/]+)%2F(?<fileName>[^?]+)\?(?<params>[^#]+)/
