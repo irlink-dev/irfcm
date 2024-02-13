@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useContext } from 'react'
 import Input from '@/interfaces/Input'
 import {
   Box,
@@ -22,6 +22,7 @@ import { Client, ClientType } from '@/enums/Client'
 import { FcmType } from '@/enums/FcmType'
 import { MeritzFcmType } from '@/enums/MeritzFcmType'
 import { printLog, printWarningLog } from '@/utils/log'
+import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
 
 const TAG = 'RequestForm'
 
@@ -29,7 +30,11 @@ interface RequestFormProps {
   params: { client: ClientType }
   input: Input
   // handleSubmit: (option: string) => void
-  onSubmit: (method: number | undefined, client: ClientType) => void
+  onSubmit: (
+    method: number | undefined,
+    client: ClientType,
+    variant: number,
+  ) => void
   handleChange: (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,6 +55,8 @@ const RequestForm = ({
 }: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
+  const { variant } = useContext(MorecxVariantsContext)
+
   /**
    * 요청 버튼 클릭 시
    */
@@ -60,9 +67,9 @@ const RequestForm = ({
       params.client === Client.KT_COMMERCE
 
     if (IS_HTTP_V1) {
-      onSubmit(FcmMethod.HTTP_V1, params.client)
+      onSubmit(FcmMethod.HTTP_V1, params.client, -1)
     } else {
-      onSubmit(FcmMethod.LEGACY, params.client)
+      onSubmit(FcmMethod.LEGACY, params.client, variant)
     }
   }
 

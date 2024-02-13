@@ -5,6 +5,9 @@ import { Client, ClientType } from '@/enums/Client'
 import { printLog } from '@/utils/log'
 import { requestFcm } from '@/utils/fcm'
 import { toHyphenNumber } from '@/utils/format'
+import { MorecxVariants } from '@/enums/MorecxVariants'
+import { useContext } from 'react'
+import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
 
 const TAG = 'utils/firebase'
 
@@ -28,12 +31,33 @@ export const initFirebaseApp = async (firebaseConfig: FirebaseConfig) => {
 /**
  * 유저 토큰 얻기. (Realtime Database)
  */
-export const getUserToken = async (client: ClientType, phoneNumber: string) => {
+export const getUserToken = async (
+  client: ClientType,
+  phoneNumber: string,
+  variant: number = MorecxVariants.CLOUD,
+) => {
   printLog(TAG, `getUserToken. phoneNumber: ${phoneNumber}`)
+
+  const morecxVariant =
+    variant === MorecxVariants.CLOUD
+      ? 'cloud'
+      : variant === MorecxVariants.BOHUM_DOTCOM
+      ? 'bohumdotcom'
+      : variant === MorecxVariants.WELCOME_BANK
+      ? 'welcomebank'
+      : variant === MorecxVariants.WELCOME_LOAN
+      ? 'welcomeloan'
+      : variant === MorecxVariants.WELCOME_LOAN_FOREIGN
+      ? 'welcomeloan_foreign'
+      : variant === MorecxVariants.WELCOME_CAPITAL
+      ? 'welcome_capital'
+      : ''
+
+  const trimedPhoneNumber = phoneNumber.trim()
 
   const path =
     client === Client.MORECX
-      ? `cloud/users/${toHyphenNumber(phoneNumber)}/token` // MORECX CLOUD
+      ? `${morecxVariant}/users/${toHyphenNumber(trimedPhoneNumber)}/token`
       : client === Client.MERITZ
       ? `users/${phoneNumber.replace(/-/g, '')}/token` // MERITZ
       : `users/${phoneNumber.replace(/-/g, '')}`
@@ -162,12 +186,28 @@ export const getStorageFileUrls = async (
   date: string,
   storageRef: firebase.storage.Reference,
   client: string,
+  variant: number,
 ) => {
   const phoneNumberWithHyphen = toHyphenNumber(phoneNumber)
   const phoneNumberWithoutHyphen = phoneNumber.replace(/-/g, '')
 
+  const morecxVariant =
+    variant === MorecxVariants.CLOUD
+      ? 'cloud'
+      : variant === MorecxVariants.BOHUM_DOTCOM
+      ? 'bohumdotcom'
+      : variant === MorecxVariants.WELCOME_BANK
+      ? 'welcomebank'
+      : variant === MorecxVariants.WELCOME_LOAN
+      ? 'welcomeloan'
+      : variant === MorecxVariants.WELCOME_LOAN_FOREIGN
+      ? 'welcomeloan_foreign'
+      : variant === MorecxVariants.WELCOME_CAPITAL
+      ? 'welcome_capital'
+      : ''
+
   const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
-  const morecxDirectoryPath = `cloud/log/${phoneNumberWithHyphen}/${date}`
+  const morecxDirectoryPath = `${morecxVariant}/log/${phoneNumberWithHyphen}/${date}`
   const meritzDirectoryPath = `applogs/${phoneNumberWithoutHyphen}`
 
   const listRef = storageRef.child(

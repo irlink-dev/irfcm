@@ -16,8 +16,9 @@ import FirebasePreference from '@/interfaces/FirebasePreference'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Input from '@/interfaces/Input'
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { Dispatch, SetStateAction, useContext, useEffect } from 'react'
 import { printLog } from '@/utils/log'
+import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
 
 interface StorageFilesProps {
   params: { client: string }
@@ -40,8 +41,10 @@ const StorageFiles = ({
   const { clearStorageFiles, getStorageFiles, storageFileData } =
     useStorageFiles(firebasePref, storageRef)
 
+  const { variant } = useContext(MorecxVariantsContext)
+
   const onRefreshIconClick = () => {
-    getStorageFiles(input, params.client)
+    getStorageFiles(input, params.client, variant)
   }
 
   useEffect(() => {
@@ -49,7 +52,7 @@ const StorageFiles = ({
 
     if (trigger) {
       setTimeout(() => {
-        getStorageFiles(input, params.client).then(() =>
+        getStorageFiles(input, params.client, variant).then(() =>
           setTrigger(() => false),
         )
       }, 3000)

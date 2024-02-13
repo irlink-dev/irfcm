@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import useLocalStorage from '@/hooks/useLocalStorage'
@@ -8,6 +8,8 @@ import { getStorageFileUrls } from '@/utils/firebase'
 import Input from '@/interfaces/Input'
 import { printLog } from '@/utils/log'
 import { parseDownloadUrl } from '@/utils/format'
+import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
+import { MorecxVariants } from '@/enums/MorecxVariants'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,
@@ -23,6 +25,8 @@ const useStorageFiles = (
       return savedFileData ? savedFileData : []
     },
   )
+
+  const { variant } = useContext(MorecxVariantsContext)
 
   useEffect(() => {
     setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)
@@ -43,7 +47,7 @@ const useStorageFiles = (
     printLog(TAG, `showStorageFiles. length: ${urls.length || 0}`)
 
     for (const url of urls) {
-      const fileName = parseDownloadUrl(url, client)?.fileName!
+      const fileName = parseDownloadUrl(url, client, variant)?.fileName!
       const fileData = createFileData(fileName, '', '', url)
       setStorageFileData((prevState) => [...prevState, fileData])
     }
@@ -52,16 +56,21 @@ const useStorageFiles = (
   /**
    * 스토리지 파일 가져오기.
    */
-  const getStorageFiles = async (input: Input, client: string) => {
+  const getStorageFiles = async (
+    input: Input,
+    client: string,
+    variant: number,
+  ) => {
     printLog(
       TAG,
-      `getStorageFiles. phoneNumber: ${input.phoneNumber}, date: ${input.date}`,
+      `getStorageFiles. phoneNumber: ${input.phoneNumber}, date: ${input.date}, morecxVariant: ${MorecxVariants[variant]}`,
     )
     const urls = await getStorageFileUrls(
       input.phoneNumber,
       input.date,
       storageRef!,
       client,
+      variant,
     )
     clearStorageFiles()
     showStorageFiles(urls, client)
