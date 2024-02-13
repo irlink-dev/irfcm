@@ -88,9 +88,37 @@ async function searchByKeyword(keyword: string) {
 }
 
 /**
+ * IDLE -> CONNECTED 비정상 이벤트 검색.
+ */
+async function searchUnusualBehavior() {
+  const filePath = 'E:\\unusual_behavior.txt'
+  const fileLines = fs.readFileSync(filePath, 'utf8').split('\n')
+  console.log(`searchUnusualBehavior. filePath: ${filePath}`)
+
+  for (let i = 0; i < fileLines.length - 1; i++) {
+    if (i % 1000 === 0) {
+      console.log(i)
+    }
+    const currentLine = fileLines[i]
+    const nextLine = fileLines[i + 1]
+
+    if (
+      // currentLine.includes('[CallStateListener]: onCallStateChanged.IDLE') &&
+      // nextLine.includes('[CallStateListener]: onCallStateChanged.CONNECTED')
+      currentLine.includes('IDLE') &&
+      nextLine.includes('CONNECTED')
+    ) {
+      console.log(currentLine)
+      console.log(nextLine)
+    }
+  }
+}
+
+/**
  * POST /api/search 요청.
  */
 export async function POST(request: NextRequest) {
-  searchByKeyword(keyword)
+  // searchByKeyword(keyword)
+  searchUnusualBehavior()
   return NextResponse.json({ ok: true })
 }

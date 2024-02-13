@@ -144,7 +144,7 @@ export const getLogsInFolder = async (
 }
 
 /**
- * 법인폰 번호 리스트 가져오기.
+ * 스토리지 법인폰 번호 리스트 가져오기.
  */
 export const getPhoneNumberList = async (
   bucket: firebase.storage.Reference,

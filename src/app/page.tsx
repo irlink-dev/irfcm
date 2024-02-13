@@ -14,6 +14,7 @@ import {
 const HomePage = () => {
   const { showProgress } = useContext(LoadingContext)
 
+  // TODO: 고객사 리스트 -> 추후 DB화.
   return (
     <Grid container spacing={3}>
       {[

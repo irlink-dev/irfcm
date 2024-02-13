@@ -34,6 +34,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     router.push(`/${event.target.value as string}`)
   }
 
+  // TODO: 추후 DB화.
   const menu = [
     [Client.LINA, '라이나 생명'],
     [Client.L_POINT, 'L 포인트'],
@@ -49,6 +50,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.KT_COMMERCE, 'KT 커머스'],
   ]
 
+  // TODO: 단순 dropdown이 아닌, 검색 가능한 dropdown으로.
   return (
     <FormControl fullWidth>
       <InputLabel id="client-select">요청 헤더</InputLabel>
