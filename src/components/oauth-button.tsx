@@ -32,6 +32,7 @@ const OauthButton = ({
             backgroundColor: 'white',
             fontWeight: 600,
             textTransform: 'none',
+            borderRadius: '100px',
           }}
         >
           Google로 OAuth 2.0 시작하기

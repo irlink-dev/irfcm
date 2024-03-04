@@ -148,7 +148,14 @@ const RequestForm = ({
           disabled={IS_MERITZ}
         />
       </FormGroup>
-      <Button type="submit" onClick={onRequestButtonClick} variant="contained">
+      <Button
+        type="submit"
+        onClick={onRequestButtonClick}
+        variant="contained"
+        sx={{
+          borderRadius: '100px',
+        }}
+      >
         FCM 요청
       </Button>
     </Paper>
