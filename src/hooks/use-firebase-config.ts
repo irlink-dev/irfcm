@@ -1,5 +1,5 @@
 import process from 'process'
-import { Client, ClientType } from '@/enums/Client'
+import { Client, ClientType } from '@/enums/client'
 
 const useFirebaseConfig = (client: ClientType) => {
   /**

@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
 import 'firebase/compat/storage'
-import FirebasePreference from '@/interfaces/FirebasePreference'
-import RequestForm from '@/components/RequestForm'
-import useFcmRequest from '@/hooks/useFcmRequest'
-import useFirebase from '@/hooks/useFirebase'
-import StorageFiles from '@/components/StorageFiles'
+import FirebasePreference from '@/interfaces/firebase-preference'
+import RequestForm from '@/components/request-form'
+import useFcmRequest from '@/hooks/use-fcm-request'
+import useFirebase from '@/hooks/use-firebase'
+import StorageFiles from '@/components/storage-files'
 import {
   Box,
   Button,
@@ -16,11 +16,11 @@ import {
   Tab,
   Tabs,
 } from '@mui/material'
-import { ClientType } from '@/enums/Client'
-import ClientSelect from '@/components/ClientSelect'
-import OAuthButton from '@/components/OAuthButton'
+import { ClientType } from '@/enums/client'
+import ClientSelect from '@/components/client-select'
+import OauthButton from '@/components/oauth-button'
 import { useRouter } from 'next/navigation'
-import TopNav from './TopNav'
+import TopNav from './top-nav'
 
 /**
  * FCM 컨테이너. Request 전역 상태 관리.
@@ -62,7 +62,7 @@ const FcmBox = ({
       <TopNav params={params} />
 
       <Box sx={{ display: 'flex', justifyContent: 'end', pb: 1 }}>
-        <OAuthButton params={params} firebasePref={firebasePref} />
+        <OauthButton params={params} firebasePref={firebasePref} />
       </Box>
 
       <Grid container rowSpacing={2} columnSpacing={3}>

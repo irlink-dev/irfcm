@@ -9,14 +9,14 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material'
-import ClientSelect from './ClientSelect'
+import ClientSelect from './client-select'
 import { usePathname, useRouter } from 'next/navigation'
-import { ClientType } from '@/enums/Client'
+import { ClientType } from '@/enums/client'
 import { useContext, useEffect } from 'react'
-import useLocalStorage from '@/hooks/useLocalStorage'
-import { MorecxVariants } from '@/enums/MorecxVariants'
-import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
-import MorecxVariantSelect from './MorecxVariantSelect'
+import useLocalStorage from '@/hooks/use-local-storage'
+import { MorecxVariants } from '@/enums/morecx-variants'
+import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
+import MorecxVariantSelect from './morecx-variant-select'
 
 const TopNav = ({ params }: { params: { client: ClientType } }) => {
   const router = useRouter()

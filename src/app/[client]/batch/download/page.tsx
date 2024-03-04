@@ -1,8 +1,8 @@
-import TestBox from '@/components/TestBox'
-import useFirebaseConfig from '@/hooks/useFirebaseConfig'
+import TestBox from '@/components/test-box'
+import useFirebaseConfig from '@/hooks/use-firebase-config'
 import { getLegacyAuthKey } from '@/utils/auth'
-import FirebasePreference from '@/interfaces/FirebasePreference'
-import { ClientType } from '@/enums/Client'
+import FirebasePreference from '@/interfaces/firebase-preference'
+import { ClientType } from '@/enums/client'
 import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
 
 const BatchDownloadPage = ({ params }: { params: { client: ClientType } }) => {

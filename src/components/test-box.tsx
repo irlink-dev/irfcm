@@ -12,10 +12,10 @@ import {
 } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 
-import useFirebase from '@/hooks/useFirebase'
-import useFcmRequest from '@/hooks/useFcmRequest'
-import useStorageFiles from '@/hooks/useStorageFiles'
-import FirebasePreference from '@/interfaces/FirebasePreference'
+import useFirebase from '@/hooks/use-firebase'
+import useFcmRequest from '@/hooks/use-fcm-request'
+import useStorageFiles from '@/hooks/use-storage-files'
+import FirebasePreference from '@/interfaces/firebase-preference'
 
 import {
   getLogsInFolder,
@@ -24,15 +24,15 @@ import {
   sendFcmToAllTokens,
 } from '@/utils/firebase'
 
-import { Client, ClientType } from '@/enums/Client'
+import { Client, ClientType } from '@/enums/client'
 import { requestFcm } from '@/utils/fcm'
-import useLocalStorage from '@/hooks/useLocalStorage'
+import useLocalStorage from '@/hooks/use-local-storage'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { CloudDownload, Downloading, FileDownload } from '@mui/icons-material'
 import { batchDownload } from '@/utils/download'
 import { parseDownloadUrl } from '@/utils/format'
 import { getAllTokens } from '@/utils/firebase'
-import emptyArray from '@/constants/emptyArray'
+import emptyArray from '@/constants/empty-array'
 
 const TAG = 'TestBox'
 

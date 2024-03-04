@@ -12,13 +12,13 @@ import Container from '@mui/material/Container'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import { MainListItems, SecondaryListItems } from './listItems'
-import Copyright from './Copyright'
-import AppBar from './AppBar'
-import Drawer from './Drawer'
+import { MainListItems, SecondaryListItems } from './list-items'
+import Copyright from './copyright'
+import AppBar from './app-bar'
+import Drawer from './drawer'
 import { usePathname, useRouter } from 'next/navigation'
 import { Badge, LinearProgress } from '@mui/material'
-import { LoadingContext } from '@/contexts/LoadingContext'
+import { LoadingContext } from '@/contexts/loading-context'
 
 const DRAWER_WIDTH: number = 260
 

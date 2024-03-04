@@ -1,4 +1,4 @@
-import { MorecxVariants } from '@/enums/MorecxVariants'
+import { MorecxVariants } from '@/enums/morecx-variants'
 import {
   createContext,
   Dispatch,

@@ -1,4 +1,4 @@
-import { ClientType } from '@/enums/Client'
+import { ClientType } from '@/enums/client'
 
 const useLocalStorage = (client: ClientType | null = null) => {
   const LOCAL_STORAGE_ACCESS_TOKEN_KEY = `irfcm:access_token:${client}`

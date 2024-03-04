@@ -1,4 +1,4 @@
-import { Client, ClientType } from '@/enums/Client'
+import { Client, ClientType } from '@/enums/client'
 
 /**
  * OAuth 클라이언트 Secret 반환.

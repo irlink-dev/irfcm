@@ -10,7 +10,7 @@ import { Avatar, Collapse, ListSubheader } from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import List from '@mui/material/List'
 import { green, lightBlue, blue } from '@mui/material/colors'
-import { LoadingContext } from '@/contexts/LoadingContext'
+import { LoadingContext } from '@/contexts/loading-context'
 
 const NULL = 'state.open.NULL'
 const CLIENT_LIST = 'state.open.CLIENT_LIST'

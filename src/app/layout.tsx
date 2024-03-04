@@ -1,9 +1,9 @@
 'use client'
 
-import Dashboard from '@/components/Dashboard'
+import Dashboard from '@/components/dashboard'
 import { SnackbarProvider } from 'notistack'
-import { LoadingProvider } from '@/contexts/LoadingContext'
-import { MorecxVariantsProvider } from '@/contexts/MorecxVariantsContext'
+import { LoadingProvider } from '@/contexts/loading-context'
+import { MorecxVariantsProvider } from '@/contexts/morecx-variants-context'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

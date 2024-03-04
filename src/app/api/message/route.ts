@@ -2,7 +2,7 @@ import { printLog } from '@/utils/log'
 import axios from 'axios'
 import https from 'https'
 import { NextRequest, NextResponse } from 'next/server'
-import emptyArray from '@/constants/emptyArray'
+import emptyArray from '@/constants/empty-array'
 
 const TAG = '/api/message'
 const REQUEST_URL = 'https://175.126.124.137/cdm/devMessage'

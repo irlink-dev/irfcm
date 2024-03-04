@@ -1,5 +1,5 @@
-import { Client } from '@/enums/Client'
-import { MorecxVariants } from '@/enums/MorecxVariants'
+import { Client } from '@/enums/client'
+import { MorecxVariants } from '@/enums/morecx-variants'
 import { printLog } from '@/utils/log'
 
 const TAG = 'utils/format'

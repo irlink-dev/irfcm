@@ -1,4 +1,4 @@
-import ArchiveBox from '@/components/ArchiveBox'
+import ArchiveBox from '@/components/archive-box'
 
 const BatchArchivePage = () => {
   return (

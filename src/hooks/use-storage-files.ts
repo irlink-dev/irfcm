@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
-import useLocalStorage from '@/hooks/useLocalStorage'
+import useLocalStorage from '@/hooks/use-local-storage'
 import { FileData, createFileData } from '@/utils/data'
-import FirebasePreference from '@/interfaces/FirebasePreference'
+import FirebasePreference from '@/interfaces/firebase-preference'
 import { getStorageFileUrls } from '@/utils/firebase'
-import Input from '@/interfaces/Input'
+import Input from '@/interfaces/input'
 import { printLog } from '@/utils/log'
 import { parseDownloadUrl } from '@/utils/format'
-import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
-import { MorecxVariants } from '@/enums/MorecxVariants'
+import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
+import { MorecxVariants } from '@/enums/morecx-variants'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,

@@ -1,7 +1,7 @@
-import Request from '@/interfaces/Request'
-import Message from '@/interfaces/Message'
-import { ClientType } from '@/enums/Client'
-import useFirebaseConfig from '@/hooks/useFirebaseConfig'
+import Request from '@/interfaces/request'
+import Message from '@/interfaces/message'
+import { ClientType } from '@/enums/client'
+import useFirebaseConfig from '@/hooks/use-firebase-config'
 
 const TAG = 'utils/fcm'
 

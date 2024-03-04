@@ -11,14 +11,14 @@ import {
 } from '@mui/material'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import DeleteIcon from '@mui/icons-material/Delete'
-import useStorageFiles from '@/hooks/useStorageFiles'
-import FirebasePreference from '@/interfaces/FirebasePreference'
+import useStorageFiles from '@/hooks/use-storage-files'
+import FirebasePreference from '@/interfaces/firebase-preference'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
-import Input from '@/interfaces/Input'
+import Input from '@/interfaces/input'
 import { Dispatch, SetStateAction, useContext, useEffect } from 'react'
 import { printLog } from '@/utils/log'
-import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
+import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
 
 interface StorageFilesProps {
   params: { client: string }

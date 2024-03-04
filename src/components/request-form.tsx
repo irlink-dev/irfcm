@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext } from 'react'
-import Input from '@/interfaces/Input'
+import Input from '@/interfaces/input'
 import {
   Box,
   Button,
@@ -17,12 +17,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { FcmMethod } from '@/enums/FcmMethod'
-import { Client, ClientType } from '@/enums/Client'
-import { FcmType } from '@/enums/FcmType'
-import { MeritzFcmType } from '@/enums/MeritzFcmType'
+import { FcmMethod } from '@/enums/fcm-method'
+import { Client, ClientType } from '@/enums/client'
+import { FcmType } from '@/enums/fcm-type'
+import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { printLog, printWarningLog } from '@/utils/log'
-import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
+import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
 
 const TAG = 'RequestForm'
 

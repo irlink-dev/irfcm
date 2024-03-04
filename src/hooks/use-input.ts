@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import useLocalStorage from '@/hooks/useLocalStorage'
+import useLocalStorage from '@/hooks/use-local-storage'
 
 const useInput = (defaultValues: object, localStorageKey: string) => {
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()

@@ -1,4 +1,4 @@
-import { Client, ClientType } from '@/enums/Client'
+import { Client, ClientType } from '@/enums/client'
 
 /**
  * Authorization Key 반환. (LEGACY)

@@ -1,16 +1,16 @@
 'use client'
 
 import 'firebase/compat/storage'
-import FirebasePreference from '@/interfaces/FirebasePreference'
-import { ClientType } from '@/enums/Client'
-import TopNav from './TopNav'
+import FirebasePreference from '@/interfaces/firebase-preference'
+import { ClientType } from '@/enums/client'
+import TopNav from './top-nav'
 import { Box, Grid } from '@mui/material'
-import OAuthButton from '@/components/OAuthButton'
+import OauthButton from '@/components/oauth-button'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import useFirebase from '@/hooks/useFirebase'
-import useFcmRequest from '@/hooks/useFcmRequest'
-import RequestForm from './RequestForm'
+import useFirebase from '@/hooks/use-firebase'
+import useFcmRequest from '@/hooks/use-fcm-request'
+import RequestForm from './request-form'
 
 const BatchBox = ({
   params,
@@ -42,7 +42,7 @@ const BatchBox = ({
       <TopNav params={params} />
 
       <Box sx={{ display: 'flex', justifyContent: 'end', pb: 1 }}>
-        <OAuthButton params={params} firebasePref={firebasePref} />
+        <OauthButton params={params} firebasePref={firebasePref} />
       </Box>
 
       <Grid container rowSpacing={2} columnSpacing={3}>

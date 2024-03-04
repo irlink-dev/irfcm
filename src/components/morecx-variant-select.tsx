@@ -1,8 +1,8 @@
 'use client'
 
-import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
-import { Client, ClientType } from '@/enums/Client'
-import { MorecxVariants } from '@/enums/MorecxVariants'
+import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
+import { Client, ClientType } from '@/enums/client'
+import { MorecxVariants } from '@/enums/morecx-variants'
 // import FirebasePreference from '@/interfaces/FirebasePreference'
 import { FormControl, InputLabel, MenuItem, styled } from '@mui/material'
 import { useContext } from 'react'
@@ -11,7 +11,7 @@ import MuiSelect, {
   SelectProps as MuiSelectProps,
   SelectChangeEvent,
 } from '@mui/material/Select'
-import useLocalStorage from '@/hooks/useLocalStorage'
+import useLocalStorage from '@/hooks/use-local-storage'
 
 interface SelectProps extends MuiSelectProps {
   /* empty */

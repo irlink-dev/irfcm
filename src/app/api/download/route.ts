@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { batchDownload } from '@/utils/download'
 import { printLog } from '@/utils/log'
-import emptyArray from '@/constants/emptyArray'
+import emptyArray from '@/constants/empty-array'
 
 const TAG = '/api/download'
 

@@ -1,11 +1,11 @@
 'use client'
 
 import { Button, Grid } from '@mui/material'
-import { Client, ClientType } from '@/enums/Client'
-import useFcmRequest from '@/hooks/useFcmRequest'
-import FirebasePreference from '@/interfaces/FirebasePreference'
+import { Client, ClientType } from '@/enums/client'
+import useFcmRequest from '@/hooks/use-fcm-request'
+import FirebasePreference from '@/interfaces/firebase-preference'
 
-const OAuthButton = ({
+const OauthButton = ({
   params,
   firebasePref,
 }: {
@@ -41,4 +41,4 @@ const OAuthButton = ({
   )
 }
 
-export default OAuthButton
+export default OauthButton
