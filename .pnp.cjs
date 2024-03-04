@@ -50,6 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase", "npm:9.19.1"],\
             ["firebase-admin", "npm:11.5.0"],\
             ["form-data", "npm:4.0.0"],\
+            ["jotai", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:2.7.0"],\
             ["next", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:14.1.1"],\
             ["notistack", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:3.0.1"],\
             ["react", "npm:18.2.0"],\
@@ -4293,6 +4294,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase", "npm:9.19.1"],\
             ["firebase-admin", "npm:11.5.0"],\
             ["form-data", "npm:4.0.0"],\
+            ["jotai", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:2.7.0"],\
             ["next", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:14.1.1"],\
             ["notistack", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:3.0.1"],\
             ["react", "npm:18.2.0"],\
@@ -4410,6 +4412,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/jose-npm-4.13.1-ecad744417-89be959573.zip/node_modules/jose/",\
           "packageDependencies": [\
             ["jose", "npm:4.13.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["jotai", [\
+        ["npm:2.7.0", {\
+          "packageLocation": "./.yarn/cache/jotai-npm-2.7.0-43b1e9593f-04bf13ca05.zip/node_modules/jotai/",\
+          "packageDependencies": [\
+            ["jotai", "npm:2.7.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:2.7.0", {\
+          "packageLocation": "./.yarn/__virtual__/jotai-virtual-867aa34536/0/cache/jotai-npm-2.7.0-43b1e9593f-04bf13ca05.zip/node_modules/jotai/",\
+          "packageDependencies": [\
+            ["jotai", "virtual:770e6b1d6cdbcebfbc971f40a7df839c39b06d9ac3b88cd67042daf75d14f5f3816b3c21a1391b3c8ec9126b5acef31ac9ab1d63a3854e6f0d0444cc32f3b3a6#npm:2.7.0"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\

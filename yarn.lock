@@ -3172,6 +3172,7 @@ __metadata:
     firebase: ^9.19.1
     firebase-admin: ^11.5.0
     form-data: ^4.0.0
+    jotai: ^2.7.0
     next: ^14
     notistack: ^3.0.1
     react: ^18.2.0
@@ -3267,6 +3268,21 @@ __metadata:
   version: 4.13.1
   resolution: "jose@npm:4.13.1"
   checksum: 89be959573beee69bd443493887d78799fd42340b45afa2c6681beda30314bcdfa5575f6977203c199e4c3e0ec2fc18d3c94745e7f0d59db51dedfae0efee63d
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "jotai@npm:2.7.0"
+  peerDependencies:
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 04bf13ca05ad6a0d51ed067c4e926d3965c02feff2f3f96ec9a786fba1c9e53b951648edd775b418c420f5ac1680b09a953972d39d9c40e0f83b3040926862fc
   languageName: node
   linkType: hard
 
