@@ -10,7 +10,8 @@ import { Avatar, Collapse, ListSubheader } from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import List from '@mui/material/List'
 import { green, lightBlue, blue } from '@mui/material/colors'
-import { LoadingContext } from '@/contexts/loading-context'
+import { useAtom } from 'jotai'
+import { loadingStatusAtom } from '@/atoms/loading-status-atom'
 
 const NULL = 'state.open.NULL'
 const CLIENT_LIST = 'state.open.CLIENT_LIST'
@@ -28,13 +29,15 @@ interface ListItemProps {
 const ClientListItem = ({ href, text, alias, color }: ListItemProps) => {
   const router = useRouter()
   const pathname = usePathname()
-  const { showProgress } = React.useContext(LoadingContext)
+
+  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
+
   return (
     <ListItemButton
       sx={{ pl: 4 }}
       onClick={() => {
         if (pathname !== href) {
-          showProgress()
+          setIsLoading(true)
         }
         router.push(href)
       }}
@@ -63,8 +66,6 @@ export const MainListItems = () => {
   const pathname = usePathname()
 
   const [selectedItem, setSelectedItem] = React.useState(NULL)
-
-  const { showProgress } = React.useContext(LoadingContext)
 
   /**
    * 메뉴 드롭다운 클릭 시.

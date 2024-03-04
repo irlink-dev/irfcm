@@ -1,15 +1,15 @@
 'use client'
 
-import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { styled } from '@mui/material/styles'
-import { LoadingContext } from '@/contexts/loading-context'
 import { FormControl, Grid, InputLabel, MenuItem } from '@mui/material'
 import MuiSelect, {
   SelectProps as MuiSelectProps,
   SelectChangeEvent,
 } from '@mui/material/Select'
 import { Client } from '@/enums/client'
+import { useAtom } from 'jotai'
+import { loadingStatusAtom } from '@/atoms/loading-status-atom'
 
 interface SelectProps extends MuiSelectProps {
   /* empty */
@@ -27,10 +27,10 @@ interface ClientSelectProps {
 
 const ClientSelect = ({ params }: ClientSelectProps) => {
   const router = useRouter()
-  const { showProgress } = useContext(LoadingContext)
+  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
-    showProgress()
+    setIsLoading(true)
     router.push(`/${event.target.value as string}`)
   }
 
@@ -52,7 +52,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
 
   // TODO: 단순 dropdown이 아닌, 검색 가능한 dropdown으로.
   return (
-    <FormControl  fullWidth>
+    <FormControl fullWidth>
       <InputLabel id="client-select">요청 헤더</InputLabel>
 
       <Select

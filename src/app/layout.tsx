@@ -3,7 +3,6 @@
 import '@/styles/globals.css'
 import Dashboard from '@/components/dashboard'
 import { SnackbarProvider } from 'notistack'
-import { LoadingProvider } from '@/contexts/loading-context'
 import { MorecxVariantsProvider } from '@/contexts/morecx-variants-context'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -23,13 +22,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       </head>
 
       <body>
-        <LoadingProvider>
-          <SnackbarProvider maxSnack={3}>
-            <MorecxVariantsProvider>
-              <Dashboard>{children}</Dashboard>
-            </MorecxVariantsProvider>
-          </SnackbarProvider>
-        </LoadingProvider>
+        <SnackbarProvider maxSnack={3}>
+          <MorecxVariantsProvider>
+            <Dashboard>{children}</Dashboard>
+          </MorecxVariantsProvider>
+        </SnackbarProvider>
       </body>
     </html>
   )

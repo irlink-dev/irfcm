@@ -1,10 +1,10 @@
 'use client'
 
-import * as React from 'react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { ListItemButton, ListItemText, ListItemAvatar } from '@mui/material'
-import { LoadingContext } from '@/contexts/loading-context'
+import { useAtom } from 'jotai'
+import { loadingStatusAtom } from '@/atoms/loading-status-atom'
 
 interface DrawerListRowProps {
   name: string
@@ -16,14 +16,15 @@ interface DrawerListRowProps {
 const DrawerListRow = ({ name, desc, route, image }: DrawerListRowProps) => {
   const router = useRouter()
   const pathname = usePathname()
-  const { showProgress } = React.useContext(LoadingContext)
+  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
+
   return (
     <ListItemButton
       sx={{ pl: 4 }}
       selected={pathname === route}
       onClick={() => {
         if (pathname !== route) {
-          showProgress()
+          setIsLoading(true)
         }
         router.push(route)
       }}

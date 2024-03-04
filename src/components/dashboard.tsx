@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -18,7 +17,9 @@ import AppBar from './app-bar'
 import Drawer from './drawer'
 import { usePathname, useRouter } from 'next/navigation'
 import { Badge, LinearProgress } from '@mui/material'
-import { LoadingContext } from '@/contexts/loading-context'
+import { loadingStatusAtom } from '@/atoms/loading-status-atom'
+import { useAtom } from 'jotai'
+import { useEffect, useState } from 'react'
 
 const DRAWER_WIDTH: number = 260
 
@@ -27,17 +28,15 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const packageJson = require('/package.json')
 
-  const [open, setOpen] = React.useState(true) // Drawer 열림 여부.
-
-  const { isLoading, showProgress, dismissProgress } =
-    React.useContext(LoadingContext)
+  const [open, setOpen] = useState(true) // Drawer 열림 여부.
+  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
 
   const toggleDrawer = () => {
     setOpen(!open)
   }
 
-  React.useEffect(() => {
-    dismissProgress()
+  useEffect(() => {
+    setIsLoading(false)
   }, [pathname])
 
   return (
@@ -69,7 +68,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
             sx={{ flexGrow: 1, cursor: 'pointer' }}
             onClick={() => {
               if (pathname !== '/') {
-                showProgress()
+                setIsLoading(true)
               }
               router.push('/')
             }}
