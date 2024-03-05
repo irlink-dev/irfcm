@@ -2,6 +2,7 @@
 
 import { useSetAtom } from 'jotai'
 import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import clientList from '@/constants/client-list'
 
 import {
   Card,
@@ -15,83 +16,9 @@ import {
 const HomePage = () => {
   const setIsLoading = useSetAtom(pageLoadingStatusAtom)
 
-  // TODO: 고객사 리스트 -> 추후 DB화.
   return (
     <Grid container spacing={3}>
-      {[
-        {
-          name: '라이나 생명',
-          route: '/lina',
-          desc: 'kr.co.irlink.lina',
-          image: '/images/lina_app_icon.png',
-        },
-        {
-          name: 'L 포인트',
-          route: '/lpoint',
-          desc: 'kr.co.irlink.lpoint',
-          image: '/images/lpoint_app_icon.png',
-        },
-        {
-          name: '처브 CDM',
-          route: '/chubb',
-          desc: 'kr.co.irlink.chubb',
-          image: '/images/chubb_app_icon.png',
-        },
-        {
-          name: '하나손해보험',
-          route: '/hana',
-          desc: 'kr.co.irlink.hana',
-          image: '/images/hana_app_icon.png',
-        },
-        {
-          name: '신한카드',
-          route: '/shinhan',
-          desc: 'kr.co.irlink.shinhan',
-          image: '/images/shinhan_card_app_icon.png',
-        },
-        {
-          name: 'DB 생명',
-          route: '/dblife',
-          desc: 'kr.co.irlink.dblife',
-          image: '/images/db_life_app_icon.png',
-        },
-        {
-          name: 'KB 손해보험',
-          route: '/kb',
-          desc: 'kr.co.irlink.kb',
-          image: '/images/kb_wireless_app_icon.png',
-        },
-        {
-          name: '모렉스',
-          route: '/morecx',
-          desc: 'kr.co.irlink.morecx',
-          image: '/images/morecx_app_icon.png',
-        },
-        {
-          name: '지링크',
-          route: '/zilink',
-          desc: 'kr.co.irlink.usbcontrol',
-          image: '/images/zilink_app_icon.png',
-        },
-        {
-          name: '메리츠 화재',
-          route: '/meritz',
-          desc: 'com.irlink.meritz',
-          image: '/images/meritz_app_icon.png',
-        },
-        {
-          name: 'GS 홈쇼핑',
-          route: '/gsshopusb',
-          desc: 'kr.co.irlink.gsshopusb',
-          image: '/images/gs_shop_usb_app_icon.png',
-        },
-        {
-          name: 'KT 커머스',
-          route: '/ktcommerce',
-          desc: 'kr.co.irlink.ktcommerce',
-          image: '/images/kt_commerce_app_icon.png',
-        },
-      ].map((item) => (
+      {clientList.map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={item.route}>
           <Card
             sx={{ maxWidth: 345, marginTop: 2 }}

@@ -170,7 +170,7 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
-   * 엘 포인트.
+   * L 포인트.
    */
   const L_POINT_FIREBASE_CONFIG = {
     apiKey: process.env.L_POINT_API_KEY!,
@@ -268,7 +268,6 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
     if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }
-
   return getConfig(client)
 }
 
