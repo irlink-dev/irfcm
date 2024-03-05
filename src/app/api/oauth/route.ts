@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { GoogleApi } from '@/enums/GoogleApi'
-import { GrantType } from '@/enums/GrantType'
-import { Client, ClientType } from '@/enums/Client'
+import { GoogleApi } from '@/enums/google-api'
+import { GrantType } from '@/enums/grant-type'
+import { Client, ClientType } from '@/enums/client'
 import { getOAuthClientId, getOAuthClientSecret } from '@/utils/oauth'
 import { printLog } from '@/utils/log'
 

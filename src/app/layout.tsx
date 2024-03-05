@@ -1,9 +1,8 @@
 'use client'
 
-import Dashboard from '@/components/Dashboard'
+import '@/styles/globals.css'
+import Dashboard from '@/components/dashboard'
 import { SnackbarProvider } from 'notistack'
-import { LoadingProvider } from '@/contexts/LoadingContext'
-import { MorecxVariantsProvider } from '@/contexts/MorecxVariantsContext'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -12,16 +11,19 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <title>IRFCM :: IRLINK Firebase Cloud Messaging Service</title>
         <link rel="icon" href="/icons/postman.svg" />
         <meta charSet="utf-8" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+        <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
 
       <body>
-        <LoadingProvider>
-          <SnackbarProvider maxSnack={3}>
-            <MorecxVariantsProvider>
-              <Dashboard>{children}</Dashboard>
-            </MorecxVariantsProvider>
-          </SnackbarProvider>
-        </LoadingProvider>
+        <SnackbarProvider maxSnack={3}>
+          <Dashboard>{children}</Dashboard>
+        </SnackbarProvider>
       </body>
     </html>
   )

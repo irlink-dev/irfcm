@@ -1,6 +1,6 @@
 import { printLog } from '@/utils/log'
 import { NextRequest, NextResponse } from 'next/server'
-import emptyArray from '@/constants/emptyArray'
+import emptyArray from '@/constants/empty-array'
 
 const TAG = '/api/message/validation'
 const SEPARATOR = '60uNd@ry'

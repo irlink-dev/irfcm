@@ -1,0 +1,74 @@
+/**
+ * 고객사.
+ */
+export enum Client {
+  /**
+   * 처브 CDM.
+   */
+  CHUBB = 'chubb',
+
+  /**
+   * DB 생명.
+   */
+  DB_LIFE = 'dblife',
+
+  /**
+   * GS 홈쇼핑 (IR-USB).
+   */
+  GS_SHOP_USB = 'gsshopusb',
+
+  /**
+   * 하나손해보험.
+   */
+  HANA = 'hana',
+
+  /**
+   * 현대해상.
+   */
+  HYUNDAI = 'hyundai',
+
+  /**
+   * KB 손보.
+   */
+  KB_WIRELESS = 'kb',
+
+  /**
+   * KT 커머스.
+   */
+  KT_COMMERCE = 'ktcommerce',
+
+  /**
+   * 라이나 생명.
+   */
+  LINA = 'lina',
+
+  /**
+   * L 포인트.
+   */
+  L_POINT = 'lpoint',
+
+  /**
+   * 메리츠 화재.
+   */
+  MERITZ = 'meritz',
+
+  /**
+   * 모렉스.
+   */
+  MORECX = 'morecx',
+
+  /**
+   * 신한 카드.
+   */
+  SHINHAN_CARD = 'shinhan',
+
+  /**
+   * 지링크.
+   */
+  ZILINK = 'zilink',
+}
+
+/**
+ * type ClientType = | Client.CHUBB | Client.DB_LIFE ...
+ */
+export type ClientType = (typeof Client)[keyof typeof Client]

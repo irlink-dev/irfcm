@@ -1,13 +1,11 @@
 import firebase from 'firebase/compat/app'
 import { get, getDatabase, ref } from 'firebase/database'
-import FirebaseConfig from '@/interfaces/FirebaseConfig'
-import { Client, ClientType } from '@/enums/Client'
+import FirebaseConfig from '@/interfaces/firebase-config'
+import { Client, ClientType } from '@/enums/client'
 import { printLog } from '@/utils/log'
 import { requestFcm } from '@/utils/fcm'
 import { toHyphenNumber } from '@/utils/format'
-import { MorecxVariants } from '@/enums/MorecxVariants'
-import { useContext } from 'react'
-import { MorecxVariantsContext } from '@/contexts/MorecxVariantsContext'
+import { MorecxVariants } from '@/enums/morecx-variants'
 
 const TAG = 'utils/firebase'
 
