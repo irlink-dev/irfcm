@@ -1,6 +1,5 @@
 'use client'
 
-import React, { useContext } from 'react'
 import Input from '@/interfaces/input'
 import {
   Box,
@@ -22,7 +21,8 @@ import { Client, ClientType } from '@/enums/client'
 import { FcmType } from '@/enums/fcm-type'
 import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { printLog, printWarningLog } from '@/utils/log'
-import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
+import { useAtomValue } from 'jotai'
+import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
 
 const TAG = 'RequestForm'
 
@@ -55,7 +55,7 @@ const RequestForm = ({
 }: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
-  const { variant } = useContext(MorecxVariantsContext)
+  const variant = useAtomValue(morecxVariantsAtom)
 
   /**
    * 요청 버튼 클릭 시

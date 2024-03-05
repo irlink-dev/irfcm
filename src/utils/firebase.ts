@@ -6,8 +6,6 @@ import { printLog } from '@/utils/log'
 import { requestFcm } from '@/utils/fcm'
 import { toHyphenNumber } from '@/utils/format'
 import { MorecxVariants } from '@/enums/morecx-variants'
-import { useContext } from 'react'
-import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
 
 const TAG = 'utils/firebase'
 

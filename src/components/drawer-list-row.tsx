@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { ListItemButton, ListItemText, ListItemAvatar } from '@mui/material'
-import { useAtom } from 'jotai'
-import { loadingStatusAtom } from '@/atoms/loading-status-atom'
+import { useSetAtom } from 'jotai'
+import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
 interface DrawerListRowProps {
   name: string
@@ -16,7 +16,7 @@ interface DrawerListRowProps {
 const DrawerListRow = ({ name, desc, route, image }: DrawerListRowProps) => {
   const router = useRouter()
   const pathname = usePathname()
-  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
+  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
 
   return (
     <ListItemButton

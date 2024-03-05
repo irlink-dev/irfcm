@@ -8,8 +8,8 @@ import MuiSelect, {
   SelectChangeEvent,
 } from '@mui/material/Select'
 import { Client } from '@/enums/client'
-import { useAtom } from 'jotai'
-import { loadingStatusAtom } from '@/atoms/loading-status-atom'
+import { useSetAtom } from 'jotai'
+import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
 interface SelectProps extends MuiSelectProps {
   /* empty */
@@ -27,7 +27,7 @@ interface ClientSelectProps {
 
 const ClientSelect = ({ params }: ClientSelectProps) => {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
+  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     setIsLoading(true)

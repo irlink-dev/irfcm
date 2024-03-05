@@ -12,11 +12,12 @@ import {
 import ClientSelect from './client-select'
 import { usePathname, useRouter } from 'next/navigation'
 import { ClientType } from '@/enums/client'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import useLocalStorage from '@/hooks/use-local-storage'
 import { MorecxVariants } from '@/enums/morecx-variants'
-import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
 import MorecxVariantSelect from './morecx-variant-select'
+import { useSetAtom } from 'jotai'
+import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
 
 const TopNav = ({ params }: { params: { client: ClientType } }) => {
   const router = useRouter()
@@ -26,7 +27,7 @@ const TopNav = ({ params }: { params: { client: ClientType } }) => {
   const BATCH_URL = `/${params.client}/batch`
 
   const { getLocalStorageData } = useLocalStorage()
-  const { setVariant } = useContext(MorecxVariantsContext)
+  const setVariant = useSetAtom(morecxVariantsAtom)
 
   useEffect(() => {
     const LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY = `irfcm:build_variant:morecx`

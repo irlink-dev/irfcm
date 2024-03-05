@@ -1,7 +1,7 @@
 'use client'
 
-import { useAtom } from 'jotai'
-import { loadingStatusAtom } from '@/atoms/loading-status-atom'
+import { useSetAtom } from 'jotai'
+import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
 import {
   Card,
@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 
 const HomePage = () => {
-  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
+  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
 
   // TODO: 고객사 리스트 -> 추후 DB화.
   return (

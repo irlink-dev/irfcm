@@ -1,17 +1,17 @@
 'use client'
 
-import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
 import { Client, ClientType } from '@/enums/client'
 import { MorecxVariants } from '@/enums/morecx-variants'
 // import FirebasePreference from '@/interfaces/FirebasePreference'
 import { FormControl, InputLabel, MenuItem, styled } from '@mui/material'
-import { useContext } from 'react'
 
 import MuiSelect, {
   SelectProps as MuiSelectProps,
   SelectChangeEvent,
 } from '@mui/material/Select'
 import useLocalStorage from '@/hooks/use-local-storage'
+import { useAtom } from 'jotai'
+import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
 
 interface SelectProps extends MuiSelectProps {
   /* empty */
@@ -33,7 +33,7 @@ const MorecxVariantSelect = ({
   const IS_SHOW = params.client === Client.MORECX
   const LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY = `irfcm:build_variant:morecx`
 
-  const { variant, setVariant } = useContext(MorecxVariantsContext)
+  const [variant, setVariant] = useAtom(morecxVariantsAtom)
   const { setLocalStorageData } = useLocalStorage()
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {

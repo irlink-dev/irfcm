@@ -10,8 +10,8 @@ import { Avatar, Collapse, ListSubheader } from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import List from '@mui/material/List'
 import { green, lightBlue, blue } from '@mui/material/colors'
-import { useAtom } from 'jotai'
-import { loadingStatusAtom } from '@/atoms/loading-status-atom'
+import { useSetAtom } from 'jotai'
+import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
 const NULL = 'state.open.NULL'
 const CLIENT_LIST = 'state.open.CLIENT_LIST'
@@ -30,7 +30,7 @@ const ClientListItem = ({ href, text, alias, color }: ListItemProps) => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
+  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
 
   return (
     <ListItemButton

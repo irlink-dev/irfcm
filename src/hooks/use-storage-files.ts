@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import useLocalStorage from '@/hooks/use-local-storage'
@@ -8,8 +8,9 @@ import { getStorageFileUrls } from '@/utils/firebase'
 import Input from '@/interfaces/input'
 import { printLog } from '@/utils/log'
 import { parseDownloadUrl } from '@/utils/format'
-import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
 import { MorecxVariants } from '@/enums/morecx-variants'
+import { useAtomValue } from 'jotai'
+import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,
@@ -26,7 +27,7 @@ const useStorageFiles = (
     },
   )
 
-  const { variant } = useContext(MorecxVariantsContext)
+  const variant = useAtomValue(morecxVariantsAtom)
 
   useEffect(() => {
     setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)

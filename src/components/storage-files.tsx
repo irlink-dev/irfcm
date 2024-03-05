@@ -16,9 +16,10 @@ import FirebasePreference from '@/interfaces/firebase-preference'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage'
 import Input from '@/interfaces/input'
-import { Dispatch, SetStateAction, useContext, useEffect } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import { printLog } from '@/utils/log'
-import { MorecxVariantsContext } from '@/contexts/morecx-variants-context'
+import { useAtomValue } from 'jotai'
+import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
 
 interface StorageFilesProps {
   params: { client: string }
@@ -41,7 +42,7 @@ const StorageFiles = ({
   const { clearStorageFiles, getStorageFiles, storageFileData } =
     useStorageFiles(firebasePref, storageRef)
 
-  const { variant } = useContext(MorecxVariantsContext)
+  const variant = useAtomValue(morecxVariantsAtom)
 
   const onRefreshIconClick = () => {
     getStorageFiles(input, params.client, variant)

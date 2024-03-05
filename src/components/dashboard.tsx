@@ -17,7 +17,7 @@ import AppBar from './app-bar'
 import Drawer from './drawer'
 import { usePathname, useRouter } from 'next/navigation'
 import { Badge, LinearProgress } from '@mui/material'
-import { loadingStatusAtom } from '@/atoms/loading-status-atom'
+import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 
@@ -29,7 +29,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   const packageJson = require('/package.json')
 
   const [open, setOpen] = useState(true) // Drawer 열림 여부.
-  const [isLoading, setIsLoading] = useAtom(loadingStatusAtom)
+  const [isLoading, setIsLoading] = useAtom(pageLoadingStatusAtom)
 
   const toggleDrawer = () => {
     setOpen(!open)
