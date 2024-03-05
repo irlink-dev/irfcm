@@ -3,7 +3,6 @@ import { SelectChangeEvent } from '@mui/material'
 import { getUserToken, getNewOAuthCode } from '@/utils/firebase'
 import Request from '@/interfaces/request'
 import { requestFcm, requestMeritzFcm, sendMessage } from '@/utils/fcm'
-import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
 import { useSnackbar } from 'notistack'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import Input from '@/interfaces/input'
@@ -15,6 +14,7 @@ import Message from '@/interfaces/message'
 import { FcmType } from '@/enums/fcm-type'
 import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { MorecxVariants } from '@/enums/morecx-variants'
+import useToast from './use-toast'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
@@ -38,6 +38,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
 
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
   const { enqueueSnackbar } = useSnackbar()
+  const { showSuccessToast, showErrorToast } = useToast()
 
   const accessToken = getLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
   const refreshToken = getLocalStorageData(LOCAL_STORAGE_REFRESH_TOKEN_KEY)
@@ -110,7 +111,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 응답 성공 시.
    */
   const onSuccess = () => {
-    showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
+    showSuccessToast('FCM 전송 성공')
     setTrigger(() => true)
   }
 
@@ -118,7 +119,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 응답 실패 시.
    */
   const onFailure = () => {
-    showErrorSnackbar(enqueueSnackbar, 'FCM 전송 실패')
+    showErrorToast('FCM 전송 실패')
   }
 
   /**
@@ -135,7 +136,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newAccessToken)
       window?.location.reload()
     } else {
-      showErrorSnackbar(enqueueSnackbar, 'OAuth 2.0 인증 필요')
+      showErrorToast('OAuth 2.0 인증 필요')
       // doAuth(client)
     }
   }

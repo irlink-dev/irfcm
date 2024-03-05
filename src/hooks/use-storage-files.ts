@@ -11,6 +11,7 @@ import { parseDownloadUrl } from '@/utils/format'
 import { MorecxVariants } from '@/enums/morecx-variants'
 import { useAtomValue } from 'jotai'
 import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
+import useToast from './use-toast'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,
@@ -19,6 +20,7 @@ const useStorageFiles = (
   const TAG = 'useStorageFiles'
   const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebasePref.config?.projectId}`
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
+  const { showDefaultToast } = useToast()
 
   const [storageFileData, setStorageFileData] = useState<Array<FileData>>(
     () => {
@@ -46,6 +48,7 @@ const useStorageFiles = (
    */
   const showStorageFiles = (urls: Array<string>, client: string) => {
     printLog(TAG, `showStorageFiles. length: ${urls.length || 0}`)
+    showDefaultToast('스토리지 파일이 업데이트 되었습니다.')
 
     for (const url of urls) {
       const fileName = parseDownloadUrl(url, client, morecxVariant)?.fileName!
