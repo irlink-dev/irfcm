@@ -27,13 +27,13 @@ const TopNav = ({ params }: { params: { client: ClientType } }) => {
   const BATCH_URL = `/${params.client}/batch`
 
   const { getLocalStorageData } = useLocalStorage()
-  const setVariant = useSetAtom(morecxVariantsAtom)
+  const setMorecxVariant = useSetAtom(morecxVariantsAtom)
 
   useEffect(() => {
     const LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY = `irfcm:build_variant:morecx`
     const data = getLocalStorageData(LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY)
     const variant = data ? data : MorecxVariants.CLOUD
-    setVariant(() => variant)
+    setMorecxVariant(() => variant)
   }, [])
 
   return (

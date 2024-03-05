@@ -27,10 +27,10 @@ interface ClientSelectProps {
 
 const ClientSelect = ({ params }: ClientSelectProps) => {
   const router = useRouter()
-  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
+  const setIsPageLoading = useSetAtom(pageLoadingStatusAtom)
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
-    setIsLoading(true)
+    setIsPageLoading(true)
     router.push(`/${event.target.value as string}`)
   }
 

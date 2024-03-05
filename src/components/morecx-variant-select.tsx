@@ -33,12 +33,12 @@ const MorecxVariantSelect = ({
   const IS_SHOW = params.client === Client.MORECX
   const LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY = `irfcm:build_variant:morecx`
 
-  const [variant, setVariant] = useAtom(morecxVariantsAtom)
+  const [morecxVariant, setMorecxVariant] = useAtom(morecxVariantsAtom)
   const { setLocalStorageData } = useLocalStorage()
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     const value = Number(event.target.value) as MorecxVariants
-    setVariant(() => value)
+    setMorecxVariant(() => value)
     setLocalStorageData(LOCAL_STORAGE_MORECX_BUILD_VARIANT_KEY, value)
   }
 
@@ -60,7 +60,7 @@ const MorecxVariantSelect = ({
           <Select
             id="morecx-variants"
             label="Build Variants"
-            value={variant}
+            value={morecxVariant}
             onChange={handleChange}
             sx={{
               // width: '200px',

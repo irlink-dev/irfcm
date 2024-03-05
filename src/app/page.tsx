@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 
 const HomePage = () => {
-  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
+  const setIsPageLoading = useSetAtom(pageLoadingStatusAtom)
 
   return (
     <Grid container spacing={3}>
@@ -23,7 +23,7 @@ const HomePage = () => {
           <Card
             sx={{ maxWidth: 345, marginTop: 2 }}
             onClick={() => {
-              setIsLoading(true)
+              setIsPageLoading(true)
             }}
           >
             <CardActionArea href={item.route}>

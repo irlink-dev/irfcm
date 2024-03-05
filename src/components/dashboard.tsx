@@ -29,14 +29,14 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   const packageJson = require('/package.json')
 
   const [open, setOpen] = useState(true) // Drawer 열림 여부.
-  const [isLoading, setIsLoading] = useAtom(pageLoadingStatusAtom)
+  const [isPageLoading, setIsPageLoading] = useAtom(pageLoadingStatusAtom)
 
   const toggleDrawer = () => {
     setOpen(!open)
   }
 
   useEffect(() => {
-    setIsLoading(false)
+    setIsPageLoading(false)
   }, [pathname])
 
   return (
@@ -68,7 +68,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
             sx={{ flexGrow: 1, cursor: 'pointer' }}
             onClick={() => {
               if (pathname !== '/') {
-                setIsLoading(true)
+                setIsPageLoading(true)
               }
               router.push('/')
             }}
@@ -82,7 +82,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
           </IconButton> */}
         </Toolbar>
 
-        {isLoading && (
+        {isPageLoading && (
           <LinearProgress
             sx={{ position: 'absolute', bottom: 0, left: 0, width: '100%' }}
             color="primary"

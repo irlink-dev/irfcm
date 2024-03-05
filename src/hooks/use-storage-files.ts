@@ -27,7 +27,7 @@ const useStorageFiles = (
     },
   )
 
-  const variant = useAtomValue(morecxVariantsAtom)
+  const morecxVariant = useAtomValue(morecxVariantsAtom)
 
   useEffect(() => {
     setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)
@@ -48,7 +48,7 @@ const useStorageFiles = (
     printLog(TAG, `showStorageFiles. length: ${urls.length || 0}`)
 
     for (const url of urls) {
-      const fileName = parseDownloadUrl(url, client, variant)?.fileName!
+      const fileName = parseDownloadUrl(url, client, morecxVariant)?.fileName!
       const fileData = createFileData(fileName, '', '', url)
       setStorageFileData((prevState) => [...prevState, fileData])
     }

@@ -16,7 +16,7 @@ interface DrawerListRowProps {
 const DrawerListRow = ({ name, desc, route, image }: DrawerListRowProps) => {
   const router = useRouter()
   const pathname = usePathname()
-  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
+  const setIsPageLoading = useSetAtom(pageLoadingStatusAtom)
 
   return (
     <ListItemButton
@@ -24,7 +24,7 @@ const DrawerListRow = ({ name, desc, route, image }: DrawerListRowProps) => {
       selected={pathname === route}
       onClick={() => {
         if (pathname !== route) {
-          setIsLoading(true)
+          setIsPageLoading(true)
         }
         router.push(route)
       }}

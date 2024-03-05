@@ -30,14 +30,14 @@ const ClientListItem = ({ href, text, alias, color }: ListItemProps) => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const setIsLoading = useSetAtom(pageLoadingStatusAtom)
+  const setIsPageLoading = useSetAtom(pageLoadingStatusAtom)
 
   return (
     <ListItemButton
       sx={{ pl: 4 }}
       onClick={() => {
         if (pathname !== href) {
-          setIsLoading(true)
+          setIsPageLoading(true)
         }
         router.push(href)
       }}

@@ -42,10 +42,10 @@ const StorageFiles = ({
   const { clearStorageFiles, getStorageFiles, storageFileData } =
     useStorageFiles(firebasePref, storageRef)
 
-  const variant = useAtomValue(morecxVariantsAtom)
+  const morecxVariant = useAtomValue(morecxVariantsAtom)
 
   const onRefreshIconClick = () => {
-    getStorageFiles(input, params.client, variant)
+    getStorageFiles(input, params.client, morecxVariant)
   }
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const StorageFiles = ({
 
     if (trigger) {
       setTimeout(() => {
-        getStorageFiles(input, params.client, variant).then(() =>
+        getStorageFiles(input, params.client, morecxVariant).then(() =>
           setTrigger(() => false),
         )
       }, 3000)

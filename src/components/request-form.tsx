@@ -20,7 +20,6 @@ import { FcmMethod } from '@/enums/fcm-method'
 import { Client, ClientType } from '@/enums/client'
 import { FcmType } from '@/enums/fcm-type'
 import { MeritzFcmType } from '@/enums/meritz-fcm-type'
-import { printLog, printWarningLog } from '@/utils/log'
 import { useAtomValue } from 'jotai'
 import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
 
@@ -55,7 +54,7 @@ const RequestForm = ({
 }: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
-  const variant = useAtomValue(morecxVariantsAtom)
+  const morecxVariant = useAtomValue(morecxVariantsAtom)
 
   /**
    * 요청 버튼 클릭 시
@@ -69,7 +68,7 @@ const RequestForm = ({
     if (IS_HTTP_V1) {
       onSubmit(FcmMethod.HTTP_V1, params.client, -1)
     } else {
-      onSubmit(FcmMethod.LEGACY, params.client, variant)
+      onSubmit(FcmMethod.LEGACY, params.client, morecxVariant)
     }
   }
 
