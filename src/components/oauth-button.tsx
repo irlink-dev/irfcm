@@ -1,11 +1,11 @@
 'use client'
 
-import { Button, Grid } from '@mui/material'
+import { Button } from '@mui/material'
 import { Client, ClientType } from '@/enums/client'
 import useFcmRequest from '@/hooks/use-fcm-request'
 import FirebasePreference from '@/interfaces/firebase-preference'
 
-const OauthButton = ({
+const OAuthButton = ({
   params,
   firebasePref,
 }: {
@@ -15,9 +15,10 @@ const OauthButton = ({
   const { doAuth } = useFcmRequest(firebasePref)
 
   const IS_SHOW =
-    params.client === Client.L_POINT ||
     params.client === Client.GS_SHOP_USB ||
-    params.client === Client.KT_COMMERCE
+    params.client === Client.HYUNDAI ||
+    params.client === Client.KT_COMMERCE ||
+    params.client === Client.L_POINT
 
   return (
     <>
@@ -35,11 +36,11 @@ const OauthButton = ({
             borderRadius: '100px',
           }}
         >
-          Google로 OAuth 2.0 시작하기
+          Google로 OAuth 2.0 인증하기
         </Button>
       )}
     </>
   )
 }
 
-export default OauthButton
+export default OAuthButton

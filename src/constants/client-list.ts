@@ -3,6 +3,7 @@ import {
   ROUTE_DB_LIFE,
   ROUTE_GS_SHOP_USB,
   ROUTE_HANA,
+  ROUTE_HYUNDAI,
   ROUTE_KB_WIRELESS,
   ROUTE_KT_COMMERCE,
   ROUTE_LINA,
@@ -89,6 +90,12 @@ const clientList = [
     route: ROUTE_KT_COMMERCE,
     desc: 'kr.co.irlink.ktcommerce',
     image: '/images/kt_commerce_app_icon.png',
+  },
+  {
+    name: '현대해상',
+    route: ROUTE_HYUNDAI,
+    desc: 'kr.co.irlink.usbcontrol',
+    image: '/images/hyundai_app_icon.png',
   },
 ]
 

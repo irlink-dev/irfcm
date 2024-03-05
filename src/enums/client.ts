@@ -23,6 +23,11 @@ export enum Client {
   HANA = 'hana',
 
   /**
+   * 현대해상.
+   */
+  HYUNDAI = 'hyundai',
+
+  /**
    * KB 손보.
    */
   KB_WIRELESS = 'kb',

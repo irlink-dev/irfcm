@@ -5,7 +5,7 @@ import FirebasePreference from '@/interfaces/firebase-preference'
 import { ClientType } from '@/enums/client'
 import TopNav from './top-nav'
 import { Box, Grid } from '@mui/material'
-import OauthButton from '@/components/oauth-button'
+import OAuthButton from '@/components/oauth-button'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useFirebase from '@/hooks/use-firebase'
@@ -42,7 +42,7 @@ const BatchBox = ({
       <TopNav params={params} />
 
       <Box sx={{ display: 'flex', justifyContent: 'end', pb: 1 }}>
-        <OauthButton params={params} firebasePref={firebasePref} />
+        <OAuthButton params={params} firebasePref={firebasePref} />
       </Box>
 
       <Grid container rowSpacing={2} columnSpacing={3}>

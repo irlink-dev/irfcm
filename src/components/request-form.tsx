@@ -61,9 +61,10 @@ const RequestForm = ({
    */
   const onRequestButtonClick = () => {
     const IS_HTTP_V1 =
-      params.client === Client.L_POINT ||
       params.client === Client.GS_SHOP_USB ||
-      params.client === Client.KT_COMMERCE
+      params.client === Client.HYUNDAI ||
+      params.client === Client.KT_COMMERCE ||
+      params.client === Client.L_POINT
 
     if (IS_HTTP_V1) {
       onSubmit(FcmMethod.HTTP_V1, params.client, -1)

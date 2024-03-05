@@ -259,6 +259,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
     if (client === Client.GS_SHOP_USB) return GS_SHOP_USB_FIREBASE_CONFIG
     if (client === Client.HANA) return HANA_FIREBASE_CONFIG
+    if (client === Client.HYUNDAI) return HYUNDAI_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG

@@ -28,6 +28,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.L_POINT
       : projectId === 'irlink-kt-commerce'
       ? Client.KT_COMMERCE
+      : projectId === 'hyundai-8df86'
+      ? Client.HYUNDAI
       : null
 
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`

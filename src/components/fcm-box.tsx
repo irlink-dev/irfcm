@@ -18,7 +18,7 @@ import {
 } from '@mui/material'
 import { ClientType } from '@/enums/client'
 import ClientSelect from '@/components/client-select'
-import OauthButton from '@/components/oauth-button'
+import OAuthButton from '@/components/oauth-button'
 import { useRouter } from 'next/navigation'
 import TopNav from './top-nav'
 
@@ -62,7 +62,7 @@ const FcmBox = ({
       <TopNav params={params} />
 
       <Box sx={{ display: 'flex', justifyContent: 'end', pb: 1 }}>
-        <OauthButton params={params} firebasePref={firebasePref} />
+        <OAuthButton params={params} firebasePref={firebasePref} />
       </Box>
 
       <Grid container rowSpacing={2} columnSpacing={3}>

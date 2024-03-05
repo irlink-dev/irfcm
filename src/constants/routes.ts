@@ -19,6 +19,11 @@ export const ROUTE_GS_SHOP_USB = '/gsshopusb'
 export const ROUTE_HANA = '/hana'
 
 /**
+ * 현대해상.
+ */
+export const ROUTE_HYUNDAI = '/hyundai'
+
+/**
  * KB 손보.
  */
 export const ROUTE_KB_WIRELESS = '/kb'
