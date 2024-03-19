@@ -3,8 +3,6 @@ import { SelectChangeEvent } from '@mui/material'
 import { getUserToken, getNewOAuthCode } from '@/utils/firebase'
 import Request from '@/interfaces/request'
 import { requestFcm, requestMeritzFcm, sendMessage } from '@/utils/fcm'
-import { showErrorSnackbar, showSuccessSnackbar } from '@/utils/snackbar'
-import { useSnackbar } from 'notistack'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import Input from '@/interfaces/input'
 import useLocalStorage from './use-local-storage'
@@ -15,6 +13,9 @@ import Message from '@/interfaces/message'
 import { FcmType } from '@/enums/fcm-type'
 import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { MorecxVariants } from '@/enums/morecx-variants'
+import useToast from './use-toast'
+import { useSetAtom } from 'jotai'
+import { fcmRequestLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
@@ -37,10 +38,12 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   const LOCAL_STORAGE_REFRESH_TOKEN_KEY = `irfcm:refresh_token:${client}`
 
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
-  const { enqueueSnackbar } = useSnackbar()
+  const { showSuccessToast, showErrorToast } = useToast()
 
   const accessToken = getLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY)
   const refreshToken = getLocalStorageData(LOCAL_STORAGE_REFRESH_TOKEN_KEY)
+
+  const setIsFcmRequestLoading = useSetAtom(fcmRequestLoadingStatusAtom)
 
   const [trigger, setTrigger] = useState<boolean>(false) // 스토리지 파일 트리거.
   const [input, setInput] = useState<Input>(() => {
@@ -110,7 +113,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 응답 성공 시.
    */
   const onSuccess = () => {
-    showSuccessSnackbar(enqueueSnackbar, 'FCM 전송 성공')
+    showSuccessToast('FCM 전송 성공')
     setTrigger(() => true)
   }
 
@@ -118,7 +121,14 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 응답 실패 시.
    */
   const onFailure = () => {
-    showErrorSnackbar(enqueueSnackbar, 'FCM 전송 실패')
+    showErrorToast('FCM 전송 실패')
+  }
+
+  /**
+   * [NEW] "잘못된 요청(400)" 응답 시.
+   */
+  const onBadRequest = () => {
+    showErrorToast('잘못된 요청입니다. 요청 양식을 수정해주세요.')
   }
 
   /**
@@ -135,7 +145,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newAccessToken)
       window?.location.reload()
     } else {
-      showErrorSnackbar(enqueueSnackbar, 'OAuth 2.0 인증 필요')
+      showErrorToast('OAuth 2.0 인증 필요')
       // doAuth(client)
     }
   }
@@ -148,6 +158,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     response: IFcmResponse,
     client: ClientType,
   ) => {
+    setIsFcmRequestLoading(false)
     printLog(
       TAG,
       `onResponse. status: ${response?.status || response?.success}`,
@@ -158,6 +169,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     }
     if (method === FcmMethod.HTTP_V1) {
       if (response.status === 200) onSuccess()
+      if (response.status === 400) onBadRequest()
       if (response.status === 401) onUnauthorized(client)
     }
   }

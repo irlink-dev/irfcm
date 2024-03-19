@@ -84,8 +84,13 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
 
         {isPageLoading && (
           <LinearProgress
-            sx={{ position: 'absolute', bottom: 0, left: 0, width: '100%' }}
-            color="primary"
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              width: '100%',
+              height: '2px',
+            }}
           />
         )}
       </AppBar>

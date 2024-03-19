@@ -1,5 +1,6 @@
 import {
   Box,
+  CircularProgress,
   IconButton,
   Link,
   Paper,
@@ -18,8 +19,11 @@ import 'firebase/compat/storage'
 import Input from '@/interfaces/input'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { printLog } from '@/utils/log'
-import { useAtomValue } from 'jotai'
-import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
+import { useAtom, useAtomValue } from 'jotai'
+import {
+  morecxVariantsAtom,
+  storageFilesLoadingStatusAtom,
+} from '@/atoms/global-state-atoms'
 
 interface StorageFilesProps {
   params: { client: string }
@@ -43,6 +47,9 @@ const StorageFiles = ({
     useStorageFiles(firebasePref, storageRef)
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
+  const [isStorageFilesLoading, setIsStorageFilesLoading] = useAtom(
+    storageFilesLoadingStatusAtom,
+  )
 
   const onRefreshIconClick = () => {
     getStorageFiles(input, params.client, morecxVariant)
@@ -95,38 +102,58 @@ const StorageFiles = ({
         </Box>
       </Box>
 
-      {storageFileData.length > 0 ? (
-        <Table>
-          <TableBody>
-            {storageFileData.map((storageFile) => (
-              <TableRow
-                key={storageFile.fileName}
-                sx={{
-                  '&:last-child td, &:last-child th': { border: 0 },
-                }}
-              >
-                <TableCell>
-                  <Typography sx={{ fontSize: 14 }}>
-                    {decodeURIComponent(storageFile.fileName)}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Link
-                    href={storageFile.downloadUrl}
-                    underline="hover"
-                    sx={{ wordBreak: 'keep-all' }}
-                  >
-                    다운로드
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+      {isStorageFilesLoading ? (
+        // 스토리지 파일 로딩 중일 때 CircularProgress 표시.
+        <Box
+          sx={{
+            width: '100%',
+            // height: 345,
+            py: 4,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <CircularProgress size={32} thickness={5} color="inherit" />
+        </Box>
       ) : (
-        <Typography variant="caption" sx={{ color: '#999999' }}>
-          스토리지가 비어 있습니다
-        </Typography>
+        <>
+          {storageFileData.length > 0 ? (
+            // 스토리지 파일 데이터가 존재할 때.
+            <Table>
+              <TableBody>
+                {storageFileData.map((storageFile) => (
+                  <TableRow
+                    key={storageFile.fileName}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                    }}
+                  >
+                    <TableCell>
+                      <Typography sx={{ fontSize: 14 }}>
+                        {decodeURIComponent(storageFile.fileName)}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Link
+                        href={storageFile.downloadUrl}
+                        underline="hover"
+                        sx={{ wordBreak: 'keep-all' }}
+                      >
+                        다운로드
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            // 스토리지 파일 데이터가 존재하지 않을 때.
+            <Typography variant="caption" sx={{ color: '#999999' }}>
+              스토리지가 비어 있습니다
+            </Typography>
+          )}
+        </>
       )}
     </Paper>
   )

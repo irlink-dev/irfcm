@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   FormControl,
   FormControlLabel,
   FormGroup,
@@ -20,8 +21,11 @@ import { FcmMethod } from '@/enums/fcm-method'
 import { Client, ClientType } from '@/enums/client'
 import { FcmType } from '@/enums/fcm-type'
 import { MeritzFcmType } from '@/enums/meritz-fcm-type'
-import { useAtomValue } from 'jotai'
-import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
+import { useAtom, useAtomValue } from 'jotai'
+import {
+  fcmRequestLoadingStatusAtom,
+  morecxVariantsAtom,
+} from '@/atoms/global-state-atoms'
 
 const TAG = 'RequestForm'
 
@@ -55,11 +59,16 @@ const RequestForm = ({
   const IS_MERITZ = params.client === Client.MERITZ
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
+  const [isFcmRequestLoading, setIsFcmRequestLoading] = useAtom(
+    fcmRequestLoadingStatusAtom,
+  )
 
   /**
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
+    setIsFcmRequestLoading(true)
+
     const IS_HTTP_V1 =
       params.client === Client.GS_SHOP_USB ||
       params.client === Client.HYUNDAI ||
@@ -152,11 +161,22 @@ const RequestForm = ({
         type="submit"
         onClick={onRequestButtonClick}
         variant="contained"
+        disabled={isFcmRequestLoading}
         sx={{
           borderRadius: '100px',
         }}
       >
-        FCM 요청
+        {isFcmRequestLoading ? <span>요청 중...</span> : <span>FCM 요청</span>}
+        {isFcmRequestLoading && (
+          <CircularProgress
+            size={16}
+            thickness={7}
+            sx={{
+              ml: 1,
+              color: 'white',
+            }}
+          />
+        )}
       </Button>
     </Paper>
   )

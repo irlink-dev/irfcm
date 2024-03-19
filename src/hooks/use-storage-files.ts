@@ -9,8 +9,12 @@ import Input from '@/interfaces/input'
 import { printLog } from '@/utils/log'
 import { parseDownloadUrl } from '@/utils/format'
 import { MorecxVariants } from '@/enums/morecx-variants'
-import { useAtomValue } from 'jotai'
-import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
+import { useAtomValue, useSetAtom } from 'jotai'
+import {
+  morecxVariantsAtom,
+  storageFilesLoadingStatusAtom,
+} from '@/atoms/global-state-atoms'
+import useToast from './use-toast'
 
 const useStorageFiles = (
   firebasePref: FirebasePreference,
@@ -19,6 +23,7 @@ const useStorageFiles = (
   const TAG = 'useStorageFiles'
   const LOCAL_STORAGE_FILE_DATA_KEY = `irfcm:filedata:${firebasePref.config?.projectId}`
   const { getLocalStorageData, setLocalStorageData } = useLocalStorage()
+  const { showDefaultToast } = useToast()
 
   const [storageFileData, setStorageFileData] = useState<Array<FileData>>(
     () => {
@@ -28,6 +33,7 @@ const useStorageFiles = (
   )
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
+  const setIsStorageFilesLoading = useSetAtom(storageFilesLoadingStatusAtom)
 
   useEffect(() => {
     setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)
@@ -46,6 +52,7 @@ const useStorageFiles = (
    */
   const showStorageFiles = (urls: Array<string>, client: string) => {
     printLog(TAG, `showStorageFiles. length: ${urls.length || 0}`)
+    showDefaultToast('스토리지 파일이 업데이트 되었습니다.')
 
     for (const url of urls) {
       const fileName = parseDownloadUrl(url, client, morecxVariant)?.fileName!
@@ -62,6 +69,7 @@ const useStorageFiles = (
     client: string,
     variant: number,
   ) => {
+    setIsStorageFilesLoading(true)
     printLog(
       TAG,
       `getStorageFiles. phoneNumber: ${input.phoneNumber}, date: ${input.date}, morecxVariant: ${MorecxVariants[variant]}`,
@@ -75,6 +83,7 @@ const useStorageFiles = (
     )
     clearStorageFiles()
     showStorageFiles(urls, client)
+    setIsStorageFilesLoading(false)
   }
 
   return { clearStorageFiles, getStorageFiles, storageFileData }
