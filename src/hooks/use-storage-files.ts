@@ -9,8 +9,11 @@ import Input from '@/interfaces/input'
 import { printLog } from '@/utils/log'
 import { parseDownloadUrl } from '@/utils/format'
 import { MorecxVariants } from '@/enums/morecx-variants'
-import { useAtomValue } from 'jotai'
-import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
+import { useAtomValue, useSetAtom } from 'jotai'
+import {
+  morecxVariantsAtom,
+  storageFilesLoadingStatusAtom,
+} from '@/atoms/global-state-atoms'
 import useToast from './use-toast'
 
 const useStorageFiles = (
@@ -30,6 +33,7 @@ const useStorageFiles = (
   )
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
+  const setIsStorageFilesLoading = useSetAtom(storageFilesLoadingStatusAtom)
 
   useEffect(() => {
     setLocalStorageData(LOCAL_STORAGE_FILE_DATA_KEY, storageFileData)
@@ -65,6 +69,7 @@ const useStorageFiles = (
     client: string,
     variant: number,
   ) => {
+    setIsStorageFilesLoading(true)
     printLog(
       TAG,
       `getStorageFiles. phoneNumber: ${input.phoneNumber}, date: ${input.date}, morecxVariant: ${MorecxVariants[variant]}`,
@@ -78,6 +83,7 @@ const useStorageFiles = (
     )
     clearStorageFiles()
     showStorageFiles(urls, client)
+    setIsStorageFilesLoading(false)
   }
 
   return { clearStorageFiles, getStorageFiles, storageFileData }
