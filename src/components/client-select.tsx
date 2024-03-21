@@ -9,7 +9,7 @@ import MuiSelect, {
 } from '@mui/material/Select'
 import { Client } from '@/enums/client'
 import { useSetAtom } from 'jotai'
-import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import { pageLoadingStatusAtom } from '@/states/global-state'
 
 interface SelectProps extends MuiSelectProps {
   /* empty */

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { ListItemButton, ListItemText, ListItemAvatar } from '@mui/material'
 import { useSetAtom } from 'jotai'
-import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import { pageLoadingStatusAtom } from '@/states/global-state'
 
 interface DrawerListRowProps {
   name: string

@@ -24,7 +24,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import {
   morecxVariantsAtom,
   storageFilesLoadingStatusAtom,
-} from '@/atoms/global-state-atoms'
+} from '@/states/global-state'
 
 interface StorageFilesProps {
   params: { client: string }

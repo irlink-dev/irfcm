@@ -25,7 +25,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import {
   fcmRequestLoadingStatusAtom,
   morecxVariantsAtom,
-} from '@/atoms/global-state-atoms'
+} from '@/states/global-state'
 import OAuthButton from '@/components/oauth-button'
 import FirebasePreference from '@/interfaces/firebase-preference'
 

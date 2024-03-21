@@ -1,7 +1,7 @@
 'use client'
 
 import { useSetAtom } from 'jotai'
-import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import { pageLoadingStatusAtom } from '@/states/global-state'
 import clientList from '@/constants/client-list'
 
 import {

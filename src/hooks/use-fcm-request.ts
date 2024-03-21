@@ -15,13 +15,14 @@ import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { MorecxVariants } from '@/enums/morecx-variants'
 import useToast from './use-toast'
 import { useSetAtom } from 'jotai'
-import { fcmRequestLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import { fcmRequestLoadingStatusAtom } from '@/states/global-state'
 
 const useFcmRequest = (firebasePref: FirebasePreference) => {
   const TAG = 'useFcmRequest'
 
   const projectId = firebasePref.config?.projectId
 
+  // prettier-ignore
   const client =
     projectId === 'gs-shop-irusb'
       ? Client.GS_SHOP_USB

@@ -13,7 +13,7 @@ import { useAtomValue, useSetAtom } from 'jotai'
 import {
   morecxVariantsAtom,
   storageFilesLoadingStatusAtom,
-} from '@/atoms/global-state-atoms'
+} from '@/states/global-state'
 import useToast from './use-toast'
 
 const useStorageFiles = (

@@ -17,7 +17,7 @@ import AppBar from './app-bar'
 import Drawer from './drawer'
 import { usePathname, useRouter } from 'next/navigation'
 import { Badge, LinearProgress, useMediaQuery, useTheme } from '@mui/material'
-import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import { pageLoadingStatusAtom } from '@/states/global-state'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 
