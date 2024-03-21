@@ -1,4 +1,9 @@
 /**
+ * 고객사 선택.
+ */
+export const ROUTE_CLIENTS = '/clients'
+
+/**
  * 처브 CDM.
  */
 export const ROUTE_CHUBB = '/chubb'
