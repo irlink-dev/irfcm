@@ -47,7 +47,7 @@ const ClientOAuthPage = ({ params }: { params: { client: ClientType } }) => {
 
     if (!isLoading && data) {
       setTokens(data.access_token, data.refresh_token)
-      router.push(`/${params.client}`)
+      router.push(`/fcm/${params.client}`)
     }
   }, [isLoading])
 

@@ -55,6 +55,7 @@ const BatchBox = ({
                 handleChange={handleChange}
                 onSubmit={onSubmit}
                 showInputValues={showInputValues}
+                firebasePref={firebasePref}
                 isBatch={true}
               />
             </Grid>

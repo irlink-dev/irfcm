@@ -24,19 +24,19 @@ const OAuthButton = ({
     <>
       {IS_SHOW && (
         <Button
-          variant="outlined"
-          size="small"
+          // variant="outlined"
+          // size="small"
           onClick={() => doAuth(params.client)}
           sx={{
             // width: '100%',
             // height: 56,
-            backgroundColor: 'white',
-            fontWeight: 600,
+            // backgroundColor: 'white',
+            // fontWeight: 600,
             textTransform: 'none',
-            borderRadius: '100px',
+            // borderRadius: '100px',
           }}
         >
-          Google로 OAuth 2.0 인증하기
+          OAuth 2.0 인증
         </Button>
       )}
     </>
