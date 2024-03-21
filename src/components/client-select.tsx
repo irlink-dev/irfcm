@@ -31,7 +31,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     setIsPageLoading(true)
-    router.push(`/${event.target.value as string}`)
+    router.push(`/fcm/${event.target.value as string}`)
   }
 
   // TODO: 추후 DB화.

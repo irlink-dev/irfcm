@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send'
 
 import {
   ROUTE_CHUBB,
-  ROUTE_CLIENTS,
+  ROUTE_FCM,
   ROUTE_DB_LIFE,
   ROUTE_GS_SHOP_USB,
   ROUTE_HANA,
@@ -34,7 +34,7 @@ import {
 // import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
 const SINGLE_REQUEST_ROUTES = [
-  ROUTE_CLIENTS,
+  ROUTE_FCM,
   ROUTE_CHUBB,
   ROUTE_DB_LIFE,
   ROUTE_GS_SHOP_USB,
@@ -91,7 +91,7 @@ export const MainListItems = () => {
   return (
     <>
       <ListItem
-        route={ROUTE_CLIENTS}
+        route={ROUTE_FCM}
         text="클라우드 메시징"
         icon={<SendIcon sx={{ width: 20, height: 20 }} />}
         isSelected={SINGLE_REQUEST_ROUTES.includes(pathname)}
