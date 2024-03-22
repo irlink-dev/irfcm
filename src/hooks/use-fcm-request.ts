@@ -24,14 +24,32 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
 
   // prettier-ignore
   const client =
-    projectId === 'gs-shop-irusb'
+    projectId === 'irlink-chubb'
+      ? Client.CHUBB
+      : projectId === 'db-life'
+      ? Client.DB_LIFE
+      : projectId === 'gs-shop-irusb'
       ? Client.GS_SHOP_USB
-      : projectId === 'l-point'
-      ? Client.L_POINT
-      : projectId === 'irlink-kt-commerce'
-      ? Client.KT_COMMERCE
+      : projectId === 'hana-6d9ee'
+      ? Client.HANA
       : projectId === 'hyundai-8df86'
       ? Client.HYUNDAI
+      : projectId === 'irlink-kb'
+      ? Client.KB_WIRELESS
+      : projectId === 'irlink-kt-commerce'
+      ? Client.KT_COMMERCE
+      : projectId === 'irlink-lina'
+      ? Client.LINA
+      : projectId === 'l-point'
+      ? Client.L_POINT
+      : projectId === 'irlink-meritz'
+      ? Client.MERITZ
+      : projectId === 'irlink-morecx'
+      ? Client.MORECX
+      : projectId === 'shinhan-card'
+      ? Client.SHINHAN_CARD
+      : projectId === 'irlink-zilink'
+      ? Client.ZILINK
       : null
 
   const LOCAL_STORAGE_VALUES_KEY = `irfcm:input:${firebasePref.config?.projectId}`
@@ -146,9 +164,25 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       setLocalStorageData(LOCAL_STORAGE_ACCESS_TOKEN_KEY, newAccessToken)
       window?.location.reload()
     } else {
-      showErrorToast('OAuth 2.0 인증 필요')
+      showErrorToast('OAuth 2.0 인증을 진행해주세요.')
       // doAuth(client)
     }
+  }
+
+  /**
+   * [NEW] "접근 거부(403)"
+   */
+  const onAccessDenied = async () => {
+    showErrorToast('접근이 거부되었습니다. GCP 설정을 확인하세요.')
+  }
+
+  /**
+   * [NEW] "찾을 수 없음(404)" 응답 시.
+   *
+   * https://firebase.google.com/docs/cloud-messaging/manage-tokens?hl=ko#detect-invalid-token-responses-from-the-fcm-backend
+   */
+  const onNotFound = async () => {
+    showErrorToast('클라이언트 토큰이 만료되었습니다.')
   }
 
   /**
@@ -172,6 +206,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       if (response.status === 200) onSuccess()
       if (response.status === 400) onBadRequest()
       if (response.status === 401) onUnauthorized(client)
+      if (response.status === 403) onAccessDenied()
+      if (response.status === 404) onNotFound()
     }
   }
 

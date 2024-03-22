@@ -73,11 +73,11 @@ const RequestForm = ({
   const onRequestButtonClick = () => {
     setIsFcmRequestLoading(true)
 
-    const IS_HTTP_V1 =
-      params.client === Client.GS_SHOP_USB ||
-      params.client === Client.HYUNDAI ||
-      params.client === Client.KT_COMMERCE ||
-      params.client === Client.L_POINT
+    const IS_HTTP_V1 = true
+    // params.client === Client.GS_SHOP_USB ||
+    // params.client === Client.HYUNDAI ||
+    // params.client === Client.KT_COMMERCE ||
+    // params.client === Client.L_POINT
 
     if (IS_HTTP_V1) {
       onSubmit(FcmMethod.HTTP_V1, params.client, -1)

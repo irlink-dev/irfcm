@@ -14,11 +14,20 @@ const OAuthButton = ({
 }) => {
   const { doAuth } = useFcmRequest(firebasePref)
 
-  const IS_SHOW =
-    params.client === Client.GS_SHOP_USB ||
-    params.client === Client.HYUNDAI ||
-    params.client === Client.KT_COMMERCE ||
-    params.client === Client.L_POINT
+  const IS_SHOW = true // always true
+  // params.client === Client.CHUBB ||
+  // params.client === Client.DB_LIFE ||
+  // params.client === Client.GS_SHOP_USB ||
+  // params.client === Client.HANA ||
+  // params.client === Client.HYUNDAI ||
+  // params.client === Client.KB_WIRELESS ||
+  // params.client === Client.KT_COMMERCE ||
+  // params.client === Client.LINA ||
+  // params.client === Client.L_POINT ||
+  // params.client === Client.MERITZ ||
+  // params.client === Client.MORECX ||
+  // params.client === Client.SHINHAN_CARD ||
+  // params.client === Client.ZILINK
 
   return (
     <>
