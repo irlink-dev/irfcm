@@ -61,9 +61,9 @@ const FcmBox = ({
     <>
       <TopNav params={params} />
 
-      <Box sx={{ display: 'flex', justifyContent: 'end', pb: 1 }}>
-        <OAuthButton params={params} firebasePref={firebasePref} />
-      </Box>
+      {/*<Box sx={{ display: 'flex', justifyContent: 'end', pb: 1 }}>*/}
+      {/*  <OAuthButton params={params} firebasePref={firebasePref} />*/}
+      {/*</Box>*/}
 
       <Grid container rowSpacing={2} columnSpacing={3}>
         {!isLoading && (
@@ -75,6 +75,7 @@ const FcmBox = ({
                 handleChange={handleChange}
                 onSubmit={onSubmit}
                 showInputValues={showInputValues}
+                firebasePref={firebasePref}
               />
             </Grid>
             <Grid item xs={12} lg={6}>

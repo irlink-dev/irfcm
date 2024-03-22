@@ -25,7 +25,9 @@ import { useAtom, useAtomValue } from 'jotai'
 import {
   fcmRequestLoadingStatusAtom,
   morecxVariantsAtom,
-} from '@/atoms/global-state-atoms'
+} from '@/states/global-state'
+import OAuthButton from '@/components/oauth-button'
+import FirebasePreference from '@/interfaces/firebase-preference'
 
 const TAG = 'RequestForm'
 
@@ -44,6 +46,7 @@ interface RequestFormProps {
       | SelectChangeEvent<number>,
   ) => void
   showInputValues: (isBatch: boolean) => void
+  firebasePref: FirebasePreference
   isBatch?: boolean
 }
 
@@ -54,6 +57,7 @@ const RequestForm = ({
   onSubmit,
   handleChange,
   showInputValues,
+  firebasePref,
   isBatch = false,
 }: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
@@ -69,11 +73,11 @@ const RequestForm = ({
   const onRequestButtonClick = () => {
     setIsFcmRequestLoading(true)
 
-    const IS_HTTP_V1 =
-      params.client === Client.GS_SHOP_USB ||
-      params.client === Client.HYUNDAI ||
-      params.client === Client.KT_COMMERCE ||
-      params.client === Client.L_POINT
+    const IS_HTTP_V1 = true
+    // params.client === Client.GS_SHOP_USB ||
+    // params.client === Client.HYUNDAI ||
+    // params.client === Client.KT_COMMERCE ||
+    // params.client === Client.L_POINT
 
     if (IS_HTTP_V1) {
       onSubmit(FcmMethod.HTTP_V1, params.client, -1)
@@ -91,8 +95,16 @@ const RequestForm = ({
           justifyContent: 'space-between',
         }}
       >
-        <Typography>요청 양식</Typography>
-        <Button onClick={() => showInputValues(isBatch)}>입력값 조회</Button>
+        <Typography sx={{ wordBreak: 'keep-all' }}>요청 양식</Typography>
+        <Box>
+          <Button
+            onClick={() => showInputValues(isBatch)}
+            sx={{ color: '#888888', fontWeight: 400 }}
+          >
+            입력값 조회
+          </Button>
+          <OAuthButton params={params} firebasePref={firebasePref} />
+        </Box>
       </Box>
       {!isBatch && (
         <TextField

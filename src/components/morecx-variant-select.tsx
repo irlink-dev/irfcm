@@ -11,7 +11,7 @@ import MuiSelect, {
 } from '@mui/material/Select'
 import useLocalStorage from '@/hooks/use-local-storage'
 import { useAtom } from 'jotai'
-import { morecxVariantsAtom } from '@/atoms/global-state-atoms'
+import { morecxVariantsAtom } from '@/states/global-state'
 
 interface SelectProps extends MuiSelectProps {
   /* empty */

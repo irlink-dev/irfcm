@@ -9,7 +9,7 @@ import MuiSelect, {
 } from '@mui/material/Select'
 import { Client } from '@/enums/client'
 import { useSetAtom } from 'jotai'
-import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import { pageLoadingStatusAtom } from '@/states/global-state'
 
 interface SelectProps extends MuiSelectProps {
   /* empty */
@@ -31,7 +31,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
 
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     setIsPageLoading(true)
-    router.push(`/${event.target.value as string}`)
+    router.push(`/fcm/${event.target.value as string}`)
   }
 
   // TODO: 추후 DB화.

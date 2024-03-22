@@ -16,12 +16,10 @@ import Copyright from './copyright'
 import AppBar from './app-bar'
 import Drawer from './drawer'
 import { usePathname, useRouter } from 'next/navigation'
-import { Badge, LinearProgress } from '@mui/material'
-import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
+import { Badge, LinearProgress, useMediaQuery, useTheme } from '@mui/material'
+import { pageLoadingStatusAtom } from '@/states/global-state'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-
-const DRAWER_WIDTH: number = 260
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -30,6 +28,16 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
 
   const [open, setOpen] = useState(true) // Drawer 열림 여부.
   const [isPageLoading, setIsPageLoading] = useAtom(pageLoadingStatusAtom)
+
+  const DRAWER_WIDTH: number = 260
+
+  const theme = useTheme()
+  const isMdUp = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  })
+  const isSmUp = useMediaQuery(theme.breakpoints.up('sm'), {
+    defaultMatches: true,
+  })
 
   const toggleDrawer = () => {
     setOpen(!open)
@@ -42,10 +50,17 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="absolute" open={open} drawer_width={DRAWER_WIDTH}>
+      <AppBar
+        position="absolute"
+        open={open}
+        drawer_width={isMdUp ? DRAWER_WIDTH : 0}
+        sx={{ transition: 'none' }}
+      >
         <Toolbar
           sx={{
-            pr: '24px', // keep right padding when drawer closed
+            // pr: '24px', // keep right padding when drawer closed
+            display: 'flex',
+            gap: 2,
           }}
         >
           <IconButton
@@ -54,8 +69,9 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
             aria-label="open drawer"
             onClick={toggleDrawer}
             sx={{
-              marginRight: '36px',
-              ...(open && { display: 'none' }),
+              // marginRight: '24px',
+              // ...(open && { display: 'none' }),
+              display: { xs: 'block', md: 'none' },
             }}
           >
             <MenuIcon />
@@ -65,7 +81,12 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
             variant="h6"
             color="inherit"
             noWrap
-            sx={{ flexGrow: 1, cursor: 'pointer' }}
+            sx={{
+              flexGrow: 1,
+              cursor: 'pointer',
+              textAlign: { xs: 'center', sm: 'start' },
+              // fontSize: { xs: '1rem', sm: '1.25rem' },
+            }}
             onClick={() => {
               if (pathname !== '/') {
                 setIsPageLoading(true)
@@ -73,13 +94,16 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
               router.push('/')
             }}
           >
-            Firebase Cloud Messaging Service
+            {isSmUp ? 'Firebase Cloud Messaging Service' : 'IRFCM'}
           </Typography>
           {/* <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton> */}
+
+          {/* blank */}
+          <Box sx={{ width: '40px' }} />
         </Toolbar>
 
         {isPageLoading && (
@@ -94,7 +118,14 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
           />
         )}
       </AppBar>
-      <Drawer variant="permanent" open={open} drawer_width={DRAWER_WIDTH}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        drawer_width={DRAWER_WIDTH}
+        sx={{
+          display: { xs: 'none', md: 'block' },
+        }}
+      >
         <Toolbar
           sx={{
             display: 'flex',

@@ -1,63 +1,84 @@
-import * as React from 'react'
+import { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Box } from '@mui/material'
+
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import ScienceIcon from '@mui/icons-material/Science'
 import SendIcon from '@mui/icons-material/Send'
-import AssignmentIcon from '@mui/icons-material/Assignment'
-import { usePathname, useRouter } from 'next/navigation'
-import { Avatar, Collapse, ListSubheader } from '@mui/material'
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
-import List from '@mui/material/List'
-import { green, lightBlue, blue } from '@mui/material/colors'
-import { useSetAtom } from 'jotai'
-import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
-const NULL = 'state.open.NULL'
-const CLIENT_LIST = 'state.open.CLIENT_LIST'
-const LAB = 'state.open.LAB'
+import {
+  ROUTE_CHUBB,
+  ROUTE_FCM,
+  ROUTE_DB_LIFE,
+  ROUTE_GS_SHOP_USB,
+  ROUTE_HANA,
+  ROUTE_HYUNDAI,
+  ROUTE_KB_WIRELESS,
+  ROUTE_KT_COMMERCE,
+  ROUTE_LINA,
+  ROUTE_L_POINT,
+  ROUTE_MERITZ,
+  ROUTE_MORECX,
+  ROUTE_SHINHAN_CARD,
+  ROUTE_ZILINK,
+} from '@/constants/routes'
 
-const TEST_LOG_URL = '/test/log'
+// import ScienceIcon from '@mui/icons-material/Science'
+// import AssignmentIcon from '@mui/icons-material/Assignment'
+// import { Avatar, Collapse, ListSubheader } from '@mui/material'
+// import { ExpandLess, ExpandMore } from '@mui/icons-material'
+// import List from '@mui/material/List'
+// import { green, lightBlue, blue } from '@mui/material/colors'
+// import { useSetAtom } from 'jotai'
+// import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
-interface ListItemProps {
-  href: string
+const SINGLE_REQUEST_ROUTES = [
+  ROUTE_FCM,
+  ROUTE_CHUBB,
+  ROUTE_DB_LIFE,
+  ROUTE_GS_SHOP_USB,
+  ROUTE_HANA,
+  ROUTE_HYUNDAI,
+  ROUTE_KB_WIRELESS,
+  ROUTE_KT_COMMERCE,
+  ROUTE_LINA,
+  ROUTE_L_POINT,
+  ROUTE_MERITZ,
+  ROUTE_MORECX,
+  ROUTE_SHINHAN_CARD,
+  ROUTE_ZILINK,
+]
+
+const ListItem = ({
+  route,
+  text,
+  icon,
+  isSelected,
+}: {
+  route: string
   text: string
-  alias: string
-  color: string
-}
-
-const ClientListItem = ({ href, text, alias, color }: ListItemProps) => {
+  icon: React.ReactNode
+  isSelected: any
+}) => {
   const router = useRouter()
-  const pathname = usePathname()
-
-  const setIsPageLoading = useSetAtom(pageLoadingStatusAtom)
 
   return (
-    <ListItemButton
-      sx={{ pl: 4 }}
-      onClick={() => {
-        if (pathname !== href) {
-          setIsPageLoading(true)
-        }
-        router.push(href)
-      }}
-      selected={pathname === href}
-    >
-      <ListItemIcon>
-        <Avatar
-          sx={{
-            width: 24,
-            height: 24,
-            fontSize: '13px',
-            fontWeight: 600,
-            bgcolor: color,
-          }}
-        >
-          {alias}
-        </Avatar>
-      </ListItemIcon>
-      <ListItemText primary={text} />
-    </ListItemButton>
+    <Box sx={{ px: '4px' }}>
+      <ListItemButton
+        dense
+        sx={{
+          borderRadius: '100px',
+          ...(isSelected && {
+            backgroundColor: '#d5e5f3',
+          }),
+        }}
+        onClick={() => router.push(route)}
+      >
+        <ListItemIcon sx={{ minWidth: '40px' }}>{icon}</ListItemIcon>
+        <ListItemText primary={text} sx={{ color: '#222222' }} />
+      </ListItemButton>
+    </Box>
   )
 }
 
@@ -65,21 +86,17 @@ export const MainListItems = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const [selectedItem, setSelectedItem] = React.useState(NULL)
-
-  /**
-   * 메뉴 드롭다운 클릭 시.
-   */
-  const handleClick = (item: string) => {
-    if (selectedItem === item) {
-      setSelectedItem(NULL)
-    } else {
-      setSelectedItem(item)
-    }
-  }
+  const [selectedItem, setSelectedItem] = useState(null)
 
   return (
-    <React.Fragment>
+    <>
+      <ListItem
+        route={ROUTE_FCM}
+        text="클라우드 메시징"
+        icon={<SendIcon sx={{ width: 20, height: 20 }} />}
+        isSelected={SINGLE_REQUEST_ROUTES.includes(pathname)}
+      />
+
       {/* <ListItemButton onClick={() => handleClick(CLIENT_LIST)}>
         <ListItemIcon>
           <SendIcon />
@@ -130,15 +147,16 @@ export const MainListItems = () => {
           </ListItemButton>
         </List>
       </Collapse> */}
-    </React.Fragment>
+    </>
   )
 }
 
 export const SecondaryListItems = () => {
   const router = useRouter()
   const pathname = usePathname()
+
   return (
-    <React.Fragment>
+    <>
       {/* <ListSubheader component="div" inset>
         Function List
       </ListSubheader>
@@ -154,7 +172,7 @@ export const SecondaryListItems = () => {
         </ListItemIcon>
         <ListItemText primary="일괄 요청 (Batch)" />
       </ListItemButton> */}
-    </React.Fragment>
+    </>
   )
 }
 
@@ -242,3 +260,44 @@ export const SecondaryListItems = () => {
         </List>
       </Collapse> */
 }
+
+// interface ListItemProps {
+//   href: string
+//   text: string
+//   alias: string
+//   color: string
+// }
+// const ClientListItem = ({ href, text, alias, color }: ListItemProps) => {
+//   const router = useRouter()
+//   const pathname = usePathname()
+
+//   const setIsPageLoading = useSetAtom(pageLoadingStatusAtom)
+
+//   return (
+//     <ListItemButton
+//       sx={{ pl: 4 }}
+//       onClick={() => {
+//         if (pathname !== href) {
+//           setIsPageLoading(true)
+//         }
+//         router.push(href)
+//       }}
+//       selected={pathname === href}
+//     >
+//       <ListItemIcon>
+//         <Avatar
+//           sx={{
+//             width: 24,
+//             height: 24,
+//             fontSize: '13px',
+//             fontWeight: 600,
+//             bgcolor: color,
+//           }}
+//         >
+//           {alias}
+//         </Avatar>
+//       </ListItemIcon>
+//       <ListItemText primary={text} />
+//     </ListItemButton>
+//   )
+// }
