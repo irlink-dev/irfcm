@@ -47,6 +47,14 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
     setIsPageLoading(false)
   }, [pathname])
 
+  useEffect(() => {
+    if (isMdUp) {
+      setOpen(true)
+    } else {
+      setOpen(false)
+    }
+  }, [isMdUp])
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -123,7 +131,8 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
         open={open}
         drawer_width={DRAWER_WIDTH}
         sx={{
-          display: { xs: 'none', md: 'block' },
+          // display: { xs: 'none', md: 'block' },
+          position: { xs: 'absolute', md: 'relative' },
         }}
       >
         <Toolbar

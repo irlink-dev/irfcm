@@ -13,21 +13,23 @@ const Drawer = styled(MuiDrawer, {
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawer_width,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    height: '100vh',
+    // transition: theme.transitions.create('width', {
+    //   easing: theme.transitions.easing.sharp,
+    //   duration: theme.transitions.duration.enteringScreen,
+    // }),
     boxSizing: 'border-box',
     ...(!open && {
       overflowX: 'hidden',
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
-      },
+      // transition: theme.transitions.create('width', {
+      //   easing: theme.transitions.easing.sharp,
+      //   duration: theme.transitions.duration.leavingScreen,
+      // }),
+      width: 0,
+      // width: theme.spacing(7),
+      // [theme.breakpoints.up('sm')]: {
+      //   width: theme.spacing(9),
+      // },
     }),
   },
 }))
