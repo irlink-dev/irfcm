@@ -49,6 +49,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.GS_SHOP_USB, 'GS 홈쇼핑'],
     [Client.KT_COMMERCE, 'KT 커머스'],
     [Client.HYUNDAI, '현대해상'],
+    [Client.HYUNDAI_SHOP, '현대 홈쇼핑'],
   ]
 
   // TODO: 단순 dropdown이 아닌, 검색 가능한 dropdown으로.

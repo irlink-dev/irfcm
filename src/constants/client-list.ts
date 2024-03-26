@@ -12,6 +12,7 @@ import {
   ROUTE_MORECX,
   ROUTE_SHINHAN_CARD,
   ROUTE_ZILINK,
+  ROUTE_HYUNDAI_SHOP,
 } from './routes'
 
 /**
@@ -96,6 +97,12 @@ const clientList = [
     route: ROUTE_HYUNDAI,
     desc: 'kr.co.irlink.usbcontrol',
     image: '/images/hyundai_app_icon.png',
+  },
+  {
+    name: '현대 홈쇼핑',
+    route: ROUTE_HYUNDAI_SHOP,
+    desc: 'kr.co.irlink.hyundaishopusb',
+    image: '/images/hyundai_shop_app_icon.webp',
   },
 ]
 
