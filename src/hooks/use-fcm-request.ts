@@ -173,7 +173,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] "접근 거부(403)"
    */
   const onAccessDenied = async () => {
-    showErrorToast('접근이 거부되었습니다. GCP 설정을 확인하세요.')
+    showErrorToast('권한이 없는 계정입니다. 다른 계정으로 로그인하세요.')
   }
 
   /**
