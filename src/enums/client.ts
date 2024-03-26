@@ -28,6 +28,11 @@ export enum Client {
   HYUNDAI = 'hyundai',
 
   /**
+   * 현대 홈쇼핑 (IR-USB).
+   */
+  HYUNDAI_SHOP = 'hyundaishop',
+
+  /**
    * KB 손보.
    */
   KB_WIRELESS = 'kb',

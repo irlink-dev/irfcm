@@ -117,6 +117,19 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * 현대 홈쇼핑. (IR-USB)
+   */
+  const HYUNDAI_SHOP_FIREBASE_CONFIG = {
+    apiKey: process.env.HYUNDAI_SHOP_API_KEY!,
+    authDomain: 'hyundai-shop-irusb.firebaseapp.com',
+    databaseURL: 'https://hyundai-shop-irusb-default-rtdb.firebaseio.com',
+    projectId: 'hyundai-shop-irusb',
+    storageBucket: 'hyundai-shop-irusb.appspot.com',
+    messagingSenderId: process.env.HYUNDAI_SHOP_MESSAGING_SENDER_ID!,
+    appId: process.env.HYUNDAI_SHOP_APP_ID!,
+  }
+
+  /**
    * KB 손보.
    */
   const KB_WIRELESS_FIREBASE_CONFIG = {
@@ -260,6 +273,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.GS_SHOP_USB) return GS_SHOP_USB_FIREBASE_CONFIG
     if (client === Client.HANA) return HANA_FIREBASE_CONFIG
     if (client === Client.HYUNDAI) return HYUNDAI_FIREBASE_CONFIG
+    if (client === Client.HYUNDAI_SHOP) return HYUNDAI_SHOP_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG

@@ -29,6 +29,11 @@ export const ROUTE_HANA = '/fcm/hana'
 export const ROUTE_HYUNDAI = '/fcm/hyundai'
 
 /**
+ * 현대 홈쇼핑. (IR-USB)
+ */
+export const ROUTE_HYUNDAI_SHOP = '/fcm/hyundaishop'
+
+/**
  * KB 손보.
  */
 export const ROUTE_KB_WIRELESS = '/fcm/kb'

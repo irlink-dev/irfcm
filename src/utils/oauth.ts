@@ -9,6 +9,7 @@ export const getOAuthClientId = (client: ClientType) => {
   if (client === Client.GS_SHOP_USB) return process.env.GSSHOPUSB_CLIENT_ID!
   if (client === Client.HANA) return process.env.HANA_CLIENT_ID!
   if (client === Client.HYUNDAI) return process.env.HYUNDAI_CLIENT_ID!
+  if (client === Client.HYUNDAI_SHOP) return process.env.HYUNDAI_SHOP_CLIENT_ID!
   if (client === Client.KB_WIRELESS) return process.env.KB_CLIENT_ID!
   if (client === Client.KT_COMMERCE) return process.env.KTCOMMERCE_CLIENT_ID!
   if (client === Client.LINA) return process.env.LINA_CLIENT_ID!
@@ -29,6 +30,8 @@ export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.GS_SHOP_USB) return process.env.GSSHOPUSB_CLIENT_SECRET!
   if (client === Client.HANA) return process.env.HANA_CLIENT_SECRET!
   if (client === Client.HYUNDAI) return process.env.HYUNDAI_CLIENT_SECRET!
+  if (client === Client.HYUNDAI_SHOP)
+    return process.env.HYUNDAI_SHOP_CLIENT_SECRET!
   if (client === Client.KB_WIRELESS) return process.env.KB_CLIENT_SECRET!
   if (client === Client.KT_COMMERCE)
     return process.env.KTCOMMERCE_CLIENT_SECRET!
