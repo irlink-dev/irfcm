@@ -21,6 +21,7 @@ import {
   ROUTE_L_POINT,
   ROUTE_MERITZ,
   ROUTE_MORECX,
+  ROUTE_NS_SHOP,
   ROUTE_SHINHAN_CARD,
   ROUTE_ZILINK,
 } from '@/constants/routes'
@@ -48,16 +49,17 @@ const SINGLE_REQUEST_ROUTES = [
   ROUTE_L_POINT,
   ROUTE_MERITZ,
   ROUTE_MORECX,
+  ROUTE_NS_SHOP,
   ROUTE_SHINHAN_CARD,
   ROUTE_ZILINK,
 ]
 
 const ListItem = ({
-  route,
-  text,
-  icon,
-  isSelected,
-}: {
+                    route,
+                    text,
+                    icon,
+                    isSelected,
+                  }: {
   route: string
   text: string
   icon: React.ReactNode
@@ -94,7 +96,7 @@ export const MainListItems = () => {
     <>
       <ListItem
         route={ROUTE_FCM}
-        text="클라우드 메시징"
+        text='클라우드 메시징'
         icon={<SendIcon sx={{ width: 20, height: 20 }} />}
         isSelected={SINGLE_REQUEST_ROUTES.includes(pathname)}
       />

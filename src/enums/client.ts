@@ -63,6 +63,11 @@ export enum Client {
   MORECX = 'morecx',
 
   /**
+   * NS 홈쇼핑. (IR-USB)
+   */
+  NS_SHOP = 'nsshop',
+
+  /**
    * 신한 카드.
    */
   SHINHAN_CARD = 'shinhan',

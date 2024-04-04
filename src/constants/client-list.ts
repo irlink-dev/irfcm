@@ -13,6 +13,7 @@ import {
   ROUTE_SHINHAN_CARD,
   ROUTE_ZILINK,
   ROUTE_HYUNDAI_SHOP,
+  ROUTE_NS_SHOP,
 } from './routes'
 
 /**
@@ -103,6 +104,12 @@ const clientList = [
     route: ROUTE_HYUNDAI_SHOP,
     desc: 'kr.co.irlink.hyundaishopusb',
     image: '/images/hyundai_shop_app_icon.webp',
+  },
+  {
+    name: 'NS 홈쇼핑',
+    route: ROUTE_NS_SHOP,
+    desc: 'kr.co.irlink.nsshopusb',
+    image: '/images/ns_shop_app_icon.png',
   },
 ]
 

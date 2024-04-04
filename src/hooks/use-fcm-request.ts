@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
-import { getUserToken, getNewOAuthCode } from '@/utils/firebase'
+import { getNewOAuthCode, getUserToken } from '@/utils/firebase'
 import Request from '@/interfaces/request'
 import { requestFcm, requestMeritzFcm, sendMessage } from '@/utils/fcm'
 import FirebasePreference from '@/interfaces/firebase-preference'
@@ -48,6 +48,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.MERITZ
       : projectId === 'irlink-morecx'
       ? Client.MORECX
+      : projectId === 'NS-Shop-IRUSB'
+      ? Client.NS_SHOP
       : projectId === 'shinhan-card'
       ? Client.SHINHAN_CARD
       : projectId === 'irlink-zilink'

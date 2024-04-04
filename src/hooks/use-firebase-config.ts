@@ -224,6 +224,20 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * NS 홈쇼핑. (IR-USB)
+   */
+  const NS_SHOP_FIREBASE_CONFIG = {
+    apiKey: process.env.NS_SHOP_API_KEY!,
+    authDomain: 'ns-shop-irusb.firebaseapp.com',
+    databaseURL: 'https://ns-shop-irusb-default-rtdb.firebaseio.com',
+    projectId: 'ns-shop-irusb',
+    storageBucket: 'ns-shop-irusb.appspot.com',
+    messagingSenderId: process.env.NS_SHOP_MESSAGING_SENDER_ID!,
+    appId: process.env.NS_SHOP_APP_ID!,
+    measurementId: process.env.NS_SHOP_MEASUREMENT_ID!,
+  }
+
+  /**
    * 신한 카드.
    */
   const SHINHAN_CARD_FIREBASE_CONFIG = {
@@ -280,6 +294,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
     if (client === Client.MERITZ) return MERITZ_FIREBASE_CONFIG
     if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
+    if (client === Client.NS_SHOP) return NS_SHOP_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
     if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }

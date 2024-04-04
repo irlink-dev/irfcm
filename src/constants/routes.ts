@@ -64,6 +64,11 @@ export const ROUTE_MERITZ = '/fcm/meritz'
 export const ROUTE_MORECX = '/fcm/morecx'
 
 /**
+ * NS 홈쇼핑. (IR-USB)
+ */
+export const ROUTE_NS_SHOP = '/fcm/nsshop'
+
+/**
  * 신한 카드.
  */
 export const ROUTE_SHINHAN_CARD = '/fcm/shinhan'
