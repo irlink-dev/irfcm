@@ -40,7 +40,7 @@ export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.L_POINT) return process.env.LPOINT_CLIENT_SECRET!
   if (client === Client.MERITZ) return process.env.MERITZ_CLIENT_SECRET!
   if (client === Client.MORECX) return process.env.MORECX_CLIENT_SECRET!
-  if (client === Client.NS_SHOP) return process.env.NS_SHOP_CLIENT_ID!
+  if (client === Client.NS_SHOP) return process.env.NS_SHOP_CLIENT_SECRET!
   if (client === Client.SHINHAN_CARD) return process.env.SHINHAN_CLIENT_SECRET!
   if (client === Client.ZILINK) return process.env.ZILINK_CLIENT_SECRET!
   return null
