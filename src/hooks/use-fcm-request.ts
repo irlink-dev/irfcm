@@ -48,7 +48,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.MERITZ
       : projectId === 'irlink-morecx'
       ? Client.MORECX
-      : projectId === 'NS-Shop-IRUSB'
+      : projectId === 'ns-shop-irusb'
       ? Client.NS_SHOP
       : projectId === 'shinhan-card'
       ? Client.SHINHAN_CARD
