@@ -50,17 +50,18 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.KT_COMMERCE, 'KT 커머스'],
     [Client.HYUNDAI, '현대해상'],
     [Client.HYUNDAI_SHOP, '현대 홈쇼핑'],
-    [Client.NS_SHOP, 'NS 홈쇼핑']
+    [Client.NS_SHOP, 'NS 홈쇼핑'],
+    [Client.SK_MNSERVICE, 'SK엠엔서비스 '],
   ]
 
   // TODO: 단순 dropdown이 아닌, 검색 가능한 dropdown으로.
   return (
     <FormControl fullWidth>
-      <InputLabel id="client-select">요청 헤더</InputLabel>
+      <InputLabel id='client-select'>요청 헤더</InputLabel>
 
       <Select
-        id="client-select"
-        label="요청 헤더"
+        id='client-select'
+        label='요청 헤더'
         value={params.client}
         onChange={handleChange}
         sx={{

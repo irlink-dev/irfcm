@@ -52,6 +52,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.NS_SHOP
       : projectId === 'shinhan-card'
       ? Client.SHINHAN_CARD
+      : projectId === 'sk-mnservice-a07c5'
+      ? Client.SK_MNSERVICE
       : projectId === 'irlink-zilink'
       ? Client.ZILINK
       : null

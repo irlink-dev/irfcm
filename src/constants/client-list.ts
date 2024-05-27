@@ -14,6 +14,7 @@ import {
   ROUTE_ZILINK,
   ROUTE_HYUNDAI_SHOP,
   ROUTE_NS_SHOP,
+  ROUTE_SK_MNSERVICE,
 } from './routes'
 
 /**
@@ -110,6 +111,12 @@ const clientList = [
     route: ROUTE_NS_SHOP,
     desc: 'kr.co.irlink.nsshopusb',
     image: '/images/ns_shop_app_icon.png',
+  },
+  {
+    name: 'SK엠엔서비스',
+    route: ROUTE_SK_MNSERVICE,
+    desc: 'kr.co.irlink.skmnservice',
+    image: '/images/skmns_app_icon.png',
   },
 ]
 

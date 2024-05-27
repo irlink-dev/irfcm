@@ -23,7 +23,7 @@ import {
   ROUTE_MORECX,
   ROUTE_NS_SHOP,
   ROUTE_SHINHAN_CARD,
-  ROUTE_ZILINK,
+  ROUTE_ZILINK, ROUTE_SK_MNSERVICE,
 } from '@/constants/routes'
 
 // import ScienceIcon from '@mui/icons-material/Science'
@@ -51,15 +51,11 @@ const SINGLE_REQUEST_ROUTES = [
   ROUTE_MORECX,
   ROUTE_NS_SHOP,
   ROUTE_SHINHAN_CARD,
+  ROUTE_SK_MNSERVICE,
   ROUTE_ZILINK,
 ]
 
-const ListItem = ({
-                    route,
-                    text,
-                    icon,
-                    isSelected,
-                  }: {
+const ListItem = ({ route, text, icon, isSelected }: {
   route: string
   text: string
   icon: React.ReactNode

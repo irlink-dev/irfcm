@@ -73,6 +73,8 @@ export const ROUTE_NS_SHOP = '/fcm/nsshop'
  */
 export const ROUTE_SHINHAN_CARD = '/fcm/shinhan'
 
+export const ROUTE_SK_MNSERVICE = '/fcm/skmns'
+
 /**
  * 지링크.
  */
