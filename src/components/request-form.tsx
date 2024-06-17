@@ -121,7 +121,6 @@ const RequestForm = ({
         value={input.date}
         onChange={handleChange}
         required
-        disabled={IS_MERITZ}
       />
       <FormControl>
         <InputLabel id="type">요청 타입</InputLabel>

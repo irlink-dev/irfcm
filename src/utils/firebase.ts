@@ -206,7 +206,7 @@ export const getStorageFileUrls = async (
 
   const directoryPath = `log/${phoneNumberWithHyphen}/${date}`
   const morecxDirectoryPath = `${morecxVariant}/log/${phoneNumberWithHyphen}/${date}`
-  const meritzDirectoryPath = `applogs/${phoneNumberWithoutHyphen}`
+  const meritzDirectoryPath = `applogs/${phoneNumberWithHyphen}/${date}`
 
   const listRef = storageRef.child(
     client === Client.MORECX

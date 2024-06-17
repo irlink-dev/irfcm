@@ -6,8 +6,8 @@ import { printLog } from '@/utils/log'
 
 const TAG = '/api/compress'
 
-const directoryPath = 'E:\\directoryPath'
-const outputDirectory = 'E:\\outputDirectory'
+const directoryPath = 'D:\\directoryPath'
+const outputDirectory = 'D:\\outputDirectory'
 const filesPerZip = 350
 
 /**
