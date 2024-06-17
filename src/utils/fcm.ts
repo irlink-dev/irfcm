@@ -1,6 +1,6 @@
 import Request from '@/interfaces/request'
 import Message from '@/interfaces/message'
-import { ClientType } from '@/enums/client'
+import { Client, ClientType } from '@/enums/client'
 import useFirebaseConfig from '@/hooks/use-firebase-config'
 
 const TAG = 'utils/fcm'
@@ -138,21 +138,41 @@ export const sendMessage = async (client: ClientType, message: Message) => {
   const config = useFirebaseConfig(client)
   const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${config?.projectId}/messages:send`
 
-  return await fetch(FCM_REQUEST_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${message.accessToken}`,
-    },
-    body: JSON.stringify({
-      message: {
-        token: String(message.token),
-        data: {
-          type: String(message.type),
-          date: String(message.date),
-          isIncludeRecord: String(message.isIncludeRecord),
-        },
+  if (client === Client.MERITZ) {
+    return await fetch(FCM_REQUEST_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${message.accessToken}`,
       },
-    }),
-  })
+      body: JSON.stringify({
+        message: {
+          token: String(message.token),
+          data: {
+            sendType: String(message.type),
+            date: String(message.date),
+            isIncludeRecord: String(message.isIncludeRecord),
+          },
+        },
+      }),
+    })
+  } else {
+    return await fetch(FCM_REQUEST_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${message.accessToken}`,
+      },
+      body: JSON.stringify({
+        message: {
+          token: String(message.token),
+          data: {
+            type: String(message.type),
+            date: String(message.date),
+            isIncludeRecord: String(message.isIncludeRecord),
+          },
+        },
+      }),
+    })
+  }
 }

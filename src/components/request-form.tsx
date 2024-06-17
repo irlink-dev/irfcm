@@ -28,6 +28,7 @@ import {
 } from '@/states/global-state'
 import OAuthButton from '@/components/oauth-button'
 import FirebasePreference from '@/interfaces/firebase-preference'
+import { useState } from 'react'
 
 const TAG = 'RequestForm'
 
@@ -51,21 +52,28 @@ interface RequestFormProps {
 }
 
 const RequestForm = ({
-  params,
-  input,
-  // handleSubmit,
-  onSubmit,
-  handleChange,
-  showInputValues,
-  firebasePref,
-  isBatch = false,
-}: RequestFormProps) => {
+                       params,
+                       input,
+                       // handleSubmit,
+                       onSubmit,
+                       handleChange,
+                       showInputValues,
+                       firebasePref,
+                       isBatch = false,
+                     }: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
   const [isFcmRequestLoading, setIsFcmRequestLoading] = useAtom(
     fcmRequestLoadingStatusAtom,
   )
+
+  const [selectedType, setSelectedType] = useState<number | string>('')
+
+  const handleSelectChange = (event: SelectChangeEvent<number>) => {
+    setSelectedType(event.target.value)
+    handleChange(event)
+  }
 
   /**
    * 요청 버튼 클릭 시
@@ -108,33 +116,52 @@ const RequestForm = ({
       </Box>
       {!isBatch && (
         <TextField
-          label="법인폰 번호"
-          name="phoneNumber"
+          label='법인폰 번호'
+          name='phoneNumber'
           value={input.phoneNumber}
           onChange={handleChange}
           required
         />
       )}
       <TextField
-        label="날짜"
-        name="date"
+        label='날짜'
+        name='date'
         value={input.date}
         onChange={handleChange}
         required
       />
+      {isBatch && IS_MERITZ && input.type === MeritzFcmType.RESEND_RECORD && (
+        <TextField
+          label='파일 이름'
+          name='fileName'
+          type='file'
+          onChange={handleChange}
+          required
+        />
+      )}
       <FormControl>
-        <InputLabel id="type">요청 타입</InputLabel>
+        <InputLabel id='type'>요청 타입</InputLabel>
         <Select
-          labelId="type"
-          name="type"
+          labelId='type'
+          name='type'
           value={input.type}
-          label="요청 타입"
+          label='요청 타입'
           onChange={handleChange}
         >
           {/* 메리츠 */}
           {IS_MERITZ && (
             <MenuItem value={MeritzFcmType.UPLOAD_LOGS}>
               [0] 메리츠 로그
+            </MenuItem>
+          )}
+          {IS_MERITZ && (
+            <MenuItem value={MeritzFcmType.RESEND_RECORD}>
+              [1] 녹취 파일 재전송
+            </MenuItem>
+          )}
+          {IS_MERITZ && (
+            <MenuItem value={MeritzFcmType.CONVERT_AND_RESEND_RECORD}>
+              [2] 원본 녹취 변환 및 재전송
             </MenuItem>
           )}
 
@@ -158,20 +185,20 @@ const RequestForm = ({
         <FormControlLabel
           control={
             <Checkbox
-              name="isIncludeRecord"
+              name='isIncludeRecord'
               value={input.isIncludeRecord}
               checked={input.isIncludeRecord}
               onChange={handleChange}
             />
           }
-          label="녹취 파일 포함"
+          label='녹취 파일 포함'
           disabled={IS_MERITZ}
         />
       </FormGroup>
       <Button
-        type="submit"
+        type='submit'
         onClick={onRequestButtonClick}
-        variant="contained"
+        variant='contained'
         disabled={isFcmRequestLoading}
         sx={{
           borderRadius: '100px',

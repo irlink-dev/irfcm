@@ -218,54 +218,6 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   }
 
   /**
-   * [NEW] 메리츠 LEGACY 방식 요청.
-   */
-  const doMeritzProcess = async (client: ClientType) => {
-    const userToken = await getUserToken(client, input.phoneNumber)
-
-    const request: Request = {
-      authorizationKey: firebasePref.authorizationKey,
-      token: userToken,
-      type: String(input.type),
-      priority: 'high',
-    }
-    printLog(
-      TAG,
-      `doMeritzProcess.\n\n` +
-        `📱 (userToken): ${userToken}\n\n` +
-        `📄 type: ${MeritzFcmType[input.type]}(${input.type})\n\n`,
-    )
-    const response = await requestMeritzFcm(request)
-    onResponse(FcmMethod.LEGACY, response, client)
-  }
-
-  /**
-   * [NEW] LEGACY 방식 요청.
-   */
-  const doLegacyProcess = async (client: ClientType, variant: number) => {
-    const userToken = await getUserToken(client, input.phoneNumber, variant)
-
-    const request: Request = {
-      authorizationKey: firebasePref.authorizationKey,
-      token: userToken,
-      date: input.date,
-      type: Number(input.type),
-      isIncludeRecord: input.isIncludeRecord,
-      priority: 'high',
-    }
-    printLog(
-      TAG,
-      `doLegacyProcess.\n\n` +
-        `📱 (userToken): ${userToken}\n\n` +
-        `📄 date: ${input.date}, ` +
-        `type: ${FcmType[input.type]}(${input.type}), ` +
-        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
-    )
-    const response = await requestFcm(request)
-    onResponse(FcmMethod.LEGACY, response, client)
-  }
-
-  /**
    * [NEW] HTTP v1 방식 요청.
    */
   const doHttpV1Process = async (client: ClientType) => {
@@ -304,17 +256,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       TAG,
       `onSubmit. method: ${FcmMethod[method]}, client: ${client}, morecxVariant: ${MorecxVariants[variant]}`,
     )
-
-    if (method === FcmMethod.LEGACY) {
-      if (client === Client.MERITZ) {
-        doMeritzProcess(client)
-      } else {
-        doLegacyProcess(client, variant)
-      }
-    }
-    if (method === FcmMethod.HTTP_V1) {
-      doHttpV1Process(client)
-    }
+    doHttpV1Process(client)
   }
 
   /**
