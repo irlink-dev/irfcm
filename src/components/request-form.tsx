@@ -68,26 +68,13 @@ const RequestForm = ({
     fcmRequestLoadingStatusAtom,
   )
 
-  const [selectedType, setSelectedType] = useState<number | string>('')
-
-  const handleSelectChange = (event: SelectChangeEvent<number>) => {
-    setSelectedType(event.target.value)
-    handleChange(event)
-  }
-
   /**
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
     setIsFcmRequestLoading(true)
 
-    const IS_HTTP_V1 = true
-
-    if (IS_HTTP_V1) {
-      onSubmit(FcmMethod.HTTP_V1, params.client, -1)
-    } else {
-      onSubmit(FcmMethod.LEGACY, params.client, morecxVariant)
-    }
+    onSubmit(FcmMethod.HTTP_V1, params.client, -1)
   }
 
   return (
@@ -119,15 +106,13 @@ const RequestForm = ({
           required
         />
       )}
-      {IS_MERITZ && input.type === MeritzFcmType.UPLOAD_LOGS && (
-        <TextField
-          label='날짜'
-          name='date'
-          value={input.date}
-          onChange={handleChange}
-          required
-        />
-      )}
+      <TextField
+        label='날짜'
+        name='date'
+        value={input.date}
+        onChange={handleChange}
+        required
+      />
       {!isBatch && IS_MERITZ && (input.type === MeritzFcmType.RESEND_RECORD || input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD) && (
         <TextField
           label='amr 파일명'
