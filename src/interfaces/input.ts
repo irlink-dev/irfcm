@@ -23,6 +23,16 @@ export default interface Input {
   amrFileName: string
 
   /**
+   * m4a 파일명. (메리츠 전용)
+   */
+  m4aFileName: string
+
+  /**
+   * call ID. (메리츠 전용)
+   */
+  callId: string
+
+  /**
    * 녹취 포함 여부.
    */
   isIncludeRecord: boolean

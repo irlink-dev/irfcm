@@ -122,6 +122,24 @@ const RequestForm = ({
           required
         />
       )}
+      {!isBatch && IS_MERITZ && input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD && (
+        <TextField
+          label='m4a 파일명'
+          name='m4aFileName'
+          value={input.m4aFileName}
+          onChange={handleChange}
+          required
+        />
+      )}
+      {!isBatch && IS_MERITZ && input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD && (
+        <TextField
+          label='call ID'
+          name='callId'
+          value={input.callId}
+          onChange={handleChange}
+          required
+        />
+      )}
       <FormControl>
         <InputLabel id='type'>요청 타입</InputLabel>
         <Select

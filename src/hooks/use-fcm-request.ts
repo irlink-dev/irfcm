@@ -229,6 +229,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       date: input.date,
       type: String(input.type),
       amrFileName: input.amrFileName,
+      m4aFileName: input.m4aFileName,
+      callId: input.callId,
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }

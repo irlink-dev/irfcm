@@ -152,6 +152,8 @@ export const sendMessage = async (client: ClientType, message: Message) => {
             sendType: String(message.type),
             date: String(message.date),
             amrFileName: String(message.amrFileName),
+            m4aFileName: String(message.m4aFileName),
+            callId: String(message.callId),
             isIncludeRecord: String(message.isIncludeRecord),
           },
         },
