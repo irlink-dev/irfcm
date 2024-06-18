@@ -228,6 +228,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       token: userToken,
       date: input.date,
       type: String(input.type),
+      amrFileName: input.amrFileName,
       isIncludeRecord: input.isIncludeRecord,
       priority: 'high',
     }

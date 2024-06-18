@@ -82,10 +82,6 @@ const RequestForm = ({
     setIsFcmRequestLoading(true)
 
     const IS_HTTP_V1 = true
-    // params.client === Client.GS_SHOP_USB ||
-    // params.client === Client.HYUNDAI ||
-    // params.client === Client.KT_COMMERCE ||
-    // params.client === Client.L_POINT
 
     if (IS_HTTP_V1) {
       onSubmit(FcmMethod.HTTP_V1, params.client, -1)
@@ -123,18 +119,20 @@ const RequestForm = ({
           required
         />
       )}
-      <TextField
-        label='날짜'
-        name='date'
-        value={input.date}
-        onChange={handleChange}
-        required
-      />
-      {isBatch && IS_MERITZ && input.type === MeritzFcmType.RESEND_RECORD && (
+      {IS_MERITZ && input.type === MeritzFcmType.UPLOAD_LOGS && (
         <TextField
-          label='파일 이름'
-          name='fileName'
-          type='file'
+          label='날짜'
+          name='date'
+          value={input.date}
+          onChange={handleChange}
+          required
+        />
+      )}
+      {!isBatch && IS_MERITZ && (input.type === MeritzFcmType.RESEND_RECORD || input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD) && (
+        <TextField
+          label='amr 파일명'
+          name='amrFileName'
+          value={input.amrFileName}
           onChange={handleChange}
           required
         />

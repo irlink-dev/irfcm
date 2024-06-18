@@ -31,6 +31,11 @@ export default interface Message {
   type: string
 
   /**
+   * amr 파일명. (메리츠 전용)
+   */
+  amrFileName?: string
+
+  /**
    * 녹취 파일 포함 여부.
    */
   isIncludeRecord: boolean

@@ -18,6 +18,11 @@ export default interface Input {
   type: number
 
   /**
+   * amr 파일명. (메리츠 전용)
+   */
+  amrFileName: string
+
+  /**
    * 녹취 포함 여부.
    */
   isIncludeRecord: boolean

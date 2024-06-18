@@ -151,6 +151,7 @@ export const sendMessage = async (client: ClientType, message: Message) => {
           data: {
             sendType: String(message.type),
             date: String(message.date),
+            amrFileName: String(message.amrFileName),
             isIncludeRecord: String(message.isIncludeRecord),
           },
         },
