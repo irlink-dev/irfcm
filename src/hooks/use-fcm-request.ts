@@ -234,7 +234,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     }
     printLog(
       TAG,
-      `doHttpV1Process.\n\n` +
+      `doMeritzProcess.\n\n` +
       `🔐 (accessToken): ${accessToken}\n\n` +
       `📱 (userToken): ${userToken}\n\n` +
       `📄 date: ${input.date}, ` +
