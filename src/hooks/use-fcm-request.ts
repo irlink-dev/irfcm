@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
 import { getNewOAuthCode, getUserToken } from '@/utils/firebase'
-import Request from '@/interfaces/request'
-import { requestFcm, requestMeritzFcm, sendMessage } from '@/utils/fcm'
+import { sendMessage } from '@/utils/fcm'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import Input from '@/interfaces/input'
 import useLocalStorage from './use-local-storage'
@@ -11,7 +10,6 @@ import { FcmMethod } from '@/enums/fcm-method'
 import { Client, ClientType } from '@/enums/client'
 import Message from '@/interfaces/message'
 import { FcmType } from '@/enums/fcm-type'
-import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { MorecxVariants } from '@/enums/morecx-variants'
 import useToast from './use-toast'
 import { useSetAtom } from 'jotai'
@@ -76,11 +74,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     return savedValues
       ? savedValues
       : {
-          phoneNumber: '',
-          date: '',
-          type: FcmType.UPLOAD_LOGS,
-          isIncludeRecord: false,
-        }
+        phoneNumber: '',
+        date: '',
+        type: FcmType.UPLOAD_LOGS,
+        isIncludeRecord: false,
+      }
   })
 
   useEffect(() => {
@@ -163,7 +161,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `onUnauthorized. client: ${client}, \n\n` +
-        `♻️ (refreshToken): ${refreshToken}\n\n`,
+      `♻️ (refreshToken): ${refreshToken}\n\n`,
     )
     if (refreshToken) {
       const newAccessToken = await refreshAccessToken(client, refreshToken)
@@ -218,9 +216,9 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   }
 
   /**
-   * [NEW] HTTP v1 방식 요청.
+   * [NEW] 메리츠 HTTP V1 방식 요청.
    */
-  const doHttpV1Process = async (client: ClientType) => {
+  const doMeritzProcess = async (client: ClientType) => {
     const userToken = await getUserToken(client, input.phoneNumber)
 
     const message: Message = {
@@ -237,11 +235,41 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `doHttpV1Process.\n\n` +
-        `🔐 (accessToken): ${accessToken}\n\n` +
-        `📱 (userToken): ${userToken}\n\n` +
-        `📄 date: ${input.date}, ` +
-        `type: ${FcmType[input.type]}(${input.type}), ` +
-        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+      `🔐 (accessToken): ${accessToken}\n\n` +
+      `📱 (userToken): ${userToken}\n\n` +
+      `📄 date: ${input.date}, ` +
+      `type: ${FcmType[input.type]}(${input.type}), ` +
+      `amrFileName: ${input.amrFileName}, ` +
+      `m4aFileName: ${input.m4aFileName}, `+
+      `callId: ${input.callId}, ` +
+      `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+    )
+    const response = await sendMessage(client, message)
+    onResponse(FcmMethod.HTTP_V1, response, client)
+  }
+
+  /**
+   * [NEW] HTTP v1 방식 요청.
+   */
+  const doHttpV1Process = async (client: ClientType) => {
+    const userToken = await getUserToken(client, input.phoneNumber)
+
+    const message: Message = {
+      accessToken: accessToken,
+      token: userToken,
+      date: input.date,
+      type: String(input.type),
+      isIncludeRecord: input.isIncludeRecord,
+      priority: 'high',
+    }
+    printLog(
+      TAG,
+      `doHttpV1Process.\n\n` +
+      `🔐 (accessToken): ${accessToken}\n\n` +
+      `📱 (userToken): ${userToken}\n\n` +
+      `📄 date: ${input.date}, ` +
+      `type: ${FcmType[input.type]}(${input.type}), ` +
+      `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
     )
     const response = await sendMessage(client, message)
     onResponse(FcmMethod.HTTP_V1, response, client)
@@ -259,7 +287,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       TAG,
       `onSubmit. method: ${FcmMethod[method]}, client: ${client}, morecxVariant: ${MorecxVariants[variant]}`,
     )
-    doHttpV1Process(client)
+    if (client === Client.MERITZ) {
+      doMeritzProcess(client)
+    } else {
+      doHttpV1Process(client)
+    }
   }
 
   /**
@@ -273,10 +305,10 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `showInputValues. \n\n` +
-        text +
-        `📄 date: ${input.date}, ` +
-        `type: ${FcmType[input.type]}(${input.type}), ` +
-        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+      text +
+      `📄 date: ${input.date}, ` +
+      `type: ${FcmType[input.type]}(${input.type}), ` +
+      `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
     )
   }
 
