@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
 import { getNewOAuthCode, getUserToken } from '@/utils/firebase'
-import { sendMessage } from '@/utils/fcm'
+import { sendMeritzMessage, sendMessage } from '@/utils/fcm'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import Input from '@/interfaces/input'
 import useLocalStorage from './use-local-storage'
@@ -240,11 +240,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       `📄 date: ${input.date}, ` +
       `type: ${FcmType[input.type]}(${input.type}), ` +
       `amrFileName: ${input.amrFileName}, ` +
-      `m4aFileName: ${input.m4aFileName}, `+
+      `m4aFileName: ${input.m4aFileName}, ` +
       `callId: ${input.callId}, ` +
       `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
     )
-    const response = await sendMessage(client, message)
+    const response = await sendMeritzMessage(message)
     onResponse(FcmMethod.HTTP_V1, response, client)
   }
 

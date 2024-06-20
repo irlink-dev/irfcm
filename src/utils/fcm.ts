@@ -1,6 +1,6 @@
 import Request from '@/interfaces/request'
 import Message from '@/interfaces/message'
-import { Client, ClientType } from '@/enums/client'
+import { ClientType } from '@/enums/client'
 import useFirebaseConfig from '@/hooks/use-firebase-config'
 
 const TAG = 'utils/fcm'
@@ -110,25 +110,31 @@ export const requestFcm = async (request: Request) => {
 }
 
 /**
- * 메리츠 FCM 요청.
+ * 메리츠 FCM 전송. (HTTP V1)
  */
-export const requestMeritzFcm = async (request: Request) => {
-  const FCM_REQUEST_URL = 'https://fcm.googleapis.com/fcm/send'
+export const sendMeritzMessage = async (message: Message) => {
+  const FCM_REQUEST_URL = 'https://fcm.googleapis.com/v1/projects/irlink-meritz/messages:send'
 
   return await fetch(FCM_REQUEST_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: request.authorizationKey!,
+      Authorization: `Bearer ${message.accessToken}`,
     },
     body: JSON.stringify({
-      to: String(request.token),
-      data: {
-        sendType: String(request.type),
+      message: {
+        token: String(message.token),
+        data: {
+          sendType: String(message.type),
+          date: String(message.date),
+          amrFileName: String(message.amrFileName),
+          m4aFileName: String(message.m4aFileName),
+          callId: String(message.callId),
+          isIncludeRecord: String(message.isIncludeRecord),
+        },
       },
-      priority: String(request.priority),
     }),
-  }).then((response) => response.json())
+  })
 }
 
 /**
@@ -138,44 +144,21 @@ export const sendMessage = async (client: ClientType, message: Message) => {
   const config = useFirebaseConfig(client)
   const FCM_REQUEST_URL = `https://fcm.googleapis.com/v1/projects/${config?.projectId}/messages:send`
 
-  if (client === Client.MERITZ) {
-    return await fetch(FCM_REQUEST_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${message.accessToken}`,
-      },
-      body: JSON.stringify({
-        message: {
-          token: String(message.token),
-          data: {
-            sendType: String(message.type),
-            date: String(message.date),
-            amrFileName: String(message.amrFileName),
-            m4aFileName: String(message.m4aFileName),
-            callId: String(message.callId),
-            isIncludeRecord: String(message.isIncludeRecord),
-          },
+  return await fetch(FCM_REQUEST_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${message.accessToken}`,
+    },
+    body: JSON.stringify({
+      message: {
+        token: String(message.token),
+        data: {
+          type: String(message.type),
+          date: String(message.date),
+          isIncludeRecord: String(message.isIncludeRecord),
         },
-      }),
-    })
-  } else {
-    return await fetch(FCM_REQUEST_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${message.accessToken}`,
       },
-      body: JSON.stringify({
-        message: {
-          token: String(message.token),
-          data: {
-            type: String(message.type),
-            date: String(message.date),
-            isIncludeRecord: String(message.isIncludeRecord),
-          },
-        },
-      }),
-    })
-  }
+    }),
+  })
 }
