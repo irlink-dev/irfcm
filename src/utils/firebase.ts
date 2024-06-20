@@ -65,6 +65,41 @@ export const getUserToken = async (
 }
 
 /**
+ * 메리츠 유저 토큰 얻기. (Realtime Database)
+ */
+export const getMeritzUserToken = async (
+  sendType: number,
+  phoneNumber: string,
+  amrFileName: string
+) => {
+  printLog(TAG, `getMeritzUserToken. sendType: ${sendType}, phoneNumber: ${phoneNumber}, amrFileName: ${amrFileName}`)
+
+  let path, snapshot
+  let db = getDatabase()
+  if (sendType === 0) {
+    path = `users/${phoneNumber.replace(/-/g, '')}/token`
+    snapshot = await get(ref(db, path))
+  } else {
+    const sabun = amrFileName.slice(17, 26)
+    printLog(TAG, `searching for sabun: ${sabun}`)
+
+    snapshot = await get(ref(db, 'users'))
+    if (snapshot.exists()) {
+      const usersData = snapshot.val()
+      for (const key in usersData) {
+        if (usersData[key].sabun === sabun) {
+          path = `users/${key}/token`
+          snapshot = await get(ref(getDatabase(), path))
+          return snapshot?.val()
+        }
+      }
+      return null
+    }
+  }
+  return snapshot?.val()
+}
+
+/**
  * 파일 다운로드 링크 받기.
  */
 export const getFileDownloadLinks = async (

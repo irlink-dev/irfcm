@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
-import { getNewOAuthCode, getUserToken } from '@/utils/firebase'
+import { getMeritzUserToken, getNewOAuthCode, getUserToken } from '@/utils/firebase'
 import { sendMeritzMessage, sendMessage } from '@/utils/fcm'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import Input from '@/interfaces/input'
@@ -219,7 +219,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 메리츠 HTTP V1 방식 요청.
    */
   const doMeritzProcess = async (client: ClientType) => {
-    const userToken = await getUserToken(client, input.phoneNumber)
+    const userToken = await getMeritzUserToken(input.type, input.phoneNumber, input.amrFileName)
 
     const message: Message = {
       accessToken: accessToken,
