@@ -51,15 +51,15 @@ interface RequestFormProps {
 }
 
 const RequestForm = ({
-                       params,
-                       input,
-                       // handleSubmit,
-                       onSubmit,
-                       handleChange,
-                       showInputValues,
-                       firebasePref,
-                       isBatch = false,
-                     }: RequestFormProps) => {
+  params,
+  input,
+  // handleSubmit,
+  onSubmit,
+  handleChange,
+  showInputValues,
+  firebasePref,
+  isBatch = false,
+}: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
@@ -159,7 +159,7 @@ const RequestForm = ({
               [1] 녹취 파일 재전송
             </MenuItem>
           )}
-          {IS_MERITZ && (
+          {IS_MERITZ && !isBatch && (
             <MenuItem value={MeritzFcmType.CONVERT_AND_RESEND_RECORD}>
               [2] 원본 녹취 변환 및 재전송
             </MenuItem>
