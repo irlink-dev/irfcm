@@ -1,5 +1,5 @@
 'use client'
-
+import React, { useState } from 'react'
 import Input from '@/interfaces/input'
 import {
   Box,
@@ -66,6 +66,36 @@ const RequestForm = ({
   const [isFcmRequestLoading, setIsFcmRequestLoading] = useAtom(
     fcmRequestLoadingStatusAtom,
   )
+
+  const [fileContent, setFileContent] = useState<string[]>([])
+
+/**
+   * 파일 업로드 핸들러
+   */
+const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0]
+  if (file) {
+    const reader = new FileReader()
+
+    reader.onload = async (e) => {
+      const content = e.target?.result as string
+      const lines = content.split('\n')
+      setFileContent(lines)
+
+      for (let i = 0; i < lines.length; i++) {
+        input.amrFileName = lines[i]
+        console.log(`${i + 1}: ${lines[i]}`)
+        onSubmit(FcmMethod.HTTP_V1, params.client, -1)
+      }
+    }
+
+    reader.onerror = () => {
+      console.error('Error reading file')
+    }
+
+    reader.readAsText(file)
+  }
+}
 
   /**
    * 요청 버튼 클릭 시
@@ -181,6 +211,17 @@ const RequestForm = ({
           )}
         </Select>
       </FormControl>
+      <Box>
+        {isBatch && IS_MERITZ && input.type === MeritzFcmType.RESEND_RECORD && (
+          <Button
+            component='label'
+            variant='contained'
+          >
+            Upload file
+            <input type='file' style={{ display: 'none' }} accept='.txt' onChange={handleFileChange} />
+          </Button>
+        )}
+      </Box>
       <FormGroup>
         <FormControlLabel
           control={
