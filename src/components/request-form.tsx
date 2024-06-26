@@ -28,6 +28,7 @@ import {
 } from '@/states/global-state'
 import OAuthButton from '@/components/oauth-button'
 import FirebasePreference from '@/interfaces/firebase-preference'
+import { printLog } from '@/utils/log'
 
 const TAG = 'RequestForm'
 
@@ -70,8 +71,8 @@ const RequestForm = ({
   const [fileContent, setFileContent] = useState<string[]>([])
 
 /**
-   * 파일 업로드 핸들러
-   */
+ * 파일 업로드 핸들러
+ */
 const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   const file = event.target.files?.[0]
   if (file) {
@@ -82,11 +83,11 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const lines = content.split('\n')
       setFileContent(lines)
 
-      for (let i = 0; i < lines.length; i++) {
-        input.amrFileName = lines[i]
-        console.log(`${i + 1}: ${lines[i]}`)
+      lines.map((line, index) => {
+        input.amrFileName = line
+        printLog(TAG, `${index}: ${line}`)
         onSubmit(FcmMethod.HTTP_V1, params.client, -1)
-      }
+      })
     }
 
     reader.onerror = () => {
