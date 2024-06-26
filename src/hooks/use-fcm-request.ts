@@ -278,7 +278,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   /**
    * [NEW] 요청 양식 제출 시.
    */
-  const onSubmit = (
+  const onSubmit = async (
     method: number = FcmMethod.LEGACY,
     client: ClientType,
     variant: number,
@@ -288,9 +288,9 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       `onSubmit. method: ${FcmMethod[method]}, client: ${client}, morecxVariant: ${MorecxVariants[variant]}`,
     )
     if (client === Client.MERITZ) {
-      doMeritzProcess(client)
+      await doMeritzProcess(client)
     } else {
-      doHttpV1Process(client)
+      await doHttpV1Process(client)
     }
   }
 

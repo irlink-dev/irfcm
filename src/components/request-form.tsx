@@ -35,12 +35,11 @@ const TAG = 'RequestForm'
 interface RequestFormProps {
   params: { client: ClientType }
   input: Input
-  // handleSubmit: (option: string) => void
   onSubmit: (
     method: number | undefined,
     client: ClientType,
     variant: number,
-  ) => void
+  ) => Promise<void> // Ensure onSubmit returns a Promise
   handleChange: (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -52,15 +51,14 @@ interface RequestFormProps {
 }
 
 const RequestForm = ({
-  params,
-  input,
-  // handleSubmit,
-  onSubmit,
-  handleChange,
-  showInputValues,
-  firebasePref,
-  isBatch = false,
-}: RequestFormProps) => {
+                       params,
+                       input,
+                       onSubmit,
+                       handleChange,
+                       showInputValues,
+                       firebasePref,
+                       isBatch = false,
+                     }: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
@@ -70,33 +68,33 @@ const RequestForm = ({
 
   const [fileContent, setFileContent] = useState<string[]>([])
 
-/**
- * 파일 업로드 핸들러
- */
-const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const file = event.target.files?.[0]
-  if (file) {
-    const reader = new FileReader()
+  /**
+   * 파일 업로드 핸들러
+   */
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
 
-    reader.onload = async (e) => {
-      const content = e.target?.result as string
-      const lines = content.split('\n')
-      setFileContent(lines)
+      reader.onload = async (e) => {
+        const content = e.target?.result as string
+        const lines = content.split('\n')
 
-      lines.map((line, index) => {
-        input.amrFileName = line
-        printLog(TAG, `${index}: ${line}`)
-        onSubmit(FcmMethod.HTTP_V1, params.client, -1)
-      })
+        for (let index = 0; index < lines.length; index++) {
+          const line = lines[index]
+          input.amrFileName = line
+          printLog(TAG, `${index}: ${line}`)
+          await onSubmit(FcmMethod.HTTP_V1, params.client, -1)
+        }
+      }
+
+      reader.onerror = () => {
+        console.error('Error reading file')
+      }
+
+      reader.readAsText(file)
     }
-
-    reader.onerror = () => {
-      console.error('Error reading file')
-    }
-
-    reader.readAsText(file)
   }
-}
 
   /**
    * 요청 버튼 클릭 시
