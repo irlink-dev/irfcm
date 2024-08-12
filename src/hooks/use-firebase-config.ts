@@ -169,6 +169,9 @@ const useFirebaseConfig = (client: ClientType) => {
     appId: process.env.LINA_APP_ID!,
   }
 
+  /**
+   * 롯데카드.
+   */
   const LOTTE_CARD_CONFIG = {
     apiKey: process.env.LOTTE_CARD_API_KEY!,
     authDomain: 'lotte-card-7c682.firebaseapp.com',
