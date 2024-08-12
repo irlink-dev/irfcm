@@ -175,7 +175,7 @@ const useFirebaseConfig = (client: ClientType) => {
   const LOTTE_CARD_CONFIG = {
     apiKey: process.env.LOTTE_CARD_API_KEY!,
     authDomain: 'lotte-card-7c682.firebaseapp.com',
-    databaseURL: 'https://lotte-card-7c682.firebaseio.com',
+    databaseURL: 'https://lotte-card-7c682-default-rtdb.firebaseio.com',
     projectId: 'lotte-card-7c682',
     storageBucket: 'lotte-card-7c682.appspot.com',
     messagingSenderId: process.env.LOTTE_CARD_MESSAGING_SENDER_ID!,
