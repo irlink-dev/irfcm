@@ -49,6 +49,11 @@ export const ROUTE_KT_COMMERCE = '/fcm/ktcommerce'
 export const ROUTE_LINA = '/fcm/lina'
 
 /**
+ * 롯데카드.
+ */
+export const ROUTE_LOTTE_CARD = '/fcm/lottecard'
+
+/**
  * L 포인트.
  */
 export const ROUTE_L_POINT = '/fcm/lpoint'

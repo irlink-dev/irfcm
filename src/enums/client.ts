@@ -48,6 +48,11 @@ export enum Client {
   LINA = 'lina',
 
   /**
+   * 롯데카드.
+   */
+  LOTTE_CARD = 'lotte-card',
+
+  /**
    * L 포인트.
    */
   L_POINT = 'lpoint',

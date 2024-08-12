@@ -40,6 +40,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.KT_COMMERCE
       : projectId === 'irlink-lina'
       ? Client.LINA
+      : projectId === 'lotte-card-7c682'
+      ? Client.LOTTE_CARD
       : projectId === 'l-point'
       ? Client.L_POINT
       : projectId === 'irlink-meritz'

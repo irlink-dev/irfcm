@@ -23,7 +23,9 @@ import {
   ROUTE_MORECX,
   ROUTE_NS_SHOP,
   ROUTE_SHINHAN_CARD,
-  ROUTE_ZILINK, ROUTE_SK_MNSERVICE,
+  ROUTE_ZILINK,
+  ROUTE_SK_MNSERVICE,
+  ROUTE_LOTTE_CARD
 } from '@/constants/routes'
 
 // import ScienceIcon from '@mui/icons-material/Science'
@@ -46,6 +48,7 @@ const SINGLE_REQUEST_ROUTES = [
   ROUTE_KB_WIRELESS,
   ROUTE_KT_COMMERCE,
   ROUTE_LINA,
+  ROUTE_LOTTE_CARD,
   ROUTE_L_POINT,
   ROUTE_MERITZ,
   ROUTE_MORECX,

@@ -15,6 +15,7 @@ import {
   ROUTE_HYUNDAI_SHOP,
   ROUTE_NS_SHOP,
   ROUTE_SK_MNSERVICE,
+  ROUTE_LOTTE_CARD,
 } from './routes'
 
 /**
@@ -117,6 +118,12 @@ const clientList = [
     route: ROUTE_SK_MNSERVICE,
     desc: 'kr.co.irlink.skmnservice',
     image: '/images/skmns_app_icon.png',
+  },
+  {
+    name: '롯데카드',
+    route: ROUTE_LOTTE_CARD,
+    desc: 'kr.co.irlink.lottecard',
+    image: '/images/lottecard_app_icon.png',
   },
 ]
 

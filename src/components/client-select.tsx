@@ -52,6 +52,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.HYUNDAI_SHOP, '현대 홈쇼핑'],
     [Client.NS_SHOP, 'NS 홈쇼핑'],
     [Client.SK_MNSERVICE, 'SK엠엔서비스 '],
+    [Client.LOTTE_CARD, '롯데카드']
   ]
 
   // TODO: 단순 dropdown이 아닌, 검색 가능한 dropdown으로.

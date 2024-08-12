@@ -13,6 +13,7 @@ export const getOAuthClientId = (client: ClientType) => {
   if (client === Client.KB_WIRELESS) return process.env.KB_CLIENT_ID!
   if (client === Client.KT_COMMERCE) return process.env.KTCOMMERCE_CLIENT_ID!
   if (client === Client.LINA) return process.env.LINA_CLIENT_ID!
+  if (client === Client.LOTTE_CARD) return process.env.LOTTE_CARD_CLIENT_ID!
   if (client === Client.L_POINT) return process.env.LPOINT_CLIENT_ID!
   if (client === Client.MERITZ) return process.env.MERITZ_CLIENT_ID!
   if (client === Client.MORECX) return process.env.MORECX_CLIENT_ID!
@@ -38,6 +39,7 @@ export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.KT_COMMERCE)
     return process.env.KTCOMMERCE_CLIENT_SECRET!
   if (client === Client.LINA) return process.env.LINA_CLIENT_SECRET!
+  if (client === Client.LOTTE_CARD) return process.env.LOTTE_CARD_CLIENT_SECRET!
   if (client === Client.L_POINT) return process.env.LPOINT_CLIENT_SECRET!
   if (client === Client.MERITZ) return process.env.MERITZ_CLIENT_SECRET!
   if (client === Client.MORECX) return process.env.MORECX_CLIENT_SECRET!

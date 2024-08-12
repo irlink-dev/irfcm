@@ -169,6 +169,16 @@ const useFirebaseConfig = (client: ClientType) => {
     appId: process.env.LINA_APP_ID!,
   }
 
+  const LOTTE_CARD_CONFIG = {
+    apiKey: process.env.LOTTE_CARD_API_KEY!,
+    authDomain: 'lotte-card-7c682.firebaseapp.com',
+    databaseURL: 'https://lotte-card-7c682.firebaseio.com',
+    projectId: 'lotte-card-7c682',
+    storageBucket: 'lotte-card-7c682.appspot.com',
+    messagingSenderId: process.env.LOTTE_CARD_MESSAGING_SENDER_ID!,
+    appId: process.env.LOTTE_CARD_APP_ID!,
+  }
+
   /**
    * 롯데 홈쇼핑.
    */
@@ -291,6 +301,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG
+    if (client === Client.LOTTE_CARD) return LOTTE_CARD_CONFIG
     if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
     if (client === Client.MERITZ) return MERITZ_FIREBASE_CONFIG
     if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
