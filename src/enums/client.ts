@@ -50,7 +50,7 @@ export enum Client {
   /**
    * 롯데카드.
    */
-  LOTTE_CARD = 'lotte-card',
+  LOTTE_CARD = 'lottecard',
 
   /**
    * L 포인트.
