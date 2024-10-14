@@ -22,10 +22,7 @@ import { Client, ClientType } from '@/enums/client'
 import { FcmType } from '@/enums/fcm-type'
 import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { useAtom, useAtomValue } from 'jotai'
-import {
-  fcmRequestLoadingStatusAtom,
-  morecxVariantsAtom,
-} from '@/states/global-state'
+import { fcmRequestLoadingStatusAtom, morecxVariantsAtom } from '@/states/global-state'
 import OAuthButton from '@/components/oauth-button'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import { printLog } from '@/utils/log'
@@ -100,8 +97,9 @@ const RequestForm = ({
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
-    setIsFcmRequestLoading(true)
+    input.phoneNumber = input.phoneNumber.replace(/-/g, '')
 
+    setIsFcmRequestLoading(true)
     onSubmit(FcmMethod.HTTP_V1, params.client, -1)
   }
 
