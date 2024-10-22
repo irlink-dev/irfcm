@@ -24,6 +24,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
   const client =
     projectId === 'irlink-chubb'
       ? Client.CHUBB
+      : projectId === 'cjo-shopping'
+      ? Client.CJ_O_SHOPPING
       : projectId === 'db-life'
       ? Client.DB_LIFE
       : projectId === 'gs-shop-irusb'

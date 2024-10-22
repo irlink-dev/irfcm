@@ -25,7 +25,8 @@ import {
   ROUTE_SHINHAN_CARD,
   ROUTE_ZILINK,
   ROUTE_SK_MNSERVICE,
-  ROUTE_LOTTE_CARD
+  ROUTE_LOTTE_CARD,
+  ROUTE_CJ_O_SHOPPING,
 } from '@/constants/routes'
 
 // import ScienceIcon from '@mui/icons-material/Science'
@@ -40,6 +41,7 @@ import {
 const SINGLE_REQUEST_ROUTES = [
   ROUTE_FCM,
   ROUTE_CHUBB,
+  ROUTE_CJ_O_SHOPPING,
   ROUTE_DB_LIFE,
   ROUTE_GS_SHOP_USB,
   ROUTE_HANA,

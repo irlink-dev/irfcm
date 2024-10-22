@@ -5,6 +5,7 @@ import { Client, ClientType } from '@/enums/client'
  */
 export const getOAuthClientId = (client: ClientType) => {
   if (client === Client.CHUBB) return process.env.CHUBB_CLIENT_ID!
+  if (client === Client.CJ_O_SHOPPING) return process.env.CJ_O_SHOPPING_CLIENT_ID!
   if (client === Client.DB_LIFE) return process.env.DBLIFE_CLIENT_ID!
   if (client === Client.GS_SHOP_USB) return process.env.GSSHOPUSB_CLIENT_ID!
   if (client === Client.HANA) return process.env.HANA_CLIENT_ID!
@@ -29,6 +30,7 @@ export const getOAuthClientId = (client: ClientType) => {
  */
 export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.CHUBB) return process.env.CHUBB_CLIENT_SECRET!
+  if (client === Client.CJ_O_SHOPPING) return process.env.CJ_O_SHOPPING_CLIENT_SECRET
   if (client === Client.DB_LIFE) return process.env.DBLIFE_CLIENT_SECRET!
   if (client === Client.GS_SHOP_USB) return process.env.GSSHOPUSB_CLIENT_SECRET!
   if (client === Client.HANA) return process.env.HANA_CLIENT_SECRET!

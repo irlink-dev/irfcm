@@ -9,6 +9,11 @@ export const ROUTE_FCM = '/fcm'
 export const ROUTE_CHUBB = '/fcm/chubb'
 
 /**
+ * CJO 쇼핑.
+ */
+export const ROUTE_CJ_O_SHOPPING = '/fcm/cjoshopping'
+
+/**
  * DB 생명.
  */
 export const ROUTE_DB_LIFE = '/fcm/dblife'
@@ -78,6 +83,9 @@ export const ROUTE_NS_SHOP = '/fcm/nsshop'
  */
 export const ROUTE_SHINHAN_CARD = '/fcm/shinhan'
 
+/**
+ * SK 엠앤서비스.
+ */
 export const ROUTE_SK_MNSERVICE = '/fcm/skmns'
 
 /**

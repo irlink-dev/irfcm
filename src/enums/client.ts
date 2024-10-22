@@ -8,6 +8,11 @@ export enum Client {
   CHUBB = 'chubb',
 
   /**
+   * CJO 쇼핑.
+   */
+  CJ_O_SHOPPING = 'cjoshopping',
+
+  /**
    * DB 생명.
    */
   DB_LIFE = 'dblife',

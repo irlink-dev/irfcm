@@ -16,6 +16,7 @@ import {
   ROUTE_NS_SHOP,
   ROUTE_SK_MNSERVICE,
   ROUTE_LOTTE_CARD,
+  ROUTE_CJ_O_SHOPPING,
 } from './routes'
 
 /**
@@ -124,6 +125,12 @@ const clientList = [
     route: ROUTE_LOTTE_CARD,
     desc: 'kr.co.irlink.lottecard',
     image: '/images/lottecard_app_icon.png',
+  },
+  {
+    name: 'CJO 쇼핑',
+    route: ROUTE_CJ_O_SHOPPING,
+    desc: 'kr.co.irlink.cjoshopping',
+    image: '/images/cjo_shopping_app_icon.webp',
   },
 ]
 

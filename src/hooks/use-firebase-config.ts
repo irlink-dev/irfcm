@@ -296,6 +296,7 @@ const useFirebaseConfig = (client: ClientType) => {
    */
   const getConfig = (client: ClientType) => {
     if (client === Client.CHUBB) return CHUBB_FIREBASE_CONFIG
+    if (client === Client.CJ_O_SHOPPING) return CJ_O_SHOPPING_FIREBASE_CONFIG
     if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
     if (client === Client.GS_SHOP_USB) return GS_SHOP_USB_FIREBASE_CONFIG
     if (client === Client.HANA) return HANA_FIREBASE_CONFIG
