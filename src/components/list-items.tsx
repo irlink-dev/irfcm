@@ -27,6 +27,7 @@ import {
   ROUTE_SK_MNSERVICE,
   ROUTE_LOTTE_CARD,
   ROUTE_CJ_O_SHOPPING,
+  ROUTE_SHINHAN_CARD_LINA,
 } from '@/constants/routes'
 
 // import ScienceIcon from '@mui/icons-material/Science'
@@ -56,6 +57,7 @@ const SINGLE_REQUEST_ROUTES = [
   ROUTE_MORECX,
   ROUTE_NS_SHOP,
   ROUTE_SHINHAN_CARD,
+  ROUTE_SHINHAN_CARD_LINA,
   ROUTE_SK_MNSERVICE,
   ROUTE_ZILINK,
 ]

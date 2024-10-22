@@ -83,6 +83,11 @@ export enum Client {
   SHINHAN_CARD = 'shinhan',
 
   /**
+   * 신한 카드. (라이나 제휴)
+   */
+  SHINHAN_CARD_LINA = 'shinhanlina',
+
+  /**
    * SK엠엔서비스
    */
   SK_MNSERVICE = 'skmns',

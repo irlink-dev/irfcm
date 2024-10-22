@@ -17,6 +17,7 @@ import {
   ROUTE_SK_MNSERVICE,
   ROUTE_LOTTE_CARD,
   ROUTE_CJ_O_SHOPPING,
+  ROUTE_SHINHAN_CARD_LINA,
 } from './routes'
 
 /**
@@ -131,6 +132,12 @@ const clientList = [
     route: ROUTE_CJ_O_SHOPPING,
     desc: 'kr.co.irlink.cjoshopping',
     image: '/images/cjo_shopping_app_icon.webp',
+  },
+  {
+    name: '신한카드(라이나 제휴)',
+    route: ROUTE_SHINHAN_CARD_LINA,
+    desc: 'kr.co.irlink.shinhan_card_lina',
+    image: '/images/shinhan_card_lina_app_icon.png',
   },
 ]
 

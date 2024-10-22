@@ -84,6 +84,11 @@ export const ROUTE_NS_SHOP = '/fcm/nsshop'
 export const ROUTE_SHINHAN_CARD = '/fcm/shinhan'
 
 /**
+ * 신한 카드. (라이나 제휴)
+ */
+export const ROUTE_SHINHAN_CARD_LINA ='/fcm/shinhanlina'
+
+/**
  * SK 엠앤서비스.
  */
 export const ROUTE_SK_MNSERVICE = '/fcm/skmns'

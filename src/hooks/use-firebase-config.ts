@@ -264,6 +264,19 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * 신한 카드. (라이나 제휴)
+   */
+  const SHINHAN_CARD_LINA_FIREBASE_CONFIG = {
+    apiKey: process.env.SHINHAN_CARD_LINA_API_KEY!,
+    authDomain: 'shinhan-card-lina.firebaseapp.com',
+    databaseURL: 'shinhan-card-lina-default-rtdb.firebaseio.com',
+    projectId: 'shinhan-card-lina',
+    storageBucket: 'shinhan-card-lina.appspot.com',
+    messagingSenderId: process.env.SHINHAN_CARD_LINA_MESSAGING_SENDER_ID!,
+    appId: process.env.SHINHAN_CARD_LINA_APP_ID!,
+  }
+
+  /**
    * SK 엠엔 서비스.
    */
   const SK_MN_SERVICE_FIREBASE_CONFIG = {
@@ -311,6 +324,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
     if (client === Client.NS_SHOP) return NS_SHOP_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
+    if (client === Client.SHINHAN_CARD_LINA) return SHINHAN_CARD_LINA_FIREBASE_CONFIG
     if (client === Client.SK_MNSERVICE) return SK_MN_SERVICE_FIREBASE_CONFIG
     if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }
