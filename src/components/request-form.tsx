@@ -97,7 +97,7 @@ const RequestForm = ({
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
-    input.phoneNumber = input.phoneNumber.replace(/-/g, '')
+    input.phoneNumber = input.phoneNumber.replace(/\D/g, '')
 
     setIsFcmRequestLoading(true)
     onSubmit(FcmMethod.HTTP_V1, params.client, -1)
