@@ -17,7 +17,7 @@ export default interface FirebasePreference {
   /**
    * OAuth 클라이언트 Secret.
    */
-  oAuthClientSecret: string | null
+  oAuthClientSecret: string | null | undefined
 
   /**
    * 설정 객체.
