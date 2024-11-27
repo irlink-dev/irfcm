@@ -28,6 +28,11 @@ export enum Client {
   HANA = 'hana',
 
   /**
+   * 흥국생명.
+   */
+  HEUNGKUK_LIFE = 'heungkuklife',
+
+  /**
    * 현대해상.
    */
   HYUNDAI = 'hyundai',

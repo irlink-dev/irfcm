@@ -103,6 +103,18 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * 흥국 생명.
+   */
+  const HEUNGKUK_LIFE_CONFIG = {
+    apiKey: process.env.HEUNGKUK_LIFE_API_KEY!,
+    authDomain: 'heungkuk-life.firebaseapp.com',
+    projectId: 'heungkuk-life',
+    storageBucket: 'heungkuk-life.appspot.com',
+    messagingSenderId: process.env.HEUNGKUK_LIFE_MESSAGING_SENDER_ID!,
+    appId: process.env.HEUNGKUK_LIFE_APP_ID!,
+  }
+
+  /**
    * 현대해상.
    */
   const HYUNDAI_FIREBASE_CONFIG = {
@@ -313,6 +325,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
     if (client === Client.GS_SHOP_USB) return GS_SHOP_USB_FIREBASE_CONFIG
     if (client === Client.HANA) return HANA_FIREBASE_CONFIG
+    if (client === Client.HEUNGKUK_LIFE) return HEUNGKUK_LIFE_CONFIG
     if (client === Client.HYUNDAI) return HYUNDAI_FIREBASE_CONFIG
     if (client === Client.HYUNDAI_SHOP) return HYUNDAI_SHOP_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG

@@ -28,16 +28,8 @@ import {
   ROUTE_LOTTE_CARD,
   ROUTE_CJ_O_SHOPPING,
   ROUTE_SHINHAN_CARD_LINA,
+  ROUTE_HEUNGKUK_LIFE,
 } from '@/constants/routes'
-
-// import ScienceIcon from '@mui/icons-material/Science'
-// import AssignmentIcon from '@mui/icons-material/Assignment'
-// import { Avatar, Collapse, ListSubheader } from '@mui/material'
-// import { ExpandLess, ExpandMore } from '@mui/icons-material'
-// import List from '@mui/material/List'
-// import { green, lightBlue, blue } from '@mui/material/colors'
-// import { useSetAtom } from 'jotai'
-// import { pageLoadingStatusAtom } from '@/atoms/global-state-atoms'
 
 const SINGLE_REQUEST_ROUTES = [
   ROUTE_FCM,
@@ -46,6 +38,7 @@ const SINGLE_REQUEST_ROUTES = [
   ROUTE_DB_LIFE,
   ROUTE_GS_SHOP_USB,
   ROUTE_HANA,
+  ROUTE_HEUNGKUK_LIFE,
   ROUTE_HYUNDAI,
   ROUTE_HYUNDAI_SHOP,
   ROUTE_KB_WIRELESS,
@@ -182,129 +175,3 @@ export const SecondaryListItems = () => {
     </>
   )
 }
-
-/**
- * mainListItems
- *
- * <ListItemButton>
- *     <ListItemIcon>
- *         <DashboardIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Dashboard" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <ShoppingCartIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Orders" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <PeopleIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Customers" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <BarChartIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Reports" />
- * </ListItemButton>
- * <ListItemButton>
- *     <ListItemIcon>
- *         <LayersIcon />
- *     </ListItemIcon>
- *     <ListItemText primary="Integrations" />
- * </ListItemButton>
- */
-
-{
-  /* <ListItemButton onClick={() => handleClick(CLIENT_LIST)}>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="고객사 리스트" />
-        {selectedItem === CLIENT_LIST ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={selectedItem === CLIENT_LIST} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ClientListItem
-            href="/lina"
-            text="라이나 생명"
-            alias="LN"
-            color={blue[500]}
-          />
-          <ClientListItem
-            href="/chubb"
-            text="처브 CDM"
-            alias="CH"
-            color="#666666"
-          />
-          <ClientListItem
-            href="/hana"
-            text="하나손해보험"
-            alias="HN"
-            color="#2F9C90"
-          />
-          <ClientListItem
-            href="/shinhan"
-            text="신한카드"
-            alias="SH"
-            color={lightBlue[500]}
-          />
-          <ClientListItem
-            href="/dblife"
-            text="DB 생명"
-            alias="DB"
-            color={green[500]}
-          />
-          <ClientListItem
-            href="/kb"
-            text="KB 손해보험"
-            alias="KB"
-            color="#F0C861"
-          />
-        </List>
-      </Collapse> */
-}
-
-// interface ListItemProps {
-//   href: string
-//   text: string
-//   alias: string
-//   color: string
-// }
-// const ClientListItem = ({ href, text, alias, color }: ListItemProps) => {
-//   const router = useRouter()
-//   const pathname = usePathname()
-
-//   const setIsPageLoading = useSetAtom(pageLoadingStatusAtom)
-
-//   return (
-//     <ListItemButton
-//       sx={{ pl: 4 }}
-//       onClick={() => {
-//         if (pathname !== href) {
-//           setIsPageLoading(true)
-//         }
-//         router.push(href)
-//       }}
-//       selected={pathname === href}
-//     >
-//       <ListItemIcon>
-//         <Avatar
-//           sx={{
-//             width: 24,
-//             height: 24,
-//             fontSize: '13px',
-//             fontWeight: 600,
-//             bgcolor: color,
-//           }}
-//         >
-//           {alias}
-//         </Avatar>
-//       </ListItemIcon>
-//       <ListItemText primary={text} />
-//     </ListItemButton>
-//   )
-// }

@@ -29,6 +29,11 @@ export const ROUTE_GS_SHOP_USB = '/fcm/gsshopusb'
 export const ROUTE_HANA = '/fcm/hana'
 
 /**
+ * 흥국생명.
+ */
+export const ROUTE_HEUNGKUK_LIFE = '/fcm/heungkuklife'
+
+/**
  * 현대해상.
  */
 export const ROUTE_HYUNDAI = '/fcm/hyundai'
@@ -86,7 +91,7 @@ export const ROUTE_SHINHAN_CARD = '/fcm/shinhan'
 /**
  * 신한 카드. (라이나 제휴)
  */
-export const ROUTE_SHINHAN_CARD_LINA ='/fcm/shinhanlina'
+export const ROUTE_SHINHAN_CARD_LINA = '/fcm/shinhanlina'
 
 /**
  * SK 엠앤서비스.

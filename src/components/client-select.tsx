@@ -36,25 +36,26 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
 
   // TODO: 추후 DB화.
   const menu = [
-    [Client.LINA, '라이나 생명'],
-    [Client.L_POINT, 'L 포인트'],
     [Client.CHUBB, '처브 CDM'],
-    [Client.HANA, '하나손해보험'],
-    [Client.SHINHAN_CARD, '신한카드'],
+    [Client.CJ_O_SHOPPING, 'CJO 쇼핑'],
     [Client.DB_LIFE, 'DB 생명'],
-    [Client.KB_WIRELESS, 'KB 손해보험'],
-    [Client.MORECX, '모렉스'],
-    [Client.ZILINK, '지링크'],
-    [Client.MERITZ, '메리츠 화재'],
     [Client.GS_SHOP_USB, 'GS 홈쇼핑'],
-    [Client.KT_COMMERCE, 'KT 커머스'],
+    [Client.HANA, '하나손해보험'],
+    [Client.HEUNGKUK_LIFE, '흥국생명'],
     [Client.HYUNDAI, '현대해상'],
     [Client.HYUNDAI_SHOP, '현대 홈쇼핑'],
-    [Client.NS_SHOP, 'NS 홈쇼핑'],
-    [Client.SK_MNSERVICE, 'SK엠엔서비스'],
+    [Client.KB_WIRELESS, 'KB 손해보험'],
+    [Client.KT_COMMERCE, 'KT 커머스'],
+    [Client.LINA, '라이나 생명'],
     [Client.LOTTE_CARD, '롯데카드'],
-    [Client.CJ_O_SHOPPING, 'CJO 쇼핑'],
-    [Client.SHINHAN_CARD_LINA, '신한카드(라이나 제휴)']
+    [Client.L_POINT, 'L 포인트'],
+    [Client.MERITZ, '메리츠 화재'],
+    [Client.MORECX, '모렉스'],
+    [Client.NS_SHOP, 'NS 홈쇼핑'],
+    [Client.SHINHAN_CARD, '신한카드'],
+    [Client.SHINHAN_CARD_LINA, '신한카드(라이나 제휴)'],
+    [Client.SK_MNSERVICE, 'SK엠엔서비스'],
+    [Client.ZILINK, '지링크'],
   ]
 
   // TODO: 단순 dropdown이 아닌, 검색 가능한 dropdown으로.

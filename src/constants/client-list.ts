@@ -17,7 +17,7 @@ import {
   ROUTE_SK_MNSERVICE,
   ROUTE_LOTTE_CARD,
   ROUTE_CJ_O_SHOPPING,
-  ROUTE_SHINHAN_CARD_LINA,
+  ROUTE_SHINHAN_CARD_LINA, ROUTE_HEUNGKUK_LIFE,
 } from './routes'
 
 /**
@@ -138,6 +138,12 @@ const clientList = [
     route: ROUTE_SHINHAN_CARD_LINA,
     desc: 'kr.co.irlink.shinhan_card_lina',
     image: '/images/shinhan_card_lina_app_icon.png',
+  },
+  {
+    name: '흥국생명',
+    route: ROUTE_HEUNGKUK_LIFE,
+    desc: 'kr.co.irlink.heungkuklife',
+    image: '/images/heungkuk_life_app_icon.png',
   },
 ]
 

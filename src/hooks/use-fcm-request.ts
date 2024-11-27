@@ -32,6 +32,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.GS_SHOP_USB
       : projectId === 'hana-6d9ee'
       ? Client.HANA
+      : projectId === 'heungkuk-life'
+      ? Client.HEUNGKUK_LIFE
       : projectId === 'hyundai-8df86'
       ? Client.HYUNDAI
       : projectId === 'hyundai-shop-irusb'
