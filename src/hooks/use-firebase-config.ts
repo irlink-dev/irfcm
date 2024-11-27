@@ -2,27 +2,6 @@ import process from 'process'
 import { Client, ClientType } from '@/enums/client'
 
 const useFirebaseConfig = (client: ClientType) => {
-  /**
-   * AIA 생명.
-   */
-  const AIA_LIFE_FIREBASE_CONFIG = {
-    apiKey: process.env.AIA_LIFE_API_KEY!,
-    authDomain: 'aia-life-7d127.firebaseapp.com',
-    databaseURL: 'https://aia-life-7d127-default-rtdb.firebaseio.com',
-    projectId: 'aia-life-7d127',
-    storageBucket: 'aia-life-7d127.appspot.com',
-    appId: process.env.AIA_LIFE_APP_ID!,
-  }
-
-  /**
-   * 셀러링.
-   */
-  const CELERING_FIREBASE_CONFIG = {}
-
-  /**
-   * 셀러링 라이나.
-   */
-  const CELERING_LINA_FIREBASE_CONFIG = {}
 
   /**
    * 처브 CDM.
