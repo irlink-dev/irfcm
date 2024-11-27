@@ -109,7 +109,7 @@ const useFirebaseConfig = (client: ClientType) => {
     apiKey: process.env.HEUNGKUK_LIFE_API_KEY!,
     authDomain: 'heungkuk-life.firebaseapp.com',
     projectId: 'heungkuk-life',
-    storageBucket: 'heungkuk-life.appspot.com',
+    storageBucket: 'heungkuk-life.firebasestorage.app',
     messagingSenderId: process.env.HEUNGKUK_LIFE_MESSAGING_SENDER_ID!,
     appId: process.env.HEUNGKUK_LIFE_APP_ID!,
   }
