@@ -121,6 +121,19 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * 현대 홈쇼핑. (라이나 제휴)
+   */
+  const HYUNDAI_SHOP_LINA_FIREBASE_CONFIG = {
+    apiKey: process.env.HYUNDAI_SHOP_LINA_API_KEY!,
+    authDomain: 'hyundai-shop-lina.firebaseapp.com',
+    databaseURL: 'https://hyundai-shop-lina-default-rtdb.firebaseio.com',
+    projectId: 'hyundai-shop-lina',
+    storageBucket: 'hyundai-shop-lina.firebasestorage.app',
+    messagingSenderId: process.env.HYUNDAI_SHOP_LINA_MESSAGING_SENDER_ID!,
+    appId: process.env.HYUNDAI_SHOP_LINA_APP_ID!,
+  }
+
+  /**
    * KB 손보.
    */
   const KB_WIRELESS_FIREBASE_CONFIG = {
@@ -307,6 +320,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.HEUNGKUK_LIFE) return HEUNGKUK_LIFE_CONFIG
     if (client === Client.HYUNDAI) return HYUNDAI_FIREBASE_CONFIG
     if (client === Client.HYUNDAI_SHOP) return HYUNDAI_SHOP_FIREBASE_CONFIG
+    if (client === Client.HYUNDAI_SHOP_LINA) return HYUNDAI_SHOP_LINA_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG

@@ -17,7 +17,7 @@ import {
   ROUTE_SK_MNSERVICE,
   ROUTE_LOTTE_CARD,
   ROUTE_CJ_O_SHOPPING,
-  ROUTE_SHINHAN_CARD_LINA, ROUTE_HEUNGKUK_LIFE,
+  ROUTE_SHINHAN_CARD_LINA, ROUTE_HEUNGKUK_LIFE, ROUTE_HYUNDAI_SHOP_LINA,
 } from './routes'
 
 /**
@@ -144,6 +144,12 @@ const clientList = [
     route: ROUTE_HEUNGKUK_LIFE,
     desc: 'kr.co.irlink.heungkuklife',
     image: '/images/heungkuk_life_app_icon.png',
+  },
+  {
+    name: '현대홈쇼핑(라이나 제휴)',
+    route: ROUTE_HYUNDAI_SHOP_LINA,
+    desc: 'kr.co.irlink.hyundai_shop_lina',
+    image: '/images/hyundai_shop_lina_app_icon.webp',
   },
 ]
 

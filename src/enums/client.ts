@@ -43,6 +43,11 @@ export enum Client {
   HYUNDAI_SHOP = 'hyundaishop',
 
   /**
+   * 현대 홈쇼핑 (라이나 제휴).
+   */
+  HYUNDAI_SHOP_LINA = 'hyundaishoplina',
+
+  /**
    * KB 손보.
    */
   KB_WIRELESS = 'kb',

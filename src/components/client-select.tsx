@@ -44,6 +44,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.HEUNGKUK_LIFE, '흥국생명'],
     [Client.HYUNDAI, '현대해상'],
     [Client.HYUNDAI_SHOP, '현대 홈쇼핑'],
+    [Client.HYUNDAI_SHOP_LINA, '현대 홈쇼핑(라이나 제휴)'],
     [Client.KB_WIRELESS, 'KB 손해보험'],
     [Client.KT_COMMERCE, 'KT 커머스'],
     [Client.LINA, '라이나 생명'],
