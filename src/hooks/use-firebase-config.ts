@@ -189,12 +189,12 @@ const useFirebaseConfig = (client: ClientType) => {
   /**
    * 롯데 홈쇼핑.
    */
-  const LOTTE_HOME_SHOPPING_FIREBASE_CONFIG = {
+  const LOTTE_HOMESHOPPING_LINA_FIREBASE_CONFIG = {
     apiKey: process.env.LOTTE_HOME_SHOPPING_API_KEY!,
-    authDomain: 'lotte-homeshopping.firebaseapp.com',
-    databaseURL: 'https://lotte-homeshopping-default-rtdb.firebaseio.com',
-    projectId: 'lotte-homeshopping',
-    storageBucket: 'lotte-homeshopping.appspot.com',
+    authDomain: 'lotte-homeshopping-lina.firebaseapp.com',
+    databaseURL: 'https://lotte-homeshopping-lina-default-rtdb.firebaseio.com',
+    projectId: 'lotte-homeshopping-lina',
+    storageBucket: 'lotte-homeshopping-lina.firebasestorage.app',
     messagingSenderId: process.env.LOTTE_HOME_SHOPPING_MESSAGING_SENDER_ID!,
     appId: process.env.LOTTE_HOME_SHOPPING_APP_ID!,
   }
@@ -325,6 +325,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG
     if (client === Client.LOTTE_CARD) return LOTTE_CARD_CONFIG
+    if (client === Client.LOTTE_HOMESHOPPING_LINA) return LOTTE_HOMESHOPPING_LINA_FIREBASE_CONFIG
     if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
     if (client === Client.MERITZ) return MERITZ_FIREBASE_CONFIG
     if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG

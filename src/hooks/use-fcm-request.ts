@@ -48,6 +48,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.LINA
       : projectId === 'lotte-card-7c682'
       ? Client.LOTTE_CARD
+      : projectId === 'lotte-homeshopping-lina'
+      ? Client.LOTTE_HOMESHOPPING_LINA
       : projectId === 'l-point'
       ? Client.L_POINT
       : projectId === 'irlink-meritz'

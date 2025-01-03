@@ -49,6 +49,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.KT_COMMERCE, 'KT 커머스'],
     [Client.LINA, '라이나 생명'],
     [Client.LOTTE_CARD, '롯데카드'],
+    [Client.LOTTE_HOMESHOPPING_LINA, '롯데 홈쇼핑(라이나 제휴)'],
     [Client.L_POINT, 'L 포인트'],
     [Client.MERITZ, '메리츠 화재'],
     [Client.MORECX, '모렉스'],

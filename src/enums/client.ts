@@ -68,6 +68,11 @@ export enum Client {
   LOTTE_CARD = 'lottecard',
 
   /**
+   * 롯데 홈쇼핑 (라이나 제휴).
+   */
+  LOTTE_HOMESHOPPING_LINA = 'lottehomeshoppinglina',
+
+  /**
    * L 포인트.
    */
   L_POINT = 'lpoint',

@@ -69,6 +69,11 @@ export const ROUTE_LINA = '/fcm/lina'
 export const ROUTE_LOTTE_CARD = '/fcm/lottecard'
 
 /**
+ * 롯데 홈쇼핑 (라이나 제휴).
+ */
+export const ROUTE_LOTTE_HOMESHOPPING_LINA = '/fcm/lottehomeshoppinglina'
+
+/**
  * L 포인트.
  */
 export const ROUTE_L_POINT = '/fcm/lpoint'
