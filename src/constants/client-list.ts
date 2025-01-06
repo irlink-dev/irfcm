@@ -17,7 +17,11 @@ import {
   ROUTE_SK_MNSERVICE,
   ROUTE_LOTTE_CARD,
   ROUTE_CJ_O_SHOPPING,
-  ROUTE_SHINHAN_CARD_LINA, ROUTE_HEUNGKUK_LIFE, ROUTE_HYUNDAI_SHOP_LINA, ROUTE_LOTTE_HOMESHOPPING_LINA,
+  ROUTE_SHINHAN_CARD_LINA,
+  ROUTE_HEUNGKUK_LIFE,
+  ROUTE_HYUNDAI_SHOP_LINA,
+  ROUTE_LOTTE_HOMESHOPPING_LINA,
+  ROUTE_JOB_KOREA,
 } from './routes'
 
 /**
@@ -74,10 +78,16 @@ const clientList = [
     image: '/images/hyundai_shop_app_icon.webp',
   },
   {
-    name: '현대 홈쇼핑(라이나 제휴)',
+    name: '현대 홈쇼핑(라이나)',
     route: ROUTE_HYUNDAI_SHOP_LINA,
     desc: 'kr.co.irlink.hyundai_shop_lina',
     image: '/images/hyundai_shop_lina_app_icon.webp',
+  },
+  {
+    name: '잡코리아',
+    route: ROUTE_JOB_KOREA,
+    desc: 'kr.co.irlink.jobkorea',
+    image: '',
   },
   {
     name: 'KB 손해보험',
@@ -104,7 +114,7 @@ const clientList = [
     image: '/images/lottecard_app_icon.png',
   },
   {
-    name: '롯데홈쇼핑(라이나 제휴)',
+    name: '롯데홈쇼핑(라이나)',
     route: ROUTE_LOTTE_HOMESHOPPING_LINA,
     desc: 'kr.co.irlink.lotte_homeshopping_lina',
     image: '/images/lotte_home_shopping_app_icon.png',
@@ -140,7 +150,7 @@ const clientList = [
     image: '/images/shinhan_card_app_icon.png',
   },
   {
-    name: '신한카드(라이나 제휴)',
+    name: '신한카드(라이나)',
     route: ROUTE_SHINHAN_CARD_LINA,
     desc: 'kr.co.irlink.shinhan_card_lina',
     image: '/images/shinhan_card_lina_app_icon.png',

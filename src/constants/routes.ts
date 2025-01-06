@@ -49,6 +49,11 @@ export const ROUTE_HYUNDAI_SHOP = '/fcm/hyundaishop'
 export const ROUTE_HYUNDAI_SHOP_LINA = '/fcm/hyundaishoplina'
 
 /**
+ * 잡코리아.
+ */
+export const ROUTE_JOB_KOREA = '/fcm/jobkorea'
+
+/**
  * KB 손보.
  */
 export const ROUTE_KB_WIRELESS = '/fcm/kb'

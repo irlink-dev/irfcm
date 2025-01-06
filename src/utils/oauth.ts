@@ -13,6 +13,7 @@ export const getOAuthClientId = (client: ClientType) => {
   if (client === Client.HYUNDAI) return process.env.HYUNDAI_CLIENT_ID!
   if (client === Client.HYUNDAI_SHOP) return process.env.HYUNDAI_SHOP_CLIENT_ID!
   if (client === Client.HYUNDAI_SHOP_LINA) return process.env.HYUNDAI_SHOP_LINA_CLIENT_ID!
+  if (client === Client.JOB_KOREA) return process.env.JOB_KOREA_CLIENT_ID!
   if (client === Client.KB_WIRELESS) return process.env.KB_CLIENT_ID!
   if (client === Client.KT_COMMERCE) return process.env.KTCOMMERCE_CLIENT_ID!
   if (client === Client.LINA) return process.env.LINA_CLIENT_ID!
@@ -42,6 +43,7 @@ export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.HYUNDAI) return process.env.HYUNDAI_CLIENT_SECRET!
   if (client === Client.HYUNDAI_SHOP) return process.env.HYUNDAI_SHOP_CLIENT_SECRET!
   if (client === Client.HYUNDAI_SHOP_LINA) return process.env.HYUNDAI_SHOP_LINA_CLIENT_SECRET!
+  if (client === Client.JOB_KOREA) return process.env.JOB_KOREA_CLIENT_SECRET!
   if (client === Client.KB_WIRELESS) return process.env.KB_CLIENT_SECRET!
   if (client === Client.KT_COMMERCE) return process.env.KTCOMMERCE_CLIENT_SECRET!
   if (client === Client.LINA) return process.env.LINA_CLIENT_SECRET!

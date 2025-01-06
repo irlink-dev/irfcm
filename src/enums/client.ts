@@ -48,6 +48,11 @@ export enum Client {
   HYUNDAI_SHOP_LINA = 'hyundaishoplina',
 
   /**
+   * 잡코리아.
+   */
+  JOB_KOREA='jobkorea',
+
+  /**
    * KB 손보.
    */
   KB_WIRELESS = 'kb',

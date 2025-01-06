@@ -134,6 +134,19 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * 잡코리아.
+   */
+  const JOB_KOREA_FIREBASE_CONFIG = {
+    apiKey: process.env.JOB_KOREA_API_KEY!,
+    authDomain: 'job-korea.firebaseapp.com',
+    databaseURL: 'https://job-korea-default-rtdb.firebaseio.com',
+    projectId: 'job-korea',
+    storageBucket: 'job-korea.firebasestorage.app',
+    messagingSenderId: process.env.JOB_KOREA_MESSAGING_SENDER_ID!,
+    appId: process.env.JOB_KOREA_APP_ID!,
+  }
+
+  /**
    * KB 손보.
    */
   const KB_WIRELESS_FIREBASE_CONFIG = {
@@ -321,6 +334,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.HYUNDAI) return HYUNDAI_FIREBASE_CONFIG
     if (client === Client.HYUNDAI_SHOP) return HYUNDAI_SHOP_FIREBASE_CONFIG
     if (client === Client.HYUNDAI_SHOP_LINA) return HYUNDAI_SHOP_LINA_FIREBASE_CONFIG
+    if (client === Client.JOB_KOREA) return JOB_KOREA_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG
