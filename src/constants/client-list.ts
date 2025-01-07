@@ -87,7 +87,7 @@ const clientList = [
     name: '잡코리아',
     route: ROUTE_JOB_KOREA,
     desc: 'kr.co.irlink.jobkorea',
-    image: '',
+    image: '/images/job_korea_app_icon.webp',
   },
   {
     name: 'KB 손해보험',
