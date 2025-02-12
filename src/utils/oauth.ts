@@ -25,6 +25,7 @@ export const getOAuthClientId = (client: ClientType) => {
   if (client === Client.NS_SHOP) return process.env.NS_SHOP_CLIENT_ID!
   if (client === Client.SHINHAN_CARD) return process.env.SHINHAN_CLIENT_ID!
   if (client === Client.SHINHAN_CARD_LINA) return process.env.SHINHAN_CARD_LINA_CLIENT_ID!
+  if (client === Client.SHINGAN_LIFE) return process.env.SHINHAN_LIFE_CLIENT_ID!
   if (client === Client.SK_MNSERVICE) return process.env.SKNMS_CLIENT_ID!
   if (client === Client.ZILINK) return process.env.ZILINK_CLIENT_ID!
   return null
@@ -55,6 +56,7 @@ export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.NS_SHOP) return process.env.NS_SHOP_CLIENT_SECRET!
   if (client === Client.SHINHAN_CARD) return process.env.SHINHAN_CLIENT_SECRET!
   if (client === Client.SHINHAN_CARD_LINA) return process.env.SHINHAN_CARD_LINA_CLIENT_SECRET!
+  if (client === Client.SHINGAN_LIFE) return process.env.SHINHAN_LIFE_CLIENT_SECRET!
   if (client === Client.SK_MNSERVICE) return process.env.SKNMS_CLIENT_SECRET!
   if (client === Client.ZILINK) return process.env.ZILINK_CLIENT_SECRET!
   return null

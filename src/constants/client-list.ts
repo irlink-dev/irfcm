@@ -21,7 +21,7 @@ import {
   ROUTE_HEUNGKUK_LIFE,
   ROUTE_HYUNDAI_SHOP_LINA,
   ROUTE_LOTTE_HOMESHOPPING_LINA,
-  ROUTE_JOB_KOREA,
+  ROUTE_JOB_KOREA, ROUTE_SHINAN_LIFE,
 } from './routes'
 
 /**
@@ -154,6 +154,12 @@ const clientList = [
     route: ROUTE_SHINHAN_CARD_LINA,
     desc: 'kr.co.irlink.shinhan_card_lina',
     image: '/images/shinhan_card_lina_app_icon.png',
+  },
+  {
+    name: '신한 라이프',
+    route: ROUTE_SHINAN_LIFE,
+    desc: 'kr.co.irlink.shinhanlife',
+    image: '/images/shinhan_life_app_icon.png',
   },
   {
     name: 'SK엠엔서비스',

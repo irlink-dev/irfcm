@@ -57,6 +57,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.NS_SHOP, 'NS 홈쇼핑'],
     [Client.SHINHAN_CARD, '신한카드'],
     [Client.SHINHAN_CARD_LINA, '신한카드(라이나)'],
+    [Client.SHINGAN_LIFE, '신한 라이프'],
     [Client.SK_MNSERVICE, 'SK엠엔서비스'],
     [Client.ZILINK, '지링크'],
   ]

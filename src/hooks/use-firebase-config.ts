@@ -294,6 +294,19 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * 신한 라이프.
+   */
+  const SHINHAN_LIFE_FIREBASE_CONFIG = {
+    apiKey: process.env.SHINHAN_LIFE_API_KEY!,
+    authDomain: 'shinhan-life.firebaseapp.com',
+    databaseURL: 'shinhan-life-default-rtdb.firebaseio.com\n',
+    projectId: 'shinhan-life',
+    storageBucket: 'shinhan-life.firebasestorage.app',
+    messagingSenderId: process.env.SHINHAN_LIFE_MESSAGING_SENDER_ID!,
+    appId: process.env.SHINHAN_LIFE_APP_ID!,
+  }
+
+  /**
    * SK 엠엔 서비스.
    */
   const SK_MN_SERVICE_FIREBASE_CONFIG = {
@@ -346,6 +359,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.NS_SHOP) return NS_SHOP_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD_LINA) return SHINHAN_CARD_LINA_FIREBASE_CONFIG
+    if (client === Client.SHINGAN_LIFE) return SHINHAN_LIFE_FIREBASE_CONFIG
     if (client === Client.SK_MNSERVICE) return SK_MN_SERVICE_FIREBASE_CONFIG
     if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }
