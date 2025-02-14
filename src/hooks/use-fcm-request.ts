@@ -22,7 +22,9 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
 
   // prettier-ignore
   const client =
-    projectId === 'irlink-chubb'
+    projectId === 'bc-card-lina'
+    ? Client.BC_CARD_LINA
+      : projectId === 'irlink-chubb'
       ? Client.CHUBB
       : projectId === 'cjo-shopping'
       ? Client.CJ_O_SHOPPING

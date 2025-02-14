@@ -4,6 +4,18 @@ import { Client, ClientType } from '@/enums/client'
 const useFirebaseConfig = (client: ClientType) => {
 
   /**
+   * BC카드. (라이나)
+   */
+  const BC_CARD_LINA_FIREBASE_CONFIG = {
+    apiKey: process.env.BC_CARD_LINA_API_KEY!,
+    authDomain: 'bc-card-lina.firebaseapp.com',
+    projectId: 'bc-card-lina',
+    storageBucket: 'bc-card-lina.firebasestorage.app',
+    messagingSenderId: process.env.BC_CARD_LINA_MESSAGING_SENDER_ID!,
+    appId: process.env.BC_CARD_LINA_APP_ID!,
+  }
+
+  /**
    * 처브 CDM.
    */
   const CHUBB_FIREBASE_CONFIG = {
@@ -338,6 +350,7 @@ const useFirebaseConfig = (client: ClientType) => {
    * Config 가져오기.
    */
   const getConfig = (client: ClientType) => {
+    if (client === Client.BC_CARD_LINA) return BC_CARD_LINA_FIREBASE_CONFIG
     if (client === Client.CHUBB) return CHUBB_FIREBASE_CONFIG
     if (client === Client.CJ_O_SHOPPING) return CJ_O_SHOPPING_FIREBASE_CONFIG
     if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG

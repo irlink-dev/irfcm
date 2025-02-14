@@ -4,6 +4,7 @@ import { Client, ClientType } from '@/enums/client'
  * OAuth 클라이언트 Secret 반환.
  */
 export const getOAuthClientId = (client: ClientType) => {
+  if (client === Client.BC_CARD_LINA) return process.env.BC_CARD_LINA_CLIENT_ID!
   if (client === Client.CHUBB) return process.env.CHUBB_CLIENT_ID!
   if (client === Client.CJ_O_SHOPPING) return process.env.CJ_O_SHOPPING_CLIENT_ID!
   if (client === Client.DB_LIFE) return process.env.DBLIFE_CLIENT_ID!
@@ -35,6 +36,7 @@ export const getOAuthClientId = (client: ClientType) => {
  * OAuth 클라이언트 Secret 반환.
  */
 export const getOAuthClientSecret = (client: ClientType) => {
+  if (client === Client.BC_CARD_LINA) return process.env.BC_CARD_LINA_CLIENT_SECRET
   if (client === Client.CHUBB) return process.env.CHUBB_CLIENT_SECRET!
   if (client === Client.CJ_O_SHOPPING) return process.env.CJ_O_SHOPPING_CLIENT_SECRET
   if (client === Client.DB_LIFE) return process.env.DBLIFE_CLIENT_SECRET!

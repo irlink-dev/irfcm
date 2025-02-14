@@ -36,6 +36,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
 
   // TODO: 추후 DB화.
   const menu = [
+    [Client.BC_CARD_LINA, 'BC카드(라이나)'],
     [Client.CHUBB, '처브 CDM'],
     [Client.CJ_O_SHOPPING, 'CJO 쇼핑'],
     [Client.DB_LIFE, 'DB 생명'],

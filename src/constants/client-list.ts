@@ -21,7 +21,7 @@ import {
   ROUTE_HEUNGKUK_LIFE,
   ROUTE_HYUNDAI_SHOP_LINA,
   ROUTE_LOTTE_HOMESHOPPING_LINA,
-  ROUTE_JOB_KOREA, ROUTE_SHINAN_LIFE,
+  ROUTE_JOB_KOREA, ROUTE_SHINAN_LIFE, ROUTE_BC_CARD_LINA,
 } from './routes'
 
 /**
@@ -29,6 +29,12 @@ import {
  * TODO: 추후 DB화.
  */
 const clientList = [
+  {
+    name: 'BC카드',
+    route: ROUTE_BC_CARD_LINA,
+    desc: 'kr.co.irlink.bccard',
+    image: '/images/bc_card_app_icon.png',
+  },
   {
     name: '처브 CDM',
     route: ROUTE_CHUBB,

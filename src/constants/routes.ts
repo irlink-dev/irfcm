@@ -4,6 +4,11 @@
 export const ROUTE_FCM = '/fcm'
 
 /**
+ * BC카드.
+ */
+export const ROUTE_BC_CARD_LINA = '/fcm/bccardlina'
+
+/**
  * 처브 CDM.
  */
 export const ROUTE_CHUBB = '/fcm/chubb'

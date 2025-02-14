@@ -3,6 +3,11 @@
  */
 export enum Client {
   /**
+   * BC카드. (라이나 제휴)
+   */
+  BC_CARD_LINA = 'bccardlina',
+
+  /**
    * 처브 CDM.
    */
   CHUBB = 'chubb',
