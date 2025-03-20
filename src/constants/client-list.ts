@@ -21,7 +21,10 @@ import {
   ROUTE_HEUNGKUK_LIFE,
   ROUTE_HYUNDAI_SHOP_LINA,
   ROUTE_LOTTE_HOMESHOPPING_LINA,
-  ROUTE_JOB_KOREA, ROUTE_SHINAN_LIFE, ROUTE_BC_CARD_LINA,
+  ROUTE_JOB_KOREA,
+  ROUTE_SHINAN_LIFE,
+  ROUTE_BC_CARD_LINA,
+  ROUTE_KB_CARD_LINA,
 } from './routes'
 
 /**
@@ -94,6 +97,12 @@ const clientList = [
     route: ROUTE_JOB_KOREA,
     desc: 'kr.co.irlink.jobkorea',
     image: '/images/job_korea_app_icon.webp',
+  },
+  {
+    name: 'KB카드(라이나)',
+    route: ROUTE_KB_CARD_LINA,
+    desc: 'kr.co.irlink.kbcard',
+    image: '/images/kb_card_lina_app_icon.png',
   },
   {
     name: 'KB 손해보험',

@@ -4,7 +4,7 @@ import { Client, ClientType } from '@/enums/client'
 const useFirebaseConfig = (client: ClientType) => {
 
   /**
-   * BC카드. (라이나)
+   * BC카드. (라이나 제휴)
    */
   const BC_CARD_LINA_FIREBASE_CONFIG = {
     apiKey: process.env.BC_CARD_LINA_API_KEY!,
@@ -156,6 +156,20 @@ const useFirebaseConfig = (client: ClientType) => {
     storageBucket: 'job-korea.firebasestorage.app',
     messagingSenderId: process.env.JOB_KOREA_MESSAGING_SENDER_ID!,
     appId: process.env.JOB_KOREA_APP_ID!,
+  }
+
+  /**
+   * KB 카드 (라이나 제휴).
+   */
+  const KB_CARD_FIREBASE_CONFIG = {
+    apiKey: process.env.KB_WIRELESS_API_KEY!,
+    authDomain: 'kb-card-lina-kb.firebaseapp.com',
+    databaseURL: 'https://kb-card-lina-default-rtdb.firebaseio.com',
+    projectId: 'kb-card-lina',
+    storageBucket: 'kb-card-lina.firebasestorage.app',
+    messagingSenderId: process.env.KB_WIRELESS_MESSAGING_SENDER_ID!,
+    appId: process.env.KB_WIRELESS_APP_ID!,
+    measurementId: process.env.KB_WIRELESS_MEASUREMENT_ID!,
   }
 
   /**
@@ -361,6 +375,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.HYUNDAI_SHOP) return HYUNDAI_SHOP_FIREBASE_CONFIG
     if (client === Client.HYUNDAI_SHOP_LINA) return HYUNDAI_SHOP_LINA_FIREBASE_CONFIG
     if (client === Client.JOB_KOREA) return JOB_KOREA_FIREBASE_CONFIG
+    if (client === Client.KB_CARD_LINA) return KB_CARD_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG

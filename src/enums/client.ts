@@ -55,7 +55,12 @@ export enum Client {
   /**
    * 잡코리아.
    */
-  JOB_KOREA='jobkorea',
+  JOB_KOREA = 'jobkorea',
+
+  /**
+   * KB 카드. (라이나 제휴)
+   */
+  KB_CARD_LINA = 'kbcardlina',
 
   /**
    * KB 손보.
@@ -115,7 +120,7 @@ export enum Client {
   /**
    * 신한 라이프.
    */
-  SHINGAN_LIFE ='shinhanlife',
+  SHINGAN_LIFE = 'shinhanlife',
 
   /**
    * SK엠엔서비스

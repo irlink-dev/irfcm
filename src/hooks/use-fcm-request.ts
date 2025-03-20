@@ -44,6 +44,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.HYUNDAI_SHOP_LINA
       : projectId === 'job-korea'
       ? Client.JOB_KOREA
+      : projectId === 'kb-card-lina'
+      ? Client.KB_CARD_LINA
       : projectId === 'irlink-kb'
       ? Client.KB_WIRELESS
       : projectId === 'irlink-kt-commerce'

@@ -59,6 +59,11 @@ export const ROUTE_HYUNDAI_SHOP_LINA = '/fcm/hyundaishoplina'
 export const ROUTE_JOB_KOREA = '/fcm/jobkorea'
 
 /**
+ * KB 카드. (라이나 제휴)
+ */
+export const ROUTE_KB_CARD_LINA = '/fcm/kbcardlina'
+
+/**
  * KB 손보.
  */
 export const ROUTE_KB_WIRELESS = '/fcm/kb'
@@ -116,7 +121,7 @@ export const ROUTE_SHINHAN_CARD_LINA = '/fcm/shinhanlina'
 /**
  * 신한 라이프.
  */
-export const ROUTE_SHINAN_LIFE ='/fcm/shinhanlife'
+export const ROUTE_SHINAN_LIFE = '/fcm/shinhanlife'
 
 /**
  * SK 엠앤서비스.
