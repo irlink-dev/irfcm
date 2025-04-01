@@ -56,16 +56,16 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
-   * GS 샵.
+   * GS 홈쇼핑 (라이나 제휴).
    */
-  const GS_SHOP_FIREBASE_CONFIG = {
-    apiKey: process.env.GS_SHOP_API_KEY!,
-    authDomain: 'gs-shop-9b944.firebaseapp.com',
-    databaseURL: 'https://gs-shop-9b944-default-rtdb.firebaseio.com',
-    projectId: 'gs-shop-9b944',
-    storageBucket: 'gs-shop-9b944.appspot.com',
-    messagingSenderId: process.env.GS_SHOP_MEASUREMENT_ID!,
-    appId: process.env.GS_SHOP_APP_ID!,
+  const GS_SHOP_LINA_FIREBASE_CONFIG = {
+    apiKey: process.env.GS_SHOP_LINA_API_KEY!,
+    authDomain: 'gs-shop-lina.firebaseapp.com',
+    databaseURL: 'https://gs-shop-lina-default-rtdb.firebaseio.com',
+    projectId: 'gs-shop-lina',
+    storageBucket: 'gs-shop-lina.firebasestorage.app',
+    messagingSenderId: process.env.GS_SHOP_LINA_MEASUREMENT_ID!,
+    appId: process.env.GS_SHOP_LINA_APP_ID!,
   }
 
   /**
@@ -368,6 +368,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.CHUBB) return CHUBB_FIREBASE_CONFIG
     if (client === Client.CJ_O_SHOPPING) return CJ_O_SHOPPING_FIREBASE_CONFIG
     if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
+    if (client === Client.GS_SHOP) return GS_SHOP_LINA_FIREBASE_CONFIG
     if (client === Client.GS_SHOP_USB) return GS_SHOP_USB_FIREBASE_CONFIG
     if (client === Client.HANA) return HANA_FIREBASE_CONFIG
     if (client === Client.HEUNGKUK_LIFE) return HEUNGKUK_LIFE_CONFIG

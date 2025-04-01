@@ -40,6 +40,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.CHUBB, '처브 CDM'],
     [Client.CJ_O_SHOPPING, 'CJO 쇼핑'],
     [Client.DB_LIFE, 'DB 생명'],
+    [Client.GS_SHOP, 'GS 홈쇼핑(라이나)'],
     [Client.GS_SHOP_USB, 'GS 홈쇼핑'],
     [Client.HANA, '하나손해보험'],
     [Client.HEUNGKUK_LIFE, '흥국생명'],

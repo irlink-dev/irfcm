@@ -30,6 +30,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.CJ_O_SHOPPING
       : projectId === 'db-life'
       ? Client.DB_LIFE
+      : projectId === 'gs-shop-lina'
+      ? Client.GS_SHOP
       : projectId === 'gs-shop-irusb'
       ? Client.GS_SHOP_USB
       : projectId === 'hana-6d9ee'

@@ -24,6 +24,11 @@ export const ROUTE_CJ_O_SHOPPING = '/fcm/cjoshopping'
 export const ROUTE_DB_LIFE = '/fcm/dblife'
 
 /**
+ * GS 홈쇼핑. (라이나 제휴)
+ */
+export const ROUTE_GS_SHOP = '/fcm/gsshoplina'
+
+/**
  * GS 홈쇼핑. (IR-USB)
  */
 export const ROUTE_GS_SHOP_USB = '/fcm/gsshopusb'

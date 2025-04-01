@@ -25,6 +25,7 @@ import {
   ROUTE_SHINAN_LIFE,
   ROUTE_BC_CARD_LINA,
   ROUTE_KB_CARD_LINA,
+  ROUTE_GS_SHOP,
 } from './routes'
 
 /**
@@ -55,6 +56,12 @@ const clientList = [
     route: ROUTE_DB_LIFE,
     desc: 'kr.co.irlink.dblife',
     image: '/images/db_life_app_icon.png',
+  },
+  {
+    name: 'GS 홈쇼핑(라이나)',
+    route: ROUTE_GS_SHOP,
+    desc: 'kr.co.irlink.gsshoplina',
+    image: '/images/gs_shop_app_icon.png',
   },
   {
     name: 'GS 홈쇼핑',

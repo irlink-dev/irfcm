@@ -23,6 +23,11 @@ export enum Client {
   DB_LIFE = 'dblife',
 
   /**
+   * GS 홈쇼핑. (라이나 제휴)
+   */
+  GS_SHOP = 'gsshoplina',
+
+  /**
    * GS 홈쇼핑 (IR-USB).
    */
   GS_SHOP_USB = 'gsshopusb',
