@@ -124,11 +124,6 @@ export const ROUTE_SHINHAN_CARD = '/fcm/shinhan'
 export const ROUTE_SHINHAN_CARD_LINA = '/fcm/shinhanlina'
 
 /**
- * 신한 라이프.
- */
-export const ROUTE_SHINAN_LIFE = '/fcm/shinhanlife'
-
-/**
  * SK 엠앤서비스.
  */
 export const ROUTE_SK_MNSERVICE = '/fcm/skmns'

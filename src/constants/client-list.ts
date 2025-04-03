@@ -178,12 +178,6 @@ const clientList = [
     image: '/images/shinhan_card_lina_app_icon.png',
   },
   {
-    name: '신한 라이프',
-    route: ROUTE_SHINAN_LIFE,
-    desc: 'kr.co.irlink.shinhanlife',
-    image: '/images/shinhan_life_app_icon.png',
-  },
-  {
     name: 'SK엠엔서비스',
     route: ROUTE_SK_MNSERVICE,
     desc: 'kr.co.irlink.skmnservice',
