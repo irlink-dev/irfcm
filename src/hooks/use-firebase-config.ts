@@ -388,7 +388,6 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.NS_SHOP) return NS_SHOP_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD_LINA) return SHINHAN_CARD_LINA_FIREBASE_CONFIG
-    if (client === Client.SHINGAN_LIFE) return SHINHAN_LIFE_FIREBASE_CONFIG
     if (client === Client.SK_MNSERVICE) return SK_MN_SERVICE_FIREBASE_CONFIG
     if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }
