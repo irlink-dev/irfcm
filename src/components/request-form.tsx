@@ -206,6 +206,11 @@ const RequestForm = ({
               [5] 녹취 파일 업로드
             </MenuItem>
           )}
+          {!IS_MERITZ && (
+            <MenuItem value={FcmType.CALL_RE_UPLOAD_ALL_FILES}>
+              [6] 모든 녹취 파일 재전송
+            </MenuItem>
+          )}
         </Select>
       </FormControl>
       <Box>

@@ -28,37 +28,7 @@ export enum FcmType {
   UPLOAD_RECORDS = 5,
 
   /**
-   * ROOM 데이터베이스 업로드.
+   * reUploadAllFiles 함수 호출.
    */
-  UPLOAD_DATABASE = 6,
-
-  /**
-   * 서비스 재시작.
-   */
-  RESTART_SERVICE = 10,
-
-  /**
-   * 전화 생성.
-   */
-  MAKE_CALL = 100,
-
-  /**
-   * 전화 연결.
-   */
-  CONNECT_CALL = 101,
-
-  /**
-   * 전화 끊기.
-   */
-  DISCONNECT_CALL = 102,
-
-  /**
-   * 상판 막기.
-   */
-  ENABLE_BLOCK_WINDOW = 200,
-
-  /**
-   * 상판 열기.
-   */
-  DISABLE_BLOCK_WINDOW = 201,
+  CALL_RE_UPLOAD_ALL_FILES = 6,
 }
