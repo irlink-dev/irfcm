@@ -85,6 +85,10 @@ const RequestForm = ({
 
         for (let i = 0; i < lines.length; i++) {
           const line = lines[i]
+
+          if (!line.startsWith('Cor') && !line.endsWith('.amr')) {
+            continue
+          }
           input.amrFileName = line
           printLog(TAG, `${i}: ${line}`)
           await onSubmit(FcmMethod.HTTP_V1, params.client, -1)
