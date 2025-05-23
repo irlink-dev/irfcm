@@ -71,22 +71,34 @@ const RequestForm = ({
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
+      // txt 파일 확장자 체크
+      if (!file.name.toLowerCase().endsWith('.txt')) {
+        printLog(TAG, '.txt 파일만 업로드 가능합니다.')
+        return
+      }
+
       const reader = new FileReader()
 
       reader.onload = async (e) => {
         const content = e.target?.result as string
         const lines = content.split('\n')
 
-        for (let index = 0; index < lines.length; index++) {
-          const line = lines[index]
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i]
           input.amrFileName = line
-          printLog(TAG, `${index}: ${line}`)
+          printLog(TAG, `${i}: ${line}`)
           await onSubmit(FcmMethod.HTTP_V1, params.client, -1)
+
+          // 10줄마다 2초 딜레이
+          if ((i + 1) % 10 === 0 && i < lines.length - 1) {
+            printLog(TAG, `Processing delay for 2000ms after ${i + 1} lines`)
+            await new Promise(resolve => setTimeout(resolve, 2000))
+          }
         }
       }
 
       reader.onerror = () => {
-        console.error('Error reading file')
+        printLog(TAG, 'error reading file')
       }
 
       reader.readAsText(file)
