@@ -227,6 +227,16 @@ const RequestForm = ({
               [6] 모든 녹취 파일 재전송
             </MenuItem>
           )}
+          {!IS_MERITZ && (
+            <MenuItem value={FcmType.ENABLE_BLOCK_WINDOW}>
+              [200] 상판 막기
+            </MenuItem>
+          )}
+          {!IS_MERITZ && (
+            <MenuItem value={FcmType.DISABLE_BLOCK_WINDOW}>
+              [201] 상판 열기
+            </MenuItem>
+          )}
         </Select>
       </FormControl>
       <Box>

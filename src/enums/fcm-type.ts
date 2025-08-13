@@ -31,4 +31,14 @@ export enum FcmType {
    * reUploadAllFiles 함수 호출.
    */
   CALL_RE_UPLOAD_ALL_FILES = 6,
+
+  /**
+   * 상판 막기.
+   */
+  ENABLE_BLOCK_WINDOW = 200,
+
+  /**
+   * 상판 열기.
+   */
+  DISABLE_BLOCK_WINDOW = 201,
 }
