@@ -110,6 +110,26 @@ const RequestForm = ({
   }
 
   /**
+   * 오늘 날짜 가져오기
+   */
+  const getTodayDate = () => {
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0')
+    const day = String(today.getDate()).padStart(2, '0')
+    const formattedDate = `${year}-${month}-${day}`
+
+    const syntheticEvent = {
+      target: {
+        name: 'date',
+        value: formattedDate
+      }
+    } as React.ChangeEvent<HTMLInputElement>
+    
+    handleChange(syntheticEvent)
+  }
+
+  /**
    * 요청 버튼 클릭 시
    */
   const onRequestButtonClick = () => {
@@ -130,6 +150,12 @@ const RequestForm = ({
       >
         <Typography sx={{ wordBreak: 'keep-all' }}>요청 양식</Typography>
         <Box>
+          <Button
+            onClick={getTodayDate}
+            sx={{ color: '#888888', fontWeight: 400 }}
+            >
+            오늘 날짜 가져오기
+          </Button>
           <Button
             onClick={() => showInputValues(isBatch)}
             sx={{ color: '#888888', fontWeight: 400 }}
