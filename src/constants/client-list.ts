@@ -17,6 +17,7 @@ import {
   ROUTE_SK_MNSERVICE,
   ROUTE_LOTTE_CARD,
   ROUTE_CJ_O_SHOPPING,
+  ROUTE_SAMSUNG_FIRE,
   ROUTE_SHINHAN_CARD_LINA,
   ROUTE_HEUNGKUK_LIFE,
   ROUTE_HYUNDAI_SHOP_LINA,
@@ -163,6 +164,12 @@ const clientList = [
     route: ROUTE_NS_SHOP,
     desc: 'kr.co.irlink.nsshopusb',
     image: '/images/ns_shop_app_icon.png',
+  },
+  {
+    name: '삼성화재',
+    route: ROUTE_SAMSUNG_FIRE,
+    desc: 'kr.co.irlink.samsungfire',
+    image: '/images/samsung_fire_app_icon.png',
   },
   {
     name: '신한카드',

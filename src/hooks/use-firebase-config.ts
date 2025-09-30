@@ -294,6 +294,20 @@ const useFirebaseConfig = (client: ClientType) => {
   }
 
   /**
+   * 삼성 화재.
+   */
+  const SAMSUNG_FIRE_FIREBASE_CONFIG = {
+    apiKey: process.env.SAMSUNG_FIRE_API_KEY!,
+    authDomain: 'samsungfire-a8288.firebaseapp.com',
+    databaseURL: 'https://samsungfire-a8288-default-rtdb.firebaseio.com',
+    projectId: 'samsungfire-a8288',
+    storageBucket: 'samsungfire-a8288.firebasestorage.app',
+    messagingSenderId: process.env.SAMSUNG_FIRE_MESSAGING_SENDER_ID!,
+    appId: process.env.SAMSUNG_FIRE_APP_ID!,
+  }
+
+
+  /**
    * 신한 카드.
    */
   const SHINHAN_CARD_FIREBASE_CONFIG = {
@@ -386,6 +400,7 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.MERITZ) return MERITZ_FIREBASE_CONFIG
     if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
     if (client === Client.NS_SHOP) return NS_SHOP_FIREBASE_CONFIG
+    if (client === Client.SAMSUNG_FIRE) return SAMSUNG_FIRE_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD_LINA) return SHINHAN_CARD_LINA_FIREBASE_CONFIG
     if (client === Client.SK_MNSERVICE) return SK_MN_SERVICE_FIREBASE_CONFIG
