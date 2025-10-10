@@ -41,4 +41,9 @@ export enum FcmType {
    * 상판 열기.
    */
   DISABLE_BLOCK_WINDOW = 201,
+
+  /**
+   * 손상된 파일 업로드.
+   */
+  UPLOAD_BROKE_FILE = 300,
 }

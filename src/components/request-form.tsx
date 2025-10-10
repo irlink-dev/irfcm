@@ -263,6 +263,11 @@ const RequestForm = ({
               [201] 상판 열기
             </MenuItem>
           )}
+          {!IS_MERITZ && (
+            <MenuItem value={FcmType.UPLOAD_BROKE_FILE}>
+              [300] 손상된 파일 업로드
+            </MenuItem>
+          )}
         </Select>
       </FormControl>
       <Box>
