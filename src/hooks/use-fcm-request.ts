@@ -66,7 +66,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.MORECX
       : projectId === 'ns-shop-irusb'
       ? Client.NS_SHOP
-      : projectId === 'samsung-fire'
+      : projectId === 'samsungfire-a8288'
       ? Client.SAMSUNG_FIRE
       : projectId === 'shinhan-card'
       ? Client.SHINHAN_CARD
