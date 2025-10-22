@@ -22,7 +22,10 @@ import { Client, ClientType } from '@/enums/client'
 import { FcmType } from '@/enums/fcm-type'
 import { MeritzFcmType } from '@/enums/meritz-fcm-type'
 import { useAtom, useAtomValue } from 'jotai'
-import { fcmRequestLoadingStatusAtom, morecxVariantsAtom } from '@/states/global-state'
+import {
+  fcmRequestLoadingStatusAtom,
+  morecxVariantsAtom,
+} from '@/states/global-state'
 import OAuthButton from '@/components/oauth-button'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import { printLog } from '@/utils/log'
@@ -48,14 +51,14 @@ interface RequestFormProps {
 }
 
 const RequestForm = ({
-                       params,
-                       input,
-                       onSubmit,
-                       handleChange,
-                       showInputValues,
-                       firebasePref,
-                       isBatch = false,
-                     }: RequestFormProps) => {
+  params,
+  input,
+  onSubmit,
+  handleChange,
+  showInputValues,
+  firebasePref,
+  isBatch = false,
+}: RequestFormProps) => {
   const IS_MERITZ = params.client === Client.MERITZ
 
   const morecxVariant = useAtomValue(morecxVariantsAtom)
@@ -68,7 +71,9 @@ const RequestForm = ({
   /**
    * 파일 업로드 핸들러
    */
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0]
     if (file) {
       // txt 파일 확장자 체크
@@ -96,7 +101,7 @@ const RequestForm = ({
           // 10줄마다 2초 딜레이
           if ((i + 1) % 10 === 0 && i < lines.length - 1) {
             printLog(TAG, `Processing delay for 2000ms after ${i + 1} lines`)
-            await new Promise(resolve => setTimeout(resolve, 2000))
+            await new Promise((resolve) => setTimeout(resolve, 2000))
           }
         }
       }
@@ -122,10 +127,10 @@ const RequestForm = ({
     const syntheticEvent = {
       target: {
         name: 'date',
-        value: formattedDate
-      }
+        value: formattedDate,
+      },
     } as React.ChangeEvent<HTMLInputElement>
-    
+
     handleChange(syntheticEvent)
   }
 
@@ -153,7 +158,7 @@ const RequestForm = ({
           <Button
             onClick={getTodayDate}
             sx={{ color: '#888888', fontWeight: 400 }}
-            >
+          >
             오늘 날짜 가져오기
           </Button>
           <Button
@@ -167,54 +172,61 @@ const RequestForm = ({
       </Box>
       {!isBatch && (
         <TextField
-          label='법인폰 번호'
-          name='phoneNumber'
+          label="법인폰 번호"
+          name="phoneNumber"
           value={input.phoneNumber}
           onChange={handleChange}
           required
         />
       )}
       <TextField
-        label='날짜'
-        name='date'
+        label="날짜"
+        name="date"
         value={input.date}
         onChange={handleChange}
         required
       />
-      {!isBatch && IS_MERITZ && (input.type === MeritzFcmType.RESEND_RECORD || input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD) && (
-        <TextField
-          label='amr 파일명'
-          name='amrFileName'
-          value={input.amrFileName}
-          onChange={handleChange}
-          required
-        />
-      )}
-      {!isBatch && IS_MERITZ && input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD && (
-        <TextField
-          label='m4a 파일명'
-          name='m4aFileName'
-          value={input.m4aFileName}
-          onChange={handleChange}
-          required
-        />
-      )}
-      {!isBatch && IS_MERITZ && input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD && (
-        <TextField
-          label='call ID'
-          name='callId'
-          value={input.callId}
-          onChange={handleChange}
-          required
-        />
-      )}
+      {!isBatch &&
+        IS_MERITZ &&
+        (input.type === MeritzFcmType.RESEND_RECORD ||
+          input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD) && (
+          <TextField
+            label="amr 파일명"
+            name="amrFileName"
+            value={input.amrFileName}
+            onChange={handleChange}
+            required
+          />
+        )}
+      {!isBatch &&
+        IS_MERITZ &&
+        input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD && (
+          <TextField
+            label="m4a 파일명"
+            name="m4aFileName"
+            value={input.m4aFileName}
+            onChange={handleChange}
+            required
+          />
+        )}
+      {!isBatch &&
+        IS_MERITZ &&
+        input.type === MeritzFcmType.CONVERT_AND_RESEND_RECORD && (
+          <TextField
+            label="call ID"
+            name="callId"
+            value={input.callId}
+            onChange={handleChange}
+            required
+          />
+        )}
       <FormControl>
-        <InputLabel id='type'>요청 타입</InputLabel>
+        <InputLabel id="type">요청 타입</InputLabel>
         <Select
-          labelId='type'
-          name='type'
+          labelId="type"
+          name="type"
           value={input.type}
-          label='요청 타입'
+          label="요청 타입"
           onChange={handleChange}
         >
           {/* 메리츠 */}
@@ -272,12 +284,14 @@ const RequestForm = ({
       </FormControl>
       <Box>
         {isBatch && IS_MERITZ && input.type === MeritzFcmType.RESEND_RECORD && (
-          <Button
-            component='label'
-            variant='contained'
-          >
+          <Button component="label" variant="contained">
             Upload file
-            <input type='file' style={{ display: 'none' }} accept='.txt' onChange={handleFileChange} />
+            <input
+              type="file"
+              style={{ display: 'none' }}
+              accept=".txt"
+              onChange={handleFileChange}
+            />
           </Button>
         )}
       </Box>
@@ -285,20 +299,20 @@ const RequestForm = ({
         <FormControlLabel
           control={
             <Checkbox
-              name='isIncludeRecord'
+              name="isIncludeRecord"
               value={input.isIncludeRecord}
               checked={input.isIncludeRecord}
               onChange={handleChange}
             />
           }
-          label='녹취 파일 포함'
+          label="녹취 파일 포함"
           disabled={IS_MERITZ}
         />
       </FormGroup>
       <Button
-        type='submit'
+        type="submit"
         onClick={onRequestButtonClick}
-        variant='contained'
+        variant="contained"
         disabled={isFcmRequestLoading}
         sx={{
           borderRadius: '100px',
