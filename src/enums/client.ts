@@ -13,6 +13,11 @@ export enum Client {
   CHUBB = 'chubb',
 
   /**
+   * CJ온스타일.
+   */
+  CJ_ON_STYLE = 'cjonstyle',
+
+  /**
    * CJO 쇼핑.
    */
   CJ_O_SHOPPING = 'cjoshopping',

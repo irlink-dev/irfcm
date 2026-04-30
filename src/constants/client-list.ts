@@ -26,6 +26,7 @@ import {
   ROUTE_BC_CARD_LINA,
   ROUTE_KB_CARD_LINA,
   ROUTE_GS_SHOP,
+  ROUTE_CJ_ON_STYLE,
 } from './routes'
 
 /**
@@ -44,6 +45,12 @@ const clientList = [
     route: ROUTE_CHUBB,
     desc: 'kr.co.irlink.chubb',
     image: '/images/chubb_app_icon.png',
+  },
+  {
+    name: 'CJ온스타일',
+    route: ROUTE_CJ_ON_STYLE,
+    desc: 'kr.co.irlink.cjonstyle',
+    image: '/images/cjonstyle_app_icon.png',
   },
   {
     name: 'CJO 쇼핑',

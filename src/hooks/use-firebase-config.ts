@@ -2,7 +2,6 @@ import process from 'process'
 import { Client, ClientType } from '@/enums/client'
 
 const useFirebaseConfig = (client: ClientType) => {
-
   /**
    * BC카드. (라이나 제휴)
    */
@@ -26,6 +25,19 @@ const useFirebaseConfig = (client: ClientType) => {
     messagingSenderId: process.env.CHUBB_MESSAGING_SENDER_ID!,
     appId: process.env.CHUBB_APP_ID!,
     measurementId: process.env.CHUBB_MEASUREMENT_ID!,
+  }
+
+  /**
+   * CJ온스타일.
+   */
+  const CJ_ON_STYLE_CONFIG = {
+    apiKey: process.env.CJONSTYLE_API_KEY!,
+    authDomain: 'cjonstyle-8428f.firebaseapp.com',
+    databaseURL: 'https://cjonstyle-8428f-default-rtdb.firebaseio.com',
+    projectId: 'cjonstyle-8428f',
+    storageBucket: 'cjonstyle-8428f.firebasestorage.app',
+    messagingSenderId: process.env.CJONSTYLE_MESSAGING_SENDER_ID!,
+    appId: process.env.CJONSTYLE_APP_ID!,
   }
 
   /**
@@ -306,7 +318,6 @@ const useFirebaseConfig = (client: ClientType) => {
     appId: process.env.SAMSUNG_FIRE_APP_ID!,
   }
 
-
   /**
    * 신한 카드.
    */
@@ -380,6 +391,7 @@ const useFirebaseConfig = (client: ClientType) => {
   const getConfig = (client: ClientType) => {
     if (client === Client.BC_CARD_LINA) return BC_CARD_LINA_FIREBASE_CONFIG
     if (client === Client.CHUBB) return CHUBB_FIREBASE_CONFIG
+    if (client === Client.CJ_ON_STYLE) return CJ_ON_STYLE_CONFIG
     if (client === Client.CJ_O_SHOPPING) return CJ_O_SHOPPING_FIREBASE_CONFIG
     if (client === Client.DB_LIFE) return DB_LIFE_FIREBASE_CONFIG
     if (client === Client.GS_SHOP) return GS_SHOP_LINA_FIREBASE_CONFIG
@@ -388,21 +400,24 @@ const useFirebaseConfig = (client: ClientType) => {
     if (client === Client.HEUNGKUK_LIFE) return HEUNGKUK_LIFE_CONFIG
     if (client === Client.HYUNDAI) return HYUNDAI_FIREBASE_CONFIG
     if (client === Client.HYUNDAI_SHOP) return HYUNDAI_SHOP_FIREBASE_CONFIG
-    if (client === Client.HYUNDAI_SHOP_LINA) return HYUNDAI_SHOP_LINA_FIREBASE_CONFIG
+    if (client === Client.HYUNDAI_SHOP_LINA)
+      return HYUNDAI_SHOP_LINA_FIREBASE_CONFIG
     if (client === Client.JOB_KOREA) return JOB_KOREA_FIREBASE_CONFIG
     if (client === Client.KB_CARD_LINA) return KB_CARD_FIREBASE_CONFIG
     if (client === Client.KB_WIRELESS) return KB_WIRELESS_FIREBASE_CONFIG
     if (client === Client.KT_COMMERCE) return KT_COMMERCE_FIREBASE_CONFIG
     if (client === Client.LINA) return LINA_FIREBASE_CONFIG
     if (client === Client.LOTTE_CARD) return LOTTE_CARD_CONFIG
-    if (client === Client.LOTTE_HOMESHOPPING_LINA) return LOTTE_HOMESHOPPING_LINA_FIREBASE_CONFIG
+    if (client === Client.LOTTE_HOMESHOPPING_LINA)
+      return LOTTE_HOMESHOPPING_LINA_FIREBASE_CONFIG
     if (client === Client.L_POINT) return L_POINT_FIREBASE_CONFIG
     if (client === Client.MERITZ) return MERITZ_FIREBASE_CONFIG
     if (client === Client.MORECX) return MORECX_FIREBASE_CONFIG
     if (client === Client.NS_SHOP) return NS_SHOP_FIREBASE_CONFIG
     if (client === Client.SAMSUNG_FIRE) return SAMSUNG_FIRE_FIREBASE_CONFIG
     if (client === Client.SHINHAN_CARD) return SHINHAN_CARD_FIREBASE_CONFIG
-    if (client === Client.SHINHAN_CARD_LINA) return SHINHAN_CARD_LINA_FIREBASE_CONFIG
+    if (client === Client.SHINHAN_CARD_LINA)
+      return SHINHAN_CARD_LINA_FIREBASE_CONFIG
     if (client === Client.SK_MNSERVICE) return SK_MN_SERVICE_FIREBASE_CONFIG
     if (client === Client.ZILINK) return ZILINK_FIREBASE_CONFIG
   }

@@ -14,6 +14,11 @@ export const ROUTE_BC_CARD_LINA = '/fcm/bccardlina'
 export const ROUTE_CHUBB = '/fcm/chubb'
 
 /**
+ * CJ온스타일.
+ */
+export const ROUTE_CJ_ON_STYLE = '/fcm/cjonstyle'
+
+/**
  * CJO 쇼핑.
  */
 export const ROUTE_CJ_O_SHOPPING = '/fcm/cjoshopping'
