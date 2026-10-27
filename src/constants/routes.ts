@@ -119,6 +119,11 @@ export const ROUTE_MORECX = '/fcm/morecx'
 export const ROUTE_NS_SHOP = '/fcm/nsshop'
 
 /**
+ * 삼성 카드. (라이나 제휴)
+ */
+export const ROUTE_SAMSUNG_CARD = '/fcm/samsungcard'
+
+/**
  * 삼성 화재.
  */
 export const ROUTE_SAMSUNG_FIRE = '/fcm/samsungfire'

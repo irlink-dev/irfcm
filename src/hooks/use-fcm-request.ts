@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import { SelectChangeEvent } from '@mui/material'
-import { getMeritzUserToken, getNewOAuthCode, getUserToken } from '@/utils/firebase'
+import {
+  getMeritzUserToken,
+  getNewOAuthCode,
+  getUserToken,
+} from '@/utils/firebase'
 import { sendMeritzMessage, sendMessage } from '@/utils/fcm'
 import FirebasePreference from '@/interfaces/firebase-preference'
 import Input from '@/interfaces/input'
@@ -68,6 +72,8 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
       ? Client.MORECX
       : projectId === 'ns-shop-irusb'
       ? Client.NS_SHOP
+      : projectId === 'samsung-card-85f8d'
+      ? Client.SAMSUNG_CARD
       : projectId === 'samsungfire-a8288'
       ? Client.SAMSUNG_FIRE
       : projectId === 'shinhan-card'
@@ -98,11 +104,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     return savedValues
       ? savedValues
       : {
-        phoneNumber: '',
-        date: '',
-        type: FcmType.UPLOAD_LOGS,
-        isIncludeRecord: false,
-      }
+          phoneNumber: '',
+          date: '',
+          type: FcmType.UPLOAD_LOGS,
+          isIncludeRecord: false,
+        }
   })
 
   useEffect(() => {
@@ -185,7 +191,7 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `onUnauthorized. client: ${client}, \n\n` +
-      `♻️ (refreshToken): ${refreshToken}\n\n`,
+        `♻️ (refreshToken): ${refreshToken}\n\n`,
     )
     if (refreshToken) {
       const newAccessToken = await refreshAccessToken(client, refreshToken)
@@ -243,7 +249,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
    * [NEW] 메리츠 HTTP V1 방식 요청.
    */
   const doMeritzProcess = async (client: ClientType) => {
-    const userToken = await getMeritzUserToken(input.type, input.phoneNumber, input.amrFileName)
+    const userToken = await getMeritzUserToken(
+      input.type,
+      input.phoneNumber,
+      input.amrFileName,
+    )
 
     const message: Message = {
       accessToken: accessToken,
@@ -259,14 +269,14 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `doMeritzProcess.\n\n` +
-      `🔐 (accessToken): ${accessToken}\n\n` +
-      `📱 (userToken): ${userToken}\n\n` +
-      `📄 date: ${input.date}, ` +
-      `type: ${FcmType[input.type]}(${input.type}), ` +
-      `amrFileName: ${input.amrFileName}, ` +
-      `m4aFileName: ${input.m4aFileName}, ` +
-      `callId: ${input.callId}, ` +
-      `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+        `🔐 (accessToken): ${accessToken}\n\n` +
+        `📱 (userToken): ${userToken}\n\n` +
+        `📄 date: ${input.date}, ` +
+        `type: ${FcmType[input.type]}(${input.type}), ` +
+        `amrFileName: ${input.amrFileName}, ` +
+        `m4aFileName: ${input.m4aFileName}, ` +
+        `callId: ${input.callId}, ` +
+        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
     )
     const response = await sendMeritzMessage(message)
     onResponse(FcmMethod.HTTP_V1, response, client)
@@ -289,11 +299,11 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `doHttpV1Process.\n\n` +
-      `🔐 (accessToken): ${accessToken}\n\n` +
-      `📱 (userToken): ${userToken}\n\n` +
-      `📄 date: ${input.date}, ` +
-      `type: ${FcmType[input.type]}(${input.type}), ` +
-      `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+        `🔐 (accessToken): ${accessToken}\n\n` +
+        `📱 (userToken): ${userToken}\n\n` +
+        `📄 date: ${input.date}, ` +
+        `type: ${FcmType[input.type]}(${input.type}), ` +
+        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
     )
     const response = await sendMessage(client, message)
     onResponse(FcmMethod.HTTP_V1, response, client)
@@ -329,10 +339,10 @@ const useFcmRequest = (firebasePref: FirebasePreference) => {
     printLog(
       TAG,
       `showInputValues. \n\n` +
-      text +
-      `📄 date: ${input.date}, ` +
-      `type: ${FcmType[input.type]}(${input.type}), ` +
-      `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
+        text +
+        `📄 date: ${input.date}, ` +
+        `type: ${FcmType[input.type]}(${input.type}), ` +
+        `isIncludeRecord: ${input.isIncludeRecord}\n\n`,
     )
   }
 

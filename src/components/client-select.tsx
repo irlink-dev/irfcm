@@ -59,6 +59,7 @@ const ClientSelect = ({ params }: ClientSelectProps) => {
     [Client.MERITZ, '메리츠 화재'],
     [Client.MORECX, '모렉스'],
     [Client.NS_SHOP, 'NS 홈쇼핑'],
+    [Client.SAMSUNG_CARD, '삼성카드'],
     [Client.SAMSUNG_FIRE, '삼성화재'],
     [Client.SHINHAN_CARD, '신한카드'],
     [Client.SHINHAN_CARD_LINA, '신한카드(라이나)'],

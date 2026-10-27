@@ -1,4 +1,5 @@
 import { Client, ClientType } from '@/enums/client'
+import process from 'process'
 
 /**
  * OAuth 클라이언트 Secret 반환.
@@ -27,6 +28,7 @@ export const getOAuthClientId = (client: ClientType) => {
   if (client === Client.MERITZ) return process.env.MERITZ_CLIENT_ID!
   if (client === Client.MORECX) return process.env.MORECX_CLIENT_ID!
   if (client === Client.NS_SHOP) return process.env.NS_SHOP_CLIENT_ID!
+  if (client === Client.SAMSUNG_CARD) return process.env.SAMSUNG_CARD_CLIENT_ID!
   if (client === Client.SAMSUNG_FIRE) return process.env.SAMSUNG_FIRE_CLIENT_ID!
   if (client === Client.SHINHAN_CARD) return process.env.SHINHAN_CLIENT_ID!
   if (client === Client.SHINHAN_CARD_LINA) return process.env.SHINHAN_CARD_LINA_CLIENT_ID!
@@ -62,6 +64,7 @@ export const getOAuthClientSecret = (client: ClientType) => {
   if (client === Client.MERITZ) return process.env.MERITZ_CLIENT_SECRET!
   if (client === Client.MORECX) return process.env.MORECX_CLIENT_SECRET!
   if (client === Client.NS_SHOP) return process.env.NS_SHOP_CLIENT_SECRET!
+  if (client === Client.SAMSUNG_CARD) return process.env.SAMSUNG_CARD_CLIENT_SECRET!
   if (client === Client.SAMSUNG_FIRE) return process.env.SAMSUNG_FIRE_CLIENT_SECRET!
   if (client === Client.SHINHAN_CARD) return process.env.SHINHAN_CLIENT_SECRET!
   if (client === Client.SHINHAN_CARD_LINA) return process.env.SHINHAN_CARD_LINA_CLIENT_SECRET!

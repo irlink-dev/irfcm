@@ -10,7 +10,8 @@ import SendIcon from '@mui/icons-material/Send'
 import {
   ROUTE_BC_CARD_LINA,
   ROUTE_CHUBB,
-  ROUTE_CJ_O_SHOPPING, ROUTE_CJ_ON_STYLE,
+  ROUTE_CJ_O_SHOPPING,
+  ROUTE_CJ_ON_STYLE,
   ROUTE_DB_LIFE,
   ROUTE_FCM,
   ROUTE_GS_SHOP,
@@ -31,6 +32,7 @@ import {
   ROUTE_MERITZ,
   ROUTE_MORECX,
   ROUTE_NS_SHOP,
+  ROUTE_SAMSUNG_CARD,
   ROUTE_SAMSUNG_FIRE,
   ROUTE_SHINHAN_CARD,
   ROUTE_SHINHAN_CARD_LINA,
@@ -63,6 +65,7 @@ const SINGLE_REQUEST_ROUTES = [
   ROUTE_MERITZ,
   ROUTE_MORECX,
   ROUTE_NS_SHOP,
+  ROUTE_SAMSUNG_CARD,
   ROUTE_SAMSUNG_FIRE,
   ROUTE_SHINHAN_CARD,
   ROUTE_SHINHAN_CARD_LINA,
@@ -70,7 +73,12 @@ const SINGLE_REQUEST_ROUTES = [
   ROUTE_ZILINK,
 ]
 
-const ListItem = ({ route, text, icon, isSelected }: {
+const ListItem = ({
+  route,
+  text,
+  icon,
+  isSelected,
+}: {
   route: string
   text: string
   icon: React.ReactNode
@@ -107,7 +115,7 @@ export const MainListItems = () => {
     <>
       <ListItem
         route={ROUTE_FCM}
-        text='클라우드 메시징'
+        text="클라우드 메시징"
         icon={<SendIcon sx={{ width: 20, height: 20 }} />}
         isSelected={SINGLE_REQUEST_ROUTES.includes(pathname)}
       />

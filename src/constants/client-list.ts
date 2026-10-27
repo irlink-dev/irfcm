@@ -27,6 +27,7 @@ import {
   ROUTE_KB_CARD_LINA,
   ROUTE_GS_SHOP,
   ROUTE_CJ_ON_STYLE,
+  ROUTE_SAMSUNG_CARD,
 } from './routes'
 
 /**
@@ -171,6 +172,12 @@ const clientList = [
     route: ROUTE_NS_SHOP,
     desc: 'kr.co.irlink.nsshopusb',
     image: '/images/ns_shop_app_icon.png',
+  },
+  {
+    name: '삼성카드',
+    route: ROUTE_SAMSUNG_CARD,
+    desc: 'kr.co.irlink.samsungcard',
+    image: '/images/samsung_card_app_icon.png',
   },
   {
     name: '삼성화재',

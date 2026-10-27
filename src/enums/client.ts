@@ -118,6 +118,11 @@ export enum Client {
   NS_SHOP = 'nsshop',
 
   /**
+   * 삼성 카드. (라이나 제휴)
+   */
+  SAMSUNG_CARD = 'samsungcard',
+
+  /**
    * 삼성화재
    */
   SAMSUNG_FIRE = 'samsungfire',
